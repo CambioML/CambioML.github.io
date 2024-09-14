@@ -13,7 +13,7 @@ export default async function getApiKeysForUser({ userId, token, apiURL }: IPara
   };
 
   try {
-    const response = await axios.get(`${apiURL}/listkeys`, {
+    const response = await axios.get(`${apiURL}/get-user-data`, {
       headers: {
         'Content-Type': 'application/json',
         authorizationToken: token,
@@ -23,10 +23,10 @@ export default async function getApiKeysForUser({ userId, token, apiURL }: IPara
     });
 
     if (response.status === 200) {
-      const apiKeys = response.data.apiKeys.map((thisKey: string) => ({
-        key: thisKey,
-      }));
-      return apiKeys;
+      // const apiKeys = response.data.user_data.apiKeys.map((thisKey: string) => ({
+      //   key: thisKey,
+      // }));
+      return [{ key: response.data.user_data.apiKey }];
     } else {
       // const errorMessage = 'Failed to get API key';
       // toast.error(errorMessage);
