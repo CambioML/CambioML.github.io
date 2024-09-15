@@ -11,7 +11,7 @@ export const getUserData = async ({ userId, api_url }: IParams) => {
   };
 
   return axios
-    .get(api_url + 'get-user-data', { params })
+    .get(`${api_url}/get-user-data`, { params })
     .then((response) => {
       return response.data;
     })
