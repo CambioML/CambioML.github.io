@@ -22,7 +22,7 @@ export default async function getApiKeysForUser({ userId, token, apiURL }: IPara
       params,
     });
 
-    if (response.status === 200) {
+    if (response.status === 200 && response.data.user_data.apiKey) {
       // const apiKeys = response.data.user_data.apiKeys.map((thisKey: string) => ({
       //   key: thisKey,
       // }));

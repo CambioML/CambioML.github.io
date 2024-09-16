@@ -12,7 +12,7 @@ interface UserProfile {
 }
 
 export type CdkProfile = {
-  api_keys: string[];
+  apiKey: string;
   pageLimit: number;
   remainingPages: number;
   subscriptionId: string;
@@ -20,6 +20,9 @@ export type CdkProfile = {
   updatedAt: string;
   createdAt: string;
   userId: string;
+  userType: string;
+  cancelAtPeriodEnd: boolean;
+  currentPeriodEnd: string;
 };
 
 const useUserProfile = () => {
@@ -51,7 +54,8 @@ const useUserProfile = () => {
           throw new Error('Failed to fetch user profile');
         }
         const profileData: UserProfile = await response.json();
-        
+        console.log(profileData);
+
         const cdkProfileData = await getUserData({
           userId: profileData.sub,
           api_url: process.env.NEXT_PUBLIC_PLAYGROUND_API_URL || 'https://o5uo2f15j7.execute-api.us-west-2.amazonaws.com/v1',
