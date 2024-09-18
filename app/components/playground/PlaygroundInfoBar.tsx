@@ -15,7 +15,7 @@ const PlaygroundInfoBar = () => {
             {`*For each uploaded file, we only process the first ten pages for better availability.`}
           </div>
           <div className="whitespace-pre-line italic">
-            <span>{`**Refresh this page will clear all files and processed data since we don't store your data.`}</span>
+            <span>{`**MAXIMUM FILE SIZE IS 10MB. Refreshing this page will clear all files and processed data since we don't store your data.`}</span>
             &nbsp;
             <span
               className="underline underline-offset-2 cursor-pointer hover:text-cambio-red"

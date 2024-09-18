@@ -35,8 +35,8 @@ const Banner = ({ title, description, actionLabel, action, inverse, imgPath, cod
             <Image
               src={`${imgPrefix}${imgPath}`}
               alt={description}
-              layout="fill"
-              objectFit="contain"
+              fill
+              style={{ objectFit: 'contain' }}
               className="rounded-md"
             />
           </div>

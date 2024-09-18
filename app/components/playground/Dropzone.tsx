@@ -1,5 +1,5 @@
 import { useDropzone } from 'react-dropzone';
-import { CloudArrowUp } from '@phosphor-icons/react';
+import { CloudArrowUp, Info } from '@phosphor-icons/react';
 import { useCallback } from 'react';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 import { useUploadModal, UploadModalState } from '@/app/hooks/useUploadModal';
@@ -77,7 +77,10 @@ const Dropzone = () => {
       </p>
       <p className="text-sm text-gray-500">{generateAllowedTypesString(allowedTypes)}</p>
       <p className="text-sm text-gray-500">Please do not upload any sensitive information.</p>
-      <p className="text-sm text-gray-500">Max size 10MB</p>
+      <div className="text-md text-amber-700 text-gray-500 flex justify-center items-center gap-2 bg-amber-200 rounded-lg p-2">
+        <Info weight="bold" />
+        Max size 10MB
+      </div>
     </div>
   );
 };

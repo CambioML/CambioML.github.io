@@ -22,6 +22,14 @@ const testimonials = [
     quote:
       "“I am impressed by CambioML's innovation in the space of AI and LLM, including the novel methodologies of synthetic data generation, retriever model fine-tuning in RAG, and their open-source products out of those innovations.”",
   },
+];
+
+const testimonials2 = [
+  {
+    name: 'Yunfei - Senior Solution Architect @ AWS',
+    quote:
+      "“I am impressed by CambioML's innovation in the space of AI and LLM, including the novel methodologies of synthetic data generation, retriever model fine-tuning in RAG, and their open-source products out of those innovations.”",
+  },
   {
     name: 'Richard (CEO @ Epsilla)',
     quote: '“We had tried all the pdf extraction tool and CambioML gave us the most accurate results.”',
@@ -37,25 +45,40 @@ const testimonials = [
   },
 ];
 
+interface TestimonialCardProps {
+  name: string;
+  quote: string;
+}
+
+const TestimonialCard = ({ name, quote }: TestimonialCardProps) => {
+  return (
+    <div className="flex-shrink-0 h-fit w-[500px] mx-2 bg-white shadow-lg rounded-lg p-6 text-center rounded-xl">
+      <p className="text-lg italic text-gray-700">{quote}</p>
+      <p className="mt-4 font-bold text-gray-900">{name}</p>
+    </div>
+  );
+};
+
 const Testimonials = () => {
   return (
     <div className="h-full w-full pt-20 bg-cambio-primary">
       <Container styles="relative z-10 h-fit overflow-hidden">
-        <div className="w-full h-full flex flex-col items-center justify-start px-10 py-20 relative">
-          <Heading title="Testimonial" center />
-          <div className="relative h-[400px] w-full overflow-hidden border-gray-600">
+        <div className="w-full h-full flex flex-col items-center justify-start p-10 relative">
+          <Heading title="Testimonials" center />
+          <div className="relative h-fit w-full overflow-hidden border-gray-600 pt-10">
             <div className="absolute top-0 left-0 w-[50px] lg:w-[100px] h-full bg-gradient-to-r from-cambio-primary to-transparent z-20 pointer-events-none" />
-            <div className="absolute top-0 right-0 w-[50px] lg:w-[100px] lg:w-[150px] h-full bg-gradient-to-l from-cambio-primary to-transparent z-20 pointer-events-none" />
-            <div className="flex absolute left-0 justify-start items-center h-full animate-slide hover:pause">
-              {[...testimonials, ...testimonials].map((testimonial, index) => (
-                <div
-                  key={index}
-                  className="flex-shrink-0 h-fit w-[500px] mx-4 bg-white shadow-lg rounded-lg p-6 text-center rounded-xl"
-                >
-                  <p className="text-lg italic text-gray-700">{testimonial.quote}</p>
-                  <p className="mt-4 font-bold text-gray-900">{testimonial.name}</p>
-                </div>
-              ))}
+            <div className="absolute top-0 right-0 w-[50px] lg:w-[100px] h-full bg-gradient-to-l from-cambio-primary to-transparent z-20 pointer-events-none" />
+            <div className="grid grid-rows-2 grid-flow-col gap-4 animate-slide hover:pause flex-col">
+              <div className="flex items-end h-[350px]">
+                {[...testimonials, ...testimonials].map((testimonial, index) => (
+                  <TestimonialCard key={index} {...testimonial} />
+                ))}
+              </div>
+              <div className="flex items-start ml-10  h-[350px]">
+                {[...testimonials2, ...testimonials2].map((testimonial, index) => (
+                  <TestimonialCard key={index} {...testimonial} />
+                ))}
+              </div>
             </div>
           </div>
         </div>

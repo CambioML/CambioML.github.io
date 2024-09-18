@@ -15,6 +15,7 @@ const PlaygroundContainer = () => {
     <>
       <PreviewModal />
       <CompareModal />
+      <PlaygroundInfoBar />
       <div className="w-full min-w-[600px] max-w-[2520px] flex flex-col gap-0 h-fit lg:h-fit">
         <div
           className={`
@@ -36,7 +37,6 @@ const PlaygroundContainer = () => {
             <ActionContainer />
           </div>
         </div>
-        <PlaygroundInfoBar />
       </div>
     </>
   );

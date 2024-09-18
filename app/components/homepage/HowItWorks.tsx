@@ -13,15 +13,15 @@ interface HowItWorksCardProps {
 
 const HowItWorksCard = ({ imgPath, title, subtitle, description }: HowItWorksCardProps) => {
   return (
-    <div className="flex flex-col items-start justify-start w-full bg-white rounded-xl p-8 shadow-xl shadow-[#FC557126]">
-      <div className="w-[70%]">
+    <div className="flex flex-col justify-between h-full w-full bg-white rounded-xl p-8 shadow-xl shadow-[#FC557126]">
+      <div className="w-[70%] flex-grow">
         <div className="text-6xl font-semibold pb-8">{title}</div>
         <div className="text-2xl w-full font-semibold pb-4">{subtitle}</div>
         <div className="text-md w-full">{description}</div>
       </div>
       <div className="w-full h-[300px] flex justify-end py-10">
         <div className="relative w-[70%]">
-          <Image src={imgPath} alt={description} layout="fill" objectFit="contain" className="rounded-md" />
+          <Image src={imgPath} alt={description} fill style={{ objectFit: 'contain' }} className="rounded-md" />
         </div>
       </div>
     </div>
@@ -47,31 +47,34 @@ const HowItWorks = () => {
             <div className="relative w-full max-w-[800px] h-auto" style={{ aspectRatio: '16/9' }}>
               <iframe
                 className="absolute top-0 left-0 w-full h-full border-0"
-                src="https://www.tella.tv/video/clyqcwrvm0fde09jvg77n0rgh/embed?b=1&title=1&a=1&loop=0&t=0&muted=0&wt=1"
+                src="https://www.youtube.com/embed/T80TMGOTlK4?si=66Gr2MyYTubtq_mi"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
               />
             </div>
           </div>
         </div>
-        <div>
-          <div className="pt-20 gap-20 grid grid-cols-1 lg:grid-cols-3 items-start justify-items-center w-full h-fit pb-8 lg:h-[800px]">
+        <div className="h-fit">
+          <div className="pt-20 gap-20 grid grid-cols-1 lg:grid-cols-3 items-stretch justify-items-center w-full h-fit pb-8">
             <HowItWorksCard
               imgPath="/images/homepage/how-it-works-1.png"
               title="01"
               subtitle="Drag and drop the documents"
-              description="We take a diverse format of documents, PDF, PPT, Excel, Tables, Plots, even info graphics, and more!"
+              description="Click “Upload File” to easily drag and drop the documents you want to parse, or simply paste a screenshot from your clipboard. We’ve also provided sample documentation to help you get started."
             />
             <HowItWorksCard
               imgPath="/images/homepage/how-it-works-2.png"
               title="02"
               subtitle="Edit parsing and privacy settings"
-              description="We takes a diverse format of documents, PDF, PPT, Excel, Tables, Plots, even info graphics, and more!"
+              description="AnyParser automatically categorizes various types of information, including PII (Personally Identifiable Information), footnotes, tables, and more. Just export the data you need!"
             />
             <HowItWorksCard
               imgPath="/images/homepage/how-it-works-3.png"
               title="03"
               subtitle="Export results to your system"
-              description="We take a diverse format of documents, PDF, PPT, Excel, Tables, Plots, even info graphics, and more!"
+              description="Download your data in your preferred format—whether it’s HTML, Excel, JSON, or a database schema tailored to your business workflow."
             />
           </div>
         </div>

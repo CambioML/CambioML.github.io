@@ -52,12 +52,7 @@ const SampleUploadFile = ({ fileName, fileLabel, previewImage }: SampleUploadFil
     >
       <div className="flex-grow relative overflow-hidden rounded-t-lg">
         <div className="relative w-full h-full overflow-hidden rounded-t-lg hover:scale-105 transition-transform duration-300">
-          <Image
-            src={`${basePath}${previewImage}`}
-            alt={fileName}
-            className="object-cover rounded-t-lg"
-            layout="fill"
-          />
+          <Image src={`${basePath}${previewImage}`} alt={fileName} className="object-cover rounded-t-lg" fill />
         </div>
       </div>
       <div className="h-[40px] p-1 text-center text-neutral-100 rounded-b-md flex items-center justify-center bg-neutral-700">

@@ -29,7 +29,7 @@ const PlaygroundPageContainer = ({ production }: PlaygroundPageContainerProps) =
           <UploadModal />
           <PageHero
             title={`${production ? 'AnyParser Sandbox' : '🚧 PreProd Sandbox'}`}
-            description={`Extract full insights from your PDF* and Image files**`}
+            description={`The first LLM to quickly and accurately extract full content from PDFs*, PPTs, and images**.`}
             short
           />
           <PlaygroundContainer />

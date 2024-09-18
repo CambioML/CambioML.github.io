@@ -33,7 +33,7 @@ const CapabilityCard = ({ imgPath, description }: CapabilityCardProps) => {
   return (
     <div className="flex flex-col items-center justify-start w-full">
       <div className="relative w-full h-[300px]">
-        <Image src={imgPath} alt={description} layout="fill" objectFit="contain" className="rounded-md" />
+        <Image src={imgPath} alt={description} fill style={{ objectFit: 'contain' }} className="rounded-md" />
       </div>
       <div className="mt-12 text-lg text-center w-full">{description}</div>
     </div>

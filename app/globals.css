@@ -33,7 +33,9 @@ body,
 
 @layer utilities {
   .animate-slide {
-    animation: slide 40s linear infinite;
+    animation: slide 20s linear infinite;
+    display: flex;
+    width: 200%;
   }
   .pause {
     animation-play-state: paused;
