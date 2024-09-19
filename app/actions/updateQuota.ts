@@ -17,26 +17,24 @@ const updateQuota = async ({ api_url, token, userId, setRemainingQuota, setTotal
     jobId: 'jobId',
   };
 
-  axios
-    .post(jobStatusAPI, postParams, {
-      headers: {
-        'Content-Type': 'application/json',
-        authorizationToken: token,
-        apiKey: '-',
-      },
-    })
-    .then((response) => {
-      if (response.status === 200) {
-        setRemainingQuota(response.data.remainingPage);
-        setTotalQuota(response.data.totalPage);
-      } else {
-        throw new AxiosError('Failed to get quota');
-      }
-    })
-    .catch((e: AxiosError) => {
-      handleError(e);
-      return;
-    });
+  axios.get(jobStatusAPI, {
+    headers: {
+      'Content-Type': 'application/json',
+      authorizationToken: token,
+      'x-api-key': '3MKzgWSv8C5jqe3vT2z5B2H2g4RU1Oth8e63KYIi',
+    },
+  }).then((response) => {
+    if (response.status === 200) {
+      console.log(response.data);
+      setRemainingQuota(response.data.pageRemaining);
+      setTotalQuota(response.data.pageLimit);
+    } else {
+      throw new AxiosError('Failed to get quota');
+    }
+  }).catch((e: AxiosError) => {
+    handleError(e);
+    return;
+  });
 };
 
 export default updateQuota;
