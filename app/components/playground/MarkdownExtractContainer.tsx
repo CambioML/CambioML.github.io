@@ -17,6 +17,7 @@ import { runRequestJob } from '@/app/actions/runRequestJob';
 import useResultZoomModal from '@/app/hooks/useResultZoomModal';
 import QuotaLimitPage from './QuotaLimitPage';
 import updateQuota from '@/app/actions/updateQuota';
+import { uploadFile } from '@/app/actions/uploadFile';
 
 const textStyles = 'text-xl font-semibold text-neutral-500';
 
@@ -32,7 +33,7 @@ const MarkdownExtractContainer = () => {
   const {
     selectedFileIndex,
     files,
-    filesFormData,
+    addFilesFormData,
     updateFileAtIndex,
     token,
     clientId,
@@ -85,7 +86,7 @@ const MarkdownExtractContainer = () => {
   }, [selectedFile, filename]);
 
   const handleSuccess = (response: AxiosResponse, targetPageNumbers?: number[]) => {
-    let result = response.data;
+    let result = response.data.markdown;
     if (result === undefined) {
       toast.error(`${filename}: Received undefined result. Please try again.`);
       updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
@@ -117,7 +118,7 @@ const MarkdownExtractContainer = () => {
         num_pages: result.length,
       });
     updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.DONE_EXTRACTING);
-    updateQuota({ api_url: apiURL, userId: userId, token, setTotalQuota, setRemainingQuota, handleError });
+    updateQuota({ api_url: apiURL, userId, token, setTotalQuota, setRemainingQuota, handleError });
     toast.success(`${filename} extracted!`);
     return;
   };
@@ -170,12 +171,6 @@ const MarkdownExtractContainer = () => {
       updateFileAtIndex(selectedFileIndex, 'extractTab', ExtractTab.FILE_EXTRACT);
     }
     updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.EXTRACTING);
-    const fileData = filesFormData.find((obj) => obj.presignedUrl.fields['x-amz-meta-filename'] === filename);
-    if (!fileData) {
-      updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
-      toast.error(`Error extracting ${filename}. Please try again.`);
-      return;
-    }
     if (selectedFile && selectedFileIndex !== null) {
       const jobParams: JobParams = {
         targetPageNumbers,
@@ -189,16 +184,35 @@ const MarkdownExtractContainer = () => {
           vqaFootersFlag: extractSettings.includeHeadersFooters,
           vqaPageNumsFlag: extractSettings.includePageNumbers,
         },
-      };
+      }
+      // get presigned url and metadata
+      const uploadResult = await uploadFile({
+        api_url: apiURL,
+        userId,
+        token,
+        file: selectedFile.file as File,
+        extractArgs: jobParams.vqaProcessorArgs || {},
+        addFilesFormData,
+      });
+      if (uploadResult instanceof Error) {
+        toast.error(`Error uploading ${filename}. Please try again.`);
+        updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
+        return;
+      }
+      const fileData = uploadResult.data;
+
       if (!isProduction) console.log('[MarkdownExtract] jobParams:', jobParams);
       if (isProduction) {
         runRequestJob({
-          apiURL,
-          fileId: fileData.fileId,
+          apiURL: apiURL,
+          jobType: 'info_extraction',
+          userId,
           clientId,
+          fileId: fileData.fileId,
+          fileData,
+          selectedFile,
           token,
           sourceType: 's3',
-          jobType: 'file_extraction',
           jobParams,
           selectedFileIndex,
           filename,

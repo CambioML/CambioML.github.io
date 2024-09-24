@@ -1,14 +1,18 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { ExtractState, TransformState } from '@/app/types/PlaygroundTypes';
+import { PlaygroundFile, ExtractState, TransformState } from '@/app/types/PlaygroundTypes';
 import pollJobStatus from './pollJobStatus';
 import toast from 'react-hot-toast';
 import { JobParams, QueryParams, RequestParams } from './apiInterface';
+import { PresignedResponse } from '../actions/apiInterface';
 
 interface IParams {
   apiURL: string;
   jobType: string;
+  userId: string;
   clientId: string;
   fileId: string;
+  fileData: PresignedResponse;
+  selectedFile: PlaygroundFile;
   token: string;
   sourceType: string;
   selectedFileIndex: number;
@@ -59,7 +63,10 @@ const SLEEP_DURATION: { [key: string]: number } = {
 export const runRequestJob = async ({
   apiURL,
   clientId,
+  userId,
   fileId,
+  fileData,
+  selectedFile,
   jobParams,
   jobType,
   selectedFileIndex,
@@ -81,23 +88,27 @@ export const runRequestJob = async ({
     ...(jobParams && { jobParams }),
     customSchema,
   };
-  console.log('params', params);
-  axios
-    .post(`${apiURL}/request`, params, {
+
+  const postData = new FormData();
+  Object.entries(fileData.presignedUrl.fields).forEach(([key, value]) => {
+    postData.append(key, value);
+  });
+  postData.append('file', selectedFile.file);
+  return axios
+    .post(fileData.presignedUrl.url, postData, {
+      timeout: 30000, // 30 seconds
       headers: {
-        'Content-Type': 'application/json',
-        authorizationToken: token,
-        apiKey: '-',
-      },
+        'Content-Type': 'multipart/form-data'
+      }
     })
     .then((response) => {
-      if (response.status === 200) {
+      if (response.status === 204) {
         toast.success(`${filename} submitted!`);
         updateFileAtIndex(selectedFileIndex, JOB_STATE[jobType], SUCCESS_STATE[jobType]);
         const postParams: QueryParams = {
-          userId: response.data.userId,
+          userId,
           fileId,
-          jobId: response.data.jobId,
+          jobId: '-',
           queryType: 'job_result',
         };
         setTimeout(() => {
@@ -112,13 +123,11 @@ export const runRequestJob = async ({
           });
         }, SLEEP_DURATION[jobType]); // Need to delay the polling to give the server time to process the file
       } else {
-        toast.error(`Error uploading ${filename}. Please try again.`);
-        updateFileAtIndex(selectedFileIndex, JOB_STATE[jobType], FAIL_STATE[jobType]);
+        throw new Error(`Error uploading file: ${filename}. Please try again.`);
       }
     })
     .catch((error) => {
-      console.error('error', error);
-      toast.error(`Error uploading ${filename}. Please try again.`);
-      updateFileAtIndex(selectedFileIndex, JOB_STATE[jobType], FAIL_STATE[jobType]);
-    });
+      toast.error(`Error uploading file: ${filename}. Please try again.`);
+      return error;
+  });
 };

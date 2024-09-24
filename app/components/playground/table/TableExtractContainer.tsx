@@ -163,11 +163,14 @@ const TableExtractContainer = () => {
     if (isProduction) {
       runRequestJob({
         apiURL: apiURL,
+        jobType: 'info_extraction',
+        userId,
         clientId,
+        fileId: fileData.fileId,
+        fileData,
+        selectedFile,
         token,
         sourceType: 's3',
-        fileId: fileData.fileId,
-        jobType: 'info_extraction',
         jobParams,
         selectedFileIndex,
         filename,

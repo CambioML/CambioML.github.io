@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { QueryParams } from './apiInterface';
+import getApiKeysForUser from './account/getApiKeysForUser';
 
 interface IParams {
   api_url: string;
@@ -12,7 +13,7 @@ interface IParams {
 }
 
 const pollJobStatus = async ({
-  api_url,
+api_url,
   token,
   postParams,
   handleSuccess,
@@ -20,7 +21,10 @@ const pollJobStatus = async ({
   handleTimeout,
   targetPages,
 }: IParams) => {
-  const jobStatusAPI: string = api_url + '/query';
+  const jobStatusAPI: string = api_url + '/async/fetch';
+  const requestBody = {
+    file_id: postParams.fileId
+  };
   const timeoutDuration = 600000; // 10 minutes
   const pollInterval = 200; // 200 milliseconds
   const startTime = Date.now();
@@ -29,12 +33,24 @@ const pollJobStatus = async ({
       handleTimeout();
       return;
     }
+
+    let apiKey;
+    try {
+      apiKey = await getApiKeysForUser({ userId: postParams.userId, token, apiURL: api_url });
+      if (apiKey.length === 0) {
+        throw new Error('API key not found');
+      }
+    } catch (e) {
+      handleError(e as AxiosError);
+      return;
+    }
+
     axios
-      .post(jobStatusAPI, postParams, {
+      .post(jobStatusAPI, requestBody, {
         headers: {
           'Content-Type': 'application/json',
           authorizationToken: token,
-          apiKey: '-',
+          'x-api-key': apiKey[0].key || '-',
         },
       })
       .then((response) => {

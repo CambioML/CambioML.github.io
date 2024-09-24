@@ -42,7 +42,7 @@ interface PlaygroundStore {
   setClientId: (clientId: string) => void;
   setUserId: (userId: string) => void;
   setLoggedIn: (loggedIn: boolean) => void;
-  addFiles: ({ files, fileId, jobId, userId }: AddFileParams) => void;
+  addFiles: ({ files }: { files: File | File[] }) => void;
   addHTMLFile: (file: string) => void;
   addFilesFormData: (newResponse: PresignedResponse) => void;
   updateSelectedFile: (property: string, value: string) => void;
@@ -131,17 +131,18 @@ const usePlaygroundStore = create<PlaygroundStore>((set) => ({
     })) as PlaygroundFile[];
     set({ files: playgroundFiles });
   },
-  addFiles: ({ files, fileId, jobId, userId }: AddFileParams) => {
+  addFiles: ({ files }: { files: File | File[] }) => {
     set((state) => {
+      // Convert input to array if it's a single file
       const filesToAdd = Array.isArray(files) ? files : [files];
+      
+      // Map each file to a PlaygroundFile object
       const playgroundFilesToAdd = filesToAdd.map((file) => ({
         file: file,
-        fileId,
-        jobId,
-        userId,
         ...initialFileState,
       })) as PlaygroundFile[];
 
+      // Filter out any duplicate files
       const uniqueFiles = playgroundFilesToAdd.filter((playgroundFile) =>
         state.files.every(
           (existingFile) =>
@@ -149,10 +150,13 @@ const usePlaygroundStore = create<PlaygroundStore>((set) => ({
             (playgroundFile.file instanceof File && existingFile.file.name !== playgroundFile.file.name)
         )
       );
+      
+      // Update selected file index if new files are added
       if (uniqueFiles.length > 0) {
         set({ selectedFileIndex: state.files.length });
       }
 
+      // Return updated state with new files added
       return {
         files: [...state.files, ...uniqueFiles],
       };

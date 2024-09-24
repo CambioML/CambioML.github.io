@@ -9,8 +9,6 @@ import LoginComponent from '../auth/Login';
 import Dropzone from '../playground/Dropzone';
 import { toast } from 'react-hot-toast';
 import PulsingIcon from '../PulsingIcon';
-import { uploadFile } from '@/app/actions/uploadFile';
-import { uploadFile as preProdUploadFile } from '@/app/actions/preprod/uploadFile';
 import { useProductionContext } from '../playground/ProductionContext';
 import { usePostHog } from 'posthog-js/react';
 import SampleUploadFile from '../playground/SampleUploadFile';
@@ -40,11 +38,10 @@ const sampleUploadFiles: SampleUploadFile[] = [
 ];
 
 const UploadModal = () => {
-  const { apiURL, isProduction } = useProductionContext();
   const uploadModal = useUploadModal();
   const posthog = usePostHog();
 
-  const { loggedIn, filesToUpload, token, clientId, addFilesFormData, addFiles, setFilesToUpload, files } =
+  const { loggedIn, filesToUpload, addFiles, setFilesToUpload, files } =
     usePlaygroundStore();
 
   const [showModal, setShowModal] = useState(uploadModal.isOpen);
@@ -72,39 +69,21 @@ const UploadModal = () => {
 
   useEffect(() => {
     if (uploadModal.uploadModalState === UploadModalState.UPLOADING) {
-      const uploadPromises = filesToUpload.map((file) => {
-        const uploadFunc = isProduction ? uploadFile : preProdUploadFile;
+      filesToUpload.forEach((file) => {
         posthog.capture('playground.upload.start', { route: '/playground', file_type: file.type, module: 'upload' });
-        return uploadFunc({
-          api_url: apiURL,
-          file,
-          token,
-          clientId,
-          addFiles,
-          addFilesFormData,
-        });
+        addFiles({ files: file });
       });
 
-      Promise.all(uploadPromises)
-        .then(() => {
-          setFilesToUpload([]);
-          posthog.capture('playground.upload.success', {
-            route: '/playground',
-            module: 'upload',
-          });
-          uploadModal.setUploadModalState(UploadModalState.LOGIN);
-          handleClose();
-          toast.success('File(s) uploaded successfully!');
-        })
-        .catch(() => {
-          uploadModal.setUploadModalState(UploadModalState.ADD_FILES);
-          posthog.capture('playground.upload.error', {
-            route: '/playground',
-            module: 'upload',
-          });
-        });
+      setFilesToUpload([]);
+      posthog.capture('playground.upload.success', {
+        route: '/playground',
+        module: 'upload',
+      });
+      uploadModal.setUploadModalState(UploadModalState.LOGIN);
+      handleClose();
+      toast.success('File(s) uploaded successfully!');
     }
-  }, [uploadModal.uploadModalState, handleClose, uploadModal]);
+  }, [uploadModal.uploadModalState, handleClose, uploadModal, filesToUpload, addFiles, posthog, setFilesToUpload]);
 
   const generateRandomString = (length = 4) => {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
