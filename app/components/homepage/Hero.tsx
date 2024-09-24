@@ -51,6 +51,9 @@ const Hero = () => {
               <Button label="Try on our website!" onClick={() => router.push('/sandbox')} />
               <Button label="Get API Access" onClick={() => router.push('/account')} outline />
             </div>
+            <div className="w-full pt-4">
+              <Button label="Book a Demo" onClick={() => router.push('/book-demo')} secondaryColor />
+            </div>
             <div className="w-full py-1 flex items-center justify-center">No credit card required</div>
           </div>
         </div>

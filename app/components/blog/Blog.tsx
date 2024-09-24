@@ -3,15 +3,22 @@ import { CaretLeft } from '@phosphor-icons/react';
 import PageHero from '../hero/PageHero';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import BlogLink from './BlogLink';
+
+interface Author {
+  name: string;
+  companyName: string;
+  companyUrl: string;
+}
 
 interface BlogProps {
   title: string;
   publishedOn: string;
   children: React.ReactNode;
-  writtenBy: string;
+  authors: Author[];
 }
 
-const Blog = ({ title, publishedOn, children, writtenBy }: BlogProps) => {
+const Blog = ({ title, publishedOn, children, authors }: BlogProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const router = useRouter();
 
@@ -30,9 +37,17 @@ const Blog = ({ title, publishedOn, children, writtenBy }: BlogProps) => {
             <CaretLeft size={16} weight={isHovered ? 'bold' : 'regular'} /> Back to Blogs
           </div>
         </div>
+        <div className="text-lg italic flex pb-8">
+          Authors:&nbsp;
+          {authors.map((author, i) => (
+            <div key={author.name}>
+              {i > 0 && '; '}
+              {author.name} @ <BlogLink text={author.companyName} url={author.companyUrl} />
+            </div>
+          ))}
+        </div>
         {children}
         <hr className="my-6" />
-        <p className="text-lg italic">Written by {writtenBy}</p>
       </div>
     </div>
   );

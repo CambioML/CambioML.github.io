@@ -1,5 +1,3 @@
-'use client';
-
 import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 import { BiDollar } from 'react-icons/bi';
 
@@ -11,9 +9,19 @@ interface InputProps {
   required?: boolean;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors;
+  validate?: (value: string) => boolean | string; // Add this line
 }
 
-const Input = ({ id, label, disabled, formatPrice, register, required, errors }: InputProps) => {
+const Input = ({
+  id,
+  label,
+  disabled,
+  formatPrice,
+  register,
+  required,
+  errors,
+  validate, // Add this line
+}: InputProps) => {
   return (
     <div className="w-full relative">
       {formatPrice && (
@@ -30,7 +38,10 @@ const Input = ({ id, label, disabled, formatPrice, register, required, errors }:
       <input
         id={id}
         disabled={disabled}
-        {...register(id, { required })}
+        {...register(id, {
+          required,
+          validate, // Include the validate prop here
+        })}
         placeholder=" "
         type="text"
         className={`

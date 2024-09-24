@@ -4,8 +4,9 @@ import { QueryResult } from '@/app/actions/apiInterface';
 import useCompareModal from '@/app/hooks/useCompareModal';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 import useResultZoomModal from '@/app/hooks/useResultZoomModal';
-import { CaretLeft, CaretRight, Files, FrameCorners } from '@phosphor-icons/react';
+import { CaretLeft, CaretRight, Copy, Files, FrameCorners } from '@phosphor-icons/react';
 import { useEffect, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -194,6 +195,12 @@ const ResultContainer = ({ extractResult }: ResultContainerProps) => {
     compareModal.onOpen();
   };
 
+  const handleCopyClick = () => {
+    const text = extractResult.join('\n\n');
+    navigator.clipboard.writeText(text);
+    toast.success('Result copied to clipboard');
+  };
+
   useEffect(() => {
     resultZoomModal.setPage(0);
   }, [extractResult]);
@@ -208,16 +215,22 @@ const ResultContainer = ({ extractResult }: ResultContainerProps) => {
   return (
     <div className="w-full h-[60vh] relative">
       <div
-        className="absolute top-5 right-5 z-10 cursor-pointer px-4 py-2 rounded-full text-neutral-600 bg-neutral-100 hover:text-neutral-800 hover:bg-neutral-200 font-semibold flex items-center gap-1"
+        className="absolute top-4 right-5 z-10 cursor-pointer px-4 py-2 rounded-full text-neutral-600 bg-neutral-100 hover:text-neutral-800 hover:bg-neutral-200 font-semibold flex items-center gap-1"
         onClick={handleZoomClick}
       >
         Expand <FrameCorners size={18} weight="bold" />
       </div>
       <div
-        className="absolute top-5 right-[134px] z-10 cursor-pointer p-2 rounded-full text-neutral-600 bg-neutral-100 hover:text-neutral-800 hover:bg-neutral-200 font-semibold flex items-center gap-1"
+        className="absolute top-16 right-5 z-10 cursor-pointer p-2 rounded-full text-neutral-600 bg-neutral-100 hover:text-neutral-800 hover:bg-neutral-200 font-semibold flex items-center gap-1"
         onClick={handleCompareClick}
       >
         Compare <Files size={18} weight="bold" />
+      </div>
+      <div
+        className="absolute top-28 right-5 z-10 cursor-pointer px-4 py-2 rounded-full text-neutral-600 bg-neutral-100 hover:text-neutral-800 hover:bg-neutral-200 font-semibold flex items-center gap-1"
+        onClick={handleCopyClick}
+      >
+        Copy <Copy size={18} weight="bold" />
       </div>
       <ResultContent extractResult={extractResult} />
     </div>

@@ -11,9 +11,19 @@ interface ButtonProps {
   small?: boolean;
   icon?: Icon;
   labelIcon?: Icon | IconType;
+  secondaryColor?: boolean;
 }
 
-const Button = ({ label, onClick, disabled, outline, small, icon: Icon, labelIcon: LabelIcon }: ButtonProps) => {
+const Button = ({
+  label,
+  onClick,
+  disabled,
+  outline,
+  small,
+  icon: Icon,
+  labelIcon: LabelIcon,
+  secondaryColor,
+}: ButtonProps) => {
   return (
     <button
       onClick={onClick}
@@ -35,6 +45,7 @@ const Button = ({ label, onClick, disabled, outline, small, icon: Icon, labelIco
         ${outline ? 'text-neutral-800' : 'text-neutral-100'}
         ${small ? 'py-2' : 'py-3'}
         ${small ? 'text-md' : 'text-lg'}
+        ${!outline && secondaryColor && 'bg-sky-700'}
       `}
     >
       {Icon && (

@@ -12,7 +12,7 @@ const Container = ({ children, styles, bgcolor, centerX, centerY }: ContainerPro
   return (
     <div
       className={`
-                max-w-[2520px]
+                max-w-screen-2xl
                 mx-auto
                 xl:px-20
                 md:px-10

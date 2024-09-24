@@ -14,7 +14,7 @@ interface PageHeroProps {
 const PageHero = ({ title, description, button, image, short }: PageHeroProps) => {
   return (
     <div
-      className={`w-full h-full overflow-hidden relative ${!image && 'bg-gradient-to-tr from-cambio-blue from-30% via-white to-cambio-blue to-70%'}`}
+      className={`w-full h-full overflow-hidden relative ${!image && 'bg-gradient-to-tr from-cambio-primary from-30% via-white to-cambio-primary to-70%'}`}
     >
       <Container styles={`relative z-10 ${short ? 'h-[200px] mt-20' : 'h-[55vh] min-h-[650px]'} w-full`}>
         <div className="flex justify-center items-center h-full w-full">

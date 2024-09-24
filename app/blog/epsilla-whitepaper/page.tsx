@@ -9,7 +9,7 @@ const KDDPage = () => {
   return (
     <Blog
       title="Doubling Accuracy in Knowledge Retrieval from Charts and Tables"
-      writtenBy="Jojo Ortiz, COO @ CambioML"
+      authors={[{ name: 'Jojo', companyName: 'CambioML', companyUrl: 'https://www.cambioml.com' }]}
       publishedOn="August 29, 2024"
     >
       <BlogImage

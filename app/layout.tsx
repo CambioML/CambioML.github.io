@@ -14,8 +14,9 @@ import { PHProvider } from './providers';
 import dynamic from 'next/dynamic';
 
 export const metadata = {
-  title: 'cambioml',
-  description: 'Build faster with CambioML',
+  title: 'CambioML - AnyParser API: The first LLM for document parsing with accuracy and speed',
+  description:
+    'AnyParser enhances document retrieval accuracy by up to 2x via vision language model. It precisely extracts text, tables, charts, and layout information from PDFs, PowerPoints, and images. The API prioritizes client privacy and seamless enterprise integration.',
 };
 
 const PostHogPageView = dynamic(() => import('./PostHogPageView'), {

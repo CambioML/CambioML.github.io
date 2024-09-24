@@ -7,7 +7,11 @@ import BlogSectionTitle from '@/app/components/blog/BlogSectionTitle';
 
 const KDDPage = () => {
   return (
-    <Blog title="KDD 2024: Talk with Amazon" writtenBy="Jojo Ortiz, COO @ CambioML" publishedOn="August 29, 2024">
+    <Blog
+      title="KDD 2024: Talk with Amazon"
+      authors={[{ name: 'Jojo', companyName: 'CambioML', companyUrl: 'https://www.cambioml.com' }]}
+      publishedOn="August 29, 2024"
+    >
       <BlogImage
         src="kdd-2024-cover.jpeg"
         alt="KDD 2024 Conference"

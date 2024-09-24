@@ -9,13 +9,14 @@ interface SolutionsCardProps {
   description?: string;
   url: string;
   image?: string;
+  imageContain?: boolean;
 }
 
 const createId = (title: string) => {
   return title.toLowerCase().replaceAll(' ', '-');
 };
 
-const SolutionsCard = ({ title, subtitle, description, url, image }: SolutionsCardProps) => {
+const SolutionsCard = ({ title, subtitle, description, url, image, imageContain }: SolutionsCardProps) => {
   return (
     <a target="_blank" href={url} rel="noopener noreferrer">
       <div
@@ -56,13 +57,12 @@ const SolutionsCard = ({ title, subtitle, description, url, image }: SolutionsCa
               fill
               alt="Solution Image"
               src={imgPrefix + (image || '/images/cambioml-logo-large.png')}
-              className="
-                            object-cover
+              className={`${imageContain ? 'object-contain' : 'object-cover'}
                             h-full
                             w-full
                             group-hover:scale-110
                             transition
-                            "
+                            `}
             />
           </div>
           <div className="flex flex-col lg:justify-center p-5 h-[300px] lg:h-full gap-5 bg-white rounded-b-3xl lg:rounded-l-none lg:rounded-3xl">

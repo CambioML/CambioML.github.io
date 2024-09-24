@@ -1,5 +1,5 @@
 'use client';
-import { Confetti, GithubLogo, Icon, Key, UserCircle } from '@phosphor-icons/react';
+import { BookOpenText, Confetti, Icon, Key, UserCircle } from '@phosphor-icons/react';
 import Container from '../Container';
 import Heading from '../Heading';
 import LoginButton from '../auth/LoginButton';
@@ -250,10 +250,10 @@ const AccountPageContainer = () => {
                 </div>
               )}
               <Button
-                label="Check out AnyParser Github"
-                onClick={() => window.open('https://github.com/CambioML/any-parser', '_blank')}
+                label="Check out AnyParser Documentation"
+                onClick={() => window.open('https://docs.cambioml.com', '_blank')}
                 small
-                labelIcon={GithubLogo}
+                labelIcon={BookOpenText}
               />
               {!isProduction && (
                 <div className="w-full">
@@ -332,10 +332,10 @@ const AccountPageContainer = () => {
                 </p>
               </div>
               <Button
-                label="Check out AnyParser Github"
-                onClick={() => window.open('https://github.com/CambioML/any-parser', '_blank')}
+                label="Check out AnyParser Documentation"
+                onClick={() => window.open('https://docs.cambioml.com', '_blank')}
                 small
-                labelIcon={GithubLogo}
+                labelIcon={BookOpenText}
               />
             </div>
           </div>
