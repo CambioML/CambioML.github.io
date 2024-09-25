@@ -20,7 +20,7 @@ import { useProductionContext } from '../playground/ProductionContext';
 import { resendVerificationEmail } from '../../actions/account/resendVerificationEmail';
 import PortalButton from '../pricing/PortalButton';
 
-const MAX_API_KEYS = 2;
+const MAX_API_KEYS = 1;
 
 interface LoadingComponentProps {
   icon: Icon;
