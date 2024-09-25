@@ -57,7 +57,7 @@ export const uploadFile = async ({ api_url, file, token, clientId, addFiles, add
         });
     })
     .catch((error) => {
-      toast.error(`Error uploading file: ${file.name}. Please try again.`);
+      toast.error(`PREPROD: ${file.name}. Please try again.`);
       return error;
     });
 };

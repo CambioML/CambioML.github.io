@@ -7,13 +7,14 @@ import { PlaygroundFile, ExtractState, ExtractTab } from '@/app/types/Playground
 import { DownloadSimple, CloudArrowUp, ArrowCounterClockwise, FileText } from '@phosphor-icons/react';
 import PulsingIcon from '../PulsingIcon';
 import { downloadFile } from '@/app/actions/downloadFile';
+import { runAsyncRequestJob } from '@/app/actions/preprod/runAsyncRequestJob';
+// import { runRequestJob } from '@/app/actions/runRequestJob';
 import { runRequestJob as runPreProdRequestJob } from '@/app/actions/preprod/runRequestJob';
 import ResultContainer from './ResultContainer';
 import { useProductionContext } from './ProductionContext';
 import { usePostHog } from 'posthog-js/react';
 import ExtractSettingsChecklist from './ExtractSettingsChecklist';
 import { JobParams } from '@/app/actions/preprod/apiInterface';
-import { runRequestJob } from '@/app/actions/runRequestJob';
 import useResultZoomModal from '@/app/hooks/useResultZoomModal';
 import QuotaLimitPage from './QuotaLimitPage';
 import updateQuota from '@/app/actions/updateQuota';
@@ -195,7 +196,6 @@ const MarkdownExtractContainer = () => {
         addFilesFormData,
       });
       if (uploadResult instanceof Error) {
-        toast.error(`Error uploading ${filename}. Please try again.`);
         updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
         return;
       }
@@ -203,7 +203,7 @@ const MarkdownExtractContainer = () => {
 
       if (!isProduction) console.log('[MarkdownExtract] jobParams:', jobParams);
       if (isProduction) {
-        runRequestJob({
+        runAsyncRequestJob({
           apiURL: apiURL,
           jobType: 'info_extraction',
           userId,
