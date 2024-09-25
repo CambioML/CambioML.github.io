@@ -56,7 +56,6 @@ const QuotaDisplay = ({ userId }: QuotaDisplayProps) => {
       if (!userId || !apiURL || !token) {
         return;
       }
-  
       try {
         await updateQuota({
           api_url: apiURL,
@@ -70,7 +69,6 @@ const QuotaDisplay = ({ userId }: QuotaDisplayProps) => {
         handleError(error instanceof Error ? error : new Error('An unknown error occurred'));
       }
     };
-  
     fetchQuota();
   }, [userId, apiURL, token, totalQuota]); // Empty dependency array ensures this runs only once when component mounts
 

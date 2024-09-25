@@ -1,6 +1,4 @@
 import axios, { AxiosError } from 'axios';
-import getApiKeysForUser from './account/getApiKeysForUser';
-import { getUserData } from './getUserData';
 import getNewApiKey from '@/app/actions/account/getNewApiKey';
 interface IParams {
   api_url: string;
@@ -11,8 +9,7 @@ interface IParams {
   handleError: (error: AxiosError) => void;
 }
 
-const updateQuota = async ({ api_url, token, userId, setRemainingQuota, setTotalQuota, handleError }: IParams) => {
-
+const updateQuota = async ({ api_url, token, userId, setRemainingQuota, setTotalQuota }: IParams) => {
   // Helper function to fetch user data
   const fetchUserData = async () => {
     const params = { userId };

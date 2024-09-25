@@ -9,7 +9,7 @@ import LoginComponent from '../auth/Login';
 import Dropzone from '../playground/Dropzone';
 import { toast } from 'react-hot-toast';
 import PulsingIcon from '../PulsingIcon';
-import { useProductionContext } from '../playground/ProductionContext';
+// import { useProductionContext } from '../playground/ProductionContext';
 import { usePostHog } from 'posthog-js/react';
 import SampleUploadFile from '../playground/SampleUploadFile';
 
@@ -41,8 +41,7 @@ const UploadModal = () => {
   const uploadModal = useUploadModal();
   const posthog = usePostHog();
 
-  const { loggedIn, filesToUpload, addFiles, setFilesToUpload, files } =
-    usePlaygroundStore();
+  const { loggedIn, filesToUpload, addFiles, setFilesToUpload, files } = usePlaygroundStore();
 
   const [showModal, setShowModal] = useState(uploadModal.isOpen);
 

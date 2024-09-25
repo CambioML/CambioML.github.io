@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { PlaygroundFile, ExtractState, TransformState } from '@/app/types/PlaygroundTypes';
 import pollJobStatus from './pollJobStatus';
 import toast from 'react-hot-toast';
-import { JobParams, QueryParams, RequestParams } from './apiInterface';
+import { JobParams, QueryParams } from './apiInterface';
 import { PresignedResponse } from '../actions/apiInterface';
 
 interface IParams {
@@ -44,12 +44,12 @@ const SUCCESS_STATE: { [key: string]: ExtractState | TransformState } = {
   qa_generation: TransformState.TRANSFORMING,
 };
 
-const FAIL_STATE: { [key: string]: ExtractState | TransformState } = {
-  file_extraction: ExtractState.READY,
-  instruction_extraction: ExtractState.READY,
-  info_extraction: TransformState.READY,
-  qa_generation: TransformState.READY,
-};
+// const FAIL_STATE: { [key: string]: ExtractState | TransformState } = {
+//   file_extraction: ExtractState.READY,
+//   instruction_extraction: ExtractState.READY,
+//   info_extraction: TransformState.READY,
+//   qa_generation: TransformState.READY,
+// };
 
 const SLEEP_DURATION: { [key: string]: number } = {
   file_extraction: 5000,
@@ -62,7 +62,7 @@ const SLEEP_DURATION: { [key: string]: number } = {
 
 export const runRequestJob = async ({
   apiURL,
-  clientId,
+  // clientId,
   userId,
   fileId,
   fileData,
@@ -70,24 +70,24 @@ export const runRequestJob = async ({
   jobParams,
   jobType,
   selectedFileIndex,
-  sourceType,
+  // sourceType,
   filename,
   token,
-  url,
-  customSchema,
+  // url,
+  // customSchema,
   handleError,
   handleSuccess,
   handleTimeout,
   updateFileAtIndex,
 }: IParams) => {
-  const params: RequestParams = {
-    token,
-    clientId,
-    files: [{ sourceType, ...(fileId && { fileId }), ...(url && { url }) }],
-    jobType,
-    ...(jobParams && { jobParams }),
-    customSchema,
-  };
+  // const params: RequestParams = {
+  //   token,
+  //   clientId,
+  //   files: [{ sourceType, ...(fileId && { fileId }), ...(url && { url }) }],
+  //   jobType,
+  //   ...(jobParams && { jobParams }),
+  //   customSchema,
+  // };
 
   const postData = new FormData();
   Object.entries(fileData.presignedUrl.fields).forEach(([key, value]) => {
@@ -98,8 +98,8 @@ export const runRequestJob = async ({
     .post(fileData.presignedUrl.url, postData, {
       timeout: 30000, // 30 seconds
       headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+        'Content-Type': 'multipart/form-data',
+      },
     })
     .then((response) => {
       if (response.status === 204) {
@@ -129,5 +129,5 @@ export const runRequestJob = async ({
     .catch((error) => {
       toast.error(`Error uploading file: ${filename}. Please try again.`);
       return error;
-  });
+    });
 };

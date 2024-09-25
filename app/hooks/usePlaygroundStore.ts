@@ -135,7 +135,7 @@ const usePlaygroundStore = create<PlaygroundStore>((set) => ({
     set((state) => {
       // Convert input to array if it's a single file
       const filesToAdd = Array.isArray(files) ? files : [files];
-      
+
       // Map each file to a PlaygroundFile object
       const playgroundFilesToAdd = filesToAdd.map((file) => ({
         file: file,
@@ -150,7 +150,7 @@ const usePlaygroundStore = create<PlaygroundStore>((set) => ({
             (playgroundFile.file instanceof File && existingFile.file.name !== playgroundFile.file.name)
         )
       );
-      
+
       // Update selected file index if new files are added
       if (uniqueFiles.length > 0) {
         set({ selectedFileIndex: state.files.length });

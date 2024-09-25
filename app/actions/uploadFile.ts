@@ -23,8 +23,8 @@ interface IParams {
 }
 
 interface Config {
-  headers: { 
-    'x-api-key': string
+  headers: {
+    'x-api-key': string;
   };
 }
 
@@ -45,8 +45,8 @@ export const uploadFile = async ({ api_url, userId, token, file, extractArgs, ad
   }
 
   const getConfig: Config = {
-    headers: { 
-      'x-api-key': apiKey[0].key || '-'
+    headers: {
+      'x-api-key': apiKey[0].key || '-',
     },
   };
 
@@ -64,7 +64,7 @@ export const uploadFile = async ({ api_url, userId, token, file, extractArgs, ad
 
   const requestBody = {
     file_name: file.name,
-    extract_args: snakeCaseExtractArgs || {}
+    extract_args: snakeCaseExtractArgs || {},
   };
 
   return await axios

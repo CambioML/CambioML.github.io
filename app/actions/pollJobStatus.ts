@@ -13,7 +13,7 @@ interface IParams {
 }
 
 const pollJobStatus = async ({
-api_url,
+  api_url,
   token,
   postParams,
   handleSuccess,
@@ -23,7 +23,7 @@ api_url,
 }: IParams) => {
   const jobStatusAPI: string = api_url + '/async/fetch';
   const requestBody = {
-    file_id: postParams.fileId
+    file_id: postParams.fileId,
   };
   const timeoutDuration = 600000; // 10 minutes
   const pollInterval = 200; // 200 milliseconds

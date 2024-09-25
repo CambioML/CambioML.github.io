@@ -184,7 +184,7 @@ const MarkdownExtractContainer = () => {
           vqaFootersFlag: extractSettings.includeHeadersFooters,
           vqaPageNumsFlag: extractSettings.includePageNumbers,
         },
-      }
+      };
       // get presigned url and metadata
       const uploadResult = await uploadFile({
         api_url: apiURL,

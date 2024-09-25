@@ -34,7 +34,6 @@ export default async function getApiKeysForUser({ userId, token, apiURL }: IPara
       // throw new Error(errorMessage);
     }
   } catch (error) {
-    console.error(error);
     // toast.error('Failed to get API key');
     // throw new Error('Failed to get API key');
     return [];
