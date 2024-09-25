@@ -19,8 +19,7 @@ const columnStyles = 'w-full flex flex-col items-center justify-center gap-4';
 
 const CompareContainer = () => {
   const { isProduction, apiURL } = useProductionContext();
-  const { token, clientId, files, addFiles, addFilesFormData, selectedFileIndex, updateFileAtIndex } =
-    usePlaygroundStore();
+  const { token, files, userId, addFilesFormData, selectedFileIndex, updateFileAtIndex } = usePlaygroundStore();
   const [paperOptions, setPaperOptions] = useState<Option[]>([]);
 
   const [selectedFile, setSelectedFile] = useState<PlaygroundFile>();
@@ -138,10 +137,10 @@ const CompareContainer = () => {
       // file: zippedFolder as File,
       api_url: apiURL,
       file: selectedFile?.file as File,
+      userId,
       token,
-      clientId,
+      extractArgs: {},
       // jobType: 'file_comparison',
-      addFiles,
       addFilesFormData,
     });
     console.log('Data', fileData);
