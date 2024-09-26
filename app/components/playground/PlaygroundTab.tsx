@@ -36,7 +36,7 @@ const PlaygroundTab = ({ label, icon: Icon }: PlaygroundTabProps) => {
       className={`text-xl flex items-center justify-center gap-2 cursor-pointer rounded-t-xl font-semibold  transition duration-300 border-solid ${selectedFile?.activeTab === label ? selectedStyle : unselectedStyle}`}
       onClick={handleClick}
     >
-      {label}
+      <h2>{label}</h2>
       {Icon && <Icon size={24} />}
       <InfoButton infoType={label} />
     </div>

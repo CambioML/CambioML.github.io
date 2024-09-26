@@ -4,6 +4,7 @@ import BlogLink from '@/app/components/blog/BlogLink';
 import BlogList from '@/app/components/blog/BlogListItem';
 import BlogParagraph from '@/app/components/blog/BlogParagraph';
 import BlogSectionTitle from '@/app/components/blog/BlogSectionTitle';
+import BlogVideo from '@/app/components/blog/BlogVideo';
 
 const Page = () => {
   return (
@@ -33,6 +34,12 @@ const Page = () => {
         <code>public/images/solutions</code>&nbsp;directory and reference it using the <code>src</code> prop. You also
         need to include an &nbsp;<code>alt</code>&nbsp;prop for accessibility. Optionally, you can add a &nbsp;
         <code>subtitle</code>
+      </BlogParagraph>
+      <BlogSectionTitle title="BlogVideo" />
+      <BlogVideo src="https://www.youtube.com/embed/ny_YwgYzc7Q?si=m1bmULzwlP5g0kIo" />
+      <BlogParagraph>
+        You can add videos to your blog post using the BlogVideo component. Just include the video URL in the &nbsp;
+        <code>src</code>&nbsp;prop.
       </BlogParagraph>
       <BlogSectionTitle title="BlogList" />
       <BlogParagraph>

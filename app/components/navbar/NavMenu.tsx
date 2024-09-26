@@ -8,9 +8,10 @@ import { useOutsideClick } from '../../hooks/useOutsideClick';
 interface NavMenuProps {
   label: string;
   links: string[];
+  url?: string;
 }
 
-const NavMenu = ({ label, links }: NavMenuProps) => {
+const NavMenu = ({ label, links, url }: NavMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const excludeRef = useRef<HTMLDivElement>(null);
@@ -33,8 +34,8 @@ const NavMenu = ({ label, links }: NavMenuProps) => {
   const handleLabelClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     if (links.length === 0) {
-      const url = `/${label}`.toLowerCase().replaceAll(' ', '-');
-      router.push(url);
+      const link_url = url || `/${label}`.toLowerCase().replaceAll(' ', '-');
+      router.push(link_url);
       return;
     }
     toggleOpen();

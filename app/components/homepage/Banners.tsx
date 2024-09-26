@@ -24,7 +24,7 @@ const Banner = ({ title, description, actionLabel, action, inverse, imgPath, cod
         className={`w-[80%] grid grid-cols-2 gap-16 p-16 rounded-2xl ${inverse ? 'bg-[#1E1E1E] text-white' : 'bg-[#F1EAE5]'} ${code && 'pr-4'}`}
       >
         <div>
-          <div className="text-2xl font-semibold pb-8">{title}</div>
+          <h2 className="text-2xl font-semibold pb-8">{title}</h2>
           <div className="text-md w-full pb-16">{description}</div>
           <div>
             <Button label={actionLabel} onClick={action} outline={inverse} />

@@ -12,6 +12,30 @@ export interface SolutionType {
 
 export const solutions: SolutionType[] = [
   {
+    title: 'Convert PDF to CSV: An In-Depth Guide to Leveraging Vision Language Models',
+    subtitle: '',
+    description:
+      'This guide will walk you through the process of harnessing VLMs to convert your PDFs into CSV or Excel files using AnyParser, streamlining your workflow and unlocking valuable data insights. With AnyParser, you can easily convert PDF to CSV, PDF to Excel, or even convert Word to CSV with just a few clicks on our Playground.',
+    url: '/blog/convert-pdf-to-csv',
+    image: '/images/solutions/convert-pdf-to-csv-1.png',
+    imageContain: false,
+    industries: [],
+    blog: true,
+    date: new Date('2024-09-26'),
+  },
+  {
+    title: "Vision Language Models: Moving Beyond OCR's Limitations",
+    subtitle: '',
+    description:
+      'Vision Language Models (VLMs) are transforming document analysis by addressing the limitations of traditional Optical Character Recognition (OCR). This article examines how VLMs improve upon OCR, enhancing document processing in the digital era.',
+    url: '/blog/ocr-vs-vlm',
+    image: '/images/solutions/ocr-vs-vlm-1.png',
+    imageContain: true,
+    industries: [],
+    blog: true,
+    date: new Date('2024-09-25'),
+  },
+  {
     title: "AnyParser: The Secret Weapon Behind JobRight.ai's Resume Extraction",
     subtitle: '',
     description:
@@ -21,7 +45,7 @@ export const solutions: SolutionType[] = [
     imageContain: true,
     industries: [],
     blog: true,
-    date: new Date('2024-08-30'),
+    date: new Date('2024-09-19'),
   },
   {
     title: 'KDD 2024: Talk with Amazon',

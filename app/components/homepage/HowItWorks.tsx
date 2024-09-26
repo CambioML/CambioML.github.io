@@ -15,8 +15,8 @@ const HowItWorksCard = ({ imgPath, title, subtitle, description }: HowItWorksCar
   return (
     <div className="flex flex-col justify-between h-full w-full bg-white rounded-xl p-8 shadow-xl shadow-[#FC557126]">
       <div className="w-[70%] flex-grow">
-        <div className="text-6xl font-semibold pb-8">{title}</div>
-        <div className="text-2xl w-full font-semibold pb-4">{subtitle}</div>
+        <h2 className="text-6xl font-semibold pb-8">{title}</h2>
+        <h3 className="text-2xl w-full font-semibold pb-4">{subtitle}</h3>
         <div className="text-md w-full">{description}</div>
       </div>
       <div className="w-full h-[300px] flex justify-end py-10">
@@ -35,7 +35,7 @@ const HowItWorks = () => {
       <Container styles="relative z-10 h-fit">
         <div className="w-full h-fit grid grid-cols-1 lg:grid-cols-[400px_1fr]">
           <div className="w-full h-full flex flex-col items-center justify-center px-10">
-            <div className="text-6xl font-semibold">How AnyParser Works</div>
+            <h1 className="text-6xl font-semibold">How AnyParser Works</h1>
             <div className="w-full pt-8 pb-2 flex items-center justify-center gap-4">
               <Button label="Try on our website free!" onClick={() => router.push('/sandbox')} />
             </div>

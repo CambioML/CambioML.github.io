@@ -13,7 +13,6 @@ const BlogImage = ({ src, alt, subtitle }: BlogImageProps) => {
       <Image
         alt={alt}
         src={imgPrefix + '/images/solutions/' + src}
-        layout="responsive"
         width={1200}
         height={800}
         className="block w-full h-auto"

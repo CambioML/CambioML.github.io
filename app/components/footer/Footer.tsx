@@ -26,6 +26,7 @@ const Footer = () => {
   return (
     <div className="w-full bg-[#1E1E1E]">
       <Container styles="h-fit min-h-[300px]">
+        <h2 className="sr-only">Footer</h2>
         <div className="py-10 h-full grid grid-cols-[175px_50px_1fr] gap-2 md:gap-5 text-neutral-100">
           <div className="flex flex-col gap-3 md:gap-5">
             <Logo small white />

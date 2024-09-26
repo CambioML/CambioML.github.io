@@ -9,7 +9,7 @@ interface FooterMenuProps {
 const FooterMenu = ({ title, links }: FooterMenuProps) => {
   return (
     <div className="flex flex-col gap-5">
-      <div className="font-semibold text-md">{title.toUpperCase()}</div>
+      <h3 className="font-semibold text-md">{title.toUpperCase()}</h3>
       <div className="flex flex-col gap-1">
         {links.map((link, i) => (
           <a target="_blank" href={link.url} rel="noopener noreferrer" key={link.title + i}>

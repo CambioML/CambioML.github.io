@@ -18,6 +18,11 @@ const menuItems = [
     label: 'Company',
     links: ['About us'],
   },
+  {
+    label: 'Docs',
+    url: 'https://docs.cambioml.com',
+    links: [],
+  },
 ];
 
 const Navbar = () => {
@@ -42,6 +47,7 @@ const Navbar = () => {
         "
       >
         <Container>
+          <h2 className="sr-only">Navigation Bar</h2>
           <div
             className="
                     flex
@@ -58,7 +64,7 @@ const Navbar = () => {
             </div>
             <div className="hidden lg:flex flex-row items-center gap-3">
               {menuItems.map((item, i) => (
-                <NavMenu key={item.label + i} label={item.label} links={item.links} />
+                <NavMenu key={item.label + i} label={item.label} links={item.links} url={item.url} />
               ))}
               <div className="w-[150px]">
                 <Button label="Try Sandbox" onClick={() => router.push('/sandbox')} outline />
