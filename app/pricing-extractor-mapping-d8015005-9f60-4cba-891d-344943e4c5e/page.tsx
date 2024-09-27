@@ -268,8 +268,8 @@ const PricingPage = () => {
         </ul>
         <ul>
           <li>
-            **1 credit can extract 1 page of PDF or image, or make a single API call to map data to your customized
-            schemas.
+            ** 1 credit covers 1 page extraction (up to 500 tokens). Pages exceeding 500 tokens will incur an extra
+            credit for every additional 500 tokens.
           </li>
         </ul>
       </div>
