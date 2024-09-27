@@ -4,6 +4,7 @@ import pollJobStatus from './pollJobStatus';
 import toast from 'react-hot-toast';
 import { JobParams, QueryParams, PresignedResponse } from './apiInterface';
 import getApiKeysForUser from './account/getApiKeysForUser';
+import { ApiKey } from '../hooks/useAccountStore';
 
 interface IParams {
   apiURL: string;
@@ -88,7 +89,7 @@ export const runAsyncRequestJob = async ({
   //   ...(jobParams && { jobParams }),
   //   customSchema,
   // };
-  let apiKey;
+  let apiKey: ApiKey[];
   try {
     apiKey = await getApiKeysForUser({ userId, token, apiURL: apiURL });
     if (apiKey.length === 0) {
