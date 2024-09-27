@@ -41,7 +41,7 @@ const FileItem = ({ pgFile, index }: FileItemProps) => {
                     cursor-pointer
                     px-4
                     rounded-md
-                    ${index === selectedFileIndex ? 'bg-cambio-blue' : 'hover:bg-neutral-200'}
+                    ${index === selectedFileIndex ? 'bg-cambio-primary' : 'hover:bg-neutral-200'}
                     relative
                     group
                     `}

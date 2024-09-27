@@ -1,5 +1,5 @@
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
-import { ExtractTab, PlaygroundFile, ExtractState, TableTab } from '@/app/types/PlaygroundTypes';
+import { ExtractTab, PlaygroundFile, ExtractState, TableTab, ProcessType } from '@/app/types/PlaygroundTypes';
 import { useEffect, useState } from 'react';
 import Button from '../../Button';
 import { ArrowCounterClockwise, ArrowRight, DownloadSimple, Table } from '@phosphor-icons/react';
@@ -10,7 +10,6 @@ import { AxiosError, AxiosResponse } from 'axios';
 import ResultContainer from '../ResultContainer';
 import { useProductionContext } from '../ProductionContext';
 import { runRequestJob as runPreProdRequestJob } from '@/app/actions/preprod/runRequestJob';
-import { runRequestJob } from '@/app/actions/runRequestJob';
 import * as XLSX from 'xlsx';
 import { usePostHog } from 'posthog-js/react';
 import ExtractSettingsChecklist from '../ExtractSettingsChecklist';
@@ -19,6 +18,8 @@ import useResultZoomModal from '@/app/hooks/useResultZoomModal';
 import DropdownButton from '../../inputs/DropdownButton';
 import QuotaLimitPage from '../QuotaLimitPage';
 import updateQuota from '@/app/actions/updateQuota';
+import { uploadFile } from '@/app/actions/uploadFile';
+import { runAsyncRequestJob } from '@/app/actions/runAsyncRequestJob';
 
 const noPageContent = '<div>No table detected in output.</div>';
 
@@ -27,7 +28,6 @@ const TableExtractContainer = () => {
   const {
     selectedFileIndex,
     files,
-    filesFormData,
     updateFileAtIndex,
     token,
     clientId,
@@ -36,6 +36,7 @@ const TableExtractContainer = () => {
     setRemainingQuota,
     setTotalQuota,
     remainingQuota,
+    addFilesFormData,
   } = usePlaygroundStore();
   const [selectedFile, setSelectedFile] = useState<PlaygroundFile>();
   const [filename, setFilename] = useState<string>('');
@@ -61,7 +62,12 @@ const TableExtractContainer = () => {
       updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.READY);
       return;
     }
-    result = result.map((pageContent: string) => {
+    if (result['markdown'] === undefined) {
+      toast.error(`${filename}: Received undefined markdown. Please try again.`);
+      updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.READY);
+      return;
+    }
+    result = result['markdown'].map((pageContent: string) => {
       if (pageContent.length === 0) return noPageContent;
       return pageContent;
     });
@@ -144,14 +150,8 @@ const TableExtractContainer = () => {
       updateFileAtIndex(selectedFileIndex, 'extractTab', ExtractTab.TABLE_EXTRACT);
     }
     updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.EXTRACTING);
-    const fileData = filesFormData.find((obj) => obj.presignedUrl.fields['x-amz-meta-filename'] === filename);
-    if (!fileData) {
-      updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.READY);
-      toast.error(`Error extracting ${filename}. Missing formData. Please try again.`);
-      return;
-    }
 
-    if (selectedFileIndex === null || !selectedFile || !fileData) {
+    if (selectedFileIndex === null || !selectedFile) {
       toast.error(`Error extracting ${filename}. Please try again.`);
       updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.READY);
       return;
@@ -160,12 +160,31 @@ const TableExtractContainer = () => {
       targetPageNumbers,
       maskPiiFlag: extractSettings.removePII,
     };
+    // get presigned url and metadata
+    const uploadResult = await uploadFile({
+      api_url: apiURL,
+      userId,
+      token,
+      file: selectedFile.file as File,
+      extractArgs: jobParams.vqaProcessorArgs || {},
+      process_type: ProcessType.TABLE_EXTRACTION,
+      addFilesFormData,
+    });
+    if (uploadResult instanceof Error) {
+      toast.error(`Error uploading ${filename}. Please try again.`);
+      updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
+      return;
+    }
+    const fileData = uploadResult.data;
     if (isProduction) {
-      runRequestJob({
+      runAsyncRequestJob({
         apiURL: apiURL,
         jobType: 'info_extraction',
+        userId,
         clientId,
         fileId: fileData.fileId,
+        fileData,
+        selectedFile,
         token,
         sourceType: 's3',
         jobParams,
@@ -381,7 +400,7 @@ const TableExtractContainer = () => {
               </div>
             )}
             {selectedFile?.instructionExtractState === ExtractState.DONE_EXTRACTING && (
-              <div className="flex flex-col items-start w-full h-full gap-4">
+              <div className="flex flex-col items-start w-full h-full gap-4 pt-4">
                 {hasTables(selectedFile.tableExtractResult) ? (
                   <ResultContainer extractResult={selectedFile.tableExtractResult} />
                 ) : (
@@ -410,14 +429,16 @@ const TableExtractContainer = () => {
                       !hasTables(selectedFile.tableExtractResult)
                     }
                   />
-                  <Button
-                    label={`Select Tables`}
-                    onClick={() => updateFileAtIndex(selectedFileIndex, 'tableTab', TableTab.TABLE_SELECT)}
-                    small
-                    labelIcon={ArrowRight}
-                    disabled={!hasTables(selectedFile.tableExtractResult)}
-                    outline
-                  />
+                  {true && (
+                    <Button
+                      label={`Select Tables`}
+                      onClick={() => updateFileAtIndex(selectedFileIndex, 'tableTab', TableTab.TABLE_SELECT)}
+                      small
+                      labelIcon={ArrowRight}
+                      disabled={!hasTables(selectedFile.tableExtractResult)}
+                      outline
+                    />
+                  )}
                 </div>
               </div>
             )}

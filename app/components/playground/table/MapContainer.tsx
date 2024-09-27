@@ -55,28 +55,30 @@ const MapContainer = () => {
   };
 
   return (
-    <div className="h-full w-full grid-row-1 grid grid-rows-[50px_1fr] gap-4">
-      <div className="w-full grid grid-cols-3 pt-2">
-        <div
-          className={`${selectedFile?.tableTab === TableTab.TABLE_EXTRACT ? selectedTabStyle : unselectedTabStyle} ${tabStyle}`}
-          onClick={handleExtractTableClick}
-        >
-          1. Extract Tables
+    <div className={`h-full w-full ${!isProduction && 'grid-row-1 grid-rows-[50px_1fr] gap-4'}`}>
+      {true && (
+        <div className="w-full grid grid-cols-3 pt-2">
+          <div
+            className={`${selectedFile?.tableTab === TableTab.TABLE_EXTRACT ? selectedTabStyle : unselectedTabStyle} ${tabStyle}`}
+            onClick={handleExtractTableClick}
+          >
+            1. Extract Tables
+          </div>
+          <div
+            className={`${selectedFile?.tableTab === TableTab.TABLE_SELECT ? selectedTabStyle : unselectedTabStyle} ${tabStyle}`}
+            onClick={handleSelectTableClick}
+          >
+            2. Select Tables to Map
+          </div>
+          <div
+            className={`${selectedFile?.tableTab === TableTab.MAP_SCHEMA ? selectedTabStyle : unselectedTabStyle} ${tabStyle}`}
+            onClick={handleMapSchemaClick}
+          >
+            3. Map Schema
+          </div>
         </div>
-        <div
-          className={`${selectedFile?.tableTab === TableTab.TABLE_SELECT ? selectedTabStyle : unselectedTabStyle} ${tabStyle}`}
-          onClick={handleSelectTableClick}
-        >
-          2. Select Tables to Map
-        </div>
-        <div
-          className={`${selectedFile?.tableTab === TableTab.MAP_SCHEMA ? selectedTabStyle : unselectedTabStyle} ${tabStyle}`}
-          onClick={handleMapSchemaClick}
-        >
-          3. Map Schema
-        </div>
-      </div>
-      <div>
+      )}
+      <div className="h-full">
         {selectedFile?.tableTab === TableTab.TABLE_EXTRACT && <TableExtractContainer />}
         {selectedFile?.tableTab === TableTab.TABLE_SELECT && <MapTableSelectContainer />}
         {selectedFile?.tableTab === TableTab.MAP_SCHEMA && <MapSchemaContainer />}

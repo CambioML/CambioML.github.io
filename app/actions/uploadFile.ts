@@ -7,7 +7,7 @@ interface IParams {
   file: File | undefined;
   userId: string;
   token: string;
-  // clientId: string;
+  process_type: string;
   extractArgs: {
     vqaFiguresFlag?: boolean;
     vqaChartsFlag?: boolean;
@@ -28,7 +28,15 @@ interface Config {
   };
 }
 
-export const uploadFile = async ({ api_url, userId, token, file, extractArgs, addFilesFormData }: IParams) => {
+export const uploadFile = async ({
+  api_url,
+  userId,
+  token,
+  file,
+  extractArgs,
+  process_type,
+  addFilesFormData,
+}: IParams) => {
   if (!file) {
     toast.error('No file selected');
     return;
@@ -65,6 +73,7 @@ export const uploadFile = async ({ api_url, userId, token, file, extractArgs, ad
   const requestBody = {
     file_name: file.name,
     extract_args: snakeCaseExtractArgs || {},
+    process_type: process_type,
   };
 
   return await axios

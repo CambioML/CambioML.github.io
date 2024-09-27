@@ -122,3 +122,9 @@ export enum JobType {
   SCHEMA_EXTRACTION = 'schema_extraction',
   SCHEMA_EXTRACTION_FRONTEND = 'schema_extraction_frontend',
 }
+
+export enum ProcessType {
+  FILE_EXTRACTION = 'file',
+  TABLE_EXTRACTION = 'table',
+  JSON_EXTRACTION = 'json',
+}

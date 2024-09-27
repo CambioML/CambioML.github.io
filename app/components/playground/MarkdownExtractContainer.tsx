@@ -3,11 +3,11 @@ import { useCallback, useEffect, useState } from 'react';
 import Button from '../Button';
 import { AxiosError, AxiosResponse } from 'axios';
 import toast from 'react-hot-toast';
-import { PlaygroundFile, ExtractState, ExtractTab } from '@/app/types/PlaygroundTypes';
+import { PlaygroundFile, ExtractState, ExtractTab, ProcessType } from '@/app/types/PlaygroundTypes';
 import { DownloadSimple, CloudArrowUp, ArrowCounterClockwise, FileText } from '@phosphor-icons/react';
 import PulsingIcon from '../PulsingIcon';
 import { downloadFile } from '@/app/actions/downloadFile';
-import { runAsyncRequestJob } from '@/app/actions/preprod/runAsyncRequestJob';
+import { runAsyncRequestJob } from '@/app/actions/runAsyncRequestJob';
 // import { runRequestJob } from '@/app/actions/runRequestJob';
 import { runRequestJob as runPreProdRequestJob } from '@/app/actions/preprod/runRequestJob';
 import ResultContainer from './ResultContainer';
@@ -193,9 +193,11 @@ const MarkdownExtractContainer = () => {
         token,
         file: selectedFile.file as File,
         extractArgs: jobParams.vqaProcessorArgs || {},
+        process_type: ProcessType.FILE_EXTRACTION,
         addFilesFormData,
       });
       if (uploadResult instanceof Error) {
+        toast.error(`Error uploading ${filename}. Please try again.`);
         updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
         return;
       }

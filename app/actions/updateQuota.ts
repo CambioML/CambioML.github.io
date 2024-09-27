@@ -1,5 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import getNewApiKey from '@/app/actions/account/getNewApiKey';
+import toast from 'react-hot-toast';
 interface IParams {
   api_url: string;
   userId: string;
@@ -28,9 +29,17 @@ const updateQuota = async ({ api_url, token, userId, setRemainingQuota, setTotal
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.status === 404) {
       // Create new user when not found
+      toast('Welcome to AnyParser!', {
+        duration: 5000,
+        icon: '🎉',
+      });
       const newApiKeyResult = await getNewApiKey({ userId, token, apiURL: api_url });
       if (newApiKeyResult) {
         // Retry fetching
+        toast('It may take up to 30 seconds for your account to be fully activated.', {
+          duration: 5000,
+          icon: 'ℹ️',
+        });
         return await fetchUserData();
       } else {
         throw new Error('Failed to create new API key');
