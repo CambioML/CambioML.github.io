@@ -102,6 +102,7 @@ export const runRequestJob = async ({
         };
         setTimeout(() => {
           pollJobStatus({
+            apiKey: '-',
             api_url: apiURL,
             postParams,
             token,
