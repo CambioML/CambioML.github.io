@@ -8,6 +8,7 @@ interface IParams {
   userId: string;
   token: string;
   process_type: string;
+  maskPiiFlag?: boolean;
   extractArgs: {
     vqaFiguresFlag?: boolean;
     vqaChartsFlag?: boolean;
@@ -35,6 +36,7 @@ export const uploadFile = async ({
   file,
   extractArgs,
   process_type,
+  maskPiiFlag,
   addFilesFormData,
 }: IParams) => {
   if (!file) {
@@ -74,6 +76,7 @@ export const uploadFile = async ({
     file_name: file.name,
     extract_args: snakeCaseExtractArgs || {},
     process_type: process_type,
+    mask_pii: maskPiiFlag,
   };
 
   return await axios

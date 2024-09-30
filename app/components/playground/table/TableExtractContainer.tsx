@@ -167,6 +167,7 @@ const TableExtractContainer = () => {
       token,
       file: selectedFile.file as File,
       extractArgs: jobParams.vqaProcessorArgs || {},
+      maskPiiFlag: extractSettings.removePII,
       process_type: ProcessType.TABLE_EXTRACTION,
       addFilesFormData,
     });
@@ -412,7 +413,7 @@ const TableExtractContainer = () => {
                 )}
                 <div className="w-full h-fit flex gap-4">
                   <Button label="Re-run Document" onClick={handleRetry} small labelIcon={ArrowCounterClockwise} />
-                  {selectedFile.tableExtractResult.length > 1 && (
+                  {selectedFile.tableExtractResult.length > 1 && !isProduction && (
                     <Button
                       label={`Re-run Page ${resultZoomModal.page + 1}`}
                       onClick={handlePageRetry}
