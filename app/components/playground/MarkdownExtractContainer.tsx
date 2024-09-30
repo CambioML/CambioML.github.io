@@ -318,6 +318,7 @@ const MarkdownExtractContainer = () => {
         console.error('Error during extraction:', error);
       } finally {
         updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.DONE_EXTRACTING);
+        updateQuota({ api_url: apiURL, userId, token, setTotalQuota, setRemainingQuota, handleError });
       }
     } else {
       console.warn('Selected file is not valid or is missing.');
