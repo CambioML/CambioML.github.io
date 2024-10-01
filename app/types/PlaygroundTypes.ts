@@ -57,7 +57,7 @@ export interface PlaygroundFile {
   file: File | string;
   extractResult: QueryResult;
   qaResult: QAResult | null;
-  tableExtractResult: [''];
+  tableExtractResult: string[];
   tableMdExtractResult: ExtractedMDTable[];
   tableMappedDataRows: string[][];
   tableMergedData: { [key: string]: string[] };

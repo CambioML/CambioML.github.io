@@ -20,6 +20,8 @@ import QuotaLimitPage from '../QuotaLimitPage';
 import updateQuota from '@/app/actions/updateQuota';
 import { uploadFile } from '@/app/actions/uploadFile';
 import { runAsyncRequestJob } from '@/app/actions/runAsyncRequestJob';
+import { extractPageAsBase64 } from '@/app/helpers';
+import { runSyncTableExtract } from '@/app/actions/runSyncTableExtract';
 
 const noPageContent = '<div>No table detected in output.</div>';
 
@@ -334,14 +336,38 @@ const TableExtractContainer = () => {
     updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.READY);
   };
 
-  const handlePageRetry = () => {
+  const handlePageRetry = async () => {
     if (isProduction)
       posthog.capture('playground.table.extract_table.page_retry', {
         route: '/playground',
         module: 'plain_text',
         file_type: getFileType(),
       });
-    handleTableExtractTransform([resultZoomModal.page]);
+    if (selectedFile && selectedFile.file instanceof File) {
+      try {
+        updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.EXTRACTING);
+        const pageBase64 = await extractPageAsBase64(selectedFile.file, resultZoomModal.page);
+
+        const table = await runSyncTableExtract({
+          token: token,
+          userId: userId,
+          apiUrl: apiURL,
+          base64String: pageBase64,
+          maskPii: extractSettings.removePII,
+          fileType: selectedFile.file.type,
+        });
+        const newResult = selectedFile.tableExtractResult.slice();
+        newResult[resultZoomModal.page] = table;
+        updateFileAtIndex(selectedFileIndex, 'tableExtractResult', newResult);
+      } catch (error) {
+        console.error('Error during extraction:', error);
+      } finally {
+        updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.DONE_EXTRACTING);
+        updateQuota({ api_url: apiURL, userId, token, setTotalQuota, setRemainingQuota, handleError });
+      }
+    } else {
+      console.warn('Selected file is not valid or is missing.');
+    }
   };
 
   const getFileType = (): string => {
@@ -413,7 +439,7 @@ const TableExtractContainer = () => {
                 )}
                 <div className="w-full h-fit flex gap-4">
                   <Button label="Re-run Document" onClick={handleRetry} small labelIcon={ArrowCounterClockwise} />
-                  {selectedFile.tableExtractResult.length > 1 && !isProduction && (
+                  {selectedFile.tableExtractResult.length > 1 && (
                     <Button
                       label={`Re-run Page ${resultZoomModal.page + 1}`}
                       onClick={handlePageRetry}
