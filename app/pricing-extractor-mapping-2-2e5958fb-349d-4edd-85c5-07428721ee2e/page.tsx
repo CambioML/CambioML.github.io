@@ -201,7 +201,7 @@ const PricingPage = () => {
               ))}
             </tr>
             <tr>
-              <td className={featureRowHeaderStyle}>Credits automatically roll over</td>
+              <td className={featureRowHeaderStyle}>Credits automatically roll over</td>
               {plans.map((plan, index) => (
                 <td key={index} className={checkCellStyle}>
                   <div className={checkCellDivStyle}>
