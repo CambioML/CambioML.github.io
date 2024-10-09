@@ -317,9 +317,15 @@ const MarkdownExtractContainer = () => {
           {selectedFile?.extractState === ExtractState.READY && (
             <div className="flex flex-col h-full justify-start items-center text-lg text-center gap-4 pt-[calc(20vh-120px)] lg:pt-[calc(30vh-120px)]">
               <div className="flex flex-col items-center justify-center">
-                {filename}
+                <span id="extract-file-name">{filename}</span>
                 <div className="w-[200px] mt-2">
-                  <Button label="Extract Plain Text" onClick={() => handleExtract()} small labelIcon={FileText} />
+                  <Button
+                    label="Extract Plain Text"
+                    onClick={() => handleExtract()}
+                    small
+                    labelIcon={FileText}
+                    id="extract-plain-text-btn"
+                  />
                 </div>
               </div>
               <ModelToggleDropdown />
@@ -342,7 +348,13 @@ const MarkdownExtractContainer = () => {
             <div className="flex flex-col items-start w-full h-full gap-4 p-4">
               <ResultContainer extractResult={selectedFile.extractResult} />
               <div className="w-full h-fit flex gap-4">
-                <Button label="Re-run Document" onClick={handleRetry} small labelIcon={ArrowCounterClockwise} />
+                <Button
+                  label="Re-run Document"
+                  onClick={handleRetry}
+                  small
+                  labelIcon={ArrowCounterClockwise}
+                  id="retry-extract-btn"
+                />
                 {selectedFile.extractResult.length > 1 &&
                   selectedFile.file instanceof File &&
                   selectedFile.file.type === 'application/pdf' && (

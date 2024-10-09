@@ -1,0 +1,445 @@
+{
+  "config": {
+    "configFile": "/Users/joseortiz/Coding/CambioML/CambioML.github.io/playwright.config.ts",
+    "rootDir": "/Users/joseortiz/Coding/CambioML/CambioML.github.io/tests",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 15000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/Users/joseortiz/Coding/CambioML/CambioML.github.io/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {},
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/Users/joseortiz/Coding/CambioML/CambioML.github.io/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "version": "1.48.0",
+    "workers": 4,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "test.test.ts",
+      "file": "test.test.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "should log in successfully",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "status": "passed",
+                  "duration": 4725,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2024-10-09T00:47:05.716Z",
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "a41e2865410cdb168a5b-ae88ed6923ce4e0839ad",
+          "file": "test.test.ts",
+          "line": 31,
+          "column": 5
+        }
+      ],
+      "suites": [
+        {
+          "title": "File Upload and Extraction: tests/data/SamplePortfolioStatement.pdf",
+          "file": "test.test.ts",
+          "line": 57,
+          "column": 8,
+          "specs": [
+            {
+              "title": "should upload the file",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 142,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-10-09T00:47:11.150Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a41e2865410cdb168a5b-ab9a1b1d018ac2c420b2",
+              "file": "test.test.ts",
+              "line": 58,
+              "column": 9
+            },
+            {
+              "title": "should extract the file with PII masking",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 10195,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "MaskPII Result Similarity: 1\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-10-09T00:47:11.296Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a41e2865410cdb168a5b-4b2f187ea3d8b7b8c7cd",
+              "file": "test.test.ts",
+              "line": 80,
+              "column": 9
+            },
+            {
+              "title": "should extract the file without PII masking",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 8520,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "NoMaskPII Result Similarity: 1\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-10-09T00:47:21.493Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a41e2865410cdb168a5b-1ea737e5c393ceead2fc",
+              "file": "test.test.ts",
+              "line": 123,
+              "column": 9
+            }
+          ]
+        },
+        {
+          "title": "File Upload and Extraction: tests/data/TestDoc.docx",
+          "file": "test.test.ts",
+          "line": 57,
+          "column": 8,
+          "specs": [
+            {
+              "title": "should upload the file",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 156,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-10-09T00:47:30.016Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a41e2865410cdb168a5b-1b81ae459c4558d67fbf",
+              "file": "test.test.ts",
+              "line": 58,
+              "column": 9
+            },
+            {
+              "title": "should extract the file with PII masking",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 7262,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "MaskPII Result Similarity: 1\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-10-09T00:47:30.182Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a41e2865410cdb168a5b-5383d7ced83894c8fe96",
+              "file": "test.test.ts",
+              "line": 80,
+              "column": 9
+            },
+            {
+              "title": "should extract the file without PII masking",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 6554,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "NoMaskPII Result Similarity: 1\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-10-09T00:47:37.448Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a41e2865410cdb168a5b-08e2b07850f040e84e34",
+              "file": "test.test.ts",
+              "line": 123,
+              "column": 9
+            }
+          ]
+        },
+        {
+          "title": "File Upload and Extraction: tests/data/TestPPT.pptx",
+          "file": "test.test.ts",
+          "line": 57,
+          "column": 8,
+          "specs": [
+            {
+              "title": "should upload the file",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 91,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-10-09T00:47:44.003Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a41e2865410cdb168a5b-0193a389a20082fdaada",
+              "file": "test.test.ts",
+              "line": 58,
+              "column": 9
+            },
+            {
+              "title": "should extract the file with PII masking",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 6609,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "MaskPII Result Similarity: 0.9549456240290005\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-10-09T00:47:44.096Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a41e2865410cdb168a5b-9fb908f133a16768b576",
+              "file": "test.test.ts",
+              "line": 80,
+              "column": 9
+            },
+            {
+              "title": "should extract the file without PII masking",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 6441,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "NoMaskPII Result Similarity: 1\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-10-09T00:47:50.714Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a41e2865410cdb168a5b-15540c8b0903ab874a7d",
+              "file": "test.test.ts",
+              "line": 123,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2024-10-09T00:47:05.341Z",
+    "duration": 51908.286,
+    "expected": 10,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

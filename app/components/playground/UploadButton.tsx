@@ -21,6 +21,7 @@ const UploadButton = ({ small, disabled, collapsed }: UploadButtonProps) => {
       small={small}
       labelIcon={UploadSimple}
       disabled={disabled}
+      id="open-upload-modal-btn"
     />
   );
 };

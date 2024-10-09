@@ -69,9 +69,9 @@ const Dropzone = () => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <div className={DropzoneContainerClass} {...getRootProps()}>
+    <div className={DropzoneContainerClass} {...getRootProps()} id="dropzone-container">
       <div className={iconContainerClasses}>{<CloudArrowUp size={32} />}</div>
-      <input {...getInputProps()} className="hidden" />
+      <input {...getInputProps()} className="hidden" id="upload-file-input" />
       <p className="mt-2">
         {isDragActive ? 'Drop files here' : 'Drag and drop a single file here or click to select a file'}
       </p>

@@ -12,6 +12,7 @@ interface ButtonProps {
   icon?: Icon;
   labelIcon?: Icon | IconType;
   secondaryColor?: boolean;
+  id?: string;
 }
 
 const Button = ({
@@ -23,6 +24,7 @@ const Button = ({
   icon: Icon,
   labelIcon: LabelIcon,
   secondaryColor,
+  id,
 }: ButtonProps) => {
   return (
     <button
@@ -47,6 +49,7 @@ const Button = ({
         ${small ? 'text-md' : 'text-lg'}
         ${!outline && secondaryColor && 'bg-sky-700'}
       `}
+      id={id}
     >
       {Icon && (
         <Icon

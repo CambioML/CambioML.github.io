@@ -17,6 +17,7 @@ const ExtractSettingsChecklist = ({ removePIIOnly }: ExtractSettingsChecklistPro
           label="Personal Identifiable Information (PII)"
           checked={extractSettings.removePII}
           onChange={() => toggleExtractSetting('removePII')}
+          id="remove-pii-checkbox"
         />
         {!removePIIOnly && (
           <>
