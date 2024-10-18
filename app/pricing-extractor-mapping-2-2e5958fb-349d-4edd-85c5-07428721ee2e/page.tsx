@@ -24,22 +24,7 @@ type Plan = {
 const plans: Plan[] = [
   {
     name: 'Starter',
-    price: '$99/month*, or $1k/year',
-    pages: 'Includes 2k credits** per month, then $0.045 per credit',
-    bgColor: 'bg-neutral-100',
-    features: {
-      autoCapture: true,
-      autoRollover: true,
-      clientOnboarding: false,
-      customizationServices: false,
-      customIntegrations: false,
-      customModelTraining: false,
-      personalizedTraining: false,
-    },
-  },
-  {
-    name: 'Pro',
-    price: '$499/month*, or $5k/year',
+    price: '$499/month* or $5k/year',
     pages: 'Includes 20k credits** per month, then $0.025 per credit',
     bgColor: 'bg-sky-200',
     features: {
@@ -54,8 +39,8 @@ const plans: Plan[] = [
   },
   {
     name: 'Silver',
-    price: '$1k/month* or $10k/year',
-    pages: 'Includes 100k credits** per month, then $0.01 per credit',
+    price: '$1.5k/month or $15k/year',
+    pages: 'Includes 100k credits** per month, then $0.015 per credit',
     bgColor: 'bg-[#bcc6cc]',
     features: {
       autoCapture: true,
@@ -69,8 +54,8 @@ const plans: Plan[] = [
   },
   {
     name: 'Gold',
-    price: '$3k/month* or $30k/year',
-    pages: 'Includes 500k credits** per month, then $0.006 per credit',
+    price: '$4.5k/month or $45k/year',
+    pages: 'Includes 500k credits** per month, then $0.009 per credit',
     bgColor: 'bg-teal-600 text-white',
     features: {
       autoCapture: true,
@@ -191,21 +176,21 @@ const PricingPage = () => {
               </td>
             </tr>
             <tr>
-              <td className={featureRowHeaderStyle}>Auto-capture tables and transform to Markdown, CSV, or JSON</td>
-              {plans.map((plan, index) => (
-                <td key={index} className={checkCellStyle}>
-                  <div className={checkCellDivStyle}>
-                    <FeatureCheck enabled={plan.features.autoCapture} />
-                  </div>
-                </td>
-              ))}
-            </tr>
-            <tr>
               <td className={featureRowHeaderStyle}>Credits automatically roll over</td>
               {plans.map((plan, index) => (
                 <td key={index} className={checkCellStyle}>
                   <div className={checkCellDivStyle}>
                     <FeatureCheck enabled={plan.features.autoRollover} />
+                  </div>
+                </td>
+              ))}
+            </tr>
+            <tr>
+              <td className={featureRowHeaderStyle}>Auto-capture tables and transform to Markdown, CSV, or JSON</td>
+              {plans.map((plan, index) => (
+                <td key={index} className={checkCellStyle}>
+                  <div className={checkCellDivStyle}>
+                    <FeatureCheck enabled={plan.features.autoCapture} />
                   </div>
                 </td>
               ))}
@@ -272,8 +257,8 @@ const PricingPage = () => {
         </ul>
         <ul>
           <li>
-            ** 1 credit covers 1 page extraction up to 300 tokens (a normal A4 page). Pages exceeding 300 tokens will
-            incur an extra credit for every additional 300 tokens.
+            ** 1 credit covers 1 page extraction (up to 500 tokens). Pages exceeding 500 tokens will
+            incur an extra credit for every additional 500 tokens.
           </li>
         </ul>
       </div>
