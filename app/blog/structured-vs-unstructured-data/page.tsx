@@ -105,8 +105,8 @@ const Page = () => {
         makes it easier to organize, clean, search, and analyze compared to unstructured data, which encompasses
         everything else that is more difficult to categorize or search, such as photos, videos, podcasts, social media
         posts, and emails. One sentence to explain the difference between structured and unstructured data: Most of the
-        data in the world is unstructured, but structured data's ease of management and analysis gives it a significant
-        edge in applications where data can be neatly organized and quickly accessed.
+        data in the world is unstructured, but structured data&apos;s ease of management and analysis gives it a
+        significant edge in applications where data can be neatly organized and quickly accessed.
       </BlogParagraph>
       <BlogSectionTitle title="Examples of Structured and Unstructured Data" />
       <BlogImage
@@ -223,7 +223,7 @@ const Page = () => {
         requires specialized tools and techniques. Processing unstructured data often requires significant computational
         resources and storage capacity. Unstructured data can contain inconsistencies, errors, or irrelevant
         information, making it challenging to ensure data quality. Streamlining data ingestion can significantly enhance
-        an organization's ability to manage and analyze large volumes of data.
+        an organization&apos;s ability to manage and analyze large volumes of data.
       </BlogParagraph>
       <BlogSectionTitle title="Examples of the Need to Convert Unstructured Data to Structured Data" secondary />
       <BlogList
@@ -287,7 +287,7 @@ const Page = () => {
           {
             label: 'Upload Your Document',
             content:
-              "Begin by uploading your unstructured data file (e.g., PDF, image) to AnyParser's web interface. You can drag and drop your file or paste a screenshot for quick processing.",
+              'Begin by uploading your unstructured data file (e.g., PDF, image) to AnyParser&apos;s web interface. You can drag and drop your file or paste a screenshot for quick processing.',
           },
           {
             label: 'Select Extraction Options',
@@ -297,12 +297,12 @@ const Page = () => {
           {
             label: 'Process the Document',
             content:
-              "AnyParser's API engine will process the document, accurately detecting and extracting the required information. The tool uses advanced VLM techniques to identify relevant data points and convert them into a structured format.",
+              'AnyParser&apos;s API engine will process the document, accurately detecting and extracting the required information. The tool uses advanced VLM techniques to identify relevant data points and convert them into a structured format.',
           },
           {
             label: 'Preview and Verify',
             content:
-              "Review the extracted data using AnyParser's preview feature. Compare the initial extraction with the original document to ensure accuracy.",
+              'Review the extracted data using AnyParser&apos;s preview feature. Compare the initial extraction with the original document to ensure accuracy.',
           },
           {
             label: 'Download or Export',
