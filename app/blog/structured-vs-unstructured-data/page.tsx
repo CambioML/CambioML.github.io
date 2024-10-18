@@ -1,6 +1,5 @@
 import Blog from '@/app/components/blog/Blog';
 import BlogImage from '@/app/components/blog/BlogImage';
-import BlogLink from '@/app/components/blog/BlogLink';
 import BlogList from '@/app/components/blog/BlogListItem';
 import BlogParagraph from '@/app/components/blog/BlogParagraph';
 import BlogSectionTitle from '@/app/components/blog/BlogSectionTitle';
@@ -47,8 +46,8 @@ const Page = () => {
       </BlogParagraph>
       <BlogSectionTitle title="Unstructured Data" secondary />
       <BlogParagraph>
-        Unstructured data is data without an underlying model to discern attributes. It is used when the data won't fit
-        into a structured data format, such as video monitoring, company documents, and social media posts.
+        Unstructured data is data without an underlying model to discern attributes. It is used when the data won&apos;t
+        fit into a structured data format, such as video monitoring, company documents, and social media posts.
       </BlogParagraph>
       <BlogParagraph>
         Examples of unstructured data includes a variety of formats such as emails, images, video files, audio files,
@@ -65,8 +64,8 @@ const Page = () => {
       </BlogParagraph>
       <BlogParagraph>
         It is typically stored in data lakes, NoSQL databases, data warehouses, and applications. The biggest benefit of
-        unstructured data is its ability to analyze data that can't be easily shaped into structured data, but the main
-        challenge is that it can be difficult to analyze. The main analysis technique for unstructured data varies
+        unstructured data is its ability to analyze data that can&apos;t be easily shaped into structured data, but the
+        main challenge is that it can be difficult to analyze. The main analysis technique for unstructured data varies
         depending on the context and the tools used.
       </BlogParagraph>
       <BlogSectionTitle title="Difference between structured and unstructured data" />
