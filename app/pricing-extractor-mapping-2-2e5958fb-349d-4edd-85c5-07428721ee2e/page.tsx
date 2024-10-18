@@ -257,8 +257,7 @@ const PricingPage = () => {
         </ul>
         <ul>
           <li>
-            ** 1 credit covers 1 page extraction (up to 500 tokens). Pages exceeding 500 tokens will
-            incur an extra credit for every additional 500 tokens.
+            <p>{`** 1 credit covers 1 page extraction (up to 500 tokens). Pages exceeding 500 tokens will incur an extra credit for every additional 500 tokens.`}</p>
           </li>
         </ul>
       </div>
