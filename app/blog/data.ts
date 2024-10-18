@@ -24,6 +24,18 @@ export const solutions: SolutionType[] = [
     date: new Date('2024-10-18'),
   },
   {
+    title: 'AI Applications in Oil and Gas Field Services and Equipment',
+    subtitle: '',
+    description:
+      "Artificial Intelligence technology in the field of energy production has great value to play space, in the oil and gas industry, AI can help improve efficiency, reduce costs and improve the return on investment in all aspects of the whole process of industrial operations. AI's role in oil and gas data management software is to process and analyze large datasets, enabling better decision-making and predictive analytics in the industry.",
+    url: '/blog/ai-in-oil-and-gas',
+    image: '/images/solutions/ai-in-oil-and-gas.png',
+    imageContain: true,
+    industries: [],
+    blog: true,
+    date: new Date('2024-10-16'),
+  },
+  {
     title: 'Invoice Scanning Software: Digitize Your Billing Workflow with AnyParser',
     subtitle: '',
     description:

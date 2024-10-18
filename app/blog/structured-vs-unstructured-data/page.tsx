@@ -10,7 +10,7 @@ const Page = () => {
     <Blog
       title="Structured vs Unstructured Data: Differences Create the Need for Parsing"
       authors={[{ name: 'Rachel', companyName: 'CambioML', companyUrl: 'https://www.cambioml.com' }]}
-      publishedOn="October 6, 2024"
+      publishedOn="October 18, 2024"
     >
       <BlogSectionTitle title="What Is Structured Data and Unstructured Data" />
       <BlogParagraph>
