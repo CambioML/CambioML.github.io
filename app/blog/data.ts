@@ -12,6 +12,18 @@ export interface SolutionType {
 
 export const solutions: SolutionType[] = [
   {
+    title: 'Structured vs Unstructured Data: Examples and Best Practices',
+    subtitle: '',
+    description:
+      "Structured data is highly organized and formatted, making it easily searchable and accessible for analysis using traditional tools and machine learning algorithms. Its predefined structure allows for efficient automation in data management tasks like search, create, delete, or edit operations. In contrast, unstructured data lacks a predefined format, making it harder to search, organize, and analyze. Analyzing unstructured data requires specialized tools and advanced techniques, often necessitating the expertise of data scientists, which can limit its accessibility within organizations.",
+    url: '/blog/structured-vs-unstructured-data',
+    image: '/images/solutions/examples-of-structured-and-unstructured-data.png',
+    imageContain: true,
+    industries: [],
+    blog: true,
+    date: new Date('2024-10-18'),
+  },
+  {
     title: 'Invoice Scanning Software: Digitize Your Billing Workflow with AnyParser',
     subtitle: '',
     description:
