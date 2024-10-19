@@ -122,7 +122,7 @@ export async function deleteUser(userEmail: string): Promise<void> {
     console.log(`User with ID ${userId} deleted.`);
   } catch (error: unknown) {
     console.error(
-      `Error deleting user with ID ${userId}:`,
+      `Error deleting user with email ${userEmail}:`,
       error instanceof AxiosError ? error.response?.data : 'Unknown error'
     );
     throw error;
