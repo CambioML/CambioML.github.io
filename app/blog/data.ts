@@ -12,6 +12,30 @@ export interface SolutionType {
 
 export const solutions: SolutionType[] = [
   {
+    title: 'Structured vs Unstructured Data: Examples and Best Practices',
+    subtitle: '',
+    description:
+      'Structured data is highly organized and formatted, making it easily searchable and accessible for analysis using traditional tools and machine learning algorithms. Its predefined structure allows for efficient automation in data management tasks like search, create, delete, or edit operations. In contrast, unstructured data lacks a predefined format, making it harder to search, organize, and analyze. Analyzing unstructured data requires specialized tools and advanced techniques, often necessitating the expertise of data scientists, which can limit its accessibility within organizations.',
+    url: '/blog/structured-vs-unstructured-data',
+    image: '/images/solutions/examples-of-structured-and-unstructured-data.png',
+    imageContain: true,
+    industries: [],
+    blog: true,
+    date: new Date('2024-10-18'),
+  },
+  {
+    title: 'AI Applications in Oil and Gas Field Services and Equipment',
+    subtitle: '',
+    description:
+      "Artificial Intelligence technology in the field of energy production has great value to play space, in the oil and gas industry, AI can help improve efficiency, reduce costs and improve the return on investment in all aspects of the whole process of industrial operations. AI's role in oil and gas data management software is to process and analyze large datasets, enabling better decision-making and predictive analytics in the industry.",
+    url: '/blog/ai-in-oil-and-gas',
+    image: '/images/solutions/ai-in-oil-and-gas.png',
+    imageContain: true,
+    industries: [],
+    blog: true,
+    date: new Date('2024-10-16'),
+  },
+  {
     title: 'Invoice Scanning Software: Digitize Your Billing Workflow with AnyParser',
     subtitle: '',
     description:
