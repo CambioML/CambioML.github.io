@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
-import getNewApiKey from '@/app/actions/account/getNewApiKey';
 import toast from 'react-hot-toast';
+import createUser from './createUser';
 interface IParams {
   api_url: string;
   userId: string;
@@ -10,7 +10,7 @@ interface IParams {
   handleError: (error: AxiosError) => void;
 }
 
-const updateQuota = async ({ api_url, token, userId, setRemainingQuota, setTotalQuota }: IParams) => {
+const updateQuota = async ({ api_url, userId, setRemainingQuota, setTotalQuota }: IParams) => {
   // Helper function to fetch user data
   const fetchUserData = async () => {
     const params = { userId };
@@ -33,8 +33,10 @@ const updateQuota = async ({ api_url, token, userId, setRemainingQuota, setTotal
         duration: 5000,
         icon: '🎉',
       });
-      const newApiKeyResult = await getNewApiKey({ userId, token, apiURL: api_url });
-      if (newApiKeyResult) {
+
+      const createUserResult = await createUser({ userId, apiURL: api_url });
+      console.log('createUserResult', createUserResult);
+      if (createUserResult) {
         return await fetchUserData();
       } else {
         throw new Error('Failed to create new API key');

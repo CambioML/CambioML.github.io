@@ -3,8 +3,6 @@ import { PlaygroundFile, ExtractState, TransformState } from '@/app/types/Playgr
 import pollJobStatus from './pollJobStatus';
 import toast from 'react-hot-toast';
 import { JobParams, QueryParams, PresignedResponse } from './apiInterface';
-import getApiKeysForUser from './account/getApiKeysForUser';
-import { ApiKey } from '../hooks/useAccountStore';
 
 interface IParams {
   apiURL: string;
@@ -63,7 +61,6 @@ const SLEEP_DURATION: { [key: string]: number } = {
 
 export const runAsyncRequestJob = async ({
   apiURL,
-  // clientId,
   userId,
   fileId,
   fileData,
@@ -71,34 +68,13 @@ export const runAsyncRequestJob = async ({
   jobParams,
   jobType,
   selectedFileIndex,
-  // sourceType,
   filename,
   token,
-  // url,
-  // customSchema,
   handleError,
   handleSuccess,
   handleTimeout,
   updateFileAtIndex,
 }: IParams) => {
-  // const params: RequestParams = {
-  //   token,
-  //   clientId,
-  //   files: [{ sourceType, ...(fileId && { fileId }), ...(url && { url }) }],
-  //   jobType,
-  //   ...(jobParams && { jobParams }),
-  //   customSchema,
-  // };
-  let apiKey: ApiKey[];
-  try {
-    apiKey = await getApiKeysForUser({ userId, token, apiURL: apiURL });
-    if (apiKey.length === 0) {
-      throw new Error('API key not found');
-    }
-  } catch (e) {
-    return e;
-  }
-
   const postData = new FormData();
   Object.entries(fileData.presignedUrl.fields).forEach(([key, value]) => {
     postData.append(key, value);
@@ -124,7 +100,7 @@ export const runAsyncRequestJob = async ({
         setTimeout(() => {
           pollJobStatus({
             api_url: apiURL,
-            apiKey: apiKey[0].key || '-',
+            apiKey: '-',
             postParams,
             token,
             handleSuccess,

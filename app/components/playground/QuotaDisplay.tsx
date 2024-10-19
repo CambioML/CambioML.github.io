@@ -3,10 +3,8 @@ import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 import { ArrowsClockwise } from '@phosphor-icons/react';
 import { useProductionContext } from './ProductionContext';
 import updateQuota from '@/app/actions/updateQuota';
-import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
 import useAccountStore from '@/app/hooks/useAccountStore';
-import getNewApiKey from '@/app/actions/account/getNewApiKey';
 
 const QUOTA_YELLOW_THRESHOLD = 50;
 const QUOTA_ORANGE_THRESHOLD = 25;
@@ -19,11 +17,10 @@ interface QuotaDisplayProps {
 
 const QuotaDisplay = ({ userId, isCollapsed }: QuotaDisplayProps) => {
   const { totalQuota, remainingQuota, token, setTotalQuota, setRemainingQuota, fileCollapsed } = usePlaygroundStore();
-  const { apiURL, isProduction } = useProductionContext();
+  const { apiURL } = useProductionContext();
   const [isLoading, setIsLoading] = useState(false);
   const { apiKeys } = useAccountStore();
   const quotaPercent = (remainingQuota / totalQuota) * 100;
-  let madeApiKey = false;
 
   const handleRefresh = async () => {
     setIsLoading(true);
@@ -40,14 +37,11 @@ const QuotaDisplay = ({ userId, isCollapsed }: QuotaDisplayProps) => {
 
   const handleError = async (e: AxiosError | Error) => {
     console.error(e);
-    if (apiKeys.length === 0 && !madeApiKey) {
+    if (apiKeys.length === 0) {
       if (!userId || !token) {
         console.log('No profile or token', userId, token);
         return;
       }
-      madeApiKey = true;
-      await getNewApiKey({ userId: userId, token: token, apiURL });
-      if (!isProduction) toast.success('API key generated');
       return;
     }
   };
