@@ -1,4 +1,4 @@
-type TestFile = {
+export type TestFile = {
   name: string;
   maskPIIOutput: string[];
   noMaskPIIOutput: string[];

@@ -7,6 +7,7 @@ export default defineConfig({
   use: {
     headless: true,
     baseURL: 'http://localhost:3000',
+    screenshot: 'only-on-failure', // Capture screenshots on test failure
   },
   reporter: [['list'], ['json', { outputFile: 'test-results.json' }]],
   projects: [
