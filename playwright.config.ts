@@ -9,7 +9,7 @@ export default defineConfig({
     baseURL: 'http://localhost:3000',
     screenshot: 'only-on-failure', // Capture screenshots on test failure
   },
-  reporter: [['list'], ['json', { outputFile: 'test-results.json' }]],
+  reporter: [['list'], ['html', { outputFolder: 'test-results/html-report', open: 'on-failure' }]],
   projects: [
     {
       name: 'chromium',
