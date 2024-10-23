@@ -302,7 +302,7 @@ const AccountPageContainer = () => {
                 </div>
                 <p className={paragraphStyles}>
                   Are you an AI engineer who need to ACCURATELY extract both the text and its layout (e.g. table of
-                  content or markdown headers hierarchy) from a PDF.
+                  content or markdown headers hierarchy) from a PDF?
                   <a
                     className={`${linkStyles} pl-2`}
                     href="https://github.com/CambioML/any-parser/blob/main/examples/pdf_to_markdown.ipynb"
@@ -315,18 +315,18 @@ const AccountPageContainer = () => {
                 <div className={headingLinkStyle}>
                   <a
                     className={`${linkStyles} pr-2`}
-                    href="https://github.com/CambioML/any-parser/blob/main/examples/extract_table_from_image_to_markdown.ipynb"
+                    href="https://github.com/CambioML/any-parser/blob/main/examples/pdf_to_key_value.ipynb"
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Extract a Table from an Image into Markdown Format
+                    Extract a Key-Values from an Invoice PDF
                   </a>
                 </div>
                 <p className={paragraphStyles}>
-                  Are you a financial analyst who need to extract ACCURATE number from a table in an image or a PDF.
+                  Are you an accountant who needs to extract ACCURATE numbers from your invoices in a PDF?
                   <a
                     className={`${linkStyles} pl-2`}
-                    href="https://github.com/CambioML/any-parser/blob/main/examples/extract_table_from_image_to_markdown.ipynb"
+                    href="https://github.com/CambioML/any-parser/blob/main/examples/pdf_to_key_value.ipynb"
                     target="_blank"
                     rel="noreferrer"
                   >
