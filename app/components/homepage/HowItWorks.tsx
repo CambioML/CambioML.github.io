@@ -2,6 +2,7 @@
 import { useRouter } from 'next/navigation';
 import Button from '../Button';
 import Container from '../Container';
+import YouTubeFacade from '../YoutubeFacade';
 
 interface HowItWorksCardProps {
   title: string;
@@ -37,16 +38,7 @@ const HowItWorks = () => {
             </div>
           </div>
           <div className="flex items-center justify-center w-full h-full py-4 lg:py-20">
-            <div className="relative w-full max-w-[800px] h-auto" style={{ aspectRatio: '16/9' }}>
-              <iframe
-                className="absolute top-0 left-0 w-full h-full border-0"
-                src="https://www.youtube.com/embed/T80TMGOTlK4?si=66Gr2MyYTubtq_mi"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              />
-            </div>
+            <YouTubeFacade videoId="T80TMGOTlK4" />
           </div>
         </div>
         <div className="h-fit">
