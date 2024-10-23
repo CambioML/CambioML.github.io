@@ -112,14 +112,14 @@ const Page = () => {
         definition in the appendix.
       </BlogParagraph>
       <BlogParagraph>
-        The models compared are: AnyParser, Textract, lama-Parse, Premium Llama-Parse, GPT4o, Gemini-1.5-pro, GCP-DocAl,
+        The models compared are: AnyParser-base, AnyParser-pro, Textract, Llama-Parse, GPT4o, Gemini-1.5-pro, GCP-DocAl,
         and Azure-DocAl.
       </BlogParagraph>
-      <BlogImage src="measure-document-parsing-accuracy-1.png" alt="Document AI model Comparison" />
+      <BlogImage src="evaluate-document-parsing-accuracy-1.png" alt="Document AI model Comparison" />
       <BlogParagraph>
         BLEU is used as an assessment of the quality of bilingual interpreting to test the quality of the models in
         processing utterances. By comparing the results of these parsing models under the BLEU assessment method, we
-        find that: the scores of AnyParser and Premium Llama-Parse are significantly higher than the scores of the other
+        find that: the scores of AnyParser-base and AnyParser-pro are significantly higher than the scores of the other
         models, Amazon Textract scores the lowest, and the results of the scores of the other models are in the middle
         of a relatively average level.x
       </BlogParagraph>
@@ -129,26 +129,26 @@ const Page = () => {
         of truly correctly judged results by the model among all actually correct results. By comparing the precision
         and recall of these parsing models, we find that: except for Llama-Parse, GPT4o and Gemini-1.5-pro, all other
         models are at a high level. Among them, AnyParser and Amazon Textract are more prominent in precision, and
-        AnyParser and Premium Llama-Parse are more prominent in recall. The higher score of the model on Precision
+        AnyParser-base and AnyParser-pro are more prominent in recall. The higher score of the model on Precision
         indicates that the model outputs more correct information in the production results, and the higher score on
         recall indicates that the model is more capable of obtaining correct information from the sample. The results of
         the scores show that AnyParser has a clear advantage in terms of recognition accuracy to extract text from pdf.
       </BlogParagraph>
       <BlogParagraph>
         F-Measure is a comprehensive evaluation index of precision and recall on these two indicators. By comparing the
-        scores of these parsing models under F-Measure, we can see more intuitively that the five models, AnyParser,
-        Amazon Textract, Premium Llama-Parse, GCP-DocAI and Azure-DocAI, have a better strength in terms of recognition
-        accuracy compared with other models. We can see more intuitively that the five models have more strength in
-        recognition accuracy than the other models, and AnyParser has the highest score under F-Measure, which further
-        illustrates the obvious advantage of AnyParser in recognition accuracy to extract text from pdf.
+        scores of these parsing models under F-Measure, we can see more intuitively that the five models,
+        AnyParser-base, AnyParser-pro, Amazon Textract, GCP-DocAI and Azure-DocAI, have a better strength in terms of
+        recognition accuracy compared with other models. We can see more intuitively that the five models have more
+        strength in recognition accuracy than the other models, and AnyParser has the highest score under F-Measure,
+        which further illustrates the obvious advantage of AnyParser in recognition accuracy to extract text from pdf.
       </BlogParagraph>
       <BlogParagraph>
         ANLS, as a commonly used evaluation index when it comes to measuring the accuracy and similarity between the
         original text and the target text at the character level, is also very informative for measuring the parsing
-        level of the models. The higher scores of AnyParser, Premium Llama-Parse and Azure-DocAI reflect the higher
+        level of the models. The higher scores of AnyParser-base, AnyParser-pro and Azure-DocAI reflect the higher
         parsing level of these models compared to the other models.
       </BlogParagraph>
-      <BlogParagraph>Overall, AnyParser and Premium Llama-Parse outperform the other models. </BlogParagraph>
+      <BlogParagraph>Overall, AnyParser-base and AnyParser-pro outperform the other models. </BlogParagraph>
       <BlogSectionTitle title="Experiment 2" tertiary underline />
       <BlogParagraph>
         We also compare the performance of different document AI models on three different metrics: Edit Distance,
@@ -156,7 +156,7 @@ const Page = () => {
         output of the models and a reference document. Lower values indicate better performance.
       </BlogParagraph>
       <BlogImage
-        src="measure-document-parsing-accuracy-2.png"
+        src="evaluate-document-parsing-accuracy-2.png"
         alt="Document AI model Comparison for Edit Distance, Jensen-Shannon Divergence, and Jaccard Distance"
       />
       <BlogParagraph>Here are some key observations from the chart:</BlogParagraph>
@@ -165,12 +165,12 @@ const Page = () => {
           {
             label: 'Edit Distance',
             content:
-              'The models AnyParser and Premium Llama-Parse perform the best with the lowest edit distance, suggesting that their output were closest to the reference document.',
+              'The models AnyParser-base and AnyParser-pro perform the best with the lowest edit distance, suggesting that their output were closest to the reference document.',
           },
           {
             label: 'Jensen-Shannon Divergence',
             content:
-              'The models AnyParser and Premium Llama-Parse have the lowest divergence, implying that their outputs are most similar to the reference document in terms of word distribution.',
+              'The models AnyParser-base and AnyParser-pro have the lowest divergence, implying that their outputs are most similar to the reference document in terms of word distribution.',
           },
           {
             label: 'Jaccard Distance',
@@ -181,7 +181,7 @@ const Page = () => {
       />
       <BlogSectionTitle title="Conclusion" secondary />
       <BlogParagraph>
-        Overall, our rigorous testing suggests that AnyParser and Premium Llama-Parse generally performs well across
+        Overall, our rigorous testing suggests that AnyParser-base and AnyParser-pro generally performs well across
         various metrics, indicating its potential for accurate document processing. From the plots, we can see
         traditional OCR models such as the famous Amazon Textract score much lower than vision language models. However,
         the performance of different models varies depending on the metric used, highlighting the importance of

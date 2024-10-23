@@ -52,8 +52,8 @@ export const solutions: SolutionType[] = [
     subtitle: '',
     description:
       'Converting complex PDFs to Markdown can be difficult. LLMs like GPT can manage these tasks but are usually slow and may yield inaccurate results. Traditional OCR tools work well for simpler documents but often fail to preserve the original structure and meaning. This blog will present a comparative analysis of various models using multiple metrics.',
-    url: '/blog/measure-document-parsing-accuracy',
-    image: '/images/solutions/measure-document-parsing-accuracy-1.png',
+    url: '/blog/evaluate-document-parsing-accuracy',
+    image: '/images/solutions/evaluate-document-parsing-accuracy-1.png',
     imageContain: false,
     industries: [],
     blog: true,
