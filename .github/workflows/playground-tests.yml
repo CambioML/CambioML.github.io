@@ -15,6 +15,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    environment: playground-test
 
     steps:
       - name: Checkout Repository
