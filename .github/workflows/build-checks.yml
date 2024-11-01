@@ -44,7 +44,7 @@ jobs:
         run: npm run lint
 
   test:
-    if: contains(github.event.head_commit.message, 'app/components/playground') || contains(github.event.head_commit.message, 'app/components/sandbox')
+    if: contains(github.event.head_commit.message, 'app/components/playground') || contains(github.event.head_commit.message, 'app/sandbox')
     runs-on: ubuntu-latest
 
     steps:
