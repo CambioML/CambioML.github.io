@@ -10,6 +10,7 @@ import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 const PlaygroundContainer = () => {
   const { fileCollapsed } = usePlaygroundStore();
   const playgroundWrapperStyles = `border-solid border-[1px] border-neutral-gray }`;
+  //Dummy comment to test the build
 
   return (
     <>
