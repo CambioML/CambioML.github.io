@@ -1,7 +1,7 @@
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 import { useCallback, useEffect, useState } from 'react';
 import Button from '../Button';
-import { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import toast from 'react-hot-toast';
 import { PlaygroundFile, ExtractState, ExtractTab, ProcessType, ModelType } from '@/app/types/PlaygroundTypes';
 import { DownloadSimple, CloudArrowUp, ArrowCounterClockwise, FileText } from '@phosphor-icons/react';
@@ -21,6 +21,8 @@ import { uploadFile } from '@/app/actions/uploadFile';
 import { runSyncExtract } from '@/app/actions/runSyncExtract';
 import { extractPageAsBase64 } from '@/app/helpers';
 import ModelToggleDropdown from './ModelToggleDropdown';
+import JSZip from 'jszip'; // Import JSZip for zipping files
+import { extractImageLinks } from '@/app/helpers';
 
 const textStyles = 'text-xl font-semibold text-neutral-500';
 
@@ -72,24 +74,63 @@ const MarkdownExtractContainer = () => {
     return fileType;
   };
 
-  const handleDownload = useCallback(() => {
+  const handleDownload = useCallback(async () => {
     if (selectedFile?.extractResult) {
-      if (isProduction)
-        posthog.capture('playground.plain_text.download_markdown', {
-          route: '/playground',
-          module: 'plain_text',
-          file_type: getFileType(),
+      // todo: test multiple images; test no image. just download markdown.
+      // todo: now onlly in pro, plain text, no table/basic. tdb
+      const markdownContent = selectedFile.extractResult.join('\n\n');
+
+      // Extract image links from markdown content
+      const imageLinks = extractImageLinks(markdownContent);
+
+      // console.log('[MarkdownExtract] imageLinks:', imageLinks);
+
+      if (imageLinks.length > 0) {
+        // Download images and include them in zip
+        const images = await Promise.all(
+          imageLinks.map(async (link) => {
+            const response = await axios.get(link.url, { responseType: 'blob' });
+            const blob = await response.data;
+            return { filename: link.filename, blob };
+          })
+        );
+
+        const zip = new JSZip();
+        zip.file(filename + '_extracted.md', markdownContent);
+
+        images.forEach((imageFile) => {
+          zip.file(imageFile.filename, imageFile.blob);
         });
-      downloadFile({
-        filename,
-        fileContent: selectedFile.extractResult.join('\n\n'),
-        fileType: 'text/plain',
-        suffix: '_extracted.txt',
-      });
+
+        const zipContent = await zip.generateAsync({ type: 'blob' });
+        const zipFilename = filename + '_extracted.zip';
+
+        // Function to download blob
+        const downloadBlob = (blob: Blob, filename: string) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.href = url;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+        };
+
+        downloadBlob(zipContent, zipFilename);
+      } else {
+        // No images, download markdown file as before
+        downloadFile({
+          filename,
+          fileContent: markdownContent,
+          fileType: 'text/plain',
+          suffix: '_extracted.txt',
+        });
+      }
     }
   }, [selectedFile, filename]);
 
-  const handleSuccess = (response: AxiosResponse, targetPageNumbers?: number[]) => {
+  const handleSuccess = async (response: AxiosResponse, targetPageNumbers?: number[]) => {
     let result = response.data.markdown;
     if (result === undefined) {
       toast.error(`${filename}: Received undefined result. Please try again.`);
@@ -114,6 +155,7 @@ const MarkdownExtractContainer = () => {
       }
     }
     updateFileAtIndex(selectedFileIndex, 'extractResult', result);
+
     if (isProduction)
       posthog.capture('playground.plain_text.success', {
         route: '/playground',
