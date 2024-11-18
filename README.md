@@ -7,4 +7,3 @@ For Dev setup, please refer to this [Notion Page](https://www.notion.so/goldpigg
 - `npm install` for dependency
 - `npm run dev` for local development and testing
 - open `http://localhost:3000` in your browser
-- 
