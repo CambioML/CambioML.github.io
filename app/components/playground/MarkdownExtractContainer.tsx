@@ -157,6 +157,7 @@ const MarkdownExtractContainer = () => {
     if (typeof result === 'string') {
       result = [result];
     }
+    // eslint-disable-next-line no-console
     if (!isProduction) console.log('[MarkdownExtract] result:', result);
     if (targetPageNumbers) {
       const currentResult = selectedFile?.extractResult;
