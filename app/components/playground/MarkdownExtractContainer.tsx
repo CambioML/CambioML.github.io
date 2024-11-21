@@ -76,7 +76,8 @@ const MarkdownExtractContainer = () => {
 
   const handleDownload = useCallback(async () => {
     if (selectedFile?.extractResult) {
-      // todo: test multiple images; test no image. just download markdown.
+      // 1. case no image: just download markdown;
+      // 2. case one or multiple images: download images and include them in zip;
       // todo: now onlly in pro, plain text, no table/basic. tdb
       const markdownContent = selectedFile.extractResult.join('\n\n');
 
@@ -89,9 +90,22 @@ const MarkdownExtractContainer = () => {
         // Download images and include them in zip
         const images = await Promise.all(
           imageLinks.map(async (link) => {
-            const response = await axios.get(link.url, { responseType: 'blob' });
-            const blob = await response.data;
-            return { filename: link.filename, blob };
+            try {
+              const response = await axios.get(link.url, {
+                responseType: 'blob',
+                validateStatus: (status) => status === 200, // Only accept 200 status code
+              });
+              const blob = response.data;
+              return { filename: link.filename, blob };
+            } catch (error) {
+              if (axios.isAxiosError(error)) {
+                // eslint-disable-next-line no-console
+                console.error(`Failed to fetch image from ${link.url}:`, error.message);
+                // You might want to show this error to the user or handle it differently
+              }
+              // You might want to continue with other links even if one fails
+              return null;
+            }
           })
         );
 
@@ -99,7 +113,9 @@ const MarkdownExtractContainer = () => {
         zip.file(filename + '_extracted.md', markdownContent);
 
         images.forEach((imageFile) => {
-          zip.file(imageFile.filename, imageFile.blob);
+          if (imageFile) {
+            zip.file(imageFile.filename, imageFile.blob);
+          }
         });
 
         const zipContent = await zip.generateAsync({ type: 'blob' });
