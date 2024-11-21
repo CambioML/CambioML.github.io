@@ -84,6 +84,7 @@ const MarkdownExtractContainer = () => {
       // Extract image links from markdown content
       const imageLinks = extractImageLinks(markdownContent);
 
+      // eslint-disable-next-line no-console
       // console.log('[MarkdownExtract] imageLinks:', imageLinks);
 
       if (imageLinks.length > 0) {
@@ -277,6 +278,7 @@ const MarkdownExtractContainer = () => {
       }
       const fileData = uploadResult.data;
 
+      // eslint-disable-next-line no-console
       if (!isProduction) console.log('[MarkdownExtract] jobParams:', jobParams);
       if (isProduction) {
         runAsyncRequestJob({
@@ -355,12 +357,14 @@ const MarkdownExtractContainer = () => {
         newResult[resultZoomModal.page] = newMarkdown;
         updateFileAtIndex(selectedFileIndex, 'extractResult', newResult);
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error('Error during extraction:', error);
       } finally {
         updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.DONE_EXTRACTING);
         updateQuota({ api_url: apiURL, userId, token, setTotalQuota, setRemainingQuota, handleError });
       }
     } else {
+      // eslint-disable-next-line no-console
       console.warn('Selected file is not valid or is missing.');
     }
   };
@@ -403,7 +407,7 @@ const MarkdownExtractContainer = () => {
             </div>
           )}
           {selectedFile?.extractState === ExtractState.DONE_EXTRACTING && (
-            <div className="flex flex-col items-start w-full h-full gap-4 p-4">
+            <div className="flex flex-col items-start w-full h-full gap-4 p-4 overflow-hidden">
               <ResultContainer extractResult={selectedFile.extractResult} />
               <div className="w-full h-fit flex gap-4">
                 <Button
