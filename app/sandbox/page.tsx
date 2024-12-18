@@ -1,15 +1,8 @@
 'use client';
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import PlaygroundPageContainer from '../components/playground/PlaygroundPageContainer';
 
 const PlaygroundPage = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    router.replace('/anyparser');
-  }, [router]);
-
-  return null;
+  return <PlaygroundPageContainer production={true} />;
 };
 
 export default PlaygroundPage;
