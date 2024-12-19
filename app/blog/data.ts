@@ -12,6 +12,18 @@ export interface SolutionType {
 
 export const solutions: SolutionType[] = [
   {
+    title: 'Unlocking The Power of Data: Transforming Healthcare with Document Parsing Solutions',
+    subtitle: '',
+    description:
+      'Document parsing is transforming healthcare by streamlining patient records management, insurance processing, and regulatory compliance. This comprehensive guide explores how advanced parsing solutions enhance healthcare operations, from managing electronic health records (EHR) to ensuring HIPAA compliance, while improving patient care quality and operational efficiency.',
+    url: '/blog/document-parsing-healthcare',
+    image: '/images/solutions/healthcare-cover-photo.png',
+    imageContain: true,
+    industries: [],
+    blog: true,
+    date: new Date('2024-11-22'),
+  },
+  {
     title: 'Drill AI: Revolutionizing Oil Drill Bit Efficiency While Ensuring Safety',
     subtitle: '',
     description:
