@@ -117,6 +117,7 @@ interface S3FileSource {
 export const PlaygroundTabs = {
   PLAIN_TEXT: 'Full Content',
   TABLE: 'Table Only',
+  KEY_VALUE_PAIR: 'Extract Key-Value Pairs',
 };
 
 export enum JobType {
