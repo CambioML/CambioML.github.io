@@ -8,18 +8,18 @@ dotenv.config({ path: './tests/.env' });
 const SIMILARITY_THRESHOLD = 85;
 
 async function login(page: Page, username: string, password: string) {
-  await page.goto('/sandbox');
+  await page.goto('/anyparser');
   await page.click('text=Login');
   await page.waitForURL(`https://${process.env.AUTH0_DOMAIN}/**`, { timeout: 5000 });
   await page.fill('input[name="username"]', username);
   await page.fill('input[name="password"]', password);
   await page.click('button[type="submit"]');
 
-  await page.waitForURL('**/sandbox', { timeout: 5000 });
+  await page.waitForURL('**/anyparser', { timeout: 5000 });
 }
 
 async function signup(page: Page, username: string, password: string) {
-  await page.goto('/sandbox');
+  await page.goto('/anyparser');
   await page.click('text=Login');
 
   await page.waitForURL(`https://${process.env.AUTH0_DOMAIN}/**`, { timeout: 5000 });
@@ -40,7 +40,7 @@ async function signup(page: Page, username: string, password: string) {
   await page.click('button[value="accept"]');
 
   // Wait for the final URL after acceptance
-  await page.waitForURL('**/sandbox', { timeout: 5000 });
+  await page.waitForURL('**/anyparser', { timeout: 5000 });
 }
 
 async function uploadFile(page: Page, file: TestFile, testFilename: string) {
