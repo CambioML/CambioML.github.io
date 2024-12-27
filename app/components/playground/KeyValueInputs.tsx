@@ -46,7 +46,11 @@ const RemoveButton = ({ onClick }: { onClick?: () => void }) => {
 
 const ExpandButton = ({ active, onClick }: { active: boolean, onClick: () => void }) => {
   return (
-    <button className="hover:bg-gray-100 p-1 rounded -mt-1" onClick={onClick}>
+    <button 
+      className="hover:bg-gray-100 p-1 rounded -mt-1" 
+      onClick={onClick} 
+      aria-label="Expand Key Description"
+    >
       <BiCaretRight className={`transition-all duration-300 ${active ? 'rotate-90' : ''}`} />
     </button>
   );

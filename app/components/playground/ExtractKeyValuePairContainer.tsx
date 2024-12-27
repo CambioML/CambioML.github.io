@@ -9,6 +9,7 @@ import CodeBlock from '../CodeBlock';
 import DocumentViewer from '../DocumentViewer';
 import KeyValueInputs from './KeyValueInputs';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
+import ExtractKeyValuePairTutorial from '../tutorials/ExtractKeyValuePairTutorial';
 
 const ExtractKeyValuePairContainer = () => {
   const { apiURL } = useProductionContext();
@@ -71,6 +72,7 @@ const ExtractKeyValuePairContainer = () => {
   return (
     <div className="h-full w-full pt-4 relative">
       <div className="w-[calc(90%-11rem)] h-full">
+        <ExtractKeyValuePairTutorial />
         {!extractedResult && selectedFile && (
           <DocumentViewer 
             fileType={selectedFile.file instanceof File ? selectedFile.file.type : 'text/plain'} 
