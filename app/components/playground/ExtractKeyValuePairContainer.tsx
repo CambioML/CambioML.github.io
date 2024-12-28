@@ -58,7 +58,6 @@ const downloadExtractedData = (formattedData: string, file?: PlaygroundFile['fil
 const ExtractKeyValuePairContainer = () => {
   const { apiURL, isProduction } = useProductionContext();
   const { selectedFileIndex, files, updateFileAtIndex, token, userId, clientId, addFilesFormData } = usePlaygroundStore();
-  const [loadingToastId, setLoadingToastId] = useState<string | undefined>();
 
   const selectedFile = useMemo(() => {
     if (selectedFileIndex !== null && files.length > 0) {
@@ -84,17 +83,11 @@ const ExtractKeyValuePairContainer = () => {
     if (!selectedFile) return;
 
     if (selectedFile.keyValueExtractState === ExtractState.EXTRACTING || selectedFile.keyValueExtractState === ExtractState.UPLOADING) {
-      if (!loadingToastId) {
-        const id = toast.loading('Extracting data...');
-        setLoadingToastId(id);
-      }
+      toast.loading('Extracting data...', { id: 'key-value-extracting-toast' });
     } else {
-      if (loadingToastId) {
-        toast.dismiss(loadingToastId);
-        setLoadingToastId(undefined);
-      }
+      toast.dismiss('key-value-extracting-toast');
     }
-  }, [selectedFile?.keyValueExtractState, loadingToastId]);
+  }, [selectedFile?.keyValueExtractState]);
 
   const handleSuccess = async (response: any) => {
     if (!response.data) {
