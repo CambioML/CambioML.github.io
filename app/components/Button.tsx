@@ -35,6 +35,7 @@ const Button = ({
         disabled:opacity-70
         disabled:cursor-not-allowed
         rounded-xl
+        whitespace-nowrap
         hover:bg-neutral-200
         hover:text-cambio-gray
         transition

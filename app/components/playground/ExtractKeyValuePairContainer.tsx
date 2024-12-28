@@ -1,9 +1,9 @@
 import { toast } from 'react-hot-toast';
 import { useEffect, useState } from 'react';
-import { ArrowLeft } from '@phosphor-icons/react';
+import { ArrowLeft, Download } from '@phosphor-icons/react';
 import { PlaygroundFile } from '@/app/types/PlaygroundTypes';
 import { useProductionContext } from './ProductionContext';
-import { runSyncTableExtract } from '@/app/actions/runSyncExtractKeyValue';
+import { runSyncExtractKeyValue } from '@/app/actions/runSyncExtractKeyValue';
 import Button from '../Button';
 import CodeBlock from '../CodeBlock';
 import DocumentViewer from '../DocumentViewer';
@@ -11,9 +11,25 @@ import KeyValueInputs from './KeyValueInputs';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 import ExtractKeyValuePairTutorial from '../tutorials/ExtractKeyValuePairTutorial';
 
+const downloadExtractedData = (data: string | null, file?: PlaygroundFile['file']) => {
+  if (!data || !file) return;
+  
+  const fileName = file instanceof File ? file.name : 'extracted_data';
+  const blob = new Blob([JSON.stringify(JSON.parse(data), null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  const baseFileName = fileName.replace(/\.[^/.]+$/, '');
+  a.download = `${baseFileName}_extracted.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+};
+
 const ExtractKeyValuePairContainer = () => {
   const { apiURL } = useProductionContext();
-  const { selectedFileIndex, files, updateFileAtIndex, token, userId } = usePlaygroundStore();
+  const { selectedFileIndex, files, updateFileAtIndex, token } = usePlaygroundStore();
   const [selectedFile, setSelectedFile] = useState<PlaygroundFile | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [extractedResult, setExtractedResult] = useState<string | null>(null);
@@ -38,8 +54,10 @@ const ExtractKeyValuePairContainer = () => {
       return;
     }
 
+    let loadingToast: string | undefined = undefined;
     try {
       setIsLoading(true);
+      loadingToast = toast.loading('Extracting data...');
       const file = selectedFile.file;
       let base64String = '';
       
@@ -50,8 +68,7 @@ const ExtractKeyValuePairContainer = () => {
         base64String = file;
       }
       
-      const result = await runSyncTableExtract({
-        userId,
+      const result = await runSyncExtractKeyValue({
         token,
         apiUrl: apiURL,
         base64String,
@@ -60,9 +77,11 @@ const ExtractKeyValuePairContainer = () => {
       });
 
       setExtractedResult(result);
+      toast.dismiss(loadingToast);
       toast.success('Extraction complete!');
     } catch (error) {
       toast.error('Extraction failed. Please try again.');
+      toast.dismiss(loadingToast);
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -71,7 +90,7 @@ const ExtractKeyValuePairContainer = () => {
 
   return (
     <div className="h-full w-full pt-4 relative">
-      <div className="w-[calc(90%-11rem)] h-full">
+      <div className="w-[calc(90%-11rem)] h-full overflow-auto overscroll-contain">
         <ExtractKeyValuePairTutorial />
         {!extractedResult && selectedFile && (
           <DocumentViewer 
@@ -80,16 +99,25 @@ const ExtractKeyValuePairContainer = () => {
           />
         )}
         {extractedResult && (
-          <div className="h-full">
+          <div className="pb-24">
             <CodeBlock 
               language="json" 
               code={typeof extractedResult === 'string' ? JSON.stringify(JSON.parse(extractedResult), null, 2) : JSON.stringify(extractedResult, null, 2)} 
               aria-label="Extraction Result"
             />
-            <div className="absolute bottom-4 left-4">
-              <Button label="Back to File" labelIcon={ArrowLeft} onClick={() => {
-                setExtractedResult(null);
-              }} />
+            <div className="absolute bottom-4 left-4 flex gap-2 w-fit">
+              <Button 
+                label="Back to File"
+                labelIcon={ArrowLeft}
+                onClick={() => {
+                  setExtractedResult(null);
+                }} 
+              />
+              <Button 
+                label="Download" 
+                labelIcon={Download} 
+                onClick={() => downloadExtractedData(extractedResult, selectedFile?.file)} 
+              />
             </div>
           </div>
         )}

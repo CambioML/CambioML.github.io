@@ -137,6 +137,7 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
     getValues,
     handleSubmit,
     setValue,
+    unregister,
     formState: { errors },
   } = useForm<FieldValues>();
   const [inputs, setInputs] = useState<string[]>([uuidv4()]);
@@ -163,8 +164,12 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
     if (position === -1) return;
     
     // Save the form values before removing
-    const keyValue = getValues(`input-${uuid}-key`) || '';
-    const descriptionValue = getValues(`input-${uuid}-description`) || '';
+    const keyValue = getValues(`${uuid}-key`) || '';
+    const descriptionValue = getValues(`${uuid}-description`) || '';
+    
+    // Unregister the form fields
+    unregister(`${uuid}-key`);
+    unregister(`${uuid}-description`);
     
     const removedData = {
       uuid,
@@ -187,7 +192,7 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
         <div className="flex items-center gap-2">
           <span>Input removed</span>
           <button
-            className="text-blue-500 hover:text-blue-700 font-medium"
+            className="text-blue-500 hover:text-blue-700 font-medium cursor-pointer"
             onClick={(e) => {
               // Prevent event bubbling
               e.stopPropagation();
@@ -202,8 +207,8 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
                 
                 // Restore the form values in the next render cycle
                 setTimeout(() => {
-                  setValue(`input-${removedData.uuid}-key`, removedData.values.key);
-                  setValue(`input-${removedData.uuid}-description`, removedData.values.description);
+                  setValue(`${removedData.uuid}-key`, removedData.values.key);
+                  setValue(`${removedData.uuid}-description`, removedData.values.description);
                 }, 0);
                 
                 setLastRemoved(null);
@@ -251,7 +256,7 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
     <div className="flex flex-col gap-4">
       <Button
         id="extract-key-value-btn"
-        label="Extract Key-Value"
+        label={isLoading ? "Extracting..." : "Extract Key-Value"}
         onClick={handleSubmit(extractButtonClickHandler)}
         disabled={isLoading}
         aria-label="Extract Key-Value Pairs"
@@ -262,7 +267,7 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
           {inputs.map((uuid) => (
             <Input 
               key={uuid}
-              id={`input-${uuid}`}
+              id={uuid}
               register={register}
               errors={errors}
               onAdd={addInput}
