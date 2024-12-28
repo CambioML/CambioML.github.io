@@ -51,6 +51,7 @@ export interface JobParams {
     vqaPageNumsFlag?: boolean;
     vqaTableOnlyFlag?: boolean;
     vqaChartOnlyFlag?: boolean;
+    vqaExtractInstruction?: Record<string, string>;
   };
   schemaInfo?: {
     dbSchema?: string[];

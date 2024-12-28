@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 import { BiPlus, BiMinus, BiCaretRight } from 'react-icons/bi';
 import toast from 'react-hot-toast';
 import { v4 as uuidv4 } from 'uuid';
 import Button from '../Button';
+import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 
 interface InputProps {
   id: string;
@@ -13,6 +14,7 @@ interface InputProps {
   onAdd?: () => void;
   onRemove?: () => void;
   canRemove?: boolean;
+  onInputChange: () => void;
 }
 
 interface KeyValueInputsProps {
@@ -63,6 +65,7 @@ const Input = ({
   onAdd,
   onRemove,
   canRemove = true,
+  onInputChange,
 }: InputProps) => {
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   return (
@@ -80,6 +83,7 @@ const Input = ({
           id={`${id}-key`}
           {...register(`${id}-key`, {
             required: true,
+            onChange: () => setTimeout(onInputChange, 0)
           })}
           placeholder="Key Name"
           type="text"
@@ -105,7 +109,9 @@ const Input = ({
         <div className={`transition-all duration-300 ${descriptionExpanded ? 'opacity-100 max-h-24' : 'opacity-0 max-h-0 overflow-hidden'}`}>
           <textarea
             id={`${id}-description`}
-            {...register(`${id}-description`)}
+            {...register(`${id}-description`, {
+              onChange: () => setTimeout(onInputChange, 0)
+            })}
             placeholder="(Optional) Define keys to enhance AnyParser's accuracy"
             rows={2}
             aria-label="Key Description"
@@ -132,6 +138,7 @@ const Input = ({
 };
 
 export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValueInputsProps) {
+  const { selectedFileIndex, files, updateFileAtIndex } = usePlaygroundStore();
   const {
     register,
     getValues,
@@ -139,21 +146,59 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
     setValue,
     unregister,
     formState: { errors },
-  } = useForm<FieldValues>();
+  } = useForm<FieldValues>({
+    shouldUnregister: true
+  });
   const [inputs, setInputs] = useState<string[]>([uuidv4()]);
-  const [lastRemoved, setLastRemoved] = useState<{
-    uuid: string,
-    position: number,
-    values: {
-      key: string,
-      description: string
-    }
-  } | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  // Load saved inputs when component mounts or file changes
+  useEffect(() => {
+    if (selectedFileIndex === null || !files[selectedFileIndex]?.keyValueInputs) return;
+    if (isInitialized) return;
+
+    const file = files[selectedFileIndex];
+    
+    // Clear existing inputs
+    inputs.forEach(uuid => {
+      unregister(`${uuid}-key`);
+      unregister(`${uuid}-description`);
+    });
+
+    // Create new UUIDs for each saved input
+    const newUuids = file.keyValueInputs.map(() => uuidv4());
+    setInputs(newUuids);
+
+    // Set form values in the next tick to ensure fields are registered
+    setTimeout(() => {
+      file.keyValueInputs.forEach((input, index) => {
+        setValue(`${newUuids[index]}-key`, input.key);
+        setValue(`${newUuids[index]}-description`, input.description);
+      });
+      setIsInitialized(true);
+    }, 0);
+  }, [selectedFileIndex, files]);
+
+  // Save to store whenever inputs change
+  const saveToStore = () => {
+    if (selectedFileIndex === null) return;
+    
+    const formValues = getValues();
+    const savedInputs = inputs.map(uuid => ({
+      key: formValues[`${uuid}-key`] || '',
+      description: formValues[`${uuid}-description`] || ''
+    }));
+
+    updateFileAtIndex(selectedFileIndex, 'keyValueInputs', savedInputs);
+  };
 
   const addInput = () => {
     if (inputs.length < 10) {
-      setInputs([...inputs, uuidv4()]);
+      const newUuid = uuidv4();
+      setInputs(prev => [...prev, newUuid]);
       toast.success('New input added');
+      // Save after adding new input
+      setTimeout(saveToStore, 0);
     } else {
       toast.error('Maximum 10 inputs allowed');
     }
@@ -164,8 +209,9 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
     if (position === -1) return;
     
     // Save the form values before removing
-    const keyValue = getValues(`${uuid}-key`) || '';
-    const descriptionValue = getValues(`${uuid}-description`) || '';
+    const formValues = getValues();
+    const keyValue = formValues[`${uuid}-key`] || '';
+    const descriptionValue = formValues[`${uuid}-description`] || '';
     
     // Unregister the form fields
     unregister(`${uuid}-key`);
@@ -180,9 +226,14 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
       }
     };
     
-    // Update states using functional updates to ensure correct order
-    setLastRemoved(removedData);
-    setInputs(currentInputs => currentInputs.filter(id => id !== uuid));
+    setInputs(currentInputs => {
+      const newInputs = currentInputs.filter(id => id !== uuid);
+      // Save after removing input
+      setTimeout(() => {
+        saveToStore();
+      }, 0);
+      return newInputs;
+    });
     
     // Dismiss any existing undo toasts
     toast.dismiss('undo-toast');
@@ -194,24 +245,24 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
           <button
             className="text-blue-500 hover:text-blue-700 font-medium cursor-pointer"
             onClick={(e) => {
-              // Prevent event bubbling
               e.stopPropagation();
               
               if (removedData) {
                 const insertPosition = Math.min(removedData.position, inputs.length);
-                setInputs(currentInputs => [
-                  ...currentInputs.slice(0, insertPosition),
-                  removedData.uuid,
-                  ...currentInputs.slice(insertPosition)
-                ]);
+                setInputs(currentInputs => {
+                  const newInputs = [
+                    ...currentInputs.slice(0, insertPosition),
+                    removedData.uuid,
+                    ...currentInputs.slice(insertPosition)
+                  ];
+                  setTimeout(() => {
+                    setValue(`${removedData.uuid}-key`, removedData.values.key);
+                    setValue(`${removedData.uuid}-description`, removedData.values.description);
+                    saveToStore();
+                  }, 0);
+                  return newInputs;
+                });
                 
-                // Restore the form values in the next render cycle
-                setTimeout(() => {
-                  setValue(`${removedData.uuid}-key`, removedData.values.key);
-                  setValue(`${removedData.uuid}-description`, removedData.values.description);
-                }, 0);
-                
-                setLastRemoved(null);
                 toast.dismiss(t.id);
                 toast.success('Remove undone');
               }
@@ -232,15 +283,12 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
     const extractInstruction: Record<string, string> = {};
     const formValues = getValues();
     
-    Object.keys(formValues).forEach(key => {
-      if (key.endsWith('-key')) {
-        const baseKey = key.replace('-key', '');
-        const keyValue = formValues[key];
-        const description = formValues[`${baseKey}-description`] || '';
-        
-        if (keyValue) {
-          extractInstruction[keyValue] = description;
-        }
+    inputs.forEach(uuid => {
+      const keyValue = formValues[`${uuid}-key`];
+      const description = formValues[`${uuid}-description`] || '';
+      
+      if (keyValue) {
+        extractInstruction[keyValue] = description || keyValue;
       }
     });
 
@@ -273,6 +321,7 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
               onAdd={addInput}
               onRemove={() => removeInput(uuid)}
               canRemove={inputs.length > 1}
+              onInputChange={saveToStore}
             />
           ))}
         </div>

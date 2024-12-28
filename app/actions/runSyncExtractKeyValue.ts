@@ -1,6 +1,4 @@
 import axios from 'axios';
-import getApiKeysForUser from './account/getApiKeysForUser';
-import { ApiKey } from '../hooks/useAccountStore';
 
 interface IParams {
   token: string;
