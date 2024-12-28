@@ -145,19 +145,25 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
     handleSubmit,
     setValue,
     unregister,
+    reset,
     formState: { errors },
   } = useForm<FieldValues>({
     shouldUnregister: true
   });
   const [inputs, setInputs] = useState<string[]>([uuidv4()]);
-  const [isInitialized, setIsInitialized] = useState(false);
+  const [prevFileIndex, setPrevFileIndex] = useState<number | null>(null);
 
-  // Load saved inputs when component mounts or file changes
+  // Load saved inputs when selectedFile changes
   useEffect(() => {
-    if (selectedFileIndex === null || !files[selectedFileIndex]?.keyValueInputs) return;
-    if (isInitialized) return;
-
+    if (selectedFileIndex === null) return;
+    if (selectedFileIndex === prevFileIndex) return; // Skip if same file
+    
+    setPrevFileIndex(selectedFileIndex);
     const file = files[selectedFileIndex];
+    const savedInputs = file?.keyValueInputs || [{ key: '', description: '' }];
+    
+    // Clear existing form data
+    reset();
     
     // Clear existing inputs
     inputs.forEach(uuid => {
@@ -166,16 +172,15 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
     });
 
     // Create new UUIDs for each saved input
-    const newUuids = file.keyValueInputs.map(() => uuidv4());
+    const newUuids = savedInputs.map(() => uuidv4());
     setInputs(newUuids);
 
     // Set form values in the next tick to ensure fields are registered
     setTimeout(() => {
-      file.keyValueInputs.forEach((input, index) => {
+      savedInputs.forEach((input, index) => {
         setValue(`${newUuids[index]}-key`, input.key);
         setValue(`${newUuids[index]}-description`, input.description);
       });
-      setIsInitialized(true);
     }, 0);
   }, [selectedFileIndex, files]);
 
