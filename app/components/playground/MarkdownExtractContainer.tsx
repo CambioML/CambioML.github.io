@@ -375,7 +375,7 @@ const MarkdownExtractContainer = () => {
             <div className="flex flex-col h-full justify-start items-center text-lg text-center gap-4 pt-[calc(20vh-120px)] lg:pt-[calc(30vh-120px)]">
               <div className="flex flex-col items-center justify-center">
                 <span id="extract-file-name">{filename}</span>
-                <div className="w-[200px] mt-2">
+                <div className="w-fit mt-2">
                   <Button
                     label="Extract Plain Text"
                     onClick={() => handleExtract()}
