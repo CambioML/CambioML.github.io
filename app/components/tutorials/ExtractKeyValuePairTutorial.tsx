@@ -28,25 +28,25 @@ const ExtractKeyValuePairTutorial = () => {
   }
 
   return (
-        <Joyride 
-          continuous
-          steps={steps} 
-          floaterProps={{
-              autoOpen: true,
-          }}
-          styles={{
-            options: {
-              primaryColor: 'var(--cambio-gray)',
-            },
-          }}
-          disableOverlay 
-          disableScrolling
-          callback={({ status }) => {
-            if (['finished', 'skipped'].includes(status)) {
-              handleTourEnd();
-            }
-          }}
-        />
+    <Joyride
+      continuous
+      steps={steps}
+      floaterProps={{
+        autoOpen: true,
+      }}
+      styles={{
+        options: {
+          primaryColor: 'var(--cambio-gray)',
+        },
+      }}
+      disableOverlay
+      disableScrolling
+      callback={({ status }) => {
+        if (['finished', 'skipped'].includes(status)) {
+          handleTourEnd();
+        }
+      }}
+    />
   );
 };
 

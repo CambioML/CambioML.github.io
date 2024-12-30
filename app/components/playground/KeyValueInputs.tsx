@@ -24,11 +24,7 @@ interface KeyValueInputsProps {
 
 const AddButton = ({ onClick }: { onClick?: () => void }) => {
   return (
-    <button 
-      className="border hover:bg-gray-100 p-1 rounded" 
-      onClick={onClick}
-      aria-label="Add Key-Value Pair"
-    >
+    <button className="border hover:bg-gray-100 p-1 rounded" onClick={onClick} aria-label="Add Key-Value Pair">
       <BiPlus size={12} />
     </button>
   );
@@ -36,37 +32,21 @@ const AddButton = ({ onClick }: { onClick?: () => void }) => {
 
 const RemoveButton = ({ onClick }: { onClick?: () => void }) => {
   return (
-    <button 
-      className="border hover:bg-gray-100 p-1 rounded" 
-      onClick={onClick}
-      aria-label="Remove Key-Value Pair"
-    >
+    <button className="border hover:bg-gray-100 p-1 rounded" onClick={onClick} aria-label="Remove Key-Value Pair">
       <BiMinus size={12} />
     </button>
   );
 };
 
-const ExpandButton = ({ active, onClick }: { active: boolean, onClick: () => void }) => {
+const ExpandButton = ({ active, onClick }: { active: boolean; onClick: () => void }) => {
   return (
-    <button 
-      className="hover:bg-gray-100 p-1 rounded -mt-1" 
-      onClick={onClick} 
-      aria-label="Expand Key Description"
-    >
+    <button className="hover:bg-gray-100 p-1 rounded -mt-1" onClick={onClick} aria-label="Expand Key Description">
       <BiCaretRight className={`transition-all duration-300 ${active ? 'rotate-90' : ''}`} />
     </button>
   );
 };
 
-const Input = ({
-  id,
-  errors,
-  register,
-  onAdd,
-  onRemove,
-  canRemove = true,
-  onInputChange,
-}: InputProps) => {
+const Input = ({ id, errors, register, onAdd, onRemove, canRemove = true, onInputChange }: InputProps) => {
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   return (
     <div className="flex min-h-12">
@@ -75,7 +55,12 @@ const Input = ({
         {canRemove && <RemoveButton onClick={onRemove} />}
       </div>
       <div className="flex flex-col items-center">
-        <ExpandButton onClick={() => {setDescriptionExpanded(!descriptionExpanded)}} active={descriptionExpanded} />
+        <ExpandButton
+          onClick={() => {
+            setDescriptionExpanded(!descriptionExpanded);
+          }}
+          active={descriptionExpanded}
+        />
         <div className="w-0.5 bg-cambio-gray transition-all duration-300 h-4/5"></div>
       </div>
       <div className="w-full relative flex flex-col gap-1 justify-center">
@@ -83,7 +68,7 @@ const Input = ({
           id={`${id}-key`}
           {...register(`${id}-key`, {
             required: true,
-            onChange: () => setTimeout(onInputChange, 0)
+            onChange: () => setTimeout(onInputChange, 0),
           })}
           placeholder="Key Name"
           type="text"
@@ -106,11 +91,13 @@ const Input = ({
             {errors[`${id}-key`]?.message?.toString() || 'Key name is required'}
           </span>
         )}
-        <div className={`transition-all duration-300 ${descriptionExpanded ? 'opacity-100 max-h-24' : 'opacity-0 max-h-0 overflow-hidden'}`}>
+        <div
+          className={`transition-all duration-300 ${descriptionExpanded ? 'opacity-100 max-h-24' : 'opacity-0 max-h-0 overflow-hidden'}`}
+        >
           <textarea
             id={`${id}-description`}
             {...register(`${id}-description`, {
-              onChange: () => setTimeout(onInputChange, 0)
+              onChange: () => setTimeout(onInputChange, 0),
             })}
             placeholder="(Optional) Define keys to enhance AnyParser's accuracy"
             rows={2}
@@ -148,7 +135,7 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
     reset,
     formState: { errors },
   } = useForm<FieldValues>({
-    shouldUnregister: true
+    shouldUnregister: true,
   });
   const [inputs, setInputs] = useState<string[]>([uuidv4()]);
   const [prevFileIndex, setPrevFileIndex] = useState<number | null>(null);
@@ -157,16 +144,16 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
   useEffect(() => {
     if (selectedFileIndex === null) return;
     if (selectedFileIndex === prevFileIndex) return; // Skip if same file
-    
+
     setPrevFileIndex(selectedFileIndex);
     const file = files[selectedFileIndex];
     const savedInputs = file?.keyValueInputs || [{ key: '', description: '' }];
-    
+
     // Clear existing form data
     reset();
-    
+
     // Clear existing inputs
-    inputs.forEach(uuid => {
+    inputs.forEach((uuid) => {
       unregister(`${uuid}-key`);
       unregister(`${uuid}-description`);
     });
@@ -187,11 +174,11 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
   // Save to store whenever inputs change
   const saveToStore = () => {
     if (selectedFileIndex === null) return;
-    
+
     const formValues = getValues();
-    const savedInputs = inputs.map(uuid => ({
+    const savedInputs = inputs.map((uuid) => ({
       key: formValues[`${uuid}-key`] || '',
-      description: formValues[`${uuid}-description`] || ''
+      description: formValues[`${uuid}-description`] || '',
     }));
 
     updateFileAtIndex(selectedFileIndex, 'keyValueInputs', savedInputs);
@@ -200,7 +187,7 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
   const addInput = () => {
     if (inputs.length < 10) {
       const newUuid = uuidv4();
-      setInputs(prev => [...prev, newUuid]);
+      setInputs((prev) => [...prev, newUuid]);
       toast.success('New input added');
       // Save after adding new input
       setTimeout(saveToStore, 0);
@@ -212,37 +199,37 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
   const removeInput = (uuid: string) => {
     const position = inputs.indexOf(uuid);
     if (position === -1) return;
-    
+
     // Save the form values before removing
     const formValues = getValues();
     const keyValue = formValues[`${uuid}-key`] || '';
     const descriptionValue = formValues[`${uuid}-description`] || '';
-    
+
     // Unregister the form fields
     unregister(`${uuid}-key`);
     unregister(`${uuid}-description`);
-    
+
     const removedData = {
       uuid,
       position,
       values: {
         key: keyValue,
-        description: descriptionValue
-      }
+        description: descriptionValue,
+      },
     };
-    
-    setInputs(currentInputs => {
-      const newInputs = currentInputs.filter(id => id !== uuid);
+
+    setInputs((currentInputs) => {
+      const newInputs = currentInputs.filter((id) => id !== uuid);
       // Save after removing input
       setTimeout(() => {
         saveToStore();
       }, 0);
       return newInputs;
     });
-    
+
     // Dismiss any existing undo toasts
     toast.dismiss('undo-toast');
-    
+
     toast.success(
       (t) => (
         <div className="flex items-center gap-2">
@@ -251,14 +238,14 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
             className="text-blue-500 hover:text-blue-700 font-medium cursor-pointer"
             onClick={(e) => {
               e.stopPropagation();
-              
+
               if (removedData) {
                 const insertPosition = Math.min(removedData.position, inputs.length);
-                setInputs(currentInputs => {
+                setInputs((currentInputs) => {
                   const newInputs = [
                     ...currentInputs.slice(0, insertPosition),
                     removedData.uuid,
-                    ...currentInputs.slice(insertPosition)
+                    ...currentInputs.slice(insertPosition),
                   ];
                   setTimeout(() => {
                     setValue(`${removedData.uuid}-key`, removedData.values.key);
@@ -267,7 +254,7 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
                   }, 0);
                   return newInputs;
                 });
-                
+
                 toast.dismiss(t.id);
                 toast.success('Remove undone');
               }
@@ -277,9 +264,9 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
           </button>
         </div>
       ),
-      { 
+      {
         duration: 5000,
-        id: 'undo-toast'
+        id: 'undo-toast',
       }
     );
   };
@@ -287,11 +274,11 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
   const getExtractInstructions = () => {
     const extractInstruction: Record<string, string> = {};
     const formValues = getValues();
-    
-    inputs.forEach(uuid => {
+
+    inputs.forEach((uuid) => {
       const keyValue = formValues[`${uuid}-key`];
       const description = formValues[`${uuid}-description`] || '';
-      
+
       if (keyValue) {
         extractInstruction[keyValue] = description || keyValue;
       }
@@ -309,7 +296,7 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
     <div className="flex flex-col gap-4">
       <Button
         id="extract-key-value-btn"
-        label={isLoading ? "Extracting..." : "Extract Key-Value"}
+        label={isLoading ? 'Extracting...' : 'Extract Key-Value'}
         onClick={handleSubmit(extractButtonClickHandler)}
         disabled={isLoading}
         aria-label="Extract Key-Value Pairs"
@@ -318,7 +305,7 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
       <div className="h-[calc(80vh-240px)] overscroll-contain overflow-y-auto">
         <div className="flex flex-col gap-2 p-2">
           {inputs.map((uuid) => (
-            <Input 
+            <Input
               key={uuid}
               id={uuid}
               register={register}

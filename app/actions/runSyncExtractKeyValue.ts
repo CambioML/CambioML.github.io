@@ -20,7 +20,7 @@ export const runSyncExtractKeyValue = async ({
     file_type: 'pdf',
     extract_args: {
       extract_instruction: extractInstruction,
-    }
+    },
   };
 
   const config = {

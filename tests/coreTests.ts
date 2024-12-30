@@ -160,22 +160,26 @@ async function extractKeyValuePair(page: Page, file: TestFile, testFilename: str
   // Fill in the key-value input fields
   const firstInputKey = await page.waitForSelector('input[id^="input-"][id$="-key"][aria-label="Key Name Input"]');
   await firstInputKey?.fill('Total Amount');
-  
+
   // Optional: Add description for better extraction
-  const firstInputDesc = await page.waitForSelector('textarea[id^="input-"][id$="-description"][aria-label="Key Description"]');
+  const firstInputDesc = await page.waitForSelector(
+    'textarea[id^="input-"][id$="-description"][aria-label="Key Description"]'
+  );
   await firstInputDesc?.fill('The total monetary value or sum');
 
   // Add another key-value pair using the add button
   await page.click('button[aria-label="Add Key-Value Pair"]');
-  const secondInputKey = await page.waitForSelector('input[id^="input-"][id$="-key"][aria-label="Key Name Input"]:nth-of-type(2)');
+  const secondInputKey = await page.waitForSelector(
+    'input[id^="input-"][id$="-key"][aria-label="Key Name Input"]:nth-of-type(2)'
+  );
   await secondInputKey?.fill('Date');
-  
+
   // Extract key-value pairs
   await page.click('button[aria-label="Extract Key-Value Pairs"]');
-  
+
   // Wait for the result container
   await page.waitForSelector('#raw-extract-result[aria-label="Extraction Result"]');
-  
+
   const rawExtractResult = await page.textContent('#raw-extract-result');
   expect(rawExtractResult).not.toBeNull();
 
@@ -196,9 +200,9 @@ async function extractKeyValuePair(page: Page, file: TestFile, testFilename: str
   // we'll verify that the extraction produced valid JSON with key-value pairs
   expect(typeof parsedResult).toBe('object');
   expect(parsedResult).not.toBeNull();
-  
+
   // Log the extracted key-value pairs for debugging
   console.log('Key-Value Extraction Result:', JSON.stringify(parsedResult, null, 2));
 }
-  
+
 export { login, signup, uploadFile, extractFileWithPII, extractFileWithoutPii, extractKeyValuePair };

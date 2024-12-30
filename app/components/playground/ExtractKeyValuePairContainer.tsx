@@ -16,7 +16,7 @@ import ExtractKeyValuePairTutorial from '../tutorials/ExtractKeyValuePairTutoria
 
 const downloadExtractedData = (formattedData: string, file?: PlaygroundFile['file']) => {
   if (!formattedData) return;
-  
+
   const fileName = file instanceof File ? file.name : 'extracted_data';
   const blob = new Blob([formattedData], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
@@ -33,7 +33,8 @@ const downloadExtractedData = (formattedData: string, file?: PlaygroundFile['fil
 const ExtractKeyValuePairContainer = () => {
   const [hideResult, setHideResult] = useState(false);
   const { apiURL, isProduction } = useProductionContext();
-  const { selectedFileIndex, files, updateFileAtIndex, token, userId, clientId, addFilesFormData } = usePlaygroundStore();
+  const { selectedFileIndex, files, updateFileAtIndex, token, userId, clientId, addFilesFormData } =
+    usePlaygroundStore();
 
   const selectedFile = useMemo(() => {
     if (selectedFileIndex !== null && files.length > 0) {
@@ -44,7 +45,10 @@ const ExtractKeyValuePairContainer = () => {
   useEffect(() => {
     if (!selectedFile) return;
 
-    if (selectedFile.extractKeyValueState === ExtractState.EXTRACTING || selectedFile.extractKeyValueState === ExtractState.UPLOADING) {
+    if (
+      selectedFile.extractKeyValueState === ExtractState.EXTRACTING ||
+      selectedFile.extractKeyValueState === ExtractState.UPLOADING
+    ) {
       toast.loading('Extracting data...', { id: 'key-value-extracting-toast' });
     } else {
       toast.dismiss('key-value-extracting-toast');
@@ -53,7 +57,9 @@ const ExtractKeyValuePairContainer = () => {
 
   const handleSuccess = async (response: any) => {
     if (!response.data) {
-      toast.error(`${selectedFile?.file instanceof File ? selectedFile.file.name : 'File'}: Received undefined result. Please try again.`);
+      toast.error(
+        `${selectedFile?.file instanceof File ? selectedFile.file.name : 'File'}: Received undefined result. Please try again.`
+      );
       updateFileAtIndex(selectedFileIndex, 'extractKeyValueState', ExtractState.READY);
       return;
     }
@@ -104,8 +110,8 @@ const ExtractKeyValuePairContainer = () => {
 
       const jobParams: JobParams = {
         vqaProcessorArgs: {
-          vqaExtractInstruction: extractInstruction
-        }
+          vqaExtractInstruction: extractInstruction,
+        },
       };
 
       // Upload file and get presigned url and metadata
@@ -116,7 +122,7 @@ const ExtractKeyValuePairContainer = () => {
         file: file as File,
         process_type: ProcessType.EXTRACT_KEY_VALUE,
         extractArgs: {
-          extractInstruction
+          extractInstruction,
         },
         addFilesFormData,
       });
@@ -153,7 +159,6 @@ const ExtractKeyValuePairContainer = () => {
       // Run the async job based on environment
       const runJob = isProduction ? runAsyncRequestJob : runPreprodAsyncRequestJob;
       await runJob(jobConfig);
-
     } catch (error) {
       toast.error('Extraction failed. Please try again.');
       console.error(error);
@@ -173,38 +178,26 @@ const ExtractKeyValuePairContainer = () => {
         <ExtractKeyValuePairTutorial />
         {fileUrl && (hideResult || !selectedFile?.extractKeyValueResult) && (
           <div>
-            <DocumentViewer 
+            <DocumentViewer
               fileType={selectedFile?.file instanceof File ? selectedFile.file.type : 'pdf'}
               fileUrl={fileUrl}
             />
             {selectedFile?.extractKeyValueResult && (
               <div className="absolute bottom-4 left-4">
-                <Button 
-                  label="Back to Result"
-                  labelIcon={ArrowLeft}
-                  onClick={() => setHideResult(false)} 
-                />
+                <Button label="Back to Result" labelIcon={ArrowLeft} onClick={() => setHideResult(false)} />
               </div>
             )}
           </div>
         )}
         {!hideResult && selectedFile?.extractKeyValueResult && (
           <div className="pb-24">
-            <CodeBlock 
-              language="json" 
-              code={selectedFile?.extractKeyValueResult}
-              aria-label="Extraction Result"
-            />
+            <CodeBlock language="json" code={selectedFile?.extractKeyValueResult} aria-label="Extraction Result" />
             <div className="absolute bottom-4 left-4 flex gap-2 w-fit">
-              <Button 
-                label="Back to File"
-                labelIcon={ArrowLeft}
-                onClick={() => setHideResult(true)} 
-              />
-              <Button 
-                label="Download" 
-                labelIcon={Download} 
-                onClick={() => downloadExtractedData(selectedFile?.extractKeyValueResult, selectedFile?.file)} 
+              <Button label="Back to File" labelIcon={ArrowLeft} onClick={() => setHideResult(true)} />
+              <Button
+                label="Download"
+                labelIcon={Download}
+                onClick={() => downloadExtractedData(selectedFile?.extractKeyValueResult, selectedFile?.file)}
               />
             </div>
           </div>
@@ -213,9 +206,12 @@ const ExtractKeyValuePairContainer = () => {
       <div className="h-[calc(100%-1rem)] min-w-60 max-w-72 w-[18vw] p-4 rounded-2xl shadow-[0px_0px_4px_2px_rgba(0,_0,_0,_0.1)] absolute top-4 right-0">
         <div className="w-full max-h-full overflow-hidden flex flex-col gap-4">
           <div className="flex flex-col gap-2">
-            <KeyValueInputs 
+            <KeyValueInputs
               onSubmit={onSubmit}
-              isLoading={selectedFile?.extractKeyValueState === ExtractState.EXTRACTING || selectedFile?.extractKeyValueState === ExtractState.UPLOADING}
+              isLoading={
+                selectedFile?.extractKeyValueState === ExtractState.EXTRACTING ||
+                selectedFile?.extractKeyValueState === ExtractState.UPLOADING
+              }
             />
           </div>
         </div>

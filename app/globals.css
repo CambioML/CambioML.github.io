@@ -6,14 +6,13 @@
   /* colors */
   --red: #ff5470;
   --cambio-blue: #d2ecf9;
-  --cambio-blue-0: #00A6FB;
-  --cambio-blue-1:#0582CA;
+  --cambio-blue-0: #00a6fb;
+  --cambio-blue-1: #0582ca;
   --cambio-blue-2: #006494;
-  --cambio-blue-3:#003554;
+  --cambio-blue-3: #003554;
   --cambio-blue-4: #051923;
   --cambio-gray: #313131;
-  --cambio-primary: #D1A3A4;
-
+  --cambio-primary: #d1a3a4;
 }
 
 html,
@@ -82,7 +81,8 @@ th {
   background-color: #ccc;
 }
 
-.mapped-table th, .mapped-table td{
+.mapped-table th,
+.mapped-table td {
   background-color: #ffffff;
 }
 .mapped-table {
@@ -124,8 +124,6 @@ th {
   background-color: #f3f3f3;
   z-index: 1;
 }
-
-
 
 .border-none td {
   border: 1px solid #ddd;
@@ -200,8 +198,3 @@ th {
   scrollbar-width: thin;
   scrollbar-color: #888 #f1f1f1;
 }
-
-
-
-
-
