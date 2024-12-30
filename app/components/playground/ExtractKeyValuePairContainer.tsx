@@ -1,43 +1,18 @@
 import { toast } from 'react-hot-toast';
-import { useEffect, useState, useMemo } from 'react';
-import { ArrowLeft, Download } from '@phosphor-icons/react';
-import { PlaygroundFile, ExtractState, ProcessType, JobType } from '@/app/types/PlaygroundTypes';
+import { useEffect, useMemo, useState } from 'react';
 import { useProductionContext } from './ProductionContext';
+import { ArrowLeft, Download } from '@phosphor-icons/react';
 import { uploadFile } from '@/app/actions/uploadFile';
-import { runAsyncRequestJob } from '@/app/actions/runAsyncRequestJob';
-import { runAsyncRequestJob as runPreprodAsyncRequestJob } from '@/app/actions/preprod/runAsyncRequestJob';
 import { JobParams } from '@/app/actions/apiInterface';
+import { runAsyncRequestJob } from '@/app/actions/runAsyncRequestJob';
+import { PlaygroundFile, ExtractState, ProcessType, JobType } from '@/app/types/PlaygroundTypes';
+import { runAsyncRequestJob as runPreprodAsyncRequestJob } from '@/app/actions/preprod/runAsyncRequestJob';
 import Button from '../Button';
 import CodeBlock from '../CodeBlock';
 import DocumentViewer from '../DocumentViewer';
 import KeyValueInputs from './KeyValueInputs';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 import ExtractKeyValuePairTutorial from '../tutorials/ExtractKeyValuePairTutorial';
-
-const isEmptyExtractResult = (result?: string[] | null): boolean => {
-  if (!result) return true;
-  if (result.length === 0) return true;
-  if (result.length === 1 && result[0] === '') return true;
-  return false;
-};
-
-const getFileUrl = (file: PlaygroundFile) => {
-  if (!file.file) return '';
-  if (typeof file.file === 'string') return file.file;
-  return URL.createObjectURL(file.file);
-};
-
-const shouldShowDocumentViewer = (file: PlaygroundFile | null): boolean => {
-  return !!file && isEmptyExtractResult(file.extractResult);
-};
-
-const getDocumentViewerProps = (file: PlaygroundFile | null) => {
-  if (!file) return null;
-  return {
-    fileType: file.file instanceof File ? file.file.type : 'text/plain',
-    fileUrl: getFileUrl(file)
-  };
-};
 
 const downloadExtractedData = (formattedData: string, file?: PlaygroundFile['file']) => {
   if (!formattedData) return;
@@ -56,6 +31,7 @@ const downloadExtractedData = (formattedData: string, file?: PlaygroundFile['fil
 };
 
 const ExtractKeyValuePairContainer = () => {
+  const [hideResult, setHideResult] = useState(false);
   const { apiURL, isProduction } = useProductionContext();
   const { selectedFileIndex, files, updateFileAtIndex, token, userId, clientId, addFilesFormData } = usePlaygroundStore();
 
@@ -63,40 +39,30 @@ const ExtractKeyValuePairContainer = () => {
     if (selectedFileIndex !== null && files.length > 0) {
       return files[selectedFileIndex];
     }
-    return null;
   }, [selectedFileIndex, files]);
-
-  // Memoize document viewer state to prevent re-renders when key-value inputs change
-  const documentViewerState = useMemo(() => {
-    if (!selectedFile) return null;
-
-    const shouldShow = shouldShowDocumentViewer(selectedFile);
-    if (!shouldShow) return null;
-
-    return {
-      shouldShow,
-      props: getDocumentViewerProps(selectedFile)
-    };
-  }, [selectedFile?.file, selectedFile?.extractResult]); // Only depend on file and extractResult
 
   useEffect(() => {
     if (!selectedFile) return;
 
-    if (selectedFile.keyValueExtractState === ExtractState.EXTRACTING || selectedFile.keyValueExtractState === ExtractState.UPLOADING) {
+    if (selectedFile.extractKeyValueState === ExtractState.EXTRACTING || selectedFile.extractKeyValueState === ExtractState.UPLOADING) {
       toast.loading('Extracting data...', { id: 'key-value-extracting-toast' });
     } else {
       toast.dismiss('key-value-extracting-toast');
     }
-  }, [selectedFile?.keyValueExtractState]);
+  }, [selectedFile?.extractKeyValueState]);
 
   const handleSuccess = async (response: any) => {
     if (!response.data) {
       toast.error(`${selectedFile?.file instanceof File ? selectedFile.file.name : 'File'}: Received undefined result. Please try again.`);
-      updateFileAtIndex(selectedFileIndex, 'keyValueExtractState', ExtractState.READY);
+      updateFileAtIndex(selectedFileIndex, 'extractKeyValueState', ExtractState.READY);
       return;
     }
-    updateFileAtIndex(selectedFileIndex, 'extractResult', response.data);
-    updateFileAtIndex(selectedFileIndex, 'keyValueExtractState', ExtractState.DONE_EXTRACTING);
+
+    const formattedResult = JSON.stringify(response.data.json[0], null, 2);
+
+    updateFileAtIndex(selectedFileIndex, 'extractKeyValueResult', formattedResult);
+    updateFileAtIndex(selectedFileIndex, 'extractKeyValueState', ExtractState.DONE_EXTRACTING);
+
     toast.success('Extraction complete!');
   };
 
@@ -104,20 +70,20 @@ const ExtractKeyValuePairContainer = () => {
     if (error.response) {
       if (error.response.status === 429) {
         toast.error('Extract limit reached.');
-        updateFileAtIndex(selectedFileIndex, 'keyValueExtractState', ExtractState.LIMIT_REACHED);
+        updateFileAtIndex(selectedFileIndex, 'extractKeyValueState', ExtractState.LIMIT_REACHED);
       } else {
         toast.error('Extraction failed. Please try again.');
-        updateFileAtIndex(selectedFileIndex, 'keyValueExtractState', ExtractState.READY);
+        updateFileAtIndex(selectedFileIndex, 'extractKeyValueState', ExtractState.READY);
       }
     } else {
       toast.error('Error during extraction. Please try again.');
-      updateFileAtIndex(selectedFileIndex, 'keyValueExtractState', ExtractState.READY);
+      updateFileAtIndex(selectedFileIndex, 'extractKeyValueState', ExtractState.READY);
     }
     console.error(error);
   };
 
   const handleTimeout = () => {
-    updateFileAtIndex(selectedFileIndex, 'keyValueExtractState', ExtractState.READY);
+    updateFileAtIndex(selectedFileIndex, 'extractKeyValueState', ExtractState.READY);
     toast.error('Extract request timed out. Please try again.');
   };
 
@@ -132,9 +98,8 @@ const ExtractKeyValuePairContainer = () => {
       return;
     }
 
-    let loadingToast: string | undefined = undefined;
     try {
-      updateFileAtIndex(selectedFileIndex, 'keyValueExtractState', ExtractState.UPLOADING);
+      updateFileAtIndex(selectedFileIndex, 'extractKeyValueState', ExtractState.UPLOADING);
       const file = selectedFile.file;
 
       const jobParams: JobParams = {
@@ -158,12 +123,12 @@ const ExtractKeyValuePairContainer = () => {
 
       if (uploadResult instanceof Error) {
         toast.error('Error uploading file. Please try again.');
-        updateFileAtIndex(selectedFileIndex, 'keyValueExtractState', ExtractState.READY);
+        updateFileAtIndex(selectedFileIndex, 'extractKeyValueState', ExtractState.READY);
         return;
       }
 
       const fileData = uploadResult.data;
-      updateFileAtIndex(selectedFileIndex, 'keyValueExtractState', ExtractState.EXTRACTING);
+      updateFileAtIndex(selectedFileIndex, 'extractKeyValueState', ExtractState.EXTRACTING);
 
       // Common job parameters
       const jobConfig = {
@@ -192,61 +157,54 @@ const ExtractKeyValuePairContainer = () => {
     } catch (error) {
       toast.error('Extraction failed. Please try again.');
       console.error(error);
-      updateFileAtIndex(selectedFileIndex, 'keyValueExtractState', ExtractState.READY);
+      updateFileAtIndex(selectedFileIndex, 'extractKeyValueState', ExtractState.READY);
     }
   };
 
-  const formattedExtractResult = useMemo(() => {
-    if (!selectedFile || selectedFile.extractResult === null) return '';
-    if (JSON.stringify(selectedFile?.extractResult) === '[""]') return '';
-    
-    try {
-      const content = typeof selectedFile.extractResult === 'string'
-        ? JSON.parse(selectedFile.extractResult)
-        : selectedFile.extractResult;
-
-      // The structure is always { json: [...] }
-      if (!content.json || !Array.isArray(content.json)) {
-        console.error('Invalid extract result structure:', content);
-        return '';
-      }
-
-      return JSON.stringify(content.json[0], null, 2);
-    } catch (error) {
-      console.error('Error formatting extract result:', error);
-      return '';
-    }
-  }, [selectedFile?.extractResult]);
-
+  const fileUrl = useMemo(() => {
+    if (!selectedFile?.file) return '';
+    if (typeof selectedFile.file === 'string') return selectedFile.file;
+    return URL.createObjectURL(selectedFile.file);
+  }, [selectedFile?.file]);
 
   return (
     <div className="h-full w-full pt-4 relative">
       <div className="w-[calc(90%-11rem)] h-full overflow-auto overscroll-contain">
         <ExtractKeyValuePairTutorial />
-        {documentViewerState?.shouldShow && (
-          <DocumentViewer 
-            {...documentViewerState.props!}
-          />
+        {fileUrl && (hideResult || !selectedFile?.extractKeyValueResult) && (
+          <div>
+            <DocumentViewer 
+              fileType={selectedFile?.file instanceof File ? selectedFile.file.type : 'pdf'}
+              fileUrl={fileUrl}
+            />
+            {selectedFile?.extractKeyValueResult && (
+              <div className="absolute bottom-4 left-4">
+                <Button 
+                  label="Back to Result"
+                  labelIcon={ArrowLeft}
+                  onClick={() => setHideResult(false)} 
+                />
+              </div>
+            )}
+          </div>
         )}
-        {selectedFile?.extractResult && !isEmptyExtractResult(selectedFile?.extractResult) && (
+        {!hideResult && selectedFile?.extractKeyValueResult && (
           <div className="pb-24">
             <CodeBlock 
               language="json" 
-              code={formattedExtractResult}
+              code={selectedFile?.extractKeyValueResult}
               aria-label="Extraction Result"
             />
             <div className="absolute bottom-4 left-4 flex gap-2 w-fit">
               <Button 
                 label="Back to File"
                 labelIcon={ArrowLeft}
-                onClick={() => {
-                  updateFileAtIndex(selectedFileIndex, 'extractResult', []);
-                }} 
+                onClick={() => setHideResult(true)} 
               />
               <Button 
                 label="Download" 
                 labelIcon={Download} 
-                onClick={() => downloadExtractedData(formattedExtractResult, selectedFile?.file)} 
+                onClick={() => downloadExtractedData(selectedFile?.extractKeyValueResult, selectedFile?.file)} 
               />
             </div>
           </div>
@@ -257,7 +215,7 @@ const ExtractKeyValuePairContainer = () => {
           <div className="flex flex-col gap-2">
             <KeyValueInputs 
               onSubmit={onSubmit}
-              isLoading={selectedFile?.keyValueExtractState === ExtractState.EXTRACTING || selectedFile?.keyValueExtractState === ExtractState.UPLOADING}
+              isLoading={selectedFile?.extractKeyValueState === ExtractState.EXTRACTING || selectedFile?.extractKeyValueState === ExtractState.UPLOADING}
             />
           </div>
         </div>

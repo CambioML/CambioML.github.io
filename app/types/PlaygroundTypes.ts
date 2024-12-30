@@ -63,6 +63,7 @@ export interface PlaygroundFile {
   file: File | string;
   extractResult: QueryResult;
   qaResult: QAResult | null;
+  extractKeyValueResult: string;
   tableExtractResult: string[];
   tableMdExtractResult: ExtractedMDTable[];
   tableMappedDataRows: string[][];
@@ -82,7 +83,7 @@ export interface PlaygroundFile {
   extractState: ExtractState;
   instructionExtractState: ExtractState;
   tableMdExtractState: ExtractState;
-  keyValueExtractState: ExtractState;
+  extractKeyValueState: ExtractState;
   extractTab: ExtractTab;
   tableTab: TableTab;
   qaState: TransformState;

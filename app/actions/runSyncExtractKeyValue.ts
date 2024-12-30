@@ -30,12 +30,12 @@ export const runSyncExtractKeyValue = async ({
     },
   };
 
-  const keyValueExtractResponse = await axios.post(extractAPI, params, config);
+  const extractKeyValueResponse = await axios.post(extractAPI, params, config);
 
-  if (keyValueExtractResponse.status !== 200) {
+  if (extractKeyValueResponse.status !== 200) {
     throw new Error('Failed to extract key value pairs');
   }
 
-  const json = keyValueExtractResponse.data.json[0];
+  const json = extractKeyValueResponse.data.json[0];
   return json;
 };
