@@ -34,19 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <head>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
-        <script>
-        (function(d, w, c) {
-            w.AppUrl = 'chatbot/9678c337-11d6-4436-a6f9-4c881a003549-342615291/b9eaa217-4994-444f-9806-da156a982bca?mode=embed';
-            w.themeColor = '#001f3f';
-            var s = d.createElement('script');
-            w[c] = w[c] || function() {
-                (w[c].q = w[c].q || []).push(arguments);
-            };
-            s.async = true;
-            s.src = 'https://script.epsilla.com/epsilla.js';
-            if (d.head) d.head.appendChild(s);
-        })(document, window, 'Epsilla');
-        </script>
+
       </head>
 
       <PHProvider>
