@@ -64,7 +64,7 @@ const ExtractKeyValuePairContainer = () => {
       return;
     }
 
-    const formattedResult = JSON.stringify(response.data.json[0], null, 2);
+    const formattedResult = JSON.stringify(response.data.json, null, 2);
 
     updateFileAtIndex(selectedFileIndex, 'extractKeyValueResult', formattedResult);
     updateFileAtIndex(selectedFileIndex, 'extractKeyValueState', ExtractState.DONE_EXTRACTING);
