@@ -36,6 +36,6 @@ export const runSyncExtractKeyValue = async ({
     throw new Error('Failed to extract key value pairs');
   }
 
-  const json = extractKeyValueResponse.data.json[0];
+  const json = extractKeyValueResponse.data.json;
   return json;
 };
