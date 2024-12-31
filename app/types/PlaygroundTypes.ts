@@ -63,11 +63,13 @@ export interface PlaygroundFile {
   file: File | string;
   extractResult: QueryResult;
   qaResult: QAResult | null;
+  extractKeyValueResult: string;
   tableExtractResult: string[];
   tableMdExtractResult: ExtractedMDTable[];
   tableMappedDataRows: string[][];
   tableMergedData: { [key: string]: string[] };
   keyMap: { [key: string]: string };
+  keyValueInputs: { key: string; description: string }[];
   tableMapIndices: Set<number>;
   jobId: string;
   userId: string;
@@ -81,6 +83,7 @@ export interface PlaygroundFile {
   extractState: ExtractState;
   instructionExtractState: ExtractState;
   tableMdExtractState: ExtractState;
+  extractKeyValueState: ExtractState;
   extractTab: ExtractTab;
   tableTab: TableTab;
   qaState: TransformState;
@@ -117,6 +120,7 @@ interface S3FileSource {
 export const PlaygroundTabs = {
   PLAIN_TEXT: 'Full Content',
   TABLE: 'Table Only',
+  KEY_VALUE_PAIR: 'Extract Key-Value Pairs',
 };
 
 export enum JobType {
@@ -124,6 +128,7 @@ export enum JobType {
   QA_GENERATION = 'qa_generation',
   INFO_EXTRACTION = 'info_extraction',
   INSTRUCTION_EXTRACTION = 'instruction_extraction',
+  KEY_VALUE_EXTRACTION = 'key_value_extraction',
   FILE_COMPARISON = 'file_comparison',
   SCHEMA_EXTRACTION = 'schema_extraction',
   SCHEMA_EXTRACTION_FRONTEND = 'schema_extraction_frontend',
@@ -135,5 +140,6 @@ export enum ProcessType {
   JSON_EXTRACTION = 'json',
   // FILE_EXTRACTION_PRO = 'file_refined_quick',
   FILE_EXTRACTION_PRO = 'parse_with_layout_ocr',
+  EXTRACT_KEY_VALUE = 'extract_key_value',
   FILE_EXTRACTION_ULTRA = 'file_refined',
 }

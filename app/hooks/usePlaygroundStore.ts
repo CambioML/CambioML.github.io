@@ -65,6 +65,7 @@ interface PlaygroundStore {
       | ExtractedMDTable[]
       | string[][]
       | { [key: string]: string[] }
+      | { key: string; description: string }[]
   ) => void;
   toggleExtractSetting: (settingName: keyof ExtractSettings) => void;
   updateModelType: (modelType: ModelType) => void;
@@ -72,14 +73,17 @@ interface PlaygroundStore {
 
 const initialFileState = {
   extractResult: [''],
-  qaResult: null,
   tableExtractResult: [''],
+  extractKeyValueResult: '',
+  qaResult: null,
   tableMdExtractResult: [{ title: '', table: '', tableData: {} }],
   keyMap: {},
+  keyValueInputs: [{ key: '', description: '' }],
   tableMapIndices: new Set(),
   s3_file_source: { s3_bucket: '', source_type: '', s3_prefix: '' },
   activeTab: PlaygroundTabs.PLAIN_TEXT,
   extractState: ExtractState.READY,
+  extractKeyValueState: ExtractState.READY,
   extractTab: ExtractTab.INITIAL_STATE,
   tableTab: TableTab.TABLE_EXTRACT,
   qaState: TransformState.READY,

@@ -18,6 +18,7 @@ interface IParams {
     vqaPageNumsFlag?: boolean;
     vqaTableOnlyFlag?: boolean;
     vqaChartOnlyFlag?: boolean;
+    extractInstruction?: Record<string, string>;
   };
   addFilesFormData: (data: PresignedResponse) => void;
 }
@@ -60,6 +61,7 @@ export const uploadFile = async ({
     vqa_page_nums_flag: extractArgs.vqaPageNumsFlag,
     vqa_table_only_flag: extractArgs.vqaTableOnlyFlag,
     vqa_table_only_caption_flag: extractArgs.vqaChartOnlyFlag,
+    extract_instruction: extractArgs.extractInstruction,
   };
 
   const requestBody = {

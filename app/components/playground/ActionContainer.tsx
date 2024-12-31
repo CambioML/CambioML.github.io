@@ -1,11 +1,12 @@
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 import LoginComponent from '../auth/Login';
 import PlaygroundTab from './PlaygroundTab';
-import ExtractContainer from './ExtractContainer';
 import { useEffect, useState } from 'react';
 import { PlaygroundFile, PlaygroundTabs } from '@/app/types/PlaygroundTypes';
 import UploadButton from './UploadButton';
 import MapContainer from './table/MapContainer';
+import ExtractContainer from './ExtractContainer';
+import ExtractKeyValuePairContainer from './ExtractKeyValuePairContainer';
 
 const ActionContainer = () => {
   const { loggedIn, selectedFileIndex, files } = usePlaygroundStore();
@@ -19,7 +20,7 @@ const ActionContainer = () => {
 
   return (
     <div className="w-full h-full min-h-[600px] grid grid-rows-[50px_1fr] overflow-hidden">
-      <div className={`w-full grid grid-cols-2`}>
+      <div className={`w-full grid grid-cols-3`}>
         {Object.values(PlaygroundTabs).map((tab) => (
           <PlaygroundTab key={tab} label={tab} />
         ))}
@@ -33,11 +34,12 @@ const ActionContainer = () => {
             </div>
           </div>
         ) : (
-          <div className="h-full border border-solid border-2 border-t-0 border-neutral-200 rounded-b-xl p-4 pt-0 overflow-hidden">
+          <div className="h-full border-solid border-2 border-t-0 border-neutral-200 rounded-b-xl p-4 pt-0 overflow-hidden">
             {(selectedFile?.activeTab === PlaygroundTabs.PLAIN_TEXT || selectedFileIndex === null) && (
               <ExtractContainer />
             )}
             {selectedFile?.activeTab === PlaygroundTabs.TABLE && <MapContainer />}
+            {selectedFile?.activeTab === PlaygroundTabs.KEY_VALUE_PAIR && <ExtractKeyValuePairContainer />}
           </div>
         )
       ) : (

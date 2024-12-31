@@ -15,10 +15,7 @@
     },
     "preserveOutput": "always",
     "reporter": [
-      [
-        "list",
-        null
-      ],
+      ["list", null],
       [
         "json",
         {
@@ -41,9 +38,7 @@
         "name": "chromium",
         "testDir": "/Users/joseortiz/Coding/CambioML/CambioML.github.io/tests",
         "testIgnore": [],
-        "testMatch": [
-          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
-        ],
+        "testMatch": ["**/*.@(spec|test).?(c|m)[jt]s?(x)"],
         "timeout": 30000
       }
     ],
