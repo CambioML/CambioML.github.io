@@ -250,6 +250,22 @@ const MarkdownExtractContainer = () => {
       if (modelType === ModelType.BASE) {
         processType = ProcessType.FILE_EXTRACTION;
       } else if (modelType === ModelType.PRO) {
+        jobParams.vqaProcessorArgs = {
+          ...jobParams.vqaProcessorArgs,
+          direction: "RTL",
+          config: {
+            include_title: true,
+            include_header: true,
+            include_footer: true,
+            include_section_header: true,
+            include_page_number: true,
+            include_list: true,
+            include_figure: true,
+            include_table: true,
+            include_key_value: true,
+            include_text: true,
+          },
+        } as any;
         processType = ProcessType.FILE_EXTRACTION_PRO;
       } else if (modelType === ModelType.ULTRA) {
         processType = ProcessType.FILE_EXTRACTION_ULTRA;
