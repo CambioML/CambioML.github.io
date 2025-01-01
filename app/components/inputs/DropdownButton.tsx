@@ -44,9 +44,7 @@ const DropdownButton = ({ options, disabled = false, optionLabel, icon: Icon }: 
         )}
       </div>
       {isOpen && !disabled && (
-        <div
-          className="absolute z-[100] mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-[200px] overflow-y-auto"
-        >
+        <div className="absolute z-[100] mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-[200px] overflow-y-auto">
           {options.map((option) => (
             <div
               key={option.value}

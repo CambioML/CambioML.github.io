@@ -259,7 +259,7 @@ const TableExtractContainer = () => {
         file_type: getFileType(),
       });
     const htmlData = extractHTMLTables(selectedFile.tableExtractResult.join('\n\n'));
-    
+
     // Check if we have any tables to process
     if (htmlData.length === 0) {
       toast.error('No tables found to export to Excel');

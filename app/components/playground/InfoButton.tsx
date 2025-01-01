@@ -70,15 +70,18 @@ const keyValuePairContent = (
     <div className={h1Style}>Extract Key-Value Pairs</div>
     <div className={textStyle}>
       <div>
-        With AnyParser, you can identify and extract structured key-value pairs from your raw, unstructured data, like invoices, contracts, or forms.
+        With AnyParser, you can identify and extract structured key-value pairs from your raw, unstructured data, like
+        invoices, contracts, or forms.
       </div>
       <div>
-        Once you've uploaded and selected a file, run the 'Key-Value Pair' flow, which will analyze your file, identify key fields, and extract their corresponding values in a structured JSON format.
+        Once you've uploaded and selected a file, run the 'Key-Value Pair' flow, which will analyze your file, identify
+        key fields, and extract their corresponding values in a structured JSON format.
       </div>
     </div>
     <div className={h2Style}>Next Steps</div>
     <div className={textStyle}>
-      You can download the extracted key-value pairs as a JSON file, or integrate directly with your workflow via our API to automate further processing.
+      You can download the extracted key-value pairs as a JSON file, or integrate directly with your workflow via our
+      API to automate further processing.
     </div>
   </>
 );
