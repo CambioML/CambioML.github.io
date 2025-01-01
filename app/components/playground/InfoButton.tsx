@@ -52,7 +52,7 @@ const tableContent = (
     <div className={h2Style}>3. Map Schema</div>
     <div
       className={textStyle}
-    >{`Once you've exracted and selected the tables, you can then add the keys that you want to extract. If you wish to remove the mapped key, click the (X) in the box. If you wish to remove an Input Key, you can click the (X) icon in its box.
+    >{`Once you've extracted and selected the tables, you can then add the keys that you want to extract. If you wish to remove the mapped key, click the (X) in the box. If you wish to remove an Input Key, you can click the (X) icon in its box.
 
     Once you've added some keys, you can run the Map Schema function. After mapping, you can edit any of the mapped keys by clicking on the edit pencil icon.
 
@@ -73,10 +73,8 @@ const keyValuePairContent = (
         With AnyParser, you can identify and extract structured key-value pairs from your raw, unstructured data, like
         invoices, contracts, or forms.
       </div>
-      <div>
-        Once you've uploaded and selected a file, run the 'Key-Value Pair' flow, which will analyze your file, identify
-        key fields, and extract their corresponding values in a structured JSON format.
-      </div>
+      <div>{`Once you've uploaded and selected a file, run the 'Key-Value Pair' flow, which will analyze your file, identify
+        key fields, and extract their corresponding values in a structured JSON format.`}</div>
     </div>
     <div className={h2Style}>Next Steps</div>
     <div className={textStyle}>

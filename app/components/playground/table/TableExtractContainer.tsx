@@ -1,8 +1,8 @@
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
-import { ExtractTab, PlaygroundFile, ExtractState, TableTab, ProcessType } from '@/app/types/PlaygroundTypes';
+import { ExtractTab, PlaygroundFile, ExtractState, ProcessType } from '@/app/types/PlaygroundTypes';
 import { useEffect, useState } from 'react';
 import Button from '../../Button';
-import { ArrowCounterClockwise, ArrowRight, DownloadSimple, Table } from '@phosphor-icons/react';
+import { ArrowCounterClockwise, DownloadSimple, Table } from '@phosphor-icons/react';
 import PulsingIcon from '../../PulsingIcon';
 import toast from 'react-hot-toast';
 import { downloadFile } from '@/app/actions/downloadFile';
