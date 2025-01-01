@@ -109,7 +109,7 @@ const ResultContent = ({ extractResult }: ResultContentProps) => {
       </div>
       <div
         ref={containerRef}
-        className="overflow-auto relative w-full h-full rounded-xl border border-1 border-solid px-10 max-w-full"
+        className="overflow-auto relative w-full h-full rounded-xl border border-1 border-solid px-10 max-w-full overscroll-none"
       >
         {extractResult.map((content, index) => (
           <div key={index} className="p-4 w-full border-b-2" style={{ minHeight: '100%' }} id="result-container">
