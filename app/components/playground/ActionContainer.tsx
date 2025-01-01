@@ -19,7 +19,7 @@ const ActionContainer = () => {
   }, [selectedFileIndex, files]);
 
   return (
-    <div className="w-full h-full min-h-[600px] grid grid-rows-[50px_1fr] overflow-hidden">
+    <div className="w-full h-full grid grid-rows-[50px_1fr]">
       <div className={`w-full grid grid-cols-3`}>
         {Object.values(PlaygroundTabs).map((tab) => (
           <PlaygroundTab key={tab} label={tab} />
@@ -27,14 +27,14 @@ const ActionContainer = () => {
       </div>
       {loggedIn ? (
         selectedFileIndex === null ? (
-          <div className="flex flex-col items-center justify-center h-full overflow-hidden gap-4">
+          <div className="flex flex-col items-center justify-center h-full gap-4">
             <div className="text-xl font-semibold text-neutral-500">Please upload a file.</div>
             <div className="w-[300px]">
               <UploadButton small />
             </div>
           </div>
         ) : (
-          <div className="h-full border-solid border-2 border-t-0 border-neutral-200 rounded-b-xl p-4 pt-0 overflow-hidden">
+          <div className="h-full border-solid border-2 border-t-0 border-neutral-200 rounded-b-xl p-4 pt-0 box-border">
             {(selectedFile?.activeTab === PlaygroundTabs.PLAIN_TEXT || selectedFileIndex === null) && (
               <ExtractContainer />
             )}

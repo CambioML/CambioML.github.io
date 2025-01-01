@@ -215,7 +215,7 @@ const ResultContainer = ({ extractResult }: ResultContainerProps) => {
   }, [files, selectedFileIndex]);
 
   return (
-    <div className="w-full h-[60vh] relative">
+    <div className="w-full h-[calc(50vh+2rem)] relative">
       <div style={{ display: 'none' }} id="raw-extract-result">
         {JSON.stringify(extractResult)}
       </div>

@@ -16,7 +16,7 @@ const PlaygroundContainer = () => {
       <PreviewModal />
       <CompareModal />
       <PlaygroundInfoBar />
-      <div className="w-full min-w-[600px] max-w-[2520px] flex flex-col gap-0 h-fit lg:h-fit overflow-hidden">
+      <div className="w-full min-w-[600px] max-w-[2520px] flex flex-col gap-0 h-fit">
         <div
           className={`
             w-full
@@ -27,16 +27,15 @@ const PlaygroundContainer = () => {
             grid-cols-1
             transition-all
             duration-300
-            overflow-hidden
             ${fileCollapsed ? 'lg:grid-cols-[100px_1fr]' : 'lg:grid-cols-[325px_1fr]'}
           `}
         >
           <div
-            className={`${playgroundWrapperStyles} bg-neutral-100 ${fileCollapsed ? 'p-2' : 'p-6 pl-10'} pr-0 overflow-hidden`}
+            className={`${playgroundWrapperStyles} bg-neutral-100 ${fileCollapsed ? 'p-2' : 'p-6 pl-10'} pr-0`}
           >
             <FilesContainer />
           </div>
-          <div className={`${playgroundWrapperStyles} border-l-[1px] border-b-[1px] p-6 pr-10 overflow-hidden`}>
+          <div className={`${playgroundWrapperStyles} border-l-[1px] border-b-[1px] p-6 pr-10`}>
             <ActionContainer />
           </div>
         </div>
