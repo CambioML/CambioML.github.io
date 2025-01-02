@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import { QueryResult } from '@/app/actions/apiInterface';
@@ -15,23 +16,23 @@ interface ResultContentProps {
 }
 
 const markdownComponents: Components = {
-  p: ({ ...props }) => <p dir="auto" {...props} />,
-  h1: ({ ...props }) => <h1 dir="auto" {...props} />,
-  h2: ({ ...props }) => <h2 dir="auto" {...props} />,
-  h3: ({ ...props }) => <h3 dir="auto" {...props} />,
-  h4: ({ ...props }) => <h4 dir="auto" {...props} />,
-  h5: ({ ...props }) => <h5 dir="auto" {...props} />,
-  h6: ({ ...props }) => <h6 dir="auto" {...props} />,
-  ul: ({ ...props }) => <ul dir="auto" {...props} />,
-  ol: ({ ...props }) => <ol dir="auto" {...props} />,
-  li: ({ ...props }) => <li dir="auto" {...props} />,
-  tr: ({ ...props }) => <tr dir="auto" {...props} />,
-  td: ({ ...props }) => <td dir="auto" {...props} />,
-  th: ({ ...props }) => <th dir="auto" {...props} />,
-  pre: ({ ...props }) => <pre dir="auto" {...props} />,
-  code: ({ ...props }) => <code dir="auto" {...props} />,
-  table: ({ ...props }) => <table dir="auto" {...props} />,
-  blockquote: ({ ...props }) => <blockquote dir="auto" {...props} />,
+  p: ({ node, ...props }) => <p dir="auto" {...props} />,
+  h1: ({ node, ...props }) => <h1 dir="auto" {...props} />,
+  h2: ({ node, ...props }) => <h2 dir="auto" {...props} />,
+  h3: ({ node, ...props }) => <h3 dir="auto" {...props} />,
+  h4: ({ node, ...props }) => <h4 dir="auto" {...props} />,
+  h5: ({ node, ...props }) => <h5 dir="auto" {...props} />,
+  h6: ({ node, ...props }) => <h6 dir="auto" {...props} />,
+  ul: ({ node, ...props }) => <ul dir="auto" {...props} />,
+  ol: ({ node, ...props }) => <ol dir="auto" {...props} />,
+  li: ({ node, ...props }) => <li dir="auto" {...props} />,
+  tr: ({ node, ...props }) => <tr dir="auto" {...props} />,
+  td: ({ node, ...props }) => <td dir="auto" {...props} />,
+  th: ({ node, ...props }) => <th dir="auto" {...props} />,
+  pre: ({ node, ...props }) => <pre dir="auto" {...props} />,
+  code: ({ node, ...props }) => <code dir="auto" {...props} />,
+  table: ({ node, ...props }) => <table dir="auto" {...props} />,
+  blockquote: ({ node, ...props }) => <blockquote dir="auto" {...props} />,
 };
 
 const ResultContent = ({ extractResult }: ResultContentProps) => {
