@@ -115,17 +115,39 @@ const ResultContent = ({ extractResult }: ResultContentProps) => {
           <div key={index} className="p-4 w-full border-b-2" style={{ minHeight: '100%' }} id="result-container">
             {hasHtmlTags(content) ? (
               <div
+                dir="auto"
                 dangerouslySetInnerHTML={{
-                  // Convert triple newlines (\n\n\n) to double HTML line breaks (<br/><br/>)
-                  // This preserves the spacing/formatting in the rendered HTML output
-                  // Without this, all newlines would be collapsed into a single space
                   __html: content.replace(/\n\n\n/g, '<br/><br/>'),
                 }}
               />
             ) : (
-              <Markdown className="markdown" remarkPlugins={[remarkGfm]}>
-                {content}
-              </Markdown>
+              <div dir="auto">
+                <Markdown
+                  className="markdown"
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    p: ({ node, ...props }) => <p dir="auto" {...props} />,
+                    h1: ({ node, ...props }) => <h1 dir="auto" {...props} />,
+                    h2: ({ node, ...props }) => <h2 dir="auto" {...props} />,
+                    h3: ({ node, ...props }) => <h3 dir="auto" {...props} />,
+                    h4: ({ node, ...props }) => <h4 dir="auto" {...props} />,
+                    h5: ({ node, ...props }) => <h5 dir="auto" {...props} />,
+                    h6: ({ node, ...props }) => <h6 dir="auto" {...props} />,
+                    ul: ({ node, ...props }) => <ul dir="auto" {...props} />,
+                    ol: ({ node, ...props }) => <ol dir="auto" {...props} />,
+                    li: ({ node, ...props }) => <li dir="auto" {...props} />,
+                    tr: ({ node, ...props }) => <tr dir="auto" {...props} />,
+                    td: ({ node, ...props }) => <td dir="auto" {...props} />,
+                    th: ({ node, ...props }) => <th dir="auto" {...props} />,
+                    pre: ({ node, ...props }) => <pre dir="auto" {...props} />,
+                    code: ({ node, ...props }) => <code dir="auto" {...props} />,
+                    table: ({ node, ...props }) => <table dir="auto" {...props} />,
+                    blockquote: ({ node, ...props }) => <blockquote dir="auto" {...props} />,
+                  }}
+                >
+                  {content}
+                </Markdown>
+              </div>
             )}
           </div>
         ))}
