@@ -64,7 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <PlaygroundFeedbackModal />
           <InfoModal />
           <ResultZoomModal />
-          <div className="pb-500 min-h-screen min-w-[650px]">{children}</div>
+          <div className="min-h-screen min-w-[650px]">{children}</div>
           <Footer />
         </body>
       </PHProvider>

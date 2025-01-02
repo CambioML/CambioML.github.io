@@ -1,8 +1,8 @@
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
-import { ExtractTab, PlaygroundFile, ExtractState, TableTab, ProcessType } from '@/app/types/PlaygroundTypes';
+import { ExtractTab, PlaygroundFile, ExtractState, ProcessType } from '@/app/types/PlaygroundTypes';
 import { useEffect, useState } from 'react';
 import Button from '../../Button';
-import { ArrowCounterClockwise, ArrowRight, DownloadSimple, Table } from '@phosphor-icons/react';
+import { ArrowCounterClockwise, DownloadSimple, Table } from '@phosphor-icons/react';
 import PulsingIcon from '../../PulsingIcon';
 import toast from 'react-hot-toast';
 import { downloadFile } from '@/app/actions/downloadFile';
@@ -10,7 +10,6 @@ import { AxiosError, AxiosResponse } from 'axios';
 import ResultContainer from '../ResultContainer';
 import { useProductionContext } from '../ProductionContext';
 import { runAsyncRequestJob as runPreprodAsyncRequestJob } from '@/app/actions/preprod/runAsyncRequestJob';
-import * as XLSX from 'xlsx';
 import { usePostHog } from 'posthog-js/react';
 import ExtractSettingsChecklist from '../ExtractSettingsChecklist';
 import { JobParams } from '@/app/actions/apiInterface';
@@ -22,6 +21,7 @@ import { uploadFile } from '@/app/actions/uploadFile';
 import { runAsyncRequestJob } from '@/app/actions/runAsyncRequestJob';
 import { extractPageAsBase64 } from '@/app/helpers';
 import { runSyncTableExtract } from '@/app/actions/runSyncTableExtract';
+import * as XLSX from 'xlsx';
 
 const noPageContent = '<div>No table detected in output.</div>';
 
@@ -259,14 +259,34 @@ const TableExtractContainer = () => {
         file_type: getFileType(),
       });
     const htmlData = extractHTMLTables(selectedFile.tableExtractResult.join('\n\n'));
+
+    // Check if we have any tables to process
+    if (htmlData.length === 0) {
+      toast.error('No tables found to export to Excel');
+      return;
+    }
+
     const wb = XLSX.utils.book_new();
+    let hasValidTables = false;
+
     htmlData.forEach((htmlTable, index) => {
       const table = document.createElement('table');
       table.innerHTML = htmlTable;
 
-      const ws = XLSX.utils.table_to_sheet(table);
-      XLSX.utils.book_append_sheet(wb, ws, `Table ${index + 1}`);
+      // Only process tables that have content
+      if (table.rows.length > 0) {
+        const ws = XLSX.utils.table_to_sheet(table);
+        XLSX.utils.book_append_sheet(wb, ws, `Table ${index + 1}`);
+        hasValidTables = true;
+      }
     });
+
+    // Only proceed if we have at least one valid table
+    if (!hasValidTables) {
+      toast.error('No valid tables found to export to Excel');
+      return;
+    }
+
     const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
     downloadFile({
       filename,
@@ -430,7 +450,7 @@ const TableExtractContainer = () => {
               </div>
             )}
             {selectedFile?.instructionExtractState === ExtractState.DONE_EXTRACTING && (
-              <div className="flex flex-col items-start w-full h-full gap-4 pt-4">
+              <div className="flex flex-col items-start w-full h-full gap-4 p-4 pt-8">
                 {hasTables(selectedFile.tableExtractResult) ? (
                   <ResultContainer extractResult={selectedFile.tableExtractResult} />
                 ) : (
@@ -459,16 +479,6 @@ const TableExtractContainer = () => {
                       !hasTables(selectedFile.tableExtractResult)
                     }
                   />
-                  {true && (
-                    <Button
-                      label={`Select Tables`}
-                      onClick={() => updateFileAtIndex(selectedFileIndex, 'tableTab', TableTab.TABLE_SELECT)}
-                      small
-                      labelIcon={ArrowRight}
-                      disabled={!hasTables(selectedFile.tableExtractResult)}
-                      outline
-                    />
-                  )}
                 </div>
               </div>
             )}

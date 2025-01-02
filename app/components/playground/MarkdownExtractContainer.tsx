@@ -78,7 +78,7 @@ const MarkdownExtractContainer = () => {
     if (selectedFile?.extractResult) {
       // 1. case no image: just download markdown;
       // 2. case one or multiple images: download images and include them in zip;
-      // todo: now onlly in pro, plain text, no table/basic. tdb
+      // todo: now only in pro, plain text, no table/basic. tdb
       const markdownContent = selectedFile.extractResult.join('\n\n');
 
       // Extract image links from markdown content
@@ -138,8 +138,8 @@ const MarkdownExtractContainer = () => {
         downloadFile({
           filename,
           fileContent: markdownContent,
-          fileType: 'text/plain',
-          suffix: '_extracted.txt',
+          fileType: 'text/markdown',
+          suffix: '_extracted.md',
         });
       }
     }
@@ -402,7 +402,7 @@ const MarkdownExtractContainer = () => {
             </div>
           )}
           {selectedFile?.extractState === ExtractState.DONE_EXTRACTING && (
-            <div className="flex flex-col items-start w-full h-full gap-4 p-4 overflow-hidden">
+            <div className="flex flex-col items-start w-full h-full gap-4 p-4">
               <ResultContainer extractResult={selectedFile.extractResult} />
               <div className="w-full h-fit flex gap-4">
                 <Button
