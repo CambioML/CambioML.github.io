@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import { QueryResult } from '@/app/actions/apiInterface';
@@ -7,12 +8,32 @@ import useResultZoomModal from '@/app/hooks/useResultZoomModal';
 import { CaretLeft, CaretRight, Copy, Files, FrameCorners } from '@phosphor-icons/react';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
-import Markdown from 'react-markdown';
+import Markdown, { Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 interface ResultContentProps {
   extractResult: QueryResult;
 }
+
+const markdownComponents: Components = {
+  p: ({ node, ...props }) => <p dir="auto" {...props} />,
+  h1: ({ node, ...props }) => <h1 dir="auto" {...props} />,
+  h2: ({ node, ...props }) => <h2 dir="auto" {...props} />,
+  h3: ({ node, ...props }) => <h3 dir="auto" {...props} />,
+  h4: ({ node, ...props }) => <h4 dir="auto" {...props} />,
+  h5: ({ node, ...props }) => <h5 dir="auto" {...props} />,
+  h6: ({ node, ...props }) => <h6 dir="auto" {...props} />,
+  ul: ({ node, ...props }) => <ul dir="auto" {...props} />,
+  ol: ({ node, ...props }) => <ol dir="auto" {...props} />,
+  li: ({ node, ...props }) => <li dir="auto" {...props} />,
+  tr: ({ node, ...props }) => <tr dir="auto" {...props} />,
+  td: ({ node, ...props }) => <td dir="auto" {...props} />,
+  th: ({ node, ...props }) => <th dir="auto" {...props} />,
+  pre: ({ node, ...props }) => <pre dir="auto" {...props} />,
+  code: ({ node, ...props }) => <code dir="auto" {...props} />,
+  table: ({ node, ...props }) => <table dir="auto" {...props} />,
+  blockquote: ({ node, ...props }) => <blockquote dir="auto" {...props} />,
+};
 
 const ResultContent = ({ extractResult }: ResultContentProps) => {
   const resultZoomModal = useResultZoomModal();
@@ -115,6 +136,7 @@ const ResultContent = ({ extractResult }: ResultContentProps) => {
           <div key={index} className="p-4 w-full border-b-2" style={{ minHeight: '100%' }} id="result-container">
             {hasHtmlTags(content) ? (
               <div
+                dir="auto"
                 dangerouslySetInnerHTML={{
                   // Convert triple newlines (\n\n\n) to double HTML line breaks (<br/><br/>)
                   // This preserves the spacing/formatting in the rendered HTML output
@@ -123,7 +145,8 @@ const ResultContent = ({ extractResult }: ResultContentProps) => {
                 }}
               />
             ) : (
-              <Markdown className="markdown" remarkPlugins={[remarkGfm]}>
+              // This complex way ensures only arabic text is RTL for every different line
+              <Markdown className="markdown" remarkPlugins={[remarkGfm]} components={markdownComponents}>
                 {content}
               </Markdown>
             )}
@@ -184,7 +207,11 @@ const ResultContainer = ({ extractResult }: ResultContainerProps) => {
             }}
           />
         ) : (
-          <Markdown className="markdown p-4 whitespace-pre-wrap" remarkPlugins={[remarkGfm]}>
+          <Markdown
+            className="markdown p-4 whitespace-pre-wrap"
+            remarkPlugins={[remarkGfm]}
+            components={markdownComponents}
+          >
             {extractResult
               .map((content, index) => {
                 return `${content}\n\n**Page ${index + 1}**\n\n---\n\n`;
