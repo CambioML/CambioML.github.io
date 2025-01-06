@@ -375,7 +375,15 @@ const MarkdownExtractContainer = () => {
             <div className="flex flex-col h-full justify-start items-center text-lg text-center gap-4 pt-[calc(20vh-120px)] lg:pt-[calc(30vh-120px)]">
               <div className="flex flex-col items-center justify-center">
                 <span id="extract-file-name">{filename}</span>
-                <div className="w-fit mt-2">
+
+                {/* First row with two buttons side by side */}
+                <div className="flex gap-4 items-center justify-center mt-8">
+                  <ModelToggleDropdown />
+                  <ExtractSettingsChecklist removePIIOnly={isProduction} />
+                </div>
+
+                {/* Extract button below */}
+                <div className="w-fit mt-8">
                   <Button
                     label="Extract Plain Text"
                     onClick={() => handleExtract()}
@@ -385,8 +393,6 @@ const MarkdownExtractContainer = () => {
                   />
                 </div>
               </div>
-              <ModelToggleDropdown />
-              <ExtractSettingsChecklist removePIIOnly={isProduction} />
             </div>
           )}
           {selectedFile?.extractState === ExtractState.UPLOADING && (
