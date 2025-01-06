@@ -96,7 +96,7 @@ const initialFileState = {
 };
 
 const usePlaygroundStore = create<PlaygroundStore>((set) => ({
-  modelType: ModelType.BASE,
+  modelType: ModelType.PRO,
   extractSettings: {
     removePII: true,
     includePageNumbers: true,

@@ -14,9 +14,9 @@ const ModelToggleDropdown = () => {
     setIsOpen(false);
   };
 
-  const miniLabel = 'AP-base';
-  const proLabel = 'AP-pro';
-  const ultraLabel = 'AP-ultra';
+  const miniLabel = 'AnyParser-base';
+  const proLabel = 'AnyParser-pro';
+  const ultraLabel = 'AnyParser-ultra';
 
   const modelTypes = Object.values(ModelType).filter((value): value is ModelType => typeof value === 'number');
 
