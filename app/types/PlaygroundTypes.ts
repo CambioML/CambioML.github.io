@@ -136,7 +136,7 @@ export enum JobType {
 
 export enum ProcessType {
   FILE_EXTRACTION = 'file',
-  TABLE_EXTRACTION = 'table',
+  TABLE_EXTRACTION = 'extract_tables',
   JSON_EXTRACTION = 'json',
   // FILE_EXTRACTION_PRO = 'file_refined_quick',
   FILE_EXTRACTION_PRO = 'parse_with_layout_ocr',
