@@ -247,6 +247,26 @@ const PricingPage = () => {
           </li>
         </ul>
       </div>
+      {/* Enhanced promotional banner */}
+      <div className="w-full px-4 mt-12">
+        <div className="container mx-auto bg-gradient-to-r from-sky-100 to-sky-200 rounded-2xl py-8 shadow-lg border border-sky-200">
+          <p className="text-center text-xl md:text-2xl text-sky-900 font-semibold">
+            🎉 Special Offer for Startups and Non-profits! 🎉
+          </p>
+          <p className="text-center text-lg md:text-xl text-sky-900 mt-2">
+            Get <span className="font-bold text-sky-700">3 months FREE</span> for startups (less than 10 people) of
+            Non-profit organizations.
+            <br />
+            <span className="mt-2 inline-block">
+              Email{' '}
+              <a href="mailto:info@cambioml.com" className="text-sky-700 hover:underline font-bold">
+                info@cambioml.com
+              </a>{' '}
+              to redeem your credit!
+            </span>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
