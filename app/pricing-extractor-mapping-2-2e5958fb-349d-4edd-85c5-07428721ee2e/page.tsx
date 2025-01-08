@@ -14,7 +14,7 @@ type Plan = {
     autoRollover: boolean;
     clientOnboarding: boolean;
     customizationServices: boolean;
-    customModelTraining: boolean;
+    customModelHosting: boolean;
     customIntegrations: boolean;
     personalizedTraining: boolean;
   };
@@ -25,7 +25,7 @@ const plans: Plan[] = [
   {
     name: 'Starter',
     price: '$499/month* or $5k/year',
-    pages: 'Includes 20k credits** per month, then $0.025 per credit',
+    pages: 'Includes 20k credits** per month, then $0.025 per credit. Unused credits roll over to the next month.',
     bgColor: 'bg-sky-200',
     features: {
       autoCapture: true,
@@ -33,14 +33,14 @@ const plans: Plan[] = [
       clientOnboarding: false,
       customizationServices: false,
       customIntegrations: false,
-      customModelTraining: false,
+      customModelHosting: false,
       personalizedTraining: false,
     },
   },
   {
     name: 'Silver',
     price: '$1.5k/month or $15k/year',
-    pages: 'Includes 100k credits** per month, then $0.015 per credit',
+    pages: 'Includes 100k credits** per month, then $0.015 per credit. Unused credits roll over to the next month.',
     bgColor: 'bg-[#bcc6cc]',
     features: {
       autoCapture: true,
@@ -48,14 +48,14 @@ const plans: Plan[] = [
       clientOnboarding: true,
       customizationServices: false,
       customIntegrations: false,
-      customModelTraining: false,
+      customModelHosting: false,
       personalizedTraining: false,
     },
   },
   {
     name: 'Gold',
     price: '$4.5k/month or $45k/year',
-    pages: 'Includes 500k credits** per month, then $0.009 per credit',
+    pages: 'Includes 500k credits** per month, then $0.009 per credit. Unused credits roll over to the next month.',
     bgColor: 'bg-teal-600 text-white',
     features: {
       autoCapture: true,
@@ -63,7 +63,7 @@ const plans: Plan[] = [
       clientOnboarding: true,
       customizationServices: true,
       customIntegrations: false,
-      customModelTraining: false,
+      customModelHosting: true,
       personalizedTraining: false,
     },
   },
@@ -78,7 +78,7 @@ const plans: Plan[] = [
       clientOnboarding: true,
       customizationServices: true,
       customIntegrations: true,
-      customModelTraining: true,
+      customModelHosting: true,
       personalizedTraining: true,
     },
     additional: ['Custom model training', 'Custom Integrations and API Responses', 'Personalized 1-1 team training'],
@@ -175,22 +175,29 @@ const PricingPage = () => {
                 Features
               </td>
             </tr>
+
             <tr>
-              <td className={featureRowHeaderStyle}>Credits automatically roll over</td>
-              {plans.map((plan, index) => (
-                <td key={index} className={checkCellStyle}>
-                  <div className={checkCellDivStyle}>
-                    <FeatureCheck enabled={plan.features.autoRollover} />
-                  </div>
-                </td>
-              ))}
-            </tr>
-            <tr>
-              <td className={featureRowHeaderStyle}>Auto-capture tables and transform to Markdown, CSV, or JSON</td>
+              <td className={featureRowHeaderStyle}>
+                Extract full text to Markdown or Extract tables from PDF/image to CSV. (1 credit covers 1 page
+                extraction, up to 500 tokens**.)
+              </td>
               {plans.map((plan, index) => (
                 <td key={index} className={checkCellStyle}>
                   <div className={checkCellDivStyle}>
                     <FeatureCheck enabled={plan.features.autoCapture} />
+                  </div>
+                </td>
+              ))}
+            </tr>
+
+            <tr>
+              <td className={featureRowHeaderStyle}>
+                Extract key values pairs into JSON. (1 credit covers up to 10 key value pairs.)
+              </td>
+              {plans.map((plan, index) => (
+                <td key={index} className={checkCellStyle}>
+                  <div className={checkCellDivStyle}>
+                    <FeatureCheck enabled={plan.features.autoRollover} />
                   </div>
                 </td>
               ))}
@@ -205,24 +212,13 @@ const PricingPage = () => {
                 </td>
               ))}
             </tr>
-            <tr>
-              <td className={featureRowHeaderStyle}>
-                Customization services available (e.g. Annotation, quality audit)
-              </td>
-              {plans.map((plan, index) => (
-                <td key={index} className={checkCellStyle}>
-                  <div className={checkCellDivStyle}>
-                    <FeatureCheck enabled={plan.features.customizationServices} />
-                  </div>
-                </td>
-              ))}
-            </tr>
+
             <tr>
               <td className={featureRowHeaderStyle}>Private Model Hosting (On-prem or Cloud)</td>
               {plans.map((plan, index) => (
                 <td key={index} className={checkCellStyle}>
                   <div className={checkCellDivStyle}>
-                    <FeatureCheck enabled={plan.features.customModelTraining} />
+                    <FeatureCheck enabled={plan.features.customModelHosting} />
                   </div>
                 </td>
               ))}
@@ -237,16 +233,6 @@ const PricingPage = () => {
                 </td>
               ))}
             </tr>
-            <tr>
-              <td className={featureRowHeaderStyle}>Personalized 1-1 Team Training</td>
-              {plans.map((plan, index) => (
-                <td key={index} className={checkCellStyle}>
-                  <div className={checkCellDivStyle}>
-                    <FeatureCheck enabled={plan.features.personalizedTraining} />
-                  </div>
-                </td>
-              ))}
-            </tr>
           </tbody>
         </table>
       </div>
@@ -257,7 +243,7 @@ const PricingPage = () => {
         </ul>
         <ul>
           <li>
-            <p>{`** 1 credit covers 1 page extraction (up to 500 tokens). Pages exceeding 500 tokens will incur an extra credit for every additional 500 tokens.`}</p>
+            <p>{`** Pages exceeding 500 tokens will incur an extra credit for every additional 500 tokens.`}</p>
           </li>
         </ul>
       </div>
