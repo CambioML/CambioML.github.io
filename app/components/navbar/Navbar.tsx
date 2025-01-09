@@ -11,6 +11,11 @@ import Button from '../Button';
 
 const menuItems = [
   {
+    label: 'Pricing',
+    links: [],
+    url: 'https://www.cambioml.com/pricing-rt',
+  },
+  {
     label: 'Blog',
     links: [],
   },

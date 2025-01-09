@@ -14,7 +14,7 @@ type Plan = {
     autoRollover: boolean;
     clientOnboarding: boolean;
     customizationServices: boolean;
-    customModelTraining: boolean;
+    customModelHosting: boolean;
     customIntegrations: boolean;
     personalizedTraining: boolean;
   };
@@ -25,7 +25,7 @@ const plans: Plan[] = [
   {
     name: 'Starter',
     price: '$499/month* or $5k/year',
-    pages: 'Includes 20k credits** per month, then $0.025 per credit',
+    pages: 'Includes 20k credits** per month, then $0.025 per credit. Unused credits roll over to the next month.',
     bgColor: 'bg-sky-200',
     features: {
       autoCapture: true,
@@ -33,14 +33,14 @@ const plans: Plan[] = [
       clientOnboarding: false,
       customizationServices: false,
       customIntegrations: false,
-      customModelTraining: false,
+      customModelHosting: false,
       personalizedTraining: false,
     },
   },
   {
     name: 'Silver',
     price: '$1.5k/month or $15k/year',
-    pages: 'Includes 100k credits** per month, then $0.015 per credit',
+    pages: 'Includes 100k credits** per month, then $0.015 per credit. Unused credits roll over to the next month.',
     bgColor: 'bg-[#bcc6cc]',
     features: {
       autoCapture: true,
@@ -48,14 +48,14 @@ const plans: Plan[] = [
       clientOnboarding: true,
       customizationServices: false,
       customIntegrations: false,
-      customModelTraining: false,
+      customModelHosting: false,
       personalizedTraining: false,
     },
   },
   {
     name: 'Gold',
     price: '$4.5k/month or $45k/year',
-    pages: 'Includes 500k credits** per month, then $0.009 per credit',
+    pages: 'Includes 500k credits** per month, then $0.009 per credit. Unused credits roll over to the next month.',
     bgColor: 'bg-teal-600 text-white',
     features: {
       autoCapture: true,
@@ -63,7 +63,7 @@ const plans: Plan[] = [
       clientOnboarding: true,
       customizationServices: true,
       customIntegrations: false,
-      customModelTraining: false,
+      customModelHosting: true,
       personalizedTraining: false,
     },
   },
@@ -78,7 +78,7 @@ const plans: Plan[] = [
       clientOnboarding: true,
       customizationServices: true,
       customIntegrations: true,
-      customModelTraining: true,
+      customModelHosting: true,
       personalizedTraining: true,
     },
     additional: ['Custom model training', 'Custom Integrations and API Responses', 'Personalized 1-1 team training'],
@@ -89,7 +89,7 @@ const headerStyle = 'text-2xl font-semibold text-neutral-800 text-center pb-4 py
 const rowHeaderStyle =
   'text-xl text-center py-2 px-4 border-b border-gray-200 font-semibold text-neutral-800 text-left bg-white border-r-2';
 const featureRowHeaderStyle =
-  'text-md py-2 px-4 border-b border-gray-200 text-neutral-800 text-left bg-white border-r-2';
+  'text-md py-2 px-4 border-b border-gray-200 text-neutral-800 text-left bg-white border-r-2 font-semibold';
 
 const priceStyle = 'text-lg py-2 px-4 border-b border-gray-200 font-semibold text-neutral-800 text-centers';
 
@@ -118,12 +118,15 @@ const PricingPage = () => {
         short
       />
       <div className="container mx-auto px-4 py-16">
-        <table className="pricing-table min-w-full bg-white border border-gray-200">
+        <table className="pricing-table min-w-full bg-white border border-gray-200 rounded-2xl overflow-hidden">
           <thead className="text-2xl">
             <tr>
-              <th className="bg-neutral-100 border-b border-r border-gray-200"></th>
+              <th className="bg-neutral-100 border-b border-r border-gray-200 rounded-tl-2xl"></th>
               {plans.map((plan, index) => (
-                <th key={index} className={`${headerStyle} ${plan.bgColor}`}>
+                <th
+                  key={index}
+                  className={`${headerStyle} ${plan.bgColor} ${index === plans.length - 1 ? 'rounded-tr-2xl' : ''}`}
+                >
                   {plan.name}
                 </th>
               ))}
@@ -169,28 +172,35 @@ const PricingPage = () => {
             </tr>
             <tr>
               <td
-                className="text-2xl font-semibold text-center pt-4 pb-4 border-b border-gray-200 bg-neutral-100"
+                className="text-2xl font-semibold text-center pt-4 pb-4 border-b border-gray-200 bg-neutral-50"
                 colSpan={6}
               >
                 Features
               </td>
             </tr>
+
             <tr>
-              <td className={featureRowHeaderStyle}>Credits automatically roll over</td>
-              {plans.map((plan, index) => (
-                <td key={index} className={checkCellStyle}>
-                  <div className={checkCellDivStyle}>
-                    <FeatureCheck enabled={plan.features.autoRollover} />
-                  </div>
-                </td>
-              ))}
-            </tr>
-            <tr>
-              <td className={featureRowHeaderStyle}>Auto-capture tables and transform to Markdown, CSV, or JSON</td>
+              <td className={featureRowHeaderStyle}>
+                Extract full text to Markdown or Extract tables from PDF/image to CSV. (1 credit covers 1 page
+                extraction, up to 500 tokens**.)
+              </td>
               {plans.map((plan, index) => (
                 <td key={index} className={checkCellStyle}>
                   <div className={checkCellDivStyle}>
                     <FeatureCheck enabled={plan.features.autoCapture} />
+                  </div>
+                </td>
+              ))}
+            </tr>
+
+            <tr>
+              <td className={featureRowHeaderStyle}>
+                Extract key values pairs into JSON. (1 credit covers up to 10 key value pairs.)
+              </td>
+              {plans.map((plan, index) => (
+                <td key={index} className={checkCellStyle}>
+                  <div className={checkCellDivStyle}>
+                    <FeatureCheck enabled={plan.features.autoRollover} />
                   </div>
                 </td>
               ))}
@@ -205,24 +215,13 @@ const PricingPage = () => {
                 </td>
               ))}
             </tr>
-            <tr>
-              <td className={featureRowHeaderStyle}>
-                Customization services available (e.g. Annotation, quality audit)
-              </td>
-              {plans.map((plan, index) => (
-                <td key={index} className={checkCellStyle}>
-                  <div className={checkCellDivStyle}>
-                    <FeatureCheck enabled={plan.features.customizationServices} />
-                  </div>
-                </td>
-              ))}
-            </tr>
+
             <tr>
               <td className={featureRowHeaderStyle}>Private Model Hosting (On-prem or Cloud)</td>
               {plans.map((plan, index) => (
                 <td key={index} className={checkCellStyle}>
                   <div className={checkCellDivStyle}>
-                    <FeatureCheck enabled={plan.features.customModelTraining} />
+                    <FeatureCheck enabled={plan.features.customModelHosting} />
                   </div>
                 </td>
               ))}
@@ -237,29 +236,42 @@ const PricingPage = () => {
                 </td>
               ))}
             </tr>
+
             <tr>
-              <td className={featureRowHeaderStyle}>Personalized 1-1 Team Training</td>
-              {plans.map((plan, index) => (
-                <td key={index} className={checkCellStyle}>
-                  <div className={checkCellDivStyle}>
-                    <FeatureCheck enabled={plan.features.personalizedTraining} />
-                  </div>
-                </td>
-              ))}
+              <td colSpan={5} className="h-[100px] bg-neutral-50 rounded-b-2xl p-8">
+                <ul>
+                  <li>* No hidden fees; Monthly pay as you go; 30 days money back guaranteed.</li>
+                </ul>
+                <ul>
+                  <li>
+                    <p>{`** Pages exceeding 500 tokens will incur an extra credit for every additional 500 tokens.`}</p>
+                  </li>
+                </ul>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <div className="h-[100px] p-8 rounded-xl w-screen-xl items-center justify-center">
-        <ul>
-          <li>* No hidden fees; Monthly pay as you go; 30 days money back guaranteed.</li>
-        </ul>
-        <ul>
-          <li>
-            <p>{`** 1 credit covers 1 page extraction (up to 500 tokens). Pages exceeding 500 tokens will incur an extra credit for every additional 500 tokens.`}</p>
-          </li>
-        </ul>
+      {/* Enhanced promotional banner */}
+      <div className="w-full px-4 mt-2">
+        <div className="container mx-auto bg-gradient-to-r from-sky-100 to-sky-200 rounded-2xl py-8 shadow-lg border border-sky-200">
+          <p className="text-center text-xl md:text-2xl text-sky-900 font-semibold">
+            🎉 Special Offer for Startups and Non-profits! 🎉
+          </p>
+          <p className="text-center text-lg md:text-xl text-sky-900 mt-2">
+            Get <span className="font-bold text-sky-700">3 months FREE</span> for startups (less than 10 people) of
+            Non-profit organizations.
+            <br />
+            <span className="mt-2 inline-block">
+              Email{' '}
+              <a href="mailto:info@cambioml.com" className="text-sky-700 hover:underline font-bold">
+                info@cambioml.com
+              </a>{' '}
+              to redeem your credit!
+            </span>
+          </p>
+        </div>
       </div>
     </div>
   );
