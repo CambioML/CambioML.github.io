@@ -40,7 +40,7 @@ const Hero = () => {
                 {isPlaying ? (
                   <iframe
                     className="absolute top-0 left-0 w-full h-full border-0"
-                    src="https://www.tella.tv/video/clyqcwrvm0fde09jvg77n0rgh/embed?b=1&title=1&a=1&loop=0&autoPlay=true&t=0&muted=0&wt=1"
+                    src="https://www.loom.com/embed/5d92fdd403b14013b463b9026acd2800?hide_owner=false&hide_share=false&hide_title=false&hideEmbedTopBar=false&autoplay=1&muted=1&loop=1&t=0&showCaptions=1"
                     allowFullScreen
                   />
                 ) : (
