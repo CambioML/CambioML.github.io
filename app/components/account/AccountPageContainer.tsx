@@ -176,7 +176,20 @@ const AccountPageContainer = () => {
             </div>
           </div>
           <div>
-            <Heading title="AnyParser" />
+            <Heading title="AnyParser API Key" />
+            <div>
+              <h3 className={sectionHeadingStyle}>Getting Started with AnyParser</h3>
+              <div className="w-full bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mt-2 mb-4">
+                <p className="font-semibold">Limited time!</p>
+                <p>Each API can extract up to 100 pages for free!</p>
+                <p> </p>
+                <p className="font-semibold mt-4">Note:</p>
+                <ul className="list-disc ml-4">
+                  <li>Free API keys are limited to 10 extracted pages per API call.</li>
+                  <li>AnyParser never stores or trains on your data.</li>
+                </ul>
+              </div>
+            </div>
             <div className="w-full h-fit min-h-[300px] flex flex-col items-center gap-8">
               {loading && <LoadingComponent icon={Key} />}
               {!loading && error && (
@@ -205,13 +218,6 @@ const AccountPageContainer = () => {
               )}
               {!loading && !error && profile && emailVerified && (
                 <div className="w-full h-full flex flex-col items-start justify-start gap-8">
-                  <div>
-                    <h3 className={sectionHeadingStyle}>Generate and Copy your API keys.</h3>
-                    <div className="w-full bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mt-2 mb-4">
-                      <p className="font-semibold">Note</p>
-                      <p>Free API keys are limited to 10 extracted pages per API call.</p>
-                    </div>
-                  </div>
                   {apiKeys.length >= MAX_API_KEYS ? (
                     <div className="w-full h-[50px] flex items-center justify-center gap-4 text-lg bg-neutral-100 border-2 border-neutral-300 p-4 rounded-xl text-neutral-700">
                       {`You've generated the maximum API keys`}
@@ -249,12 +255,6 @@ const AccountPageContainer = () => {
                   </div>
                 </div>
               )}
-              <Button
-                label="Check out AnyParser Documentation"
-                onClick={() => window.open('https://docs.cambioml.com', '_blank')}
-                small
-                labelIcon={BookOpenText}
-              />
               {!isProduction && (
                 <div className="w-full">
                   <h3 className={sectionHeadingStyle}>Subscriptions</h3>
@@ -272,68 +272,6 @@ const AccountPageContainer = () => {
                   )}
                 </div>
               )}
-              <div>
-                <h3 className={sectionHeadingStyle}>Getting Started with AnyParser</h3>
-                <div className="w-full bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mt-2 mb-4">
-                  <p className="font-semibold">Limited time!</p>
-                  <p>Each API can extract up to 1000 pages for free!</p>
-                </div>
-                <p>
-                  <a
-                    className={`${linkStyles} pr-2`}
-                    href="https://github.com/CambioML/any-parser"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    AnyParser
-                  </a>
-                  can extract text, numbers and symbols from PDF, images, etc. Check out each notebook below to run
-                  AnyParser within 10 lines of code!
-                </p>
-                <div className={headingLinkStyle}>
-                  <a
-                    className={`${linkStyles} pr-2`}
-                    href="https://github.com/CambioML/any-parser/blob/main/examples/pdf_to_markdown.ipynb"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Extract all text and layout from PDF into Markdown Format
-                  </a>
-                </div>
-                <p className={paragraphStyles}>
-                  Are you an AI engineer who need to ACCURATELY extract both the text and its layout (e.g. table of
-                  content or markdown headers hierarchy) from a PDF?
-                  <a
-                    className={`${linkStyles} pl-2`}
-                    href="https://github.com/CambioML/any-parser/blob/main/examples/pdf_to_markdown.ipynb"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Check out this notebook demo (3-min read)!
-                  </a>
-                </p>
-                <div className={headingLinkStyle}>
-                  <a
-                    className={`${linkStyles} pr-2`}
-                    href="https://github.com/CambioML/any-parser/blob/main/examples/pdf_to_key_value.ipynb"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Extract a Key-Values from an Invoice PDF
-                  </a>
-                </div>
-                <p className={paragraphStyles}>
-                  Are you an accountant who needs to extract ACCURATE numbers from your invoices in a PDF?
-                  <a
-                    className={`${linkStyles} pl-2`}
-                    href="https://github.com/CambioML/any-parser/blob/main/examples/pdf_to_key_value.ipynb"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Check out this notebook (3-min read)!
-                  </a>
-                </p>
-              </div>
               <Button
                 label="Check out AnyParser Documentation"
                 onClick={() => window.open('https://docs.cambioml.com', '_blank')}
