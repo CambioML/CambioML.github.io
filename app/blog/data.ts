@@ -21,7 +21,77 @@ export const solutions: SolutionType[] = [
     imageContain: true,
     industries: [],
     blog: true,
-    date: new Date('2024-12-02'),
+    date: new Date('2025-02-12'),
+  },
+  {
+    title: 'AnyParser On-prem Enterprise Security Whitepaper',
+    subtitle: '',
+    description:
+      'AnyParser On-prem is a cutting-edge document parsing solution designed to meet the stringent security requirements of modern enterprises. This whitepaper outlines the robust security measures implemented in AnyParser On-prem, ensuring data privacy, regulatory compliance, and operational efficiency. Learn about its security architecture, deployment model, infrastructure security, and how it addresses critical data privacy needs in document parsing.',
+    url: '/blog/anyparser-security-whitepaper',
+    image: '/images/solutions/anyparser-performance-graph.png',
+    imageContain: true,
+    industries: [],
+    blog: true,
+    date: new Date('2024-02-03'),
+  },
+  {
+    title: 'KDD 2024: Talk with Amazon',
+    subtitle: '',
+    description:
+      'Want to optimize Large Language Models (LLMs) for specific tasks? At KDD 2024, Rachel Hu, CEO of CambioML, and experts from Amazon and Epsilla revealed how <strong>Retrieval Augmented Generation (RAG)</strong> and <strong>LLM Fine-Tuning</strong> can enhance LLM performance for specialized applications. Explore advanced techniques and practical labs that demonstrate how to build accurate, domain-specific models. Learn best practices for making your LLMs more versatile and precise. ',
+    url: '/blog/kdd-workshop-2024',
+    image: '/images/solutions/kdd-2024-cover.jpeg',
+    industries: [],
+    blog: true,
+    date: new Date('2025-01-29'),
+  },
+  {
+    title: 'Evaluating Your Parsing Solution: A Comparative Look at PDF to Markdown Conversion',
+    subtitle: '',
+    description:
+      'Converting complex PDFs to Markdown can be difficult. LLMs like GPT can manage these tasks but are usually slow and may yield inaccurate results. Traditional OCR tools work well for simpler documents but often fail to preserve the original structure and meaning. This blog will present a comparative analysis of various models using multiple metrics.',
+    url: '/blog/evaluate-document-parsing-accuracy',
+    image: '/images/solutions/evaluate-document-parsing-accuracy-1.png',
+    imageContain: false,
+    industries: [],
+    blog: true,
+    date: new Date('2025-01-10'),
+  },
+  {
+    title: 'Convert PDF to CSV: An In-Depth Guide to Leveraging Vision Language Models',
+    subtitle: '',
+    description:
+      'This guide will walk you through the process of harnessing VLMs to convert your PDFs into CSV or Excel files using AnyParser, streamlining your workflow and unlocking valuable data insights. With AnyParser, you can easily convert PDF to CSV, PDF to Excel, or even convert Word to CSV with just a few clicks on our Playground.',
+    url: '/blog/convert-pdf-to-csv',
+    image: '/images/solutions/convert-pdf-to-csv-1.png',
+    imageContain: true,
+    industries: [],
+    blog: true,
+    date: new Date('2024-12-06'),
+  },
+  {
+    title: "AnyParser: The Resume Parser Behind Jobright.ai's High-Growth Product",
+    subtitle: '',
+    description:
+      'Struggling to find the perfect candidates through piles of resumes? In this post, we’ll reveal how <strong>JobRight.ai</strong> turned the tables with <strong>AnyParser</strong>, the ultimate resume parser that effortlessly extracts and processes candidate information. Discover how this game-changing tool transformed <strong>JobRight.ai</strong> into the top AI job marketplace, creating career matches faster and more accurately than ever before.',
+    url: '/blog/jobright-resumes',
+    image: '/images/solutions/jobright-resumes.png',
+    imageContain: true,
+    industries: [],
+    blog: true,
+    date: new Date('2024-11-19'),
+  },
+  {
+    title: 'Doubling Accuracy in Knowledge Retrieval from Charts and Tables',
+    subtitle: '',
+    description:
+      'In precision-critical industries like finance, traditional OCR models fall short. Enter <strong>AnyParser</strong> and <strong>Epsilla</strong>, a cutting-edge system by CambioML and Epsilla. By integrating advanced vision language models with Retrieval-Augmented Generation (RAG) techniques, this solution offers superior accuracy and recall, revolutionizing data extraction from complex documents. Discover how <strong>AnyParser</strong> and <strong>Epsilla</strong> are redefining knowledge retrieval for businesses.',
+    url: '/blog/epsilla-whitepaper',
+    image: '/images/solutions/anyparser-epsilla-whitepaper-eval-metrics.png',
+    industries: [],
+    blog: true,
+    date: new Date('2024-12-28'),
   },
   {
     title: 'The Importance of Integration with Existing Systems in Document Parsing Software',
@@ -145,18 +215,6 @@ export const solutions: SolutionType[] = [
     date: new Date('2024-10-24'),
   },
   {
-    title: 'AnyParser On-prem Enterprise Security Whitepaper',
-    subtitle: '',
-    description:
-      'AnyParser On-prem is a cutting-edge document parsing solution designed to meet the stringent security requirements of modern enterprises. This whitepaper outlines the robust security measures implemented in AnyParser On-prem, ensuring data privacy, regulatory compliance, and operational efficiency. Learn about its security architecture, deployment model, infrastructure security, and how it addresses critical data privacy needs in document parsing.',
-    url: '/blog/anyparser-security-whitepaper',
-    image: '/images/solutions/anyparser-performance-graph.png',
-    imageContain: true,
-    industries: [],
-    blog: true,
-    date: new Date('2024-10-23'),
-  },
-  {
     title: 'Structured vs Unstructured Data: Examples and Best Practices',
     subtitle: '',
     description:
@@ -203,18 +261,6 @@ export const solutions: SolutionType[] = [
     industries: [],
     blog: true,
     date: new Date('2024-10-11'),
-  },
-  {
-    title: 'Evaluating Your Parsing Solution: A Comparative Look at PDF to Markdown Conversion',
-    subtitle: '',
-    description:
-      'Converting complex PDFs to Markdown can be difficult. LLMs like GPT can manage these tasks but are usually slow and may yield inaccurate results. Traditional OCR tools work well for simpler documents but often fail to preserve the original structure and meaning. This blog will present a comparative analysis of various models using multiple metrics.',
-    url: '/blog/evaluate-document-parsing-accuracy',
-    image: '/images/solutions/evaluate-document-parsing-accuracy-1.png',
-    imageContain: false,
-    industries: [],
-    blog: true,
-    date: new Date('2024-10-10'),
   },
   {
     title: 'Convert Image to Excel: Vision Language Models changing image to excel converter',
@@ -337,18 +383,6 @@ export const solutions: SolutionType[] = [
     date: new Date('2024-10-01'),
   },
   {
-    title: 'Convert PDF to CSV: An In-Depth Guide to Leveraging Vision Language Models',
-    subtitle: '',
-    description:
-      'This guide will walk you through the process of harnessing VLMs to convert your PDFs into CSV or Excel files using AnyParser, streamlining your workflow and unlocking valuable data insights. With AnyParser, you can easily convert PDF to CSV, PDF to Excel, or even convert Word to CSV with just a few clicks on our Playground.',
-    url: '/blog/convert-pdf-to-csv',
-    image: '/images/solutions/convert-pdf-to-csv-1.png',
-    imageContain: true,
-    industries: [],
-    blog: true,
-    date: new Date('2024-09-26'),
-  },
-  {
     title: "Vision Language Models: Moving Beyond OCR's Limitations",
     subtitle: '',
     description:
@@ -359,40 +393,6 @@ export const solutions: SolutionType[] = [
     industries: [],
     blog: true,
     date: new Date('2024-09-25'),
-  },
-  {
-    title: "AnyParser: The Resume Parser Behind Jobright.ai's High-Growth Product",
-    subtitle: '',
-    description:
-      'Struggling to find the perfect candidates through piles of resumes? In this post, we’ll reveal how <strong>JobRight.ai</strong> turned the tables with <strong>AnyParser</strong>, the ultimate resume parser that effortlessly extracts and processes candidate information. Discover how this game-changing tool transformed <strong>JobRight.ai</strong> into the top AI job marketplace, creating career matches faster and more accurately than ever before.',
-    url: '/blog/jobright-resumes',
-    image: '/images/solutions/jobright-resumes.png',
-    imageContain: true,
-    industries: [],
-    blog: true,
-    date: new Date('2024-09-19'),
-  },
-  {
-    title: 'KDD 2024: Talk with Amazon',
-    subtitle: '',
-    description:
-      'Want to optimize Large Language Models (LLMs) for specific tasks? At KDD 2024, Rachel Hu, CEO of CambioML, and experts from Amazon and Epsilla revealed how <strong>Retrieval Augmented Generation (RAG)</strong> and <strong>LLM Fine-Tuning</strong> can enhance LLM performance for specialized applications. Explore advanced techniques and practical labs that demonstrate how to build accurate, domain-specific models. Learn best practices for making your LLMs more versatile and precise. ',
-    url: '/blog/kdd-workshop-2024',
-    image: '/images/solutions/kdd-2024-cover.jpeg',
-    industries: [],
-    blog: true,
-    date: new Date('2024-08-29'),
-  },
-  {
-    title: 'Doubling Accuracy in Knowledge Retrieval from Charts and Tables',
-    subtitle: '',
-    description:
-      'In precision-critical industries like finance, traditional OCR models fall short. Enter <strong>AnyParser</strong> and <strong>Epsilla</strong>, a cutting-edge system by CambioML and Epsilla. By integrating advanced vision language models with Retrieval-Augmented Generation (RAG) techniques, this solution offers superior accuracy and recall, revolutionizing data extraction from complex documents. Discover how <strong>AnyParser</strong> and <strong>Epsilla</strong> are redefining knowledge retrieval for businesses.',
-    url: '/blog/epsilla-whitepaper',
-    image: '/images/solutions/anyparser-epsilla-whitepaper-eval-metrics.png',
-    industries: [],
-    blog: true,
-    date: new Date('2024-08-28'),
   },
   {
     title: 'From Documents to Database',
