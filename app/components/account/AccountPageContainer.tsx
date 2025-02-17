@@ -71,9 +71,6 @@ const ProfileContainer = ({
   );
 };
 
-const paragraphStyles = 'text-md py-2';
-const linkStyles = 'underline cursor-pointer text-neutral-700 hover:text-neutral-900 font-semibold';
-const headingLinkStyle = `font-semibold text-lg py-1 ${linkStyles}`;
 const sectionHeadingStyle = `text-xl font-semibold pb-4`;
 
 const AccountPageContainer = () => {
