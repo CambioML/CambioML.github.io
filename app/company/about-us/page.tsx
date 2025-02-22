@@ -71,15 +71,15 @@ const AboutPage = () => {
               ]}
             />
             <TeamMember
-              name="Jojo Ortiz"
-              title="Founding Engineer"
-              image="/images/team/jojo.png"
-              url="https://www.linkedin.com/in/joseromanortiz/"
+              name="Lingjie Kong"
+              title="Co-Founder"
+              image="/images/team/kimi.jpeg"
+              url="https://www.linkedin.com/in/0xlingjiekong/"
               logos={[
                 {
-                  image: '/images/team/tesla.png',
-                  alt: 'Tesla',
-                  url: 'https://www.tesla.com/',
+                  image: '/images/companies/deepmind.png',
+                  alt: 'DeepMind',
+                  url: 'https://deepmind.google/',
                 },
                 {
                   image: '/images/team/stanford.png',
