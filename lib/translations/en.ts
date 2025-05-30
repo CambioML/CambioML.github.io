@@ -21,6 +21,46 @@ export const en = {
     azureDeployment: 'Azure Deployment',
     azureDescription: 'Azure VM deployment guide.',
   },
+  reviews: {
+    title: 'Reviews',
+    testimonials: [
+      {
+        text: '"We had tried all the pdf extraction tool and AnyParser gave us the most accurate results."',
+        author: 'Richard Song',
+        position: 'CEO - Epsilla',
+      },
+      {
+        text: '"AnyParser outperformed 10+ other parsers in our benchmarks, delivering top-tier resume parsing accuracy with the fastest multi-model LLM solution—all while maintaining exceptional performance."',
+        author: 'Ethan Zheng',
+        position: 'CTO - Jobright',
+      },
+      {
+        text: '"AnyParser\'s advanced multimodal AI delivers where other approaches fail. Complex documents require this fusion of sight and language."',
+        author: 'Jon Conradt',
+        position: 'Principal Scientist - AWS',
+      },
+      {
+        text: '"As an AI educator, I seek SOTA solutions for my ML practitioner students. AnyParser enhances retrieval accuracy in document parsing while balancing security, cost, and efficiency—an innovative tool for any pipeline!"',
+        author: 'Cass',
+        position: 'Senior Scientist - AWS',
+      },
+      {
+        text: '"I am impressed by AnyParser\'s innovation in the space of AI and LLM, including the novel methodologies of synthetic data generation, retriever model fine-tuning in RAG, and their open-source products out of those innovations."',
+        author: 'Felix Bai',
+        position: 'Sr. Solution Architect - AWS',
+      },
+      {
+        text: '"I have validated the quality of AnyParser goes far beyond traditional OCR tools like Langchain / Unstructured. Looking forward to using this in our future projects."',
+        author: 'Steve Cooper',
+        position: 'Cofounder - ai ticker chat',
+      },
+      {
+        text: '"It\'s far better than other tools! Our data analysts are able to triple their outputs."',
+        author: 'Jamal',
+        position: 'CEO - xtrategise',
+      },
+    ],
+  },
   company: {
     whoWeAre: {
       title: 'Who we are',
