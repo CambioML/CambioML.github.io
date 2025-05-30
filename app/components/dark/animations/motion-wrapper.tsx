@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, type Variant, type HTMLMotionProps } from 'framer-motion';
+import { motion, type Variant } from 'framer-motion';
 import { forwardRef } from 'react';
 import type { ReactNode } from 'react';
 
@@ -22,7 +22,7 @@ export type AnimationVariant =
   | 'slideInUp'
   | 'slideInDown';
 
-interface MotionWrapperProps extends HTMLMotionProps<'div'> {
+interface MotionWrapperProps {
   children: ReactNode;
   variant?: AnimationVariant;
   delay?: number;
@@ -118,16 +118,7 @@ const variants: Record<AnimationVariant, { initial: Variant; animate: Variant; e
 
 const MotionWrapper = forwardRef<HTMLDivElement, MotionWrapperProps>(
   (
-    {
-      children,
-      variant = 'fadeIn',
-      delay = 0,
-      duration = 0.5,
-      once = true,
-      className = '',
-      viewportMargin = '-100px',
-      ...rest
-    },
+    { children, variant = 'fadeIn', delay = 0, duration = 0.5, once = true, className = '', viewportMargin = '-100px' },
     ref
   ) => {
     const selectedVariant = variants[variant];
@@ -146,7 +137,6 @@ const MotionWrapper = forwardRef<HTMLDivElement, MotionWrapperProps>(
           ease: 'easeOut',
         }}
         className={className}
-        {...rest}
       >
         {children}
       </motion.div>

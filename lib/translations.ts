@@ -50,5 +50,6 @@ export const translations = {
 } as const;
 
 export function getTranslation(locale: Locale) {
+  console.log(locale, "i18n hasn't been implement yet");
   return translations.en;
 }

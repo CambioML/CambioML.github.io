@@ -21,6 +21,17 @@ export const en = {
     azureDeployment: 'Azure Deployment',
     azureDescription: 'Azure VM deployment guide.',
   },
+  common: {
+    language: 'Language',
+    english: 'English',
+    spanish: 'Spanish',
+    french: 'French',
+    chinese: 'Chinese',
+    getStarted: 'Get Started',
+    learnMore: 'Learn More',
+    contactUs: 'Contact Us',
+    readMore: 'Read More',
+  },
   reviews: {
     title: 'Reviews',
     testimonials: [

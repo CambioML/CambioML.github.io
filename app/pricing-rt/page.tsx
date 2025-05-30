@@ -18,7 +18,7 @@ function AnimatedTextBox({ children, className }: { children: React.ReactNode; c
   );
 }
 
-export function Pricing() {
+const Pricing = () => {
   const contactModal = usePricingContactModal();
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annually'>('monthly');
 
@@ -328,8 +328,6 @@ export function Pricing() {
       </section>
     </div>
   );
-}
+};
 
-export default function PricingPage() {
-  return <Pricing />;
-}
+export default Pricing;
