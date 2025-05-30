@@ -18,7 +18,7 @@ export default async function BlogPage() {
         {/* Blog Header */}
         <div className="pt-16 pb-0 px-4 md:px-8 lg:px-40">
           <div className="container mx-auto">
-            <h1 className="text-5xl md:text-7xl font-semibold my-6 text-center !leading-relaxed">
+            <h1 className="text-5xl !md:text-8xl !font-semibold mt-20 text-center !leading-relaxed">
               <span className="bg-gradient">{t.nav.blog}</span>
             </h1>
           </div>
