@@ -1,0 +1,135 @@
+@import url('../public/font/stylesheet.css');
+
+:root {
+  --background: rgb(10, 10, 10);
+  --foreground: #d1d5db; /* gray-300 equivalent */
+  --line: #232323;
+  --light: rgba(112, 190, 250, 0.75);
+  --border-1: rgb(34, 34, 34);
+  --card-1: rgb(10, 10, 10);
+
+  --scroll-duration: 10;
+  --scroll-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Theme-scoped styles - only apply to elements with .theme-dark class */
+.theme-dark {
+  background: var(--background);
+  color: var(--foreground);
+  font-size: 15px;
+  scroll-behavior: smooth;
+  font-family: 'Inter Tight', sans-serif;
+}
+
+.theme-dark section,
+.theme-dark footer {
+  background: radial-gradient(
+    35% 25% at 50% 56.10000000000001%,
+    rgba(80, 176, 250, 0.1) 0%,
+    rgba(64, 140, 199, 0.1) 36.486486486486484%,
+    rgb(10, 10, 10) 100%
+  );
+}
+
+.theme-dark h1 {
+  font-weight: 500;
+  font-size: 55px;
+  font-family: 'Inter Tight', sans-serif;
+}
+
+.theme-dark p {
+  font-family: 'Inter Tight', sans-serif;
+}
+
+.theme-dark button {
+  cursor: pointer;
+  font-family: 'Inter Tight', sans-serif;
+}
+
+/* Custom gradient utility class */
+.bg-gradient {
+  display: inline-block;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(112, 190, 250) 100%);
+}
+
+/* Custom utility classes */
+.border-border-1 {
+  border-color: var(--border-1);
+}
+
+.bg-card-1 {
+  background-color: var(--card-1);
+}
+
+.bg-background {
+  background-color: var(--background);
+}
+
+.text-foreground {
+  color: var(--foreground);
+}
+
+/* Custom slow scroll animation class */
+.slow-scroll-animation {
+  transition-property: scroll-position;
+  transition-duration: var(--scroll-duration);
+  transition-timing-function: var(--scroll-timing-function);
+}
+
+/* Marquee animations - Forward */
+@keyframes marquee-forward {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+
+@keyframes marquee-vertical-forward {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+  }
+}
+
+/* Marquee animations - Reverse */
+@keyframes marquee-reverse {
+  from {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes marquee-vertical-reverse {
+  from {
+    transform: translateY(calc(-100% - var(--gap)));
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Animation classes */
+.animate-marquee {
+  animation: marquee-forward var(--duration) linear infinite;
+}
+
+.animate-marquee-reverse {
+  animation: marquee-reverse var(--duration) linear infinite;
+}
+
+.animate-marquee-vertical {
+  animation: marquee-vertical-forward var(--duration) linear infinite;
+}
+
+.animate-marquee-vertical-reverse {
+  animation: marquee-vertical-reverse var(--duration) linear infinite;
+}

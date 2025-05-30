@@ -18,7 +18,7 @@ const FilesContainer = () => {
   return (
     <div className={`h-[500px] lg:h-full w-full min-h-[200px] grid lg:grid-cols-[1fr_20px]`}>
       <div className="cols-span-1 grid grid-rows-[50px_1fr_70px_70px_70px] pr-4">
-        <h2 className="row-span-1 text-2xl font-semibold pb-10">{!fileCollapsed && 'Files'}</h2>
+        <h2 className="row-span-1 text-2xl font-semibold pt-4">{!fileCollapsed && 'Files'}</h2>
         <div className="row-span-1 overflow-auto relative box-border">
           {files.length > 0 ? (
             <div className="w-full h-fit flex flex-col items-start justify-center absolute gap-2">

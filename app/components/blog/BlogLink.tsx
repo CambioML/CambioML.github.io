@@ -7,14 +7,12 @@ const BlogLink = ({ text, url }: BlogLinkProps) => {
   return (
     <>
       &nbsp;
-      {/* Responsive:
-          - Text color changes on hover for better interaction on desktop
-          - Underline provides clear indication of link on all devices */}
+      {/* Dark theme compatible link colors */}
       <a
         href={url}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-neutral-500 hover:text-neutral-800 underline"
+        className="text-gray-400 hover:text-blue-400 underline transition-colors"
       >
         {text}
       </a>

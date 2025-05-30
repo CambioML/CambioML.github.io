@@ -19,7 +19,7 @@ const ActionContainer = () => {
   }, [selectedFileIndex, files]);
 
   return (
-    <div className="w-full h-full grid grid-rows-[50px_1fr]">
+    <div className="w-full h-full grid grid-rows-[50px_1fr] border border-border rounded-lg">
       <div className={`w-full grid grid-cols-3`}>
         {Object.values(PlaygroundTabs).map((tab) => (
           <PlaygroundTab key={tab} label={tab} />
