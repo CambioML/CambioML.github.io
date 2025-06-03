@@ -72,13 +72,6 @@
   color: var(--foreground);
 }
 
-/* Custom slow scroll animation class */
-.slow-scroll-animation {
-  transition-property: scroll-position;
-  transition-duration: var(--scroll-duration);
-  transition-timing-function: var(--scroll-timing-function);
-}
-
 /* Marquee animations - Forward */
 @keyframes marquee-forward {
   from {

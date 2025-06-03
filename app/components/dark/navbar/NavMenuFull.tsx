@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { List, X } from '@phosphor-icons/react';
 import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
@@ -68,7 +69,7 @@ const NavMenu = ({ menuItems, makeOnClick }: NavMenuProps) => {
         >
           <div className="w-full flex flex-col justify-center">
             {menuItems.map((item) => (
-              <>
+              <React.Fragment key={item.label}>
                 <div
                   className={`w-full h-max flex justify-center text-4xl py-5 font-semibold text-foreground ${item.links.length === 0 && 'cursor-pointer hover:text-light transition'}`}
                   onClick={() => {
@@ -80,7 +81,7 @@ const NavMenu = ({ menuItems, makeOnClick }: NavMenuProps) => {
                 >
                   {item.label}
                 </div>
-                <div className="flex flex-col align-center justify-center gap-4">
+                <div className="flex flex-col items-center justify-center gap-4">
                   {item.links.map((link, i) => (
                     <div
                       key={link + i}
@@ -91,7 +92,7 @@ const NavMenu = ({ menuItems, makeOnClick }: NavMenuProps) => {
                     </div>
                   ))}
                 </div>
-              </>
+              </React.Fragment>
             ))}
             <div className="w-full flex flex-col gap-4 px-20 ">
               <div className="w-full pt-20">

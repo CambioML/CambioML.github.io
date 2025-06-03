@@ -41,7 +41,13 @@ export function BlogCard({ post, index }: BlogCardProps) {
           )}
 
           <div className="p-5 flex-grow flex flex-col">
-            <div className="text-sm text-gray-400 mb-2">{post.date}</div>
+            <div className="text-sm text-gray-400 mb-2">
+              {new Date(post.date).toLocaleDateString(undefined, {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </div>
             <h3 className="text-xl font-semibold mb-3 text-white">{post.title}</h3>
 
             <div className="flex-grow">

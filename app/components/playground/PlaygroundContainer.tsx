@@ -48,8 +48,6 @@ const PlaygroundContainer = () => {
         >
           <div
             className={`
-              backdrop-filter: blur(20px) saturate(180%)
-              -webkit-backdrop-filter: blur(20px) saturate(180%)
               bg-white/[0.08]
               border-border
               border
@@ -60,13 +58,15 @@ const PlaygroundContainer = () => {
               ${fileCollapsed ? 'p-2 rounded-l-xl' : 'px-2 pl-10 rounded-l-xl'}
               pr-0
             `}
+            style={{
+              backdropFilter: 'blur(20px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+            }}
           >
             <FilesContainer />
           </div>
           <div
             className={`
-              backdrop-filter: blur(20px) saturate(180%)
-              -webkit-backdrop-filter: blur(20px) saturate(180%)
               bg-white/[0.08]
               border-l-0 border-y-2 border-r-2 border-white/20
               transition-all duration-300 ease-in-out
@@ -74,6 +74,10 @@ const PlaygroundContainer = () => {
               hover:border-white/25
               px-6 pr-10 rounded-r-xl
             `}
+            style={{
+              backdropFilter: 'blur(20px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+            }}
           >
             <ActionContainer />
           </div>

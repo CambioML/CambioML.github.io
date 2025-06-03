@@ -7,11 +7,14 @@ import DarkNavbar from './dark/navbar/Navbar';
 // List of pathnames where the dark navbar should be used
 const DARK_NAVBAR_PATHS = ['^/$', '^/company/', '^/pricing-rt', '^/blog'];
 
+// Precompile regex patterns to avoid creating new RegExp on every render
+const darkNavbarRegexes = DARK_NAVBAR_PATHS.map((pattern) => new RegExp(pattern));
+
 const ConditionalNavbar = () => {
   const pathname = usePathname();
 
   // Check if current pathname should use dark navbar
-  const shouldUseDarkNavbar = DARK_NAVBAR_PATHS.some((path) => new RegExp(path).test(pathname));
+  const shouldUseDarkNavbar = darkNavbarRegexes.some((regex) => regex.test(pathname));
 
   if (shouldUseDarkNavbar) {
     return <DarkNavbar />;
