@@ -13,7 +13,7 @@ const menuItems = [
   {
     label: 'Pricing',
     links: [],
-    url: 'https://www.cambioml.com/pricing-rt',
+    url: '/pricing-rt',
   },
   {
     label: 'Blog',

@@ -25,14 +25,17 @@ const PlaygroundPageContainer = ({ production }: PlaygroundPageContainerProps) =
       }}
     >
       <ProductionProvider initialValue={production}>
-        <div className="pb-10 w-full h-fit flex flex-col justify-center items-center">
-          <UploadModal />
-          <PageHero
-            title={`${production ? 'AnyParser Sandbox' : 'AnyParser Sandbox'}`}
-            description={`The first LLM to quickly and accurately extract full content from PDFs*, PPTs, and images**.`}
-            short
-          />
-          <PlaygroundContainer />
+        <div className="relative min-h-screen w-full overflow-hidden bg-gray-50">
+          {/* Main content */}
+          <div className="relative z-10 py-10 w-full h-fit flex flex-col justify-center items-center">
+            <PageHero
+              title="AnyParser Sandbox"
+              description={`The first LLM to quickly and accurately extract full content from PDFs*, PPTs, and images**.`}
+              short
+            />
+            <PlaygroundContainer />
+            <UploadModal />
+          </div>
         </div>
       </ProductionProvider>
     </Auth0Provider>

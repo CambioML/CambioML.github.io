@@ -1,17 +1,17 @@
-import { Lato } from 'next/font/google';
 import './globals.css';
-import Navbar from './components/navbar/Navbar';
+import dynamic from 'next/dynamic';
+import ConditionalNavbar from './components/ConditionalNavbar';
 import Footer from './components/footer/Footer';
+import InfoModal from './components/modals/InfoModal';
 import DemoModal from './components/modals/DemoModal';
 import ImageModal from './components/modals/ImageModal';
 import ToasterProvider from './providers/ToasterProvider';
-import { GoogleTagManager } from '@next/third-parties/google';
-import PlaygroundFeedbackModal from './components/modals/PlaygroundFeedbackModal';
-import InfoModal from './components/modals/InfoModal';
-import PricingContactModal from './components/modals/PricingContactModal';
 import ResultZoomModal from './components/modals/ResultZoomModal';
+import PricingContactModal from './components/modals/PricingContactModal';
+import PlaygroundFeedbackModal from './components/modals/PlaygroundFeedbackModal';
+import { Lato } from 'next/font/google';
 import { PHProvider } from './providers';
-import dynamic from 'next/dynamic';
+import { GoogleTagManager } from '@next/third-parties/google';
 
 export const metadata = {
   title: 'CambioML - AnyParser API: The first LLM for document parsing with accuracy and speed',
@@ -57,7 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <body className={font.className}>
           <PostHogPageView />
           <ToasterProvider />
-          <Navbar />
+          <ConditionalNavbar />
           <DemoModal />
           <ImageModal />
           <PricingContactModal />
