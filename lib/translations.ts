@@ -19,6 +19,7 @@ import { ro } from './translations/ro';
 import { sv } from './translations/sv';
 import { tr } from './translations/tr';
 import { zh } from './translations/zh';
+import { ru } from './translations/ru';
 
 export type Locale =
   | 'en'
@@ -41,7 +42,8 @@ export type Locale =
   | 'fi'
   | 'cs'
   | 'hu'
-  | 'ro';
+  | 'ro'
+  | 'ru';
 
 export const translations = {
   en,
@@ -65,6 +67,7 @@ export const translations = {
   cs,
   hu,
   ro,
+  ru,
 } as const;
 
 export function getTranslation(locale: Locale) {

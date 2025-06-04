@@ -59,7 +59,7 @@ const InfoButton = ({ infoType }: InfoButtonProps) => {
           </>
         );
       default:
-        return '';
+        return <div></div>;
     }
   };
 

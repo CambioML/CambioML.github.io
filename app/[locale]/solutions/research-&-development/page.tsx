@@ -5,7 +5,7 @@ import useDemoModal from '@/app/hooks/useDemoModal';
 import Feature from '@/app/components/feature/Feature';
 import DemoFeature from '@/app/components/feature/DemoFeature';
 import SolutionsList from '@/app/components/solutions/SolutionsList';
-import { solutions } from '@/app/[locale]/blog/data';
+import { solutions } from '@/app/data';
 
 const RDSolutionsPage = () => {
   const demoModal = useDemoModal();

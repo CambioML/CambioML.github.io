@@ -9,6 +9,10 @@ on:
 jobs:
   check-translations:
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      pull-requests: write
+      contents: read
     
     steps:
       - name: Checkout repository

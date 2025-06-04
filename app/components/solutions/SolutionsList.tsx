@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import SolutionsCard from './SolutionsCard';
-import { SolutionType } from '@/app/blog/data';
+import { SolutionType } from '@/app/data';
 
 interface SolutionsListProps {
   solutions: SolutionType[];
