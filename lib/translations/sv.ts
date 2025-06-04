@@ -39,9 +39,9 @@ export const sv = {
   homepage: {
     hero: {
       title: 'AnyParser: Vision LLM för dokumentparsing',
-      subtitle: 'Parserar PDF:er, PPT:er, Word och bilder med konfigurerbara alternativ på några klick!',
+      subtitle: 'Parsar PDF, PPT, Word och bilder med konfigurerbara alternativ på några klick!',
       description:
-        '80% av OCR-användare är trötta på att underhålla limkod. Frigör din tid med oöverträffad noggrannhet, fullständig integritet och konfigurerbara alternativ såsom:',
+        '80% av OCR-användare är trötta på att underhålla klisterkod. Frigör din tid med oöverträffad noggrannhet, fullständig integritet och konfigurerbara alternativ såsom:',
       features: [
         'ta bort privat identitetsinformation,',
         'extrahera tabeller och diagram,',
@@ -54,28 +54,28 @@ export const sv = {
       noCreditCard: 'Inget kreditkort krävs',
     },
     capabilities: {
-      title: 'AnyParsers kapaciteter',
+      title: "AnyParser's kapaciteter",
       items: [
-        'Integritetsskydd: Aktivera funktionen "Ta bort privat information" och AnyParser kommer automatiskt att redigera P.I.I. under dokumentextraktionen.',
+        'Integritetsskydd: Aktivera funktionen "Ta bort privat information", och AnyParser kommer automatiskt att redigera P.I.I. under dokumentextraktionen.',
         'Du kan instruera modellen att inkludera eller utelämna sidnummer, rubriker, fotnoter, figurer, diagram, etc.',
-        'AnyParser extraherar inte bara text och tabeller, den hämtar också figurer, diagram och fotnoter fyllda med viktig information 2X snabbare och 5X mer kostnadseffektivt.',
-        'Säg adjö till röriga tabeller och kaotiska layouter som plågar traditionella OCR-baserade modeller med 2X mer precision och 2.5X mer återkallelse än branschgenomsnittet.',
+        'AnyParser extraherar inte bara text och tabeller, den hämtar också figurer, diagram och fotnoter fyllda med viktig information 2X snabbare och 5X mer kostnadseffektivt',
+        'Säg adjö till röriga tabeller och kaotiska layouter som plågar traditionella OCR-baserade modeller med 2X mer precision och 2.5X mer återkallning än branschens genomsnitt.',
       ],
     },
     howItWorks: {
       title: 'Hur AnyParser fungerar',
-      subtitle: 'Parsera vilken data som helst från vilka dokument som helst med en enkel användargränssnitt',
+      subtitle: 'Parsa vilken data som helst från vilket dokument som helst med enkel användargränssnitt',
       tryFree: 'Prova GRATIS',
       steps: [
         {
           title: '01',
           subtitle: 'Dra och släpp dokumenten',
           description:
-            "Klicka på 'Ladda upp fil' för att enkelt dra och släppa dokumenten du vill parsera, eller klistra in en skärmdump från ditt urklipp. Vi har också tillhandahållit exempel på dokumentation för att hjälpa dig komma igång.",
+            "Klicka på 'Ladda upp fil' för att enkelt dra och släppa dokumenten du vill parsa, eller klistra in en skärmdump från ditt urklipp. Vi har också tillhandahållit exempel på dokumentation för att hjälpa dig komma igång.",
         },
         {
           title: '02',
-          subtitle: 'Redigera parsing- och integritetsinställningar',
+          subtitle: 'Redigera inställningar för parsing och integritet',
           description:
             'AnyParser kategoriserar automatiskt olika typer av information, inklusive PII (Personligt Identifierbar Information), fotnoter, tabeller och mer. Exportera bara den data du behöver!',
         },
@@ -83,13 +83,13 @@ export const sv = {
           title: '03',
           subtitle: 'Exportera resultat till ditt system',
           description:
-            'Ladda ner din data i ditt föredragna format—oavsett om det är HTML, Excel, JSON eller ett databas-schema anpassat till ditt affärsarbetsflöde.',
+            'Ladda ner din data i ditt föredragna format—oavsett om det är HTML, Excel, JSON eller ett databas-schema anpassat till ditt arbetsflöde.',
         },
       ],
     },
     banners: [
       {
-        title: 'Parsera data noggrant',
+        title: 'Parsa data noggrant',
         description:
           'AnyParser-lekplatsen är enkel, snabb och intuitiv. Prova gränssnittet nu och ta en paus resten av dagen',
         actionLabel: 'Prova GRATIS',
@@ -111,27 +111,27 @@ export const sv = {
         position: 'VD - Epsilla',
       },
       {
-        text: '"AnyParser överträffade 10+ andra parserare i våra benchmarktester och levererade toppklassig noggrannhet vid CV-parsing med den snabbaste multi-modell LLM-lösningen—allt medan den bibehöll exceptionell prestanda."',
+        text: '"AnyParser överträffade 10+ andra parserverktyg i våra benchmarks, och levererade toppklassig noggrannhet i CV-parsing med den snabbaste multimodell LLM-lösningen—allt medan den bibehöll exceptionell prestanda."',
         author: 'Ethan Zheng',
         position: 'CTO - Jobright',
       },
       {
-        text: '"AnyParsers avancerade multimodala AI levererar där andra metoder misslyckas. Komplexa dokument kräver denna fusion av syn och språk."',
+        text: '"AnyParser\'s avancerade multimodala AI levererar där andra metoder misslyckas. Komplexa dokument kräver denna fusion av syn och språk."',
         author: 'Jon Conradt',
         position: 'Principal Scientist - AWS',
       },
       {
-        text: '"Som AI-utbildare söker jag SOTA-lösningar för mina ML-praktikantstudenter. AnyParser förbättrar hämtningens noggrannhet vid dokumentparsing samtidigt som den balanserar säkerhet, kostnad och effektivitet—ett innovativt verktyg för alla pipelines!"',
+        text: '"Som AI-utbildare söker jag SOTA-lösningar för mina ML-praktikantstudenter. AnyParser förbättrar återhämtningsnoggrannheten i dokumentparsing samtidigt som den balanserar säkerhet, kostnad och effektivitet—ett innovativt verktyg för vilken pipeline som helst!"',
         author: 'Cass',
         position: 'Senior Scientist - AWS',
       },
       {
-        text: '"Jag är imponerad av AnyParsers innovation inom AI och LLM, inklusive de nya metoderna för syntetisk datagenerering, retrievermodellfinjustering i RAG och deras open-source-produkter från dessa innovationer."',
+        text: '"Jag är imponerad av AnyParser\'s innovation inom AI och LLM, inklusive de nya metoderna för syntetisk datagenerering, finjustering av retrievermodeller i RAG, och deras open-source produkter från dessa innovationer."',
         author: 'Felix Bai',
-        position: 'Sr. Lösningsarkitekt - AWS',
+        position: 'Sr. Solution Architect - AWS',
       },
       {
-        text: '"Jag har verifierat att kvaliteten på AnyParser går långt bortom traditionella OCR-verktyg som Langchain / Unstructured. Ser fram emot att använda detta i våra framtida projekt."',
+        text: '"Jag har validerat kvaliteten på AnyParser som går långt bortom traditionella OCR-verktyg som Langchain / Unstructured. Ser fram emot att använda detta i våra framtida projekt."',
         author: 'Steve Cooper',
         position: 'Medgrundare - ai ticker chat',
       },
@@ -146,19 +146,19 @@ export const sv = {
     whoWeAre: {
       title: 'Vilka vi är',
       description: [
-        'Energent.ai är ett team av tidigare ML-forskare och ingenjörer på AWS och Tesla, drivna av en gemensam passion för att utnyttja AI för att snabba upp FoU inom olika industrier.',
-        'Vårt teams blandning av maskininlärningskompetens och sektorsspecifika insikter gör det möjligt för oss att skapa teknik som inte bara är toppmodern, utan också djupt anpassad till våra kunders behov.',
+        'Energent.ai är ett team av tidigare ML-forskare och ingenjörer på AWS och Tesla, drivna av en gemensam passion för att använda AI för att snabba upp FoU inom olika industrier.',
+        'Vårt teams blandning av maskininlärningskompetens och branschspecifika insikter gör att vi kan skapa teknik som inte bara är toppmodern, utan också djupt anpassad till våra kunders behov.',
       ],
     },
     whatWeOffer: {
       title: 'Vad vi erbjuder',
       description: [
-        'Energent.ai erbjuder LLM-baserade dataförbättringsverktyg som exakt extraherar ostrukturerad data från blandade format såsom PDF:er, HTML och bilder.',
+        'Energent.ai erbjuder LLM-baserade verktyg för dataförädling som exakt extraherar ostrukturerad data från blandade format såsom PDF, HTML och bilder.',
         'Med Energent.ai kan ML-forskare och FoU-ingenjörer extrahera korrekt information utan att spendera 80% av sin tid på datarensning eller oroa sig för informationsförlust. Användare kan ställa komplexa forskningsfrågor och identifiera semantiska trender över flera datakällor, och förstå LLM-utgångar via djupgående tolkning, vilket påskyndar FoU-processer.',
       ],
     },
     foundingTeam: {
-      title: 'Grundarteamet',
+      title: 'Grundarteam',
     },
     investors: {
       title: 'Våra investerare',
@@ -202,9 +202,9 @@ export const sv = {
         annualPrice: '15000',
         description: 'För team som vill skala sin dokumentbearbetning med förbättrat stöd och funktioner.',
         features: [
-          'Alla funktioner i Start',
+          'Alla Start-funktioner',
           '100k krediter per månad, därefter $0.015 per kredit',
-          'Anpassad klientintroduktion',
+          'Anpassad klientonboarding',
           'Oanvända krediter överförs till nästa månad',
           'Inga dolda avgifter',
           '30 dagars pengarna-tillbaka-garanti',
@@ -216,9 +216,9 @@ export const sv = {
         annualPrice: '45000',
         description: 'För företag som behöver avancerade funktioner, privat hosting och premiumsupport.',
         features: [
-          'Alla funktioner i Silver',
+          'Alla Silver-funktioner',
           '500k krediter per månad, därefter $0.009 per kredit',
-          'Privat modellhosting (lokalt eller i molnet)',
+          'Privat modellhosting (On-prem eller Cloud)',
           'Anpassningstjänster tillgängliga',
           'Oanvända krediter överförs till nästa månad',
           'Inga dolda avgifter',
@@ -226,16 +226,16 @@ export const sv = {
         ],
       },
       enterprise: {
-        name: 'Företag',
+        name: 'Enterprise',
         price: 'Kontakta oss',
         description:
           'För stora organisationer som kräver skräddarsydda lösningar, dedikerat stöd och säkerhet i företagsklass.',
         features: [
-          'Alla funktioner i Guld',
+          'Alla Guld-funktioner',
           'Anpassad modellträning',
           'Anpassade integrationer och API-svar',
           'Personlig 1-1 teamträning',
-          'Dedikerad kontomanager',
+          'Dedikerad kontoansvarig',
           'Prioriterad support',
         ],
       },
@@ -250,7 +250,7 @@ export const sv = {
       getStart: 'Få',
       highlight: '3 månader GRATIS',
       forText: 'för startups',
-      startupDetails: '(färre än 10 personer)',
+      startupDetails: '(mindre än 10 personer)',
       orText: 'eller',
       nonprofitText: 'Ideella organisationer.',
       emailText: 'E-post',
@@ -270,12 +270,12 @@ export const sv = {
     disclaimers: {
       pageLimit: '*För varje uppladdad fil bearbetar vi endast de första tio sidorna för bättre tillgänglighet.',
       fileSize:
-        '**MAXIMAL FILSTORLEK ÄR 10MB. Om du uppdaterar denna sida raderas alla filer och bearbetade data eftersom vi inte lagrar din data.',
+        '**MAXIMAL FILSTORLEK ÄR 10MB. Uppdatering av denna sida kommer att rensa alla filer och bearbetad data eftersom vi inte lagrar din data.',
       privacyPolicy: 'Visa AnyParser integritetspolicy.',
     },
     feedback: {
       button: 'Feedback',
-      title: 'Sandbox Feedback',
+      title: 'Feedback för Sandbox',
       nameLabel: 'Namn',
       emailLabel: 'E-post',
       messageLabel: 'Meddelande',
@@ -292,7 +292,7 @@ export const sv = {
     quota: {
       title: 'Kvot',
       pages: 'sidor',
-      limitReached: 'Gräns för extraherade sidor nådd.',
+      limitReached: 'Gränsen för extraherade sidor är nådd.',
       contactForMore: 'Vänligen kontakta oss för att få mer sidkvot.',
       contactEmail: 'info@cambioml.com',
     },
@@ -301,7 +301,7 @@ export const sv = {
       dropFiles: 'Släpp filer här',
       filesOnly: 'endast filer',
       maxSize: 'Maxstorlek 10MB',
-      noSensitiveInfo: 'Vänligen ladda inte upp känslig information.',
+      noSensitiveInfo: 'Vänligen ladda inte upp någon känslig information.',
       fileTypeNotSupported: 'Filtypen stöds inte.',
       sizeLimitExceeded: 'Storleken överskrider gränsen på {limit}MB. Försök igen.',
     },
@@ -312,7 +312,7 @@ export const sv = {
     },
     keyValue: {
       keyNamePlaceholder: 'Nyckelnamn',
-      keyDescriptionPlaceholder: '(Valfritt) Definiera nycklar för att förbättra AnyParsers noggrannhet',
+      keyDescriptionPlaceholder: "(Valfritt) Definiera nycklar för att förbättra AnyParser's noggrannhet",
       keyNameRequired: 'Nyckelnamn krävs',
       addKeyValuePair: 'Lägg till nyckel-värde-par',
       removeKeyValuePair: 'Ta bort nyckel-värde-par',
@@ -332,29 +332,29 @@ export const sv = {
       plainText: {
         title: 'Extrahera fullständigt innehåll',
         description:
-          'Med AnyParser kan du extrahera innehållet från dina råa, ostrukturerade data, som PDF:er, TXT:er och HTML-filer.',
+          'Med AnyParser kan du extrahera innehåll från dina råa, ostrukturerade data, som PDF:er, TXT-filer och HTML-filer.',
         howTo:
-          "När du har laddat upp och valt en fil, kör 'Plain Text'-flödet, som kommer att extrahera innehållet i din fil och returnera det i Markdown-format.",
+          "När du har laddat upp och valt en fil, kör 'Plain Text'-flödet, som kommer att extrahera innehållet från din fil och returnera det i Markdown-format.",
         nextSteps: 'Nästa steg',
         nextStepsDescription:
-          'Du kan ladda ner den råa Markdown som en textfil, eller ladda ner JSON från eventuella extraherade tabeller',
+          'Du kan ladda ner den råa Markdown som en textfil, eller ladda ner JSON från alla extraherade tabeller',
       },
       table: {
-        title: 'Endast tabell-extraktion',
+        title: 'Endast tabellutdrag',
         description:
-          'Med AnyParser kan du extrahera tabeller från dina filer, extrahera specifika nycklar från dem och mappa det till ditt databas-schema.',
+          'Med AnyParser kan du extrahera tabeller från dina filer, extrahera specifika nycklar från dem och mappa det till din databasstruktur.',
         step1: '1. Extrahera tabeller',
         step1Description:
           'Först måste du extrahera tabellerna från din fil. AnyParser kommer att extrahera alla tabeller till HTML-format.\n\nNär de har extraherats kan du ladda ner den råa HTML eller ladda ner alla tabeller till en Excel-fil.',
         step2: '2. Välj tabeller att mappa',
         step2Description:
-          'Efter att ha kört tabell-extraktionen, välj de tabeller som du vill extrahera data från.\n\nI detta avsnitt kommer du också ha möjlighet att förhandsgranska varje tabells HTML.',
-        step3: '3. Mappa schema',
+          'Efter att ha kört tabellutdraget, välj de tabeller som du vill extrahera data från.\n\nI denna sektion kommer du också att ha möjlighet att förhandsgranska varje tabells HTML.',
+        step3: '3. Mappa struktur',
         step3Description:
-          "När du har extraherat och valt tabellerna kan du sedan lägga till de nycklar som du vill extrahera. Om du vill ta bort den mappade nyckeln, klicka på (X) i rutan. Om du vill ta bort en inmatningsnyckel kan du klicka på (X)-ikonen i dess ruta.\n\nNär du har lagt till några nycklar kan du köra funktionen Mappa schema. Efter mappning kan du redigera någon av de mappade nycklarna genom att klicka på redigeringspenn-ikonen.\n\nAtt klicka på 'Mappa schema' igen kommer endast att köra om inmatningsnycklarna utan några mappade nycklar. Om du vill generera en ny mappad nyckel kan du först ta bort den mappade nyckeln genom att klicka på X.",
+          "När du har extraherat och valt tabellerna kan du sedan lägga till de nycklar som du vill extrahera. Om du vill ta bort den mapade nyckeln, klicka på (X) i rutan. Om du vill ta bort en inmatningsnyckel kan du klicka på (X)-ikonen i dess ruta.\n\nNär du har lagt till några nycklar kan du köra funktionen Mappa struktur. Efter mappning kan du redigera någon av de mapade nycklarna genom att klicka på redigeringspennikonen.\n\nAtt klicka på 'Mappa struktur' igen kommer endast att köra inmatningsnycklarna utan några mapade nycklar. Om du vill generera en ny mapad nyckel kan du först ta bort den mapade nyckeln genom att klicka på X.",
         nextSteps: 'Nästa steg',
         nextStepsDescription:
-          'När du är nöjd med resultatet kan du trycka på ladda ner CSV eller JSON. Detta kommer endast att aktiveras om minst en inmatningsnyckel har en icke-tom mappad nyckel.',
+          'När du är nöjd med resultatet kan du ladda ner CSV eller JSON. Detta kommer endast att aktiveras om minst en inmatningsnyckel har en icke-tom mapad nyckel.',
       },
       keyValuePair: {
         title: 'Extrahera nyckel-värde-par',
@@ -369,6 +369,77 @@ export const sv = {
     },
     comingSoon: 'Kommer snart',
   },
+  solutionPages: {
+    compliance: {
+      title: 'ComplianceAI',
+      description: 'Bli automatiskt compliant med LLMs',
+      section: {
+        title: 'Automatisera din compliance-process med AI-bedömare',
+        paragraph:
+          'Är du orolig för compliance eller risk för dina privata LLMs? Vi erbjuder en specialiserad compliance LLM för regulatorisk compliance och riskhantering. Detta system övervakar automatiskt regulatoriska förändringar och anpassar dem till dina interna policyer och kontroller, vilket säkerställer snabb spårning, respons och rapportering av viktiga regleringar och krav.',
+      },
+      useCases: [
+        {
+          title: 'Compliance-användningsfall 1',
+          description: 'Använd uniflow för compliance.',
+        },
+      ],
+      button: 'Börja med AutoRater',
+      autorater: {
+        title: 'AutoRater',
+        description: 'Bli automatiskt compliant med LLMs',
+        section: {
+          title: 'Automatisera din AutoRater-process med AI-bedömare',
+          paragraph:
+            'Är du orolig för AutoRater eller risk för dina privata LLMs? Vi erbjuder en specialiserad AutoRater LLM för regulatorisk AutoRater och riskhantering. Detta system övervakar automatiskt regulatoriska förändringar och anpassar dem till dina interna policyer och kontroller, vilket säkerställer snabb spårning, respons och rapportering av viktiga regleringar och krav.',
+        },
+      },
+    },
+    finance: {
+      title: 'Din anpassade AI-assistent för att upptäcka insikter',
+      description:
+        'Hitta felprissatt aktie snabbare.\nFörklara dina investeringsbeslut med verkliga data.\nÄg och kontrollera din egen AI-agent fullt ut.',
+      iconSection: {
+        title: 'Intresserad av att använda LLMs för att förbättra din\nportföljprestanda?',
+        points: [
+          'Vill du extrahera handelssignaler från ostrukturerad data 10x snabbare?',
+          'Behöver du en personlig AI-förklarare för att tolka handelssignalerna?',
+          'Är du orolig för informationsläckage från att använda offentliga LLM API:er?',
+        ],
+      },
+      features: [
+        {
+          title: 'Tillgång till okända insikter från data från flera källor',
+          text: 'Minska tiden som spenderas på datarensning med upp till 90%\n\nTillgång till 10x fler finansiella insikter från flera källor\n\nÄg och kontrollera din egen AI-agent fullt ut',
+        },
+        {
+          title: 'Tolka dina investeringsbeslut med bevis',
+          text: 'Stöd dina egna investeringsbeslut med verkliga data\n\nSkriv dina ekonomiska analyser med din egen stil\n\nÄg och kontrollera din egen AI-agent fullt ut',
+        },
+        {
+          title: 'Användningsfall',
+        },
+      ],
+    },
+    researchDevelopment: {
+      title: 'Tillgång till det kända och\nupptäck det okända inom FoU',
+      description:
+        'Minska tiden som spenderas på datarensning med upp till 90%\nHåll dig uppdaterad med den senaste forskningen\nUpptäck det okända inom FoU med lätthet',
+      features: [
+        {
+          title: 'Tillgång till okända insikter från data från flera källor',
+          text: '• Minska tiden som spenderas på datarensning med upp till 90%\n• Upptäck det okända inom FoU med lätthet\n• Äg och kontrollera din egen AI-agent fullt ut',
+        },
+        {
+          title: 'Skriv din forskningsrapport för att bevisa den senaste forskningen',
+          text: '• Stöd din forskningsnyhet med verkliga data\n• Jämför din forskning med den senaste forskningen med lätthet\n• Äg och kontrollera din egen AI-agent fullt ut',
+        },
+        {
+          title: 'Användningsfall',
+        },
+      ],
+    },
+  },
   footer: {
     copyright: 'Cambio Corp',
     libraries: {
@@ -381,8 +452,8 @@ export const sv = {
       blog: 'Blogg',
     },
     sandbox: {
-      title: 'Sandbox',
-      launchSandbox: 'Starta Sandbox',
+      title: 'Sandlåda',
+      launchSandbox: 'Starta Sandlåda',
       account: 'Konto',
     },
     company: {
@@ -391,7 +462,7 @@ export const sv = {
     },
     resources: {
       title: 'Resurser',
-      anyParserDocs: 'AnyParser-dokumentation',
+      anyParserDocs: 'AnyParser Dokumentation',
       privacyPolicy: 'Integritetspolicy',
       termsOfService: 'Användarvillkor',
     },
@@ -412,7 +483,7 @@ export const sv = {
       note: 'Notera:',
       limitations: [
         'Gratis API-nycklar är begränsade till 10 extraherade sidor per API-anrop.',
-        'AnyParser lagrar eller tränar aldrig på din data.',
+        'AnyParser lagrar eller tränar aldrig på dina data.',
       ],
       verifyEmail: 'Vänligen verifiera din e-post för att generera och kopiera dina API-nycklar.',
       resendVerification: 'Skicka verifieringsmail igen',
@@ -426,21 +497,43 @@ export const sv = {
       description: 'Visa produkter eller ändra din prenumeration.',
       viewProducts: 'Visa produkter',
     },
-    documentation: 'Kolla in AnyParser-dokumentationen',
+    documentation: 'Kolla in AnyParser Dokumentation',
   },
   auth: {
     login: 'Logga in',
     logout: 'Logga ut',
   },
   blog: {
-    noPosts: 'Inga bloggposter tillgängliga ännu.',
+    noPosts: 'Inga blogginlägg tillgängliga ännu.',
     checkBackSoon: 'Kom tillbaka snart för uppdateringar!',
     backTo: 'Tillbaka till',
   },
   bookDemo: {
     title: 'Boka en demo',
+    pageTitle: '🗓️ Boka en demo',
+    pageDescription: 'Låt oss visa dig hur du kan maximera din dataextraktion',
+    formTitle: 'Formulär för demoförfrågan',
+    submitted: {
+      title: 'Demoförfrågan skickad!',
+      subtitle: 'Vi kommer att granska den och återkomma till dig inom kort',
+      goHomeButton: 'Gå till startsidan',
+    },
+    form: {
+      name: 'Namn',
+      email: 'E-post',
+      company: 'Företag',
+      linkedin: 'LinkedIn',
+      message: 'Meddelande',
+      helpMessage: 'Hur kan vi hjälpa dig?',
+      submit: 'Skicka',
+      emailValidation: 'Vänligen ange en giltig e-postadress.',
+    },
+    calendly: {
+      submitFormMessage: 'Vänligen skicka formuläret för demoförfrågan',
+      backToPreview: 'Tillbaka till förhandsgranskning',
+    },
     sent: 'Skickat!',
-    error: 'Kontakt misslyckades. Försök igen.',
+    error: 'Kontakt misslyckades. Vänligen försök igen.',
   },
   notFound: {
     title: '404',
@@ -452,49 +545,49 @@ export const sv = {
       sent: 'Skickat!',
       subscriptionSuccessful: 'Prenumerationen lyckades!',
       apiKeyCopied: 'API-nyckel kopierad till urklipp!',
-      verificationResent: 'Verifieringsmail skickades igen!',
+      verificationResent: 'Verifieringsmail skickat igen!',
       fileUploaded: 'Fil(er) uppladdade framgångsrikt!',
-      resultCopied: 'Resultatet kopierat till urklipp',
-      extractionComplete: 'Extraktion klar!',
+      resultCopied: 'Resultat kopierat till urklipp',
+      extractionComplete: 'Extraktion slutförd!',
       newInputAdded: 'Ny inmatning tillagd',
       removeUndone: 'Borttagning ångrad',
       generatingFor: 'Genererar sammanfattningar för',
       summariesGenerated: 'Sammanfattningar genererade för',
       downloadingSummaries: 'Laddar ner sammanfattningar för',
       tablesGenerated: 'Genererade tabell(er) från',
-      schemaMapGenerated: 'Genererade schema-mappning för',
+      schemaMapGenerated: 'Genererade schema för',
       extracted: 'extraherad!',
     },
     error: {
-      contactFailed: 'Kontakt misslyckades. Försök igen.',
+      contactFailed: 'Kontakt misslyckades. Vänligen försök igen.',
       pleaseSignIn: 'Vänligen logga in för att hantera din prenumeration',
       errorFetchingApiKeys: 'Fel vid hämtning av API-nycklar',
-      errorResendingEmail: 'Fel vid skickning av verifieringsmail',
+      errorResendingEmail: 'Fel vid återutsändning av verifieringsmail',
       failedAccessToken: 'Misslyckades med att hämta åtkomsttoken',
       fileTypeNotSupported: 'Filtypen stöds inte.',
       maxFileSize: 'Maximal filstorlek är 10MB.',
-      loadingStarterFile: 'Fel vid laddning av startfil. Försök igen.',
-      undefinedResult: 'Mottog odefinierat resultat. Försök igen.',
-      parameterInvalid: 'Parametern är ogiltig. Försök igen.',
-      jobNotFound: 'Jobb hittades inte. Försök igen.',
-      pageLimitReached: 'Gräns för extraherade sidor nådd.',
-      jobFailed: 'Jobbet har misslyckats. Försök igen.',
-      extractionError: 'Fel vid extrahering. Försök igen.',
-      requestTimeout: 'Begäran tog för lång tid. Försök igen.',
-      invalidModelType: 'Ogiltig modelltyp. Försök igen.',
-      uploadError: 'Fel vid uppladdning. Försök igen.',
+      loadingStarterFile: 'Fel vid laddning av startfil. Vänligen försök igen.',
+      undefinedResult: 'Mottog ett odefinierat resultat. Vänligen försök igen.',
+      parameterInvalid: 'Parametern är ogiltig. Vänligen försök igen.',
+      jobNotFound: 'Jobb hittades inte. Vänligen försök igen.',
+      pageLimitReached: 'Gränsen för extraherade sidor har nåtts.',
+      jobFailed: 'Jobbet har misslyckats. Vänligen försök igen.',
+      extractionError: 'Fel vid extraktion. Vänligen försök igen.',
+      requestTimeout: 'Begäran tog för lång tid. Vänligen försök igen.',
+      invalidModelType: 'Ogiltig modelltyp. Vänligen försök igen.',
+      uploadError: 'Fel vid uppladdning. Vänligen försök igen.',
       noTablesFound: 'Inga tabeller hittades att exportera till Excel',
       noValidTables: 'Inga giltiga tabeller hittades att exportera till Excel',
       maxInputsReached: 'Maximalt 10 inmatningar tillåtna',
-      extractLimitReached: 'Extraktionsgränsen nådd.',
-      extractionFailed: 'Extraktionen misslyckades. Försök igen.',
-      errorDuringExtraction: 'Fel under extraktionen. Försök igen.',
+      extractLimitReached: 'Extraktionsgräns nådd.',
+      extractionFailed: 'Extraktionen misslyckades. Vänligen försök igen.',
+      errorDuringExtraction: 'Fel under extraktion. Vänligen försök igen.',
       selectFileFirst: 'Vänligen välj en fil först',
       noFileSelected: 'Ingen fil vald',
-      missingFormData: 'Saknar formData. Försök igen.',
-      schemaExtractionError: 'Fel vid schemaextraktion. Försök igen.',
-      undefinedMarkdown: 'Mottog odefinierad markdown. Försök igen.',
-      errorMapping: 'Fel vid kartläggning av schema för. Försök igen.',
+      missingFormData: 'Formulärdata saknas. Vänligen försök igen.',
+      schemaExtractionError: 'Fel vid schemaextraktion. Vänligen försök igen.',
+      undefinedMarkdown: 'Mottog odefinierad markdown. Vänligen försök igen.',
+      errorMapping: 'Fel vid schemamappning för. Vänligen försök igen.',
     },
   },
 } as const;

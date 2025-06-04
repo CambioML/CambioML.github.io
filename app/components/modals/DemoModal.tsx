@@ -9,9 +9,11 @@ import Input from '../inputs/Input';
 import { toast } from 'react-hot-toast';
 import emailjs from '@emailjs/browser';
 import TextArea from '../inputs/TextArea';
+import { useTranslation } from '@/lib/use-translation';
 
 const DemoModal = () => {
   const DemoModal = useDemoModal();
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '');
@@ -44,10 +46,10 @@ const DemoModal = () => {
     try {
       setIsLoading(true);
       await emailjs.send(serviceId, templateId, templateParams);
-      toast.success('Sent!');
+      toast.success(t.bookDemo.sent);
       DemoModal.onClose();
     } catch (error) {
-      toast.error('Contact failed. Please try again.');
+      toast.error(t.bookDemo.error);
     } finally {
       setIsLoading(false);
     }
@@ -55,10 +57,17 @@ const DemoModal = () => {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title="Book a Demo" subtitle="" center />
-      <Input id="name" label="Name" disabled={isLoading} register={register} errors={errors} required />
-      <Input id="email" label="Email" disabled={isLoading} register={register} errors={errors} required />
-      <TextArea id="message" label="Message" disabled={isLoading} register={register} errors={errors} />
+      <Heading title={t.bookDemo.title} subtitle="" center />
+      <Input id="name" label={t.bookDemo.form.name} disabled={isLoading} register={register} errors={errors} required />
+      <Input
+        id="email"
+        label={t.bookDemo.form.email}
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <TextArea id="message" label={t.bookDemo.form.message} disabled={isLoading} register={register} errors={errors} />
     </div>
   );
 
@@ -67,7 +76,7 @@ const DemoModal = () => {
       disabled={isLoading}
       isOpen={DemoModal.isOpen}
       title=""
-      actionLabel="Submit"
+      actionLabel={t.bookDemo.form.submit}
       onClose={DemoModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}

@@ -364,6 +364,77 @@ export const en = {
     },
     comingSoon: 'Coming soon',
   },
+  solutionPages: {
+    compliance: {
+      title: 'ComplianceAI',
+      description: 'Get Auto Compliant with LLMs',
+      section: {
+        title: 'Automate your compliance process with AI raters',
+        paragraph:
+          'Are you worried about compliance or risk for your private LLMs? We offer a specialized compliance LLM for regulatory compliance and risk management. This system automatically monitors regulatory changes and aligns them with your internal policies and controls, ensuring timely tracking, response, and reporting on significant regulations and requirements.',
+      },
+      useCases: [
+        {
+          title: 'Compliance Use Case 1',
+          description: 'Use uniflow for compliance.',
+        },
+      ],
+      button: 'Start with AutoRater',
+      autorater: {
+        title: 'AutoRater',
+        description: 'Get Auto Compliant with LLMs',
+        section: {
+          title: 'Automate your AutoRater process with AI raters',
+          paragraph:
+            'Are you worried about AutoRater or risk for your private LLMs? We offer a specialized AutoRater LLM for regulatory AutoRater and risk management. This system automatically monitors regulatory changes and aligns them with your internal policies and controls, ensuring timely tracking, response, and reporting on significant regulations and requirements.',
+        },
+      },
+    },
+    finance: {
+      title: 'Your Customized AI Assistant to Discover Insights',
+      description:
+        'Find mispriced equity faster.\nExplain your investment decisions with real data.\nFully own and control your proprietary AI agent.',
+      iconSection: {
+        title: 'Interested in using LLMs to boost your\nportfolio performance?',
+        points: [
+          'Do you want to extract trading signals from unstructured data 10x faster?',
+          'Do you need a personalized AI explainer to interpret the trading signals?',
+          'Are you concerned about information leak from using public LLM APIs?',
+        ],
+      },
+      features: [
+        {
+          title: 'Access to unknown insights from multi-source data',
+          text: 'Reduce time spent on data cleaning by up to 90%\n\nAccess to 10x more financial insights from multiple sources\n\nFully own and control your proprietary AI agent',
+        },
+        {
+          title: 'Interpret your investment decisions with evidence',
+          text: 'Back up your own investment decisions with real data\n\nWrite your economist views with your own style\n\nFully own and control your proprietary AI agent',
+        },
+        {
+          title: 'Use Cases',
+        },
+      ],
+    },
+    researchDevelopment: {
+      title: 'Access the Knowns and\nUnlock the Unknowns in R&D',
+      description:
+        'Reduce time spent on data cleaning by up to 90%\nKeep up-to-date with the state-of-the-art research\nDiscover the unknowns in R&D with ease',
+      features: [
+        {
+          title: 'Access unknown insights from multi-source data',
+          text: '• Reduce time spent on data cleaning by up to 90%\n• Discover the unknowns in R&D with ease\n• Fully own and control your proprietary AI agent',
+        },
+        {
+          title: 'Write your research report to prove state-of-the-art',
+          text: '• Back up your research novelty with real data\n• Compare your research with the SOTA at ease\n• Fully own and control your proprietary AI agent',
+        },
+        {
+          title: 'Use Cases',
+        },
+      ],
+    },
+  },
   footer: {
     copyright: 'Cambio Corp',
     libraries: {
@@ -434,6 +505,28 @@ export const en = {
   },
   bookDemo: {
     title: 'Book a Demo',
+    pageTitle: '🗓️ Book a Demo',
+    pageDescription: "Let's show you how you can maximize your data extraction",
+    formTitle: 'Demo Request Form',
+    submitted: {
+      title: 'Demo request submitted!',
+      subtitle: "We'll review it and get back to you shortly",
+      goHomeButton: 'Go to Homepage',
+    },
+    form: {
+      name: 'Name',
+      email: 'Email',
+      company: 'Company',
+      linkedin: 'LinkedIn',
+      message: 'Message',
+      helpMessage: 'How can we help you?',
+      submit: 'Submit',
+      emailValidation: 'Please enter a valid email address.',
+    },
+    calendly: {
+      submitFormMessage: 'Please submit the Demo Request Form',
+      backToPreview: 'Back to Preview',
+    },
     sent: 'Sent!',
     error: 'Contact failed. Please try again.',
   },

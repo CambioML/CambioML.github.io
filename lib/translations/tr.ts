@@ -9,16 +9,16 @@ export const tr = {
     docs: 'Dokümanlar',
     aboutUs: 'Hakkımızda',
     trySandbox: "Sandbox'ı Deneyin",
-    getApiKey: 'API Anahtarı Alın',
+    getApiKey: 'API Anahtarını Alın',
     aiOgSpecialist: 'AI Petrol ve Gaz Uzmanı',
     aiOgDescription: 'Saha-ofis iş akışlarını geliştirir.',
     aiHr: 'AI İnsan Kaynakları',
-    aiHrDescription: 'Tekrarlayan insan kaynakları iş akışlarını yönetir.',
-    aiDataScientist: 'AI Veri Bilimci',
-    aiDataDescription: 'Veri iş akışlarını ölçekli bir şekilde hızlandırır',
+    aiHrDescription: 'Tekrarlayan İnsan Kaynakları iş akışlarını yönetir.',
+    aiDataScientist: 'AI Veri Bilimcisi',
+    aiDataDescription: 'Veri iş akışlarını ölçekli olarak hızlandırır',
     securityWhitepaper: 'Güvenlik Teknik Raporu',
     securityDescription: 'Kapsamlı güvenlik ve uyumluluk rehberi.',
-    deploymentOverview: 'Dağıtım Genel Bakışı',
+    deploymentOverview: 'Dağıtım Genel Bakış',
     deploymentDescription: 'Kurumsal dağıtım gereksinimleri.',
     awsDeployment: 'AWS Dağıtımı',
     awsDescription: 'AWS VM dağıtım rehberi.',
@@ -38,33 +38,29 @@ export const tr = {
   },
   homepage: {
     hero: {
-      title: 'AnyParser: Belge Ayrıştırma için Vision LLM',
-      subtitle: 'PDF, PPT, Word ve görüntüleri birkaç tıklama ile yapılandırılabilir seçeneklerle ayrıştırma!',
+      title: 'AnyParser: Belge Ayrıştırma için Görsel LLM',
+      subtitle: 'PDF, PPT, Word ve görüntüleri birkaç tıklamayla yapılandırılabilir seçeneklerle ayrıştırın!',
       description:
-        "OCR kullanıcılarının %80'i yapıştırıcı kodu sürdürmekten bıkmış durumda. Eşsiz doğruluk, tam gizlilik ve aşağıdaki gibi yapılandırılabilir seçeneklerle zamanınızı boşa harcamayın:",
-      features: [
-        'özel kimlik bilgilerini kaldırma,',
-        'tablo ve grafikleri çıkarma,',
-        'dipnotları ve başlıkları koruma,',
-      ],
+        "OCR kullanıcılarının %80'i yapıştırıcı kodu sürdürmekten yorulmuş durumda. Eşsiz doğruluk, tam gizlilik ve aşağıdaki gibi yapılandırılabilir seçeneklerle zamanınızı boşa harcamayın:",
+      features: ['özel kimlik bilgilerini kaldırma,', 'tablo ve grafik çıkarma,', 'dipnotlar ve başlıkları koruma,'],
       moreFeatures: 've çok daha fazlası!',
       tryFree: 'ÜCRETSİZ Deneyin',
       getApi: 'API Erişimi Alın',
       bookDemo: 'Demo Rezervasyonu Yapın',
-      noCreditCard: 'Kredi kartı gerekmiyor',
+      noCreditCard: 'Kredi kartı gerekmez',
     },
     capabilities: {
-      title: "AnyParser'ın Yetenekleri",
+      title: "AnyParser'ın Yetkinlikleri",
       items: [
-        'Gizlilik Koruması: "Özel Bilgileri Kaldır" özelliğini etkinleştirin ve AnyParser belge çıkarımı sırasında K.B.B. otomatik olarak sansürler.',
+        'Gizlilik Koruması: "Özel Bilgileri Kaldır" özelliğini etkinleştirin ve AnyParser belge çıkarımı sırasında otomatik olarak K.B.B. (Kişisel Bilgiler) sansürler.',
         'Modeli sayfa numaralarını, başlıkları, altbilgileri, figürleri, grafikleri vb. dahil etmek veya hariç tutmak için yönlendirebilirsiniz.',
-        'AnyParser sadece metin ve tabloları çıkarmakla kalmaz, aynı zamanda figürler, grafikler ve önemli bilgilerle dolu dipnotları 2 kat daha hızlı ve 5 kat daha maliyet etkin bir şekilde alır.',
-        'Geleneksel OCR tabanlı modellerin karmaşık tablolar ve düzensiz düzenlerinden kurtulun; endüstri ortalamasından 2 kat daha hassas ve 2.5 kat daha fazla geri çağırma ile.',
+        'AnyParser yalnızca metin ve tabloları çıkarmakla kalmaz, aynı zamanda figürler, grafikler ve hayati bilgilerle dolu dipnotları da 2 kat daha hızlı ve 5 kat daha maliyet verimli bir şekilde alır.',
+        'Geleneksel OCR tabanlı modellerin karışık tabloları ve kaotik düzenleriyle vedalaşın; sektör ortalamasından 2 kat daha hassas ve 2.5 kat daha fazla geri çağırma ile.',
       ],
     },
     howItWorks: {
       title: 'AnyParser Nasıl Çalışır',
-      subtitle: 'Basit kullanıcı arayüzü ile belgelerden herhangi bir veriyi ayrıştırın',
+      subtitle: 'Basit bir kullanıcı arayüzü ile herhangi bir belgede herhangi bir veriyi ayrıştırın',
       tryFree: 'ÜCRETSİZ Deneyin',
       steps: [
         {
@@ -83,7 +79,7 @@ export const tr = {
           title: '03',
           subtitle: 'Sonuçları sisteminize aktarın',
           description:
-            'Verilerinizi tercih ettiğiniz formatta indirin—HTML, Excel, JSON veya iş akışınıza uygun bir veritabanı şeması olsun.',
+            'Verilerinizi tercih ettiğiniz formatta indirin—HTML, Excel, JSON veya iş akışınıza uygun bir veritabanı şeması.',
         },
       ],
     },
@@ -91,19 +87,19 @@ export const tr = {
       {
         title: 'Verileri doğru bir şekilde ayrıştırın',
         description:
-          'AnyParser oyun alanı basit, hızlı ve sezgisel. Şimdi arayüzü deneyin ve günün geri kalanında bir mola verin',
+          'AnyParser oyun alanı basit, hızlı ve sezgisel. Şimdi arayüzü deneyin ve günün geri kalanında rahatlayın',
         actionLabel: 'ÜCRETSİZ Deneyin',
       },
       {
         title: 'AnyParser ile oluşturun',
         description:
-          'AnyParser oyun alanı basit, hızlı ve gerçekten sezgisel, şimdi arayüzü deneyin ve günün geri kalanında bir mola verin',
+          'AnyParser oyun alanı basit, hızlı, gerçekten sezgisel, şimdi arayüzü deneyin ve günün geri kalanında rahatlayın',
         actionLabel: 'API erişimi alın',
       },
     ],
   },
   reviews: {
-    title: 'Yorumlar',
+    title: 'İncelemeler',
     testimonials: [
       {
         text: '"Tüm pdf çıkarım araçlarını denedik ve AnyParser bize en doğru sonuçları verdi."',
@@ -111,19 +107,19 @@ export const tr = {
         position: 'CEO - Epsilla',
       },
       {
-        text: '"AnyParser, 10+ diğer ayrıştırıcıları benchmarklarımızda geride bıraktı, en hızlı çoklu model LLM çözümüyle üst düzey özgeçmiş ayrıştırma doğruluğu sunarken olağanüstü performansı korudu."',
+        text: '"AnyParser, 10+ diğer ayrıştırıcıyı benchmarklarımızda geride bıraktı, en hızlı çoklu model LLM çözümüyle üst düzey özgeçmiş ayrıştırma doğruluğu sağladı—hepsi olağanüstü performansı korurken."',
         author: 'Ethan Zheng',
         position: 'CTO - Jobright',
       },
       {
-        text: '"AnyParser\'ın gelişmiş çok modlu AI\'ı diğer yaklaşımların başarısız olduğu yerde başarılı oluyor. Karmaşık belgeler, bu görme ve dil birleşimini gerektiriyor."',
+        text: '"AnyParser\'ın gelişmiş çok modlu AI\'ı diğer yaklaşımların başarısız olduğu yerde başarı sağlar. Karmaşık belgeler, görme ve dilin bu birleşimini gerektirir."',
         author: 'Jon Conradt',
-        position: 'Baş Bilimci - AWS',
+        position: 'Baş Bilim Adamı - AWS',
       },
       {
-        text: '"Bir AI eğitimcisi olarak, ML uygulayıcı öğrencilerim için SOTA çözümler arıyorum. AnyParser, belge ayrıştırmada geri çağırma doğruluğunu artırırken güvenlik, maliyet ve verimliliği dengeliyor—herhangi bir pipeline için yenilikçi bir araç!"',
+        text: '"Bir AI eğitmeni olarak, ML uygulayıcı öğrencilerim için en son teknoloji çözümleri arıyorum. AnyParser, belge ayrıştırmada geri çağırma doğruluğunu artırırken güvenlik, maliyet ve verimliliği dengeleyerek herhangi bir boru hattı için yenilikçi bir araç sunuyor!"',
         author: 'Cass',
-        position: 'Kıdemli Bilimci - AWS',
+        position: 'Kıdemli Bilim Adamı - AWS',
       },
       {
         text: '"AnyParser\'ın AI ve LLM alanındaki yeniliklerinden, sentetik veri üretimi, RAG\'de retriever model ince ayarı ve bu yeniliklerden çıkan açık kaynak ürünleri dahil olmak üzere etkilendim."',
@@ -136,7 +132,7 @@ export const tr = {
         position: 'Kurucu Ortak - ai ticker chat',
       },
       {
-        text: '"Diğer araçlardan çok daha iyi! Veri analistlerimiz çıktıları üç katına çıkarabiliyor."',
+        text: '"Diğer araçlardan çok daha iyi! Veri analistlerimiz çıktılarını üç katına çıkarabiliyor."',
         author: 'Jamal',
         position: 'CEO - xtrategise',
       },
@@ -144,17 +140,17 @@ export const tr = {
   },
   company: {
     whoWeAre: {
-      title: 'Kim olduğumuz',
+      title: 'Biz Kimiz',
       description: [
         "Energent.ai, çeşitli endüstrilerde Ar-Ge'yi hızlandırmak için AI'dan yararlanma konusunda ortak bir tutkuya sahip, eski AWS ve Tesla ML bilim insanları ve mühendislerinden oluşan bir ekip.",
-        'Ekibimizin makine öğrenimi bilgisi ve sektör spesifik içgörülerinin birleşimi, yalnızca son teknoloji değil, aynı zamanda müşterilerimizin ihtiyaçlarına derinden uyum sağlayan teknoloji yaratmamızı sağlıyor.',
+        'Ekibimizin makine öğrenimi uzmanlığı ve sektör spesifik içgörülerinin birleşimi, yalnızca en son teknoloji değil, aynı zamanda müşterilerimizin ihtiyaçlarına derinlemesine uyum sağlayan teknolojiler yaratmamızı sağlıyor.',
       ],
     },
     whatWeOffer: {
-      title: 'Ne sunuyoruz',
+      title: 'Ne Sunuyoruz',
       description: [
         'Energent.ai, PDF, HTML ve görüntüler gibi karışık formatlardan yapılandırılmamış verileri hassas bir şekilde çıkaran LLM tabanlı veri zenginleştirme araçları sunar.',
-        "Energent.ai ile ML bilim insanları ve Ar-Ge mühendisleri, veri temizleme için zamanlarının %80'ini harcamadan veya bilgi kaybı konusunda endişelenmeden doğru bilgileri çıkarabilir. Kullanıcılar karmaşık araştırma soruları sorabilir, birden fazla veri kaynağı arasında anlamsal eğilimleri belirleyebilir ve LLM çıktılarının derinlemesine yorumlanmasıyla anlayabilir, böylece Ar-Ge süreçlerini hızlandırabilir.",
+        "Energent.ai ile ML bilim insanları ve Ar-Ge mühendisleri, veri temizleme için zamanlarının %80'ini harcamadan veya bilgi kaybı konusunda endişelenmeden doğru bilgileri çıkarabilir. Kullanıcılar karmaşık araştırma soruları sorabilir, birden fazla veri kaynağı arasında anlamsal eğilimleri belirleyebilir ve LLM çıktısını derinlemesine yorumlama yoluyla anlayarak Ar-Ge süreçlerini hızlandırabilir.",
       ],
     },
     foundingTeam: {
@@ -165,7 +161,7 @@ export const tr = {
     },
     getStarted: {
       title: 'Başlamaya hazır mısınız?',
-      description: 'Ar-Ge süreçlerini Energent.ai ile hızlandıran binlerce araştırmacı ve mühendise katılın.',
+      description: 'Energent.ai ile Ar-Ge süreçlerini hızlandıran binlerce araştırmacı ve mühendise katılın.',
       buttonText: 'Başlayın',
       docsButtonText: 'Dokümantasyonu okuyun',
     },
@@ -186,9 +182,9 @@ export const tr = {
         name: 'Başlangıç',
         monthlyPrice: '499',
         annualPrice: '5000',
-        description: 'Gerçek zamanlı belge işleme ve veri çıkarımı ile başlamayı düşünen işletmeler için.',
+        description: 'Gerçek zamanlı belge işleme ve veri çıkarımı ile başlamak isteyen işletmeler için.',
         features: [
-          "Tam metni Markdown'a çıkarın veya PDF/görüntüden tabloları CSV'ye çıkarın",
+          "Tam metni Markdown'a veya PDF/görüntüden tabloları CSV'ye çıkarın",
           'Aylık 20k kredi, ardından kredi başına $0.025',
           "Anahtar değer çiftlerini JSON'a çıkarın",
           'Kullanılmayan krediler bir sonraki aya devredilir',
@@ -200,7 +196,7 @@ export const tr = {
         name: 'Gümüş',
         monthlyPrice: '1500',
         annualPrice: '15000',
-        description: 'Gelişmiş destek ve özelliklerle belge işleme ölçeğini artırmayı düşünen ekipler için.',
+        description: 'Gelişmiş destek ve özelliklerle belge işleme ölçeğini artırmak isteyen ekipler için.',
         features: [
           'Tüm Başlangıç özellikleri',
           'Aylık 100k kredi, ardından kredi başına $0.015',
@@ -214,7 +210,7 @@ export const tr = {
         name: 'Altın',
         monthlyPrice: '4500',
         annualPrice: '45000',
-        description: 'Gelişmiş özellikler, özel barındırma ve premium destek ihtiyacı olan işletmeler için.',
+        description: 'Gelişmiş özellikler, özel barındırma ve premium destek isteyen işletmeler için.',
         features: [
           'Tüm Gümüş özellikleri',
           'Aylık 500k kredi, ardından kredi başına $0.009',
@@ -240,7 +236,7 @@ export const tr = {
       },
     },
     disclaimers: {
-      noHiddenFees: '* Gizli ücret yok; Aylık ödeme; 30 gün para iade garantisi.',
+      noHiddenFees: '* Gizli ücret yok; Aylık ödeme yaparak devam edin; 30 gün para iade garantisi.',
       tokenExplanation: '** 500 tokeni aşan sayfalar, her ek 500 token için ekstra kredi gerektirir.',
     },
     specialOffer: {
@@ -267,13 +263,13 @@ export const tr = {
     disclaimers: {
       pageLimit: '*Yüklenen her dosya için, daha iyi erişilebilirlik sağlamak amacıyla yalnızca ilk on sayfa işlenir.',
       fileSize:
-        '**MAKSİMUM DOSYA BOYUTU 10MB. Bu sayfayı yenilemek tüm dosyaları ve işlenmiş verileri temizler çünkü verilerinizi saklamıyoruz.',
-      privacyPolicy: 'AnyParser gizlilik politikasını görüntüle.',
+        "**MAKSİMUM DOSYA BOYUTU 10MB'dir. Bu sayfayı yenilemek tüm dosyaları ve işlenmiş verileri temizler çünkü verilerinizi saklamıyoruz.",
+      privacyPolicy: 'AnyParser gizlilik politikasını görüntüleyin.',
     },
     feedback: {
       button: 'Geri Bildirim',
       title: 'Sandbox Geri Bildirimi',
-      nameLabel: 'İsim',
+      nameLabel: 'Ad',
       emailLabel: 'E-posta',
       messageLabel: 'Mesaj',
       submitButton: 'Gönder',
@@ -284,7 +280,7 @@ export const tr = {
       title: 'Dosyalar',
       uploadFile: 'Dosya yükle',
       pleaseUploadFile: 'Lütfen bir dosya yükleyin.',
-      noFilesUploaded: 'Hiçbir dosya yüklenmedi',
+      noFilesUploaded: 'Yüklenen dosya yok',
     },
     quota: {
       title: 'Kota',
@@ -298,9 +294,9 @@ export const tr = {
       dropFiles: 'Dosyaları buraya bırakın',
       filesOnly: 'sadece dosyalar',
       maxSize: 'Maksimum boyut 10MB',
-      noSensitiveInfo: 'Lütfen hassas bilgiler yüklemeyin.',
+      noSensitiveInfo: 'Lütfen hassas bilgi yüklemeyin.',
       fileTypeNotSupported: 'Dosya türü desteklenmiyor.',
-      sizeLimitExceeded: 'Boyut {limit}MB sınırını aşıyor. Lütfen tekrar deneyin.',
+      sizeLimitExceeded: 'Boyut {limit}MB limitini aşıyor. Lütfen tekrar deneyin.',
     },
     uploadModal: {
       or: 'VEYA',
@@ -312,7 +308,7 @@ export const tr = {
       keyDescriptionPlaceholder: "(Opsiyonel) AnyParser'ın doğruluğunu artırmak için anahtarları tanımlayın",
       keyNameRequired: 'Anahtar adı gerekli',
       addKeyValuePair: 'Anahtar-Değer Çifti Ekle',
-      removeKeyValuePair: 'Anahtar-Değer Çifti Kaldır',
+      removeKeyValuePair: 'Anahtar-Değer Çiftini Kaldır',
       expandKeyDescription: 'Anahtar Açıklamasını Genişlet',
       extract: 'Çıkar',
       extracting: 'Çıkarılıyor...',
@@ -321,20 +317,20 @@ export const tr = {
       yourKeys: 'Anahtarlarınız',
       inputRemoved: 'Girdi kaldırıldı',
       undo: 'Geri al',
-      maxInputsAllowed: 'Maksimum 10 girdiye izin verilir',
-      newInputAdded: 'Yeni girdi eklendi',
+      maxInputsAllowed: 'Maksimum 10 girişe izin verilir',
+      newInputAdded: 'Yeni giriş eklendi',
       removeUndone: 'Kaldırma geri alındı',
     },
     info: {
       plainText: {
-        title: 'Tam İçerik Çıkar',
+        title: 'Tam İçeriği Çıkar',
         description:
-          'AnyParser ile PDF, TXT ve HTML dosyaları gibi ham, yapılandırılmamış verilerinizden içerik çıkarabilirsiniz.',
+          'AnyParser ile PDF, TXT ve HTML dosyaları gibi ham, yapılandırılmamış verilerden içerik çıkarabilirsiniz.',
         howTo:
-          "Bir dosya yükleyip seçtikten sonra, dosyanızın içeriğini çıkaracak ve Markdown formatında döndürecek 'Tam İçerik' akışını çalıştırın.",
+          "Bir dosya yükleyip seçtikten sonra, dosyanızın içeriğini çıkaracak ve Markdown formatında döndürecek olan 'Tam Metin' akışını çalıştırın.",
         nextSteps: 'Sonraki Adımlar',
         nextStepsDescription:
-          'Ham Markdown dosyasını bir metin dosyası olarak indirebilir veya çıkarılmış tablolardan JSON indirebilirsiniz.',
+          "Ham Markdown'ı bir metin dosyası olarak indirebilir veya herhangi bir çıkarılmış tablodan JSON indirebilirsiniz.",
       },
       table: {
         title: 'Sadece Tablo Çıkarma',
@@ -342,29 +338,100 @@ export const tr = {
           'AnyParser ile dosyalarınızdan tablolar çıkarabilir, bunlardan belirli anahtarları çıkarabilir ve veritabanı şemanıza eşleyebilirsiniz.',
         step1: '1. Tabloları Çıkar',
         step1Description:
-          'Öncelikle, dosyanızdan tabloları çıkarmanız gerekiyor. AnyParser tüm tabloları HTML formatında çıkaracaktır.\n\nÇıkarıldıktan sonra, ham HTML dosyasını indirebilir veya tüm tabloları Excel dosyasına indirebilirsiniz.',
+          "Öncelikle, dosyanızdan tabloları çıkarmanız gerekir. AnyParser tüm tabloları HTML formatında çıkarır.\n\nÇıkarıldıktan sonra, ham HTML'yi indirebilir veya tüm tabloları bir Excel dosyasına indirebilirsiniz.",
         step2: '2. Eşlenecek Tabloları Seç',
         step2Description:
-          'Tablo çıkarma işlemini çalıştırdıktan sonra, verilerini çıkarmak istediğiniz tabloları seçin.\n\nBu bölümde ayrıca her tablonun HTML önizlemesini görüntüleme yeteneğine sahip olacaksınız.',
-        step3: '3. Şema Eşleme',
+          'Tablo çıkarma işlemini çalıştırdıktan sonra, veri çıkarmak istediğiniz tabloları seçin.\n\nBu bölümde, her tablonun HTML önizlemesini görme imkanınız da olacak.',
+        step3: '3. Şemayı Eşle',
         step3Description:
-          "Tabloları çıkardıktan ve seçtikten sonra, çıkarmak istediğiniz anahtarları ekleyebilirsiniz. Eşlenmiş anahtarı kaldırmak isterseniz, kutudaki (X) simgesine tıklayın. Bir Girdi Anahtarını kaldırmak isterseniz, kutusundaki (X) simgesine tıklayabilirsiniz.\n\nBazı anahtarlar ekledikten sonra Şema Eşleme işlevini çalıştırabilirsiniz. Eşleme işleminden sonra, düzenleme kalem simgesine tıklayarak eşlenmiş anahtarları düzenleyebilirsiniz.\n\n'Şema Eşleme'yi tekrar çalıştırmak yalnızca Girdi Anahtarlarını yeniden çalıştıracaktır, Eşlenmiş Anahtarlar olmadan. Yeni bir eşlenmiş anahtar oluşturmak isterseniz, önce Eşlenmiş Anahtarı kaldırmak için X'e tıklayabilirsiniz.",
+          "Tabloları çıkardıktan ve seçtikten sonra, çıkarmak istediğiniz anahtarları ekleyebilirsiniz. Eşlenmiş anahtarı kaldırmak isterseniz, kutudaki (X) simgesine tıklayın. Giriş Anahtarını kaldırmak isterseniz, kutusundaki (X) simgesine tıklayabilirsiniz.\n\nBazı anahtarlar ekledikten sonra, Şemayı Eşle işlevini çalıştırabilirsiniz. Eşlemeden sonra, düzenleme kalem simgesine tıklayarak eşlenmiş anahtarları düzenleyebilirsiniz.\n\nŞemayı Eşle'yi tekrar çalıştırmak yalnızca Giriş Anahtarlarını yeniden çalıştırır, Eşlenmiş Anahtarlar olmadan. Yeni bir eşlenmiş anahtar oluşturmak isterseniz, önce Eşlenmiş Anahtarı kaldırabilirsiniz.",
         nextSteps: 'Sonraki Adımlar',
         nextStepsDescription:
-          'Çıktıdan memnun kaldığınızda, CSV veya JSON dosyasını indirebilirsiniz. Bu, en az bir Girdi Anahtarının boş olmayan bir Eşlenmiş Anahtarı olması durumunda etkinleştirilecektir.',
+          "Çıktıdan memnun olduğunuzda, CSV veya JSON'u indirebilirsiniz. Bu, en az bir Giriş Anahtarının boş olmayan bir Eşlenmiş Anahtarı olması durumunda etkinleştirilecektir.",
       },
       keyValuePair: {
         title: 'Anahtar-Değer Çiftlerini Çıkar',
         description:
-          'AnyParser ile faturalar, sözleşmeler veya formlar gibi ham, yapılandırılmamış verilerinizden yapılandırılmış anahtar-değer çiftlerini tanımlayabilir ve çıkarabilirsiniz.',
+          'AnyParser ile faturalar, sözleşmeler veya formlar gibi ham, yapılandırılmamış verilerden yapılandırılmış anahtar-değer çiftlerini tanımlayıp çıkarabilirsiniz.',
         howTo:
-          "Bir dosya yükleyip seçtikten sonra, dosyanızı analiz edecek, anahtar alanları tanımlayacak ve bunların karşılık gelen değerlerini yapılandırılmış JSON formatında çıkaracak 'Anahtar-Değer Çifti' akışını çalıştırın.",
+          "Bir dosya yükleyip seçtikten sonra, dosyanızı analiz edecek, anahtar alanları tanımlayacak ve bunlara karşılık gelen değerleri yapılandırılmış bir JSON formatında çıkaracak olan 'Anahtar-Değer Çifti' akışını çalıştırın.",
         nextSteps: 'Sonraki Adımlar',
         nextStepsDescription:
-          'Çıkarılmış anahtar-değer çiftlerini JSON dosyası olarak indirebilir veya API’miz aracılığıyla doğrudan iş akışınıza entegre ederek daha fazla işlemi otomatikleştirebilirsiniz.',
+          "Çıkarılmış anahtar-değer çiftlerini bir JSON dosyası olarak indirebilir veya iş akışınıza doğrudan API'miz aracılığıyla entegre ederek daha fazla işlemi otomatikleştirebilirsiniz.",
       },
     },
     comingSoon: 'Yakında geliyor',
+  },
+  solutionPages: {
+    compliance: {
+      title: 'ComplianceAI',
+      description: "LLM'lerle Otomatik Uyumluluk Sağlayın",
+      section: {
+        title: 'AI değerlendirme araçlarıyla uyumluluk sürecinizi otomatikleştirin',
+        paragraph:
+          "Özel LLM'leriniz için uyumluluk veya risk konusunda endişeli misiniz? Düzenleyici uyumluluk ve risk yönetimi için özel bir uyumluluk LLM'i sunuyoruz. Bu sistem, düzenleyici değişiklikleri otomatik olarak izler ve bunları iç politikalarınız ve kontrollerinizle uyumlu hale getirir, önemli düzenlemeler ve gereksinimler hakkında zamanında izleme, yanıt verme ve raporlama sağlar.",
+      },
+      useCases: [
+        {
+          title: 'Uyumluluk Kullanım Durumu 1',
+          description: 'Uyumluluk için uniflow kullanın.',
+        },
+      ],
+      button: 'AutoRater ile Başlayın',
+      autorater: {
+        title: 'AutoRater',
+        description: "LLM'lerle Otomatik Uyumluluk Sağlayın",
+        section: {
+          title: 'AI değerlendirme araçlarıyla AutoRater sürecinizi otomatikleştirin',
+          paragraph:
+            "Özel LLM'leriniz için AutoRater veya risk konusunda endişeli misiniz? Düzenleyici AutoRater ve risk yönetimi için özel bir AutoRater LLM'i sunuyoruz. Bu sistem, düzenleyici değişiklikleri otomatik olarak izler ve bunları iç politikalarınız ve kontrollerinizle uyumlu hale getirir, önemli düzenlemeler ve gereksinimler hakkında zamanında izleme, yanıt verme ve raporlama sağlar.",
+        },
+      },
+    },
+    finance: {
+      title: 'İçgörüleri Keşfetmek İçin Kişiselleştirilmiş AI Asistanınız',
+      description:
+        'Yanlış fiyatlandırılmış hisse senetlerini daha hızlı bulun.\nYatırım kararlarınızı gerçek verilerle açıklayın.\nÖzel AI ajanınızı tamamen sahiplenin ve kontrol edin.',
+      iconSection: {
+        title: "LLM'leri kullanarak portföy performansınızı artırmakla ilgileniyor musunuz?",
+        points: [
+          'Yapılandırılmamış verilerden ticaret sinyallerini 10 kat daha hızlı çıkarmak ister misiniz?',
+          'Ticaret sinyallerini yorumlamak için kişiselleştirilmiş bir AI açıklayıcıya mı ihtiyacınız var?',
+          "Genel LLM API'lerini kullanmaktan kaynaklanan bilgi sızıntısı konusunda endişeli misiniz?",
+        ],
+      },
+      features: [
+        {
+          title: 'Çok kaynaklı verilerden bilinmeyen içgörülere erişim',
+          text: "Veri temizleme için harcanan zamanı %90'a kadar azaltın\n\nBirden fazla kaynaktan 10 kat daha fazla finansal içgörüye erişim sağlayın\n\nÖzel AI ajanınızı tamamen sahiplenin ve kontrol edin",
+        },
+        {
+          title: 'Yatırım kararlarınızı kanıtlarla yorumlayın',
+          text: 'Kendi yatırım kararlarınızı gerçek verilerle destekleyin\n\nEkonomist görüşlerinizi kendi tarzınızla yazın\n\nÖzel AI ajanınızı tamamen sahiplenin ve kontrol edin',
+        },
+        {
+          title: 'Kullanım Durumları',
+        },
+      ],
+    },
+    researchDevelopment: {
+      title: "Ar-Ge'de Bilinenlere Erişin ve Bilinmeyenleri Keşfedin",
+      description:
+        "Veri temizleme için harcanan zamanı %90'a kadar azaltın\nEn son araştırmalarla güncel kalın\nAr-Ge'de bilinmeyenleri kolayca keşfedin",
+      features: [
+        {
+          title: 'Çok kaynaklı verilerden bilinmeyen içgörülere erişim',
+          text: "• Veri temizleme için harcanan zamanı %90'a kadar azaltın\n• Ar-Ge'de bilinmeyenleri kolayca keşfedin\n• Özel AI ajanınızı tamamen sahiplenin ve kontrol edin",
+        },
+        {
+          title: 'Araştırma raporunuzu yazın ve en son teknolojiyi kanıtlayın',
+          text: '• Araştırma yeniliğinizi gerçek verilerle destekleyin\n• Araştırmanızı en son teknolojiyle kolayca karşılaştırın\n• Özel AI ajanınızı tamamen sahiplenin ve kontrol edin',
+        },
+        {
+          title: 'Kullanım Durumları',
+        },
+      ],
+    },
   },
   footer: {
     copyright: 'Cambio Corp',
@@ -378,8 +445,8 @@ export const tr = {
       blog: 'Blog',
     },
     sandbox: {
-      title: 'Sandbox',
-      launchSandbox: 'Sandbox Başlat',
+      title: 'Kum Havuzu',
+      launchSandbox: 'Kum Havuzunu Başlat',
       account: 'Hesap',
     },
     company: {
@@ -399,22 +466,22 @@ export const tr = {
       title: 'Profil',
       errorLoading: 'Kullanıcı profili yüklenirken hata oluştu',
       pleaseLogin: 'Lütfen giriş yapın.',
-      welcome: 'Hoş geldiniz',
+      welcome: 'Hoş Geldiniz',
     },
     apiKey: {
       title: 'AnyParser API Anahtarı',
       gettingStarted: 'AnyParser ile Başlarken',
       limitedTime: 'Sınırlı süre!',
-      freePages: 'Her API 100 sayfaya kadar ücretsiz çıkarabilir!',
+      freePages: 'Her API ücretsiz olarak 100 sayfaya kadar veri çıkarabilir!',
       note: 'Not:',
       limitations: [
-        'Ücretsiz API anahtarları, API çağrısı başına 10 çıkarılmış sayfa ile sınırlıdır.',
-        'AnyParser verilerinizi asla saklamaz veya üzerinde eğitim yapmaz.',
+        'Ücretsiz API anahtarları, her API çağrısında 10 çıkarılmış sayfa ile sınırlıdır.',
+        'AnyParser hiçbir zaman verilerinizi saklamaz veya üzerinde eğitim yapmaz.',
       ],
-      verifyEmail: 'API anahtarlarınızı oluşturmak ve kopyalamak için lütfen e-postanızı doğrulayın.',
+      verifyEmail: 'API anahtarlarınızı oluşturmak ve kopyalamak için lütfen e-posta adresinizi doğrulayın.',
       resendVerification: 'Doğrulama e-postasını yeniden gönder',
       sendingVerification: 'Doğrulama e-postası gönderiliyor...',
-      maxKeysGenerated: 'Maksimum API anahtarları oluşturuldu',
+      maxKeysGenerated: 'Maksimum API anahtarlarını oluşturdunuz',
       generateNew: 'Yeni API Anahtarı Oluştur',
       generating: 'Oluşturuluyor...',
     },
@@ -430,12 +497,34 @@ export const tr = {
     logout: 'Çıkış Yap',
   },
   blog: {
-    noPosts: 'Henüz blog gönderisi yok.',
+    noPosts: 'Henüz blog gönderisi mevcut değil.',
     checkBackSoon: 'Güncellemeler için yakında tekrar kontrol edin!',
     backTo: 'Geri dön',
   },
   bookDemo: {
     title: 'Demo Rezervasyonu',
+    pageTitle: '🗓️ Demo Rezervasyonu',
+    pageDescription: 'Veri çıkarımınızı nasıl en üst düzeye çıkarabileceğinizi gösterelim',
+    formTitle: 'Demo Talep Formu',
+    submitted: {
+      title: 'Demo talebi gönderildi!',
+      subtitle: 'Bunu inceleyeceğiz ve kısa süre içinde size geri döneceğiz',
+      goHomeButton: 'Ana Sayfaya Git',
+    },
+    form: {
+      name: 'Ad',
+      email: 'E-posta',
+      company: 'Şirket',
+      linkedin: 'LinkedIn',
+      message: 'Mesaj',
+      helpMessage: 'Size nasıl yardımcı olabiliriz?',
+      submit: 'Gönder',
+      emailValidation: 'Lütfen geçerli bir e-posta adresi girin.',
+    },
+    calendly: {
+      submitFormMessage: 'Lütfen Demo Talep Formunu gönderin',
+      backToPreview: 'Önizlemeye Geri Dön',
+    },
     sent: 'Gönderildi!',
     error: 'İletişim başarısız oldu. Lütfen tekrar deneyin.',
   },
@@ -447,13 +536,13 @@ export const tr = {
   messages: {
     success: {
       sent: 'Gönderildi!',
-      subscriptionSuccessful: 'Abonelik başarıyla gerçekleşti!',
+      subscriptionSuccessful: 'Abonelik başarılı oldu!',
       apiKeyCopied: 'API Anahtarı panoya kopyalandı!',
       verificationResent: 'Doğrulama e-postası yeniden gönderildi!',
       fileUploaded: 'Dosya(lar) başarıyla yüklendi!',
       resultCopied: 'Sonuç panoya kopyalandı',
-      extractionComplete: 'Çıkarma tamamlandı!',
-      newInputAdded: 'Yeni girdi eklendi',
+      extractionComplete: 'Çıkarım tamamlandı!',
+      newInputAdded: 'Yeni giriş eklendi',
       removeUndone: 'Kaldırma geri alındı',
       generatingFor: 'Özetler oluşturuluyor',
       summariesGenerated: 'Özetler oluşturuldu',
@@ -467,31 +556,31 @@ export const tr = {
       pleaseSignIn: 'Aboneliğinizi yönetmek için lütfen giriş yapın',
       errorFetchingApiKeys: 'API anahtarları alınırken hata oluştu',
       errorResendingEmail: 'Doğrulama e-postası yeniden gönderilirken hata oluştu',
-      failedAccessToken: 'Erişim tokeni alınamadı',
+      failedAccessToken: 'Erişim belirteci alınamadı',
       fileTypeNotSupported: 'Dosya türü desteklenmiyor.',
       maxFileSize: 'Maksimum dosya boyutu 10MB.',
       loadingStarterFile: 'Başlangıç dosyası yüklenirken hata oluştu. Lütfen tekrar deneyin.',
       undefinedResult: 'Tanımsız sonuç alındı. Lütfen tekrar deneyin.',
       parameterInvalid: 'Parametre geçersiz. Lütfen tekrar deneyin.',
       jobNotFound: 'İş bulunamadı. Lütfen tekrar deneyin.',
-      pageLimitReached: 'Sayfa çıkarma limiti aşıldı.',
+      pageLimitReached: 'Sayfa çıkarım sınırına ulaşıldı.',
       jobFailed: 'İş başarısız oldu. Lütfen tekrar deneyin.',
-      extractionError: 'Çıkarma hatası. Lütfen tekrar deneyin.',
+      extractionError: 'Çıkarım hatası. Lütfen tekrar deneyin.',
       requestTimeout: 'İstek zaman aşımına uğradı. Lütfen tekrar deneyin.',
       invalidModelType: 'Geçersiz model türü. Lütfen tekrar deneyin.',
       uploadError: 'Yükleme hatası. Lütfen tekrar deneyin.',
       noTablesFound: "Excel'e aktarılacak tablo bulunamadı",
       noValidTables: "Excel'e aktarılacak geçerli tablo bulunamadı",
       maxInputsReached: 'Maksimum 10 girişe izin verilir',
-      extractLimitReached: 'Çıkarma sınırına ulaşıldı.',
-      extractionFailed: 'Çıkarma başarısız oldu. Lütfen tekrar deneyin.',
-      errorDuringExtraction: 'Çıkarma sırasında hata oluştu. Lütfen tekrar deneyin.',
+      extractLimitReached: 'Çıkarım sınırına ulaşıldı.',
+      extractionFailed: 'Çıkarım başarısız oldu. Lütfen tekrar deneyin.',
+      errorDuringExtraction: 'Çıkarım sırasında hata oluştu. Lütfen tekrar deneyin.',
       selectFileFirst: 'Lütfen önce bir dosya seçin',
-      noFileSelected: 'Hiçbir dosya seçilmedi',
-      missingFormData: 'Eksik formData. Lütfen tekrar deneyin.',
-      schemaExtractionError: 'Şema çıkarma hatası. Lütfen tekrar deneyin.',
+      noFileSelected: 'Dosya seçilmedi',
+      missingFormData: 'Eksik form verisi. Lütfen tekrar deneyin.',
+      schemaExtractionError: 'Şema Çıkarımı hatası. Lütfen tekrar deneyin.',
       undefinedMarkdown: 'Tanımsız markdown alındı. Lütfen tekrar deneyin.',
-      errorMapping: 'Şema eşleştirme hatası. Lütfen tekrar deneyin.',
+      errorMapping: 'Şema eşlemesi sırasında hata oluştu. Lütfen tekrar deneyin.',
     },
   },
 } as const;

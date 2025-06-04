@@ -9,6 +9,7 @@ import ToasterProvider from './providers/ToasterProvider';
 import ResultZoomModal from './components/modals/ResultZoomModal';
 import PricingContactModal from './components/modals/PricingContactModal';
 import PlaygroundFeedbackModal from './components/modals/PlaygroundFeedbackModal';
+import HtmlAttributes from './components/HtmlAttributes';
 import { Lato } from 'next/font/google';
 import { PHProvider } from './providers';
 import { GoogleTagManager } from '@next/third-parties/google';
@@ -55,6 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
       <PHProvider>
         <body className={font.className}>
+          <HtmlAttributes />
           <PostHogPageView />
           <ToasterProvider />
           <ConditionalNavbar />

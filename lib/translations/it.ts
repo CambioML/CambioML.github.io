@@ -16,9 +16,9 @@ export const it = {
     aiHrDescription: 'Gestisce i flussi di lavoro ripetitivi delle risorse umane.',
     aiDataScientist: 'Data Scientist AI',
     aiDataDescription: 'Accelera i flussi di lavoro sui dati su larga scala',
-    securityWhitepaper: 'Whitepaper sulla Sicurezza',
+    securityWhitepaper: 'Whitepaper sulla sicurezza',
     securityDescription: 'Guida completa alla sicurezza e conformità.',
-    deploymentOverview: 'Panoramica del Deployment',
+    deploymentOverview: 'Panoramica del deployment',
     deploymentDescription: 'Requisiti di deployment aziendale.',
     awsDeployment: 'Deployment AWS',
     awsDescription: 'Guida al deployment di VM su AWS.',
@@ -38,10 +38,10 @@ export const it = {
   },
   homepage: {
     hero: {
-      title: 'AnyParser: Vision LLM per la Parsing dei Documenti',
-      subtitle: 'Parsing di PDF, PPT, Word e immagini con opzioni configurabili in pochi clic!',
+      title: "AnyParser: Vision LLM per l'analisi dei documenti",
+      subtitle: 'Analizza PDF, PPT, Word e immagini con opzioni configurabili in pochi clic!',
       description:
-        "L'80% degli utenti OCR è stanco di mantenere il codice di collegamento. Libera il tuo tempo con una precisione senza pari, completa privacy e opzioni configurabili come:",
+        "L'80% degli utenti OCR è stanco di mantenere il codice di collegamento. Libera il tuo tempo con un'accuratezza senza pari, completa privacy e opzioni configurabili come:",
       features: [
         'rimozione delle informazioni private,',
         'estrazione di tabelle e grafici,',
@@ -49,17 +49,17 @@ export const it = {
       ],
       moreFeatures: 'e molto altro!',
       tryFree: 'Prova GRATIS',
-      getApi: 'Ottieni Accesso API',
-      bookDemo: 'Prenota una Demo',
+      getApi: 'Ottieni accesso API',
+      bookDemo: 'Prenota una demo',
       noCreditCard: 'Non è richiesta la carta di credito',
     },
     capabilities: {
       title: 'Capacità di AnyParser',
       items: [
-        'Protezione della Privacy: Attiva la funzione "Rimuovi Informazioni Private" e AnyParser oscurerà automaticamente le informazioni personali durante l\'estrazione del documento.',
-        'Puoi istruire il modello per includere o omettere numeri di pagina, intestazioni, piè di pagina, figure, grafici, ecc.',
-        'AnyParser non si limita a estrarre testo e tabelle, ma recupera anche figure, grafici e note a piè di pagina ricche di informazioni 2 volte più velocemente e 5 volte più efficiente in termini di costi.',
-        'Dì addio a tabelle confuse e layout caotici che affliggono i modelli OCR tradizionali con una precisione 2 volte maggiore e un richiamo 2,5 volte superiore rispetto alla media del settore.',
+        'Protezione della privacy: Attiva la funzione "Rimuovi informazioni private" e AnyParser oscurerà automaticamente le informazioni personali durante l\'estrazione del documento.',
+        'Puoi istruire il modello a includere o omettere numeri di pagina, intestazioni, piè di pagina, figure, grafici, ecc.',
+        'AnyParser non si limita a estrarre testo e tabelle, ma recupera anche figure, grafici e note a piè di pagina ricche di informazioni 2 volte più velocemente e 5 volte più efficienti in termini di costi.',
+        'Dì addio a tabelle disordinate e layout caotici che affliggono i modelli OCR tradizionali con una precisione 2 volte maggiore e un richiamo 2,5 volte superiore alla media del settore.',
       ],
     },
     howItWorks: {
@@ -71,19 +71,19 @@ export const it = {
           title: '01',
           subtitle: 'Trascina e rilascia i documenti',
           description:
-            "Clicca su 'Carica File' per trascinare e rilasciare facilmente i documenti che desideri analizzare, o semplicemente incolla uno screenshot dalla tua clipboard. Abbiamo anche fornito documentazione di esempio per aiutarti a iniziare.",
+            'Clicca su "Carica file" per trascinare e rilasciare facilmente i documenti che desideri analizzare, oppure incolla semplicemente uno screenshot dalla tua clipboard. Abbiamo anche fornito documentazione di esempio per aiutarti a iniziare.',
         },
         {
           title: '02',
-          subtitle: 'Modifica le impostazioni di parsing e privacy',
+          subtitle: 'Modifica le impostazioni di analisi e privacy',
           description:
-            'AnyParser categorizza automaticamente vari tipi di informazioni, inclusi PII (Informazioni Personali Identificabili), note a piè di pagina, tabelle e altro. Esporta semplicemente i dati di cui hai bisogno!',
+            'AnyParser categorizza automaticamente vari tipi di informazioni, inclusi PII (Informazioni personali identificabili), note a piè di pagina, tabelle e altro. Esporta semplicemente i dati di cui hai bisogno!',
         },
         {
           title: '03',
           subtitle: 'Esporta i risultati nel tuo sistema',
           description:
-            'Scarica i tuoi dati nel formato preferito—che sia HTML, Excel, JSON o uno schema di database adattato al tuo flusso di lavoro aziendale.',
+            'Scarica i tuoi dati nel formato preferito—che sia HTML, Excel, JSON o uno schema di database adattato al flusso di lavoro della tua azienda.',
         },
       ],
     },
@@ -97,7 +97,7 @@ export const it = {
       {
         title: 'Costruisci con AnyParser',
         description:
-          "Il playground di AnyParser è semplice, veloce e veramente intuitivo, prova l'interfaccia ora e prenditi una pausa per il resto della giornata",
+          "Il playground di AnyParser è semplice, veloce, veramente intuitivo, prova l'interfaccia ora e prenditi una pausa per il resto della giornata",
         actionLabel: 'Ottieni accesso API',
       },
     ],
@@ -106,37 +106,37 @@ export const it = {
     title: 'Recensioni',
     testimonials: [
       {
-        text: '"Abbiamo provato tutti gli strumenti di estrazione pdf e AnyParser ci ha fornito i risultati più accurati."',
+        text: '"Abbiamo provato tutti gli strumenti di estrazione PDF e AnyParser ci ha fornito i risultati più accurati."',
         author: 'Richard Song',
         position: 'CEO - Epsilla',
       },
       {
-        text: '"AnyParser ha superato 10+ altri parser nei nostri benchmark, offrendo la massima precisione nella parsing dei curriculum con la soluzione LLM multi-modello più veloce—il tutto mantenendo prestazioni eccezionali."',
+        text: '"AnyParser ha superato 10+ altri parser nei nostri benchmark, offrendo la migliore accuratezza nell\'analisi dei curriculum con la soluzione LLM multi-modello più veloce—il tutto mantenendo prestazioni eccezionali."',
         author: 'Ethan Zheng',
         position: 'CTO - Jobright',
       },
       {
-        text: '"L\'AI multimodale avanzata di AnyParser offre risultati dove altri approcci falliscono. Documenti complessi richiedono questa fusione di visione e linguaggio."',
+        text: '"L\'AI multimodale avanzata di AnyParser funziona dove altri approcci falliscono. Documenti complessi richiedono questa fusione di visione e linguaggio."',
         author: 'Jon Conradt',
         position: 'Principal Scientist - AWS',
       },
       {
-        text: '"Come educatore AI, cerco soluzioni SOTA per i miei studenti praticanti di ML. AnyParser migliora la precisione del recupero nella parsing dei documenti bilanciando sicurezza, costi ed efficienza—uno strumento innovativo per qualsiasi pipeline!"',
+        text: '"Come educatore AI, cerco soluzioni SOTA per i miei studenti praticanti ML. AnyParser migliora l\'accuratezza del recupero nell\'analisi dei documenti bilanciando sicurezza, costi ed efficienza—uno strumento innovativo per qualsiasi pipeline!"',
         author: 'Cass',
         position: 'Senior Scientist - AWS',
       },
       {
-        text: '"Sono impressionato dall\'innovazione di AnyParser nel campo dell\'AI e LLM, incluse le metodologie innovative di generazione di dati sintetici, il fine-tuning del modello di recupero in RAG e i loro prodotti open-source derivati da queste innovazioni."',
+        text: '"Sono impressionato dall\'innovazione di AnyParser nel campo dell\'AI e LLM, incluse le metodologie innovative di generazione di dati sintetici, il fine-tuning del modello retriever in RAG e i loro prodotti open-source derivati da queste innovazioni."',
         author: 'Felix Bai',
         position: 'Sr. Solution Architect - AWS',
       },
       {
-        text: '"Ho convalidato la qualità di AnyParser che va ben oltre gli strumenti OCR tradizionali come Langchain / Unstructured. Non vedo l\'ora di utilizzarlo nei nostri progetti futuri."',
+        text: '"Ho validato la qualità di AnyParser che va ben oltre gli strumenti OCR tradizionali come Langchain / Unstructured. Non vedo l\'ora di usarlo nei nostri progetti futuri."',
         author: 'Steve Cooper',
         position: 'Cofondatore - ai ticker chat',
       },
       {
-        text: '"È molto meglio di altri strumenti! I nostri analisti di dati sono in grado di triplicare i loro output."',
+        text: '"È molto meglio di altri strumenti! I nostri analisti di dati sono in grado di triplicare i loro risultati."',
         author: 'Jamal',
         position: 'CEO - xtrategise',
       },
@@ -147,18 +147,18 @@ export const it = {
       title: 'Chi siamo',
       description: [
         "Energent.ai è un team di ex scienziati ML e ingegneri di AWS e Tesla, guidati da una passione condivisa per sfruttare l'AI per accelerare la R&D in vari settori.",
-        "La combinazione di competenze in machine learning e conoscenze specifiche del settore del nostro team ci consente di creare tecnologia che non è solo all'avanguardia, ma anche profondamente sintonizzata con le esigenze dei nostri clienti.",
+        "La combinazione di competenze in machine learning e conoscenze specifiche del settore del nostro team ci consente di creare tecnologia che non è solo all'avanguardia, ma anche profondamente sintonizzata sulle esigenze dei nostri clienti.",
       ],
     },
     whatWeOffer: {
       title: 'Cosa offriamo',
       description: [
         'Energent.ai offre strumenti di arricchimento dei dati basati su LLM che estraggono con precisione dati non strutturati da formati misti come PDF, HTML e immagini.',
-        "Con Energent.ai, gli scienziati ML e gli ingegneri R&D possono estrarre informazioni accurate senza dedicare l'80% del loro tempo alla pulizia dei dati o preoccuparsi della perdita di informazioni. Gli utenti possono porre domande di ricerca complesse e identificare tendenze semantiche tra più fonti di dati, comprendendo gli output LLM tramite interpretazioni approfondite, accelerando così i processi di R&D.",
+        "Con Energent.ai, gli scienziati ML e gli ingegneri R&D possono estrarre informazioni accurate senza spendere l'80% del loro tempo nella pulizia dei dati o preoccuparsi della perdita di informazioni. Gli utenti possono porre domande di ricerca complesse e identificare tendenze semantiche tra più fonti di dati, comprendendo gli output LLM tramite interpretazioni approfondite, accelerando così i processi di R&D.",
       ],
     },
     foundingTeam: {
-      title: 'Team Fondatore',
+      title: 'Team fondatore',
     },
     investors: {
       title: 'I nostri investitori',
@@ -189,13 +189,13 @@ export const it = {
         monthlyPrice: '499',
         annualPrice: '5000',
         description:
-          "Per aziende che vogliono iniziare con l'elaborazione di documenti in tempo reale e l'estrazione dei dati.",
+          "Per le aziende che desiderano iniziare con l'elaborazione dei documenti in tempo reale e l'estrazione dei dati.",
         features: [
           'Estrai testo completo in Markdown o estrai tabelle da PDF/immagine in CSV',
           '20k crediti al mese, poi $0.025 per credito',
           'Estrai coppie di valori chiave in JSON',
-          'I crediti non utilizzati si trasferiscono al mese successivo',
-          'Nessun costo nascosto',
+          'I crediti non utilizzati vengono trasferiti al mese successivo',
+          'Nessuna tassa nascosta',
           'Garanzia di rimborso entro 30 giorni',
         ],
       },
@@ -203,13 +203,14 @@ export const it = {
         name: 'Silver',
         monthlyPrice: '1500',
         annualPrice: '15000',
-        description: "Per team che vogliono scalare l'elaborazione dei documenti con supporto e funzionalità avanzate.",
+        description:
+          "Per i team che desiderano scalare l'elaborazione dei documenti con supporto e funzionalità avanzate.",
         features: [
           'Tutte le funzionalità Starter',
           '100k crediti al mese, poi $0.015 per credito',
-          'Onboarding clienti personalizzato',
-          'I crediti non utilizzati si trasferiscono al mese successivo',
-          'Nessun costo nascosto',
+          'Onboarding personalizzato per i clienti',
+          'I crediti non utilizzati vengono trasferiti al mese successivo',
+          'Nessuna tassa nascosta',
           'Garanzia di rimborso entro 30 giorni',
         ],
       },
@@ -217,14 +218,14 @@ export const it = {
         name: 'Gold',
         monthlyPrice: '4500',
         annualPrice: '45000',
-        description: 'Per aziende che necessitano di funzionalità avanzate, hosting privato e supporto premium.',
+        description: 'Per le aziende che necessitano di funzionalità avanzate, hosting privato e supporto premium.',
         features: [
           'Tutte le funzionalità Silver',
           '500k crediti al mese, poi $0.009 per credito',
-          'Hosting Modello Privato (On-prem o Cloud)',
+          'Hosting del modello privato (On-prem o Cloud)',
           'Servizi di personalizzazione disponibili',
-          'I crediti non utilizzati si trasferiscono al mese successivo',
-          'Nessun costo nascosto',
+          'I crediti non utilizzati vengono trasferiti al mese successivo',
+          'Nessuna tassa nascosta',
           'Garanzia di rimborso entro 30 giorni',
         ],
       },
@@ -235,7 +236,7 @@ export const it = {
           'Per grandi organizzazioni che richiedono soluzioni personalizzate, supporto dedicato e sicurezza di livello aziendale.',
         features: [
           'Tutte le funzionalità Gold',
-          'Addestramento Modello Personalizzato',
+          'Addestramento personalizzato del modello',
           'Integrazioni personalizzate e risposte API',
           'Formazione personalizzata 1-1 per il team',
           'Account Manager dedicato',
@@ -246,7 +247,7 @@ export const it = {
     disclaimers: {
       noHiddenFees: '* Nessun costo nascosto; Pagamento mensile a consumo; Garanzia di rimborso entro 30 giorni.',
       tokenExplanation:
-        '** Le pagine che superano i 500 token comporteranno un credito extra per ogni ulteriori 500 token.',
+        '** Le pagine che superano i 500 token comporteranno un credito extra per ogni 500 token aggiuntivi.',
     },
     specialOffer: {
       title: '🎉 Offerta speciale per startup e organizzazioni non profit! 🎉',
@@ -271,10 +272,9 @@ export const it = {
       keyValuePair: 'Estrai Coppie Chiave-Valore',
     },
     disclaimers: {
-      pageLimit:
-        '*Per ogni file caricato, elaboriamo solo le prime dieci pagine per garantire una migliore disponibilità.',
+      pageLimit: '*Per ogni file caricato, elaboriamo solo le prime dieci pagine per una migliore disponibilità.',
       fileSize:
-        '**DIMENSIONE MASSIMA DEL FILE È 10MB. Aggiornando questa pagina verranno cancellati tutti i file e i dati elaborati poiché non conserviamo i tuoi dati.',
+        '**DIMENSIONE MASSIMA DEL FILE 10MB. Aggiornare questa pagina cancellerà tutti i file e i dati elaborati poiché non memorizziamo i tuoi dati.',
       privacyPolicy: 'Visualizza la politica sulla privacy di AnyParser.',
     },
     feedback: {
@@ -296,7 +296,7 @@ export const it = {
     quota: {
       title: 'Quota',
       pages: 'pagine',
-      limitReached: 'Limite di estrazione delle pagine raggiunto.',
+      limitReached: 'Limite di estrazione pagine raggiunto.',
       contactForMore: 'Per favore contattaci per ottenere più quota di pagine.',
       contactEmail: 'info@cambioml.com',
     },
@@ -316,7 +316,7 @@ export const it = {
     },
     keyValue: {
       keyNamePlaceholder: 'Nome Chiave',
-      keyDescriptionPlaceholder: '(Opzionale) Definisci le chiavi per migliorare la precisione di AnyParser',
+      keyDescriptionPlaceholder: "(Facoltativo) Definisci le chiavi per migliorare l'accuratezza di AnyParser",
       keyNameRequired: 'Il nome della chiave è obbligatorio',
       addKeyValuePair: 'Aggiungi Coppia Chiave-Valore',
       removeKeyValuePair: 'Rimuovi Coppia Chiave-Valore',
@@ -349,16 +349,16 @@ export const it = {
           'Con AnyParser, puoi estrarre tabelle dai tuoi file, estrarre chiavi specifiche da esse e mappare il tutto al tuo schema di database.',
         step1: '1. Estrai Tabelle',
         step1Description:
-          'Per prima cosa, devi estrarre le tabelle dal tuo file. AnyParser estrarrà tutte le tabelle in formato HTML.\n\nUna volta estratte, puoi scaricare l’HTML grezzo o tutte le tabelle in un file Excel.',
+          "Per prima cosa, devi estrarre le tabelle dal tuo file. AnyParser estrarrà tutte le tabelle in formato HTML.\n\nUna volta estratte, puoi scaricare l'HTML grezzo o tutte le tabelle in un file Excel.",
         step2: '2. Seleziona Tabelle da Mappare',
         step2Description:
-          "Dopo aver eseguito l'estrazione delle tabelle, seleziona le tabelle da cui desideri estrarre i dati.\n\nIn questa sezione, avrai anche la possibilità di visualizzare in anteprima l'HTML di ogni tabella.",
+          "Dopo aver eseguito l'estrazione delle tabelle, seleziona le tabelle da cui desideri estrarre i dati.\n\nIn questa sezione, avrai anche la possibilità di visualizzare in anteprima l'HTML di ciascuna tabella.",
         step3: '3. Mappa Schema',
         step3Description:
-          "Una volta estratte e selezionate le tabelle, puoi aggiungere le chiavi che desideri estrarre. Se desideri rimuovere la chiave mappata, clicca sulla (X) nella casella. Se desideri rimuovere una Chiave di Input, puoi cliccare sull'icona (X) nella sua casella.\n\nDopo aver aggiunto alcune chiavi, puoi eseguire la funzione Mappa Schema. Dopo la mappatura, puoi modificare qualsiasi chiave mappata cliccando sull'icona della matita di modifica.\n\nCliccando nuovamente su 'Mappa Schema' verranno eseguite solo le Chiavi di Input senza alcuna Chiave Mappata. Se desideri generare una nuova chiave mappata, puoi prima rimuovere la Chiave Mappata cliccando su X.",
+          "Una volta estratte e selezionate le tabelle, puoi quindi aggiungere le chiavi che desideri estrarre. Se desideri rimuovere la chiave mappata, clicca sulla (X) nella casella. Se desideri rimuovere una Chiave di Input, puoi cliccare sull'icona (X) nella sua casella.\n\nUna volta aggiunte alcune chiavi, puoi eseguire la funzione Mappa Schema. Dopo la mappatura, puoi modificare qualsiasi chiave mappata cliccando sull'icona della matita di modifica.\n\nCliccando nuovamente su 'Mappa Schema' verranno eseguite solo le Chiavi di Input senza alcuna Chiave Mappata. Se desideri generare una nuova chiave mappata, puoi prima rimuovere la Chiave Mappata cliccando su X.",
         nextSteps: 'Prossimi Passi',
         nextStepsDescription:
-          'Una volta soddisfatto del risultato, puoi scaricare il CSV o il JSON. Questo sarà abilitato solo se almeno una Chiave di Input ha una Chiave Mappata non vuota.',
+          'Una volta soddisfatto del risultato, puoi scaricare il CSV o JSON. Questo sarà abilitato solo se almeno una Chiave di Input ha una Chiave Mappata non vuota.',
       },
       keyValuePair: {
         title: 'Estrai Coppie Chiave-Valore',
@@ -368,10 +368,81 @@ export const it = {
           "Una volta caricato e selezionato un file, esegui il flusso 'Coppia Chiave-Valore', che analizzerà il tuo file, identificherà i campi chiave ed estrarrà i valori corrispondenti in un formato JSON strutturato.",
         nextSteps: 'Prossimi Passi',
         nextStepsDescription:
-          'Puoi scaricare le coppie chiave-valore estratte come file JSON o integrarle direttamente nel tuo workflow tramite la nostra API per automatizzare ulteriormente il processo.',
+          'Puoi scaricare le coppie chiave-valore estratte come file JSON o integrarle direttamente nel tuo flusso di lavoro tramite la nostra API per automatizzare ulteriori elaborazioni.',
       },
     },
     comingSoon: 'In arrivo',
+  },
+  solutionPages: {
+    compliance: {
+      title: 'ComplianceAI',
+      description: 'Ottieni conformità automatica con LLM',
+      section: {
+        title: 'Automatizza il tuo processo di conformità con valutatori AI',
+        paragraph:
+          'Sei preoccupato per la conformità o il rischio per i tuoi LLM privati? Offriamo un LLM specializzato per la conformità normativa e la gestione del rischio. Questo sistema monitora automaticamente i cambiamenti normativi e li allinea alle tue politiche e controlli interni, garantendo il monitoraggio, la risposta e la segnalazione tempestiva delle normative e dei requisiti significativi.',
+      },
+      useCases: [
+        {
+          title: "Caso d'uso di conformità 1",
+          description: 'Usa uniflow per la conformità.',
+        },
+      ],
+      button: 'Inizia con AutoRater',
+      autorater: {
+        title: 'AutoRater',
+        description: 'Ottieni conformità automatica con LLM',
+        section: {
+          title: 'Automatizza il tuo processo AutoRater con valutatori AI',
+          paragraph:
+            'Sei preoccupato per AutoRater o il rischio per i tuoi LLM privati? Offriamo un LLM specializzato per AutoRater normativo e gestione del rischio. Questo sistema monitora automaticamente i cambiamenti normativi e li allinea alle tue politiche e controlli interni, garantendo il monitoraggio, la risposta e la segnalazione tempestiva delle normative e dei requisiti significativi.',
+        },
+      },
+    },
+    finance: {
+      title: 'Il tuo assistente AI personalizzato per scoprire intuizioni',
+      description:
+        'Trova più rapidamente equity sottovalutate.\nSpiega le tue decisioni di investimento con dati reali.\nPossiedi e controlla completamente il tuo agente AI proprietario.',
+      iconSection: {
+        title: 'Interessato a usare LLM per migliorare la\nperformance del tuo portafoglio?',
+        points: [
+          'Vuoi estrarre segnali di trading da dati non strutturati 10 volte più velocemente?',
+          'Hai bisogno di un interprete AI personalizzato per interpretare i segnali di trading?',
+          'Sei preoccupato per la perdita di informazioni utilizzando API LLM pubbliche?',
+        ],
+      },
+      features: [
+        {
+          title: 'Accesso a intuizioni sconosciute da dati multi-sorgente',
+          text: 'Riduci il tempo dedicato alla pulizia dei dati fino al 90%\n\nAccedi a 10 volte più intuizioni finanziarie da fonti multiple\n\nPossiedi e controlla completamente il tuo agente AI proprietario',
+        },
+        {
+          title: 'Interpreta le tue decisioni di investimento con prove',
+          text: 'Supporta le tue decisioni di investimento con dati reali\n\nScrivi le tue opinioni da economista con il tuo stile personale\n\nPossiedi e controlla completamente il tuo agente AI proprietario',
+        },
+        {
+          title: "Casi d'uso",
+        },
+      ],
+    },
+    researchDevelopment: {
+      title: 'Accedi ai Conosciuti e\nSblocca gli Sconosciuti in R&D',
+      description:
+        "Riduci il tempo dedicato alla pulizia dei dati fino al 90%\nRimani aggiornato con la ricerca all'avanguardia\nScopri gli sconosciuti in R&D con facilità",
+      features: [
+        {
+          title: 'Accesso a intuizioni sconosciute da dati multi-sorgente',
+          text: '• Riduci il tempo dedicato alla pulizia dei dati fino al 90%\n• Scopri gli sconosciuti in R&D con facilità\n• Possiedi e controlla completamente il tuo agente AI proprietario',
+        },
+        {
+          title: "Scrivi il tuo rapporto di ricerca per dimostrare lo stato dell'arte",
+          text: '• Supporta la novità della tua ricerca con dati reali\n• Confronta la tua ricerca con lo SOTA con facilità\n• Possiedi e controlla completamente il tuo agente AI proprietario',
+        },
+        {
+          title: "Casi d'uso",
+        },
+      ],
+    },
   },
   footer: {
     copyright: 'Cambio Corp',
@@ -396,8 +467,8 @@ export const it = {
     resources: {
       title: 'Risorse',
       anyParserDocs: 'Documentazione AnyParser',
-      privacyPolicy: 'Politica sulla Privacy',
-      termsOfService: 'Termini di Servizio',
+      privacyPolicy: 'Informativa sulla privacy',
+      termsOfService: 'Termini di servizio',
     },
   },
   account: {
@@ -405,7 +476,7 @@ export const it = {
     profile: {
       title: 'Profilo',
       errorLoading: 'Errore nel caricamento del profilo utente',
-      pleaseLogin: 'Per favore accedi.',
+      pleaseLogin: 'Effettua il login.',
       welcome: 'Benvenuto',
     },
     apiKey: {
@@ -416,47 +487,69 @@ export const it = {
       note: 'Nota:',
       limitations: [
         'Le chiavi API gratuite sono limitate a 10 pagine estratte per chiamata API.',
-        'AnyParser non conserva né utilizza i tuoi dati per l’addestramento.',
+        "AnyParser non memorizza né utilizza i tuoi dati per l'addestramento.",
       ],
-      verifyEmail: 'Per favore verifica la tua email per generare e copiare le chiavi API.',
-      resendVerification: 'Rinvia email di verifica',
-      sendingVerification: 'Invio email di verifica in corso...',
+      verifyEmail: 'Verifica la tua email per generare e copiare le chiavi API.',
+      resendVerification: 'Reinvia email di verifica',
+      sendingVerification: 'Invio email di verifica...',
       maxKeysGenerated: 'Hai generato il massimo delle chiavi API',
-      generateNew: 'Genera Nuova Chiave API',
+      generateNew: 'Genera nuova chiave API',
       generating: 'Generazione in corso...',
     },
     subscriptions: {
       title: 'Abbonamenti',
-      description: 'Visualizza prodotti o modifica il tuo abbonamento.',
-      viewProducts: 'Visualizza Prodotti',
+      description: 'Visualizza i prodotti o modifica il tuo abbonamento.',
+      viewProducts: 'Visualizza prodotti',
     },
-    documentation: 'Consulta la Documentazione di AnyParser',
+    documentation: 'Consulta la documentazione di AnyParser',
   },
   auth: {
     login: 'Accedi',
     logout: 'Esci',
   },
   blog: {
-    noPosts: 'Nessun post del blog disponibile al momento.',
+    noPosts: 'Non ci sono ancora post sul blog disponibili.',
     checkBackSoon: 'Torna presto per aggiornamenti!',
     backTo: 'Torna a',
   },
   bookDemo: {
     title: 'Prenota una Demo',
+    pageTitle: '🗓️ Prenota una Demo',
+    pageDescription: "Ti mostreremo come massimizzare l'estrazione dei dati",
+    formTitle: 'Modulo di richiesta demo',
+    submitted: {
+      title: 'Richiesta demo inviata!',
+      subtitle: 'La esamineremo e ti risponderemo a breve',
+      goHomeButton: 'Vai alla Homepage',
+    },
+    form: {
+      name: 'Nome',
+      email: 'Email',
+      company: 'Azienda',
+      linkedin: 'LinkedIn',
+      message: 'Messaggio',
+      helpMessage: 'Come possiamo aiutarti?',
+      submit: 'Invia',
+      emailValidation: 'Inserisci un indirizzo email valido.',
+    },
+    calendly: {
+      submitFormMessage: 'Per favore, invia il modulo di richiesta demo',
+      backToPreview: 'Torna alla anteprima',
+    },
     sent: 'Inviato!',
-    error: 'Invio fallito. Per favore riprova.',
+    error: 'Contatto fallito. Per favore riprova.',
   },
   notFound: {
     title: '404',
-    subtitle: 'Ops! Questa pagina non esiste',
+    subtitle: 'Oops! Questa pagina non esiste',
     goHome: 'Vai alla Homepage',
   },
   messages: {
     success: {
       sent: 'Inviato!',
-      subscriptionSuccessful: 'Abbonamento avvenuto con successo!',
+      subscriptionSuccessful: 'Abbonamento effettuato con successo!',
       apiKeyCopied: 'Chiave API copiata negli appunti!',
-      verificationResent: 'Email di verifica rinviata!',
+      verificationResent: 'Email di verifica reinviata!',
       fileUploaded: 'File caricati con successo!',
       resultCopied: 'Risultato copiato negli appunti',
       extractionComplete: 'Estrazione completata!',
@@ -465,40 +558,40 @@ export const it = {
       generatingFor: 'Generazione di riepiloghi per',
       summariesGenerated: 'Riepiloghi generati per',
       downloadingSummaries: 'Download dei riepiloghi per',
-      tablesGenerated: 'Tabelle generate da',
-      schemaMapGenerated: 'Schema Map generato per',
+      tablesGenerated: 'Tabella(e) generata(e) da',
+      schemaMapGenerated: 'Mappa Schema generata per',
       extracted: 'estratto!',
     },
     error: {
-      contactFailed: 'Invio fallito. Per favore riprova.',
-      pleaseSignIn: 'Per favore accedi per gestire il tuo abbonamento',
+      contactFailed: 'Contatto fallito. Per favore riprova.',
+      pleaseSignIn: 'Effettua il login per gestire il tuo abbonamento',
       errorFetchingApiKeys: 'Errore nel recupero delle chiavi API',
-      errorResendingEmail: 'Errore nel rinvio dell’email di verifica',
+      errorResendingEmail: "Errore nel reinvio dell'email di verifica",
       failedAccessToken: 'Errore nel recupero del token di accesso',
       fileTypeNotSupported: 'Tipo di file non supportato.',
-      maxFileSize: 'Dimensione massima del file è 10MB.',
+      maxFileSize: 'Dimensione massima del file: 10MB.',
       loadingStarterFile: 'Errore nel caricamento del file iniziale. Per favore riprova.',
-      undefinedResult: 'Risultato indefinito ricevuto. Per favore riprova.',
+      undefinedResult: 'Risultato non definito ricevuto. Per favore riprova.',
       parameterInvalid: 'Parametro non valido. Per favore riprova.',
       jobNotFound: 'Lavoro non trovato. Per favore riprova.',
-      pageLimitReached: 'Limite di estrazione delle pagine raggiunto.',
-      jobFailed: 'Il lavoro è fallito. Per favore, riprova.',
-      extractionError: "Errore durante l'estrazione. Per favore, riprova.",
-      requestTimeout: 'Tempo di richiesta scaduto. Per favore, riprova.',
-      invalidModelType: 'Tipo di modello non valido. Per favore, riprova.',
-      uploadError: 'Errore durante il caricamento. Per favore, riprova.',
+      pageLimitReached: 'Limite di pagine estratte raggiunto.',
+      jobFailed: 'Il lavoro è fallito. Per favore riprova.',
+      extractionError: 'Errore di estrazione. Per favore riprova.',
+      requestTimeout: 'Tempo di richiesta scaduto. Per favore riprova.',
+      invalidModelType: 'Tipo di modello non valido. Per favore riprova.',
+      uploadError: 'Errore di caricamento. Per favore riprova.',
       noTablesFound: 'Nessuna tabella trovata da esportare in Excel',
       noValidTables: 'Nessuna tabella valida trovata da esportare in Excel',
       maxInputsReached: 'Massimo 10 input consentiti',
       extractLimitReached: 'Limite di estrazione raggiunto.',
-      extractionFailed: 'Estrazione fallita. Per favore, riprova.',
-      errorDuringExtraction: "Errore durante l'estrazione. Per favore, riprova.",
-      selectFileFirst: 'Per favore, seleziona prima un file',
+      extractionFailed: 'Estrazione fallita. Per favore riprova.',
+      errorDuringExtraction: "Errore durante l'estrazione. Per favore riprova.",
+      selectFileFirst: 'Per favore seleziona prima un file',
       noFileSelected: 'Nessun file selezionato',
-      missingFormData: 'Dati del modulo mancanti. Per favore, riprova.',
-      schemaExtractionError: "Errore durante l'estrazione dello schema. Per favore, riprova.",
-      undefinedMarkdown: 'Markdown non definito ricevuto. Per favore, riprova.',
-      errorMapping: 'Errore durante la mappatura dello schema. Per favore, riprova.',
+      missingFormData: 'Dati del modulo mancanti. Per favore riprova.',
+      schemaExtractionError: 'Errore di estrazione dello schema. Per favore riprova.',
+      undefinedMarkdown: 'Markdown non definito ricevuto. Per favore riprova.',
+      errorMapping: 'Errore nella mappatura dello schema per. Per favore riprova.',
     },
   },
 } as const;

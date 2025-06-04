@@ -1,5 +1,5 @@
 ---
-title: "Modely Vision Language: Překonávání omezení OCR"
+title: 'Modely Vision Language: Překonávání omezení OCR'
 date: '2024-09-25'
 keywords: 'modely vision language,VLM,OCR,optické rozpoznávání znaků,zpracování dokumentů,extrakce dat z PDF,počítačové vidění,zpracování přirozeného jazyka,AI analýza dokumentů'
 image: '/images/solutions/ocr-vs-vlm-1.png'

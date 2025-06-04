@@ -1,29 +1,29 @@
 export const fi = {
   nav: {
     applications: 'Sovellukset',
-    templates: 'Mallit',
+    templates: 'Mallipohjat',
     resources: 'Resurssit',
     company: 'Yritys',
     pricing: 'Hinnoittelu',
     blog: 'Blogi',
-    docs: 'Dokumentaatio',
+    docs: 'Dokumentit',
     aboutUs: 'Meistä',
     trySandbox: 'Kokeile Sandboxia',
     getApiKey: 'Hanki API-avain',
-    aiOgSpecialist: 'AI Öljy- ja Kaasualan Spesialisti',
-    aiOgDescription: 'Parantaa kenttä-toimisto työnkulkuja.',
+    aiOgSpecialist: 'AI Öljy- ja kaasualan asiantuntija',
+    aiOgDescription: 'Tehostaa kenttä-toimisto-työnkulkuja.',
     aiHr: 'AI HR',
     aiHrDescription: 'Käsittelee toistuvia HR-työnkulkuja.',
     aiDataScientist: 'AI Data Scientist',
     aiDataDescription: 'Nopeuttaa datatyönkulkuja laajassa mittakaavassa',
-    securityWhitepaper: 'Tietoturva Whitepaper',
-    securityDescription: 'Kattava tietoturva- ja vaatimustenmukaisuusopas.',
+    securityWhitepaper: 'Turvallisuusraportti',
+    securityDescription: 'Kattava turvallisuus- ja vaatimustenmukaisuusopas.',
     deploymentOverview: 'Käyttöönoton yleiskatsaus',
-    deploymentDescription: 'Yrityskäyttöönoton vaatimukset.',
-    awsDeployment: 'AWS Käyttöönotto',
-    awsDescription: 'AWS VM käyttöönotto-opas.',
-    azureDeployment: 'Azure Käyttöönotto',
-    azureDescription: 'Azure VM käyttöönotto-opas.',
+    deploymentDescription: 'Yrityksen käyttöönoton vaatimukset.',
+    awsDeployment: 'AWS-käyttöönotto',
+    awsDescription: 'AWS VM:n käyttöönotto-opas.',
+    azureDeployment: 'Azure-käyttöönotto',
+    azureDescription: 'Azure VM:n käyttöönotto-opas.',
   },
   common: {
     language: 'Kieli',
@@ -32,20 +32,19 @@ export const fi = {
     french: 'Ranska',
     chinese: 'Kiina',
     getStarted: 'Aloita',
-    learnMore: 'Lue lisää',
+    learnMore: 'Lisätietoja',
     contactUs: 'Ota yhteyttä',
     readMore: 'Lue lisää',
   },
   homepage: {
     hero: {
       title: 'AnyParser: Vision LLM dokumenttien jäsentämiseen',
-      subtitle:
-        'Jäsentää PDF:t, PPT:t, Word-dokumentit ja kuvat konfiguroitavilla vaihtoehdoilla muutamalla klikkauksella!',
+      subtitle: 'PDF-, PPT-, Word- ja kuvien jäsentäminen mukautettavilla vaihtoehdoilla muutamalla klikkauksella!',
       description:
-        '80 % OCR-käyttäjistä on kyllästynyt ylläpitämään liimakoodia. Vapauta aikaasi vertaansa vailla olevalla tarkkuudella, täydellä yksityisyydellä ja konfiguroitavilla vaihtoehdoilla, kuten:',
+        '80 % OCR-käyttäjistä on kyllästynyt ylläpitämään liimakoodia. Vapauta aikaasi vertaansa vailla olevalla tarkkuudella, täydellä yksityisyydellä ja mukautettavilla vaihtoehdoilla, kuten:',
       features: [
         'yksityisten henkilötietojen poistaminen,',
-        'taulukoiden ja kaavioiden erottaminen,',
+        'taulukoiden ja kaavioiden poiminta,',
         'alaviitteiden ja otsikoiden säilyttäminen,',
       ],
       moreFeatures: 'ja paljon muuta!',
@@ -57,10 +56,10 @@ export const fi = {
     capabilities: {
       title: 'AnyParserin ominaisuudet',
       items: [
-        'Yksityisyyden suoja: Aktivoi "Poista yksityiset tiedot" -ominaisuus, ja AnyParser poistaa automaattisesti henkilötiedot dokumentin jäsentämisen aikana.',
-        'Voit ohjeistaa mallia sisällyttämään tai jättämään pois sivunumerot, otsikot, alatunnisteet, kuviot, kaaviot jne.',
-        'AnyParser ei vain jäsennä tekstiä ja taulukoita, vaan myös hakee kuviot, kaaviot ja alaviitteet, jotka sisältävät tärkeää tietoa 2X nopeammin ja 5X kustannustehokkaammin.',
-        'Jätä hyvästit sotkuisille taulukoille ja kaoottisille asetteluille, jotka vaivaavat perinteisiä OCR-pohjaisia malleja, 2X tarkemmalla ja 2.5X paremmalla palautteella kuin alan keskiarvo.',
+        'Yksityisyyden suoja: Aktivoi "Poista yksityiset tiedot" -ominaisuus, ja AnyParser poistaa automaattisesti PII-tiedot dokumentin jäsentämisen aikana.',
+        'Voit ohjeistaa mallia sisällyttämään tai jättämään pois sivunumerot, otsikot, alatunnisteet, kuvat, kaaviot jne.',
+        'AnyParser ei pelkästään poimi tekstiä ja taulukoita, vaan myös kuvia, kaavioita ja alaviitteitä, jotka sisältävät tärkeää tietoa 2X nopeammin ja 5X kustannustehokkaammin.',
+        'Hyvästit sotkuisille taulukoille ja kaoottisille asetteluille, jotka vaivaavat perinteisiä OCR-pohjaisia malleja, 2X tarkkuudella ja 2.5X muistilla alan keskiarvoa parempana.',
       ],
     },
     howItWorks: {
@@ -72,19 +71,19 @@ export const fi = {
           title: '01',
           subtitle: 'Vedä ja pudota dokumentit',
           description:
-            "Klikkaa 'Lataa tiedosto' ja vedä ja pudota helposti dokumentit, jotka haluat jäsentää, tai liitä kuvakaappaus suoraan leikepöydältäsi. Olemme myös tarjoaneet esimerkkidokumentaatiota, joka auttaa sinua aloittamaan.",
+            "Klikkaa 'Lataa tiedosto' ja vedä helposti dokumentit, jotka haluat jäsentää, tai liitä kuvakaappaus suoraan leikepöydältäsi. Olemme myös tarjonneet esimerkkidokumentaatiota, jotta pääset alkuun.",
         },
         {
           title: '02',
-          subtitle: 'Muokkaa jäsennys- ja yksityisyysasetuksia',
+          subtitle: 'Muokkaa jäsentämis- ja yksityisyysasetuksia',
           description:
-            'AnyParser luokittelee automaattisesti erilaisia tietotyyppejä, mukaan lukien henkilötiedot (PII), alaviitteet, taulukot ja paljon muuta. Vie vain tarvitsemasi data!',
+            'AnyParser luokittelee automaattisesti erilaisia tietotyyppejä, mukaan lukien PII (henkilökohtaisesti tunnistettavat tiedot), alaviitteet, taulukot ja paljon muuta. Vie vain tarvitsemasi data!',
         },
         {
           title: '03',
           subtitle: 'Vie tulokset järjestelmääsi',
           description:
-            'Lataa datasi haluamassasi muodossa—olipa se HTML, Excel, JSON tai liiketoimintatyönkulkuusi räätälöity tietokantakaava.',
+            'Lataa datasi haluamassasi muodossa—olipa se HTML, Excel, JSON tai liiketoimintatyönkulkuusi räätälöity tietokantaskeema.',
         },
       ],
     },
@@ -92,13 +91,13 @@ export const fi = {
       {
         title: 'Jäsennä dataa tarkasti',
         description:
-          'AnyParser-leikkikenttä on yksinkertainen, nopea ja intuitiivinen. Kokeile käyttöliittymää nyt ja pidä loppupäivä vapaata.',
+          'AnyParser-leikkikenttä on yksinkertainen, nopea ja intuitiivinen. Kokeile käyttöliittymää nyt ja pidä tauko loppupäivän ajan',
         actionLabel: 'Kokeile ILMAISEKSI',
       },
       {
         title: 'Rakenna AnyParserilla',
         description:
-          'AnyParser-leikkikenttä on yksinkertainen, nopea ja todella intuitiivinen. Kokeile käyttöliittymää nyt ja pidä loppupäivä vapaata.',
+          'AnyParser-leikkikenttä on yksinkertainen, nopea ja todella intuitiivinen, kokeile käyttöliittymää nyt ja pidä tauko loppupäivän ajan',
         actionLabel: 'Hanki API-pääsy',
       },
     ],
@@ -107,32 +106,32 @@ export const fi = {
     title: 'Arvostelut',
     testimonials: [
       {
-        text: '"Olemme kokeilleet kaikkia PDF-jäsennystyökaluja, ja AnyParser antoi meille tarkimmat tulokset."',
+        text: '"Olemme kokeilleet kaikkia pdf-jäsentämistyökaluja, ja AnyParser antoi meille tarkimmat tulokset."',
         author: 'Richard Song',
         position: 'Toimitusjohtaja - Epsilla',
       },
       {
-        text: '"AnyParser ylitti 10+ muuta jäsentä benchmarkeissamme, tarjoten huippuluokan ansioluettelon jäsennystarkkuuden nopeimmalla monimallin LLM-ratkaisulla—kaiken tämän säilyttäen poikkeuksellisen suorituskyvyn."',
+        text: '"AnyParser ylitti 10+ muuta jäsentäjää vertailuissamme, tarjoten huippuluokan ansioluettelon jäsentämistarkkuuden nopeimmalla monimallin LLM-ratkaisulla—kaikki samalla säilyttäen poikkeuksellisen suorituskyvyn."',
         author: 'Ethan Zheng',
         position: 'Teknologiajohtaja - Jobright',
       },
       {
-        text: '"AnyParserin edistynyt multimodaalinen AI toimii siellä, missä muut lähestymistavat epäonnistuvat. Monimutkaiset dokumentit vaativat tämän näkö- ja kielifusion."',
+        text: '"AnyParserin kehittynyt multimodaalinen AI toimii siellä, missä muut lähestymistavat epäonnistuvat. Monimutkaiset dokumentit vaativat tämän näön ja kielen yhdistelmän."',
         author: 'Jon Conradt',
-        position: 'Päällikkötutkija - AWS',
+        position: 'Pääasiallinen tutkija - AWS',
       },
       {
-        text: '"AI-kouluttajana etsin huipputason ratkaisuja ML-harjoittelijoilleni. AnyParser parantaa hakutarkkuutta dokumenttien jäsentämisessä tasapainottaen tietoturvan, kustannukset ja tehokkuuden—innovatiivinen työkalu mihin tahansa prosessiin!"',
+        text: '"AI-kouluttajana etsin huippuluokan ratkaisuja ML-ammattilaisopiskelijoilleni. AnyParser parantaa hakutarkkuutta dokumenttien jäsentämisessä samalla tasapainottaen turvallisuuden, kustannukset ja tehokkuuden—innovatiivinen työkalu mihin tahansa työnkulkuun!"',
         author: 'Cass',
         position: 'Vanhempi tutkija - AWS',
       },
       {
-        text: '"Olen vaikuttunut AnyParserin innovaatioista AI:n ja LLM:n alalla, mukaan lukien synteettisen datan luomisen uudet menetelmät, retriever-mallin hienosäätö RAG:ssa ja heidän avoimen lähdekoodin tuotteet näistä innovaatioista."',
+        text: '"Olen vaikuttunut AnyParserin innovaatioista AI:n ja LLM:n alalla, mukaan lukien synteettisen datan luomisen uudet menetelmät, retriever-mallin hienosäätö RAG:ssa ja heidän avoimen lähdekoodin tuotteensa näistä innovaatioista."',
         author: 'Felix Bai',
         position: 'Vanhempi ratkaisuarkkitehti - AWS',
       },
       {
-        text: '"Olen varmistanut, että AnyParserin laatu ylittää perinteiset OCR-työkalut, kuten Langchain / Unstructured. Odotan innolla tämän käyttöä tulevissa projekteissamme."',
+        text: '"Olen vahvistanut AnyParserin laadun olevan paljon perinteisiä OCR-työkaluja, kuten Langchain / Unstructured, parempi. Odotan innolla tämän käyttöä tulevissa projekteissamme."',
         author: 'Steve Cooper',
         position: 'Perustaja - ai ticker chat',
       },
@@ -148,14 +147,14 @@ export const fi = {
       title: 'Keitä olemme',
       description: [
         'Energent.ai on tiimi entisiä ML-tutkijoita ja insinöörejä AWS:ltä ja Teslalta, joita yhdistää yhteinen intohimo hyödyntää AI:ta tutkimus- ja kehitystyön nopeuttamiseksi eri toimialoilla.',
-        'Tiimimme yhdistelmä koneoppimisen osaamista ja toimialakohtaisia näkemyksiä mahdollistaa teknologian luomisen, joka ei ole vain huipputeknologiaa, vaan myös syvästi asiakkaidemme tarpeisiin räätälöityä.',
+        'Tiimimme yhdistelmä koneoppimisen osaamista ja toimialakohtaisia näkemyksiä mahdollistaa teknologian luomisen, joka ei ole pelkästään huippuluokkaa, vaan myös syvästi viritetty asiakkaidemme tarpeisiin.',
       ],
     },
     whatWeOffer: {
       title: 'Mitä tarjoamme',
       description: [
-        'Energent.ai tarjoaa LLM-pohjaisia datan rikastustyökaluja, jotka tarkasti jäsentävät jäsentämätöntä dataa sekamuotoisista lähteistä, kuten PDF:istä, HTML:istä ja kuvista.',
-        'Energent.ai:n avulla ML-tutkijat ja tutkimus- ja kehitysinsinöörit voivat jäsentää tarkkaa tietoa ilman, että heidän tarvitsee käyttää 80 % ajastaan datan puhdistamiseen tai huolehtia tiedon menetyksestä. Käyttäjät voivat esittää monimutkaisia tutkimuskysymyksiä, tunnistaa semanttisia trendejä useista tietolähteistä ja ymmärtää LLM-tuloksia syvällisen tulkinnan avulla, nopeuttaen näin tutkimus- ja kehitysprosesseja.',
+        'Energent.ai tarjoaa LLM-pohjaisia datan rikastamistyökaluja, jotka tarkasti poimivat jäsentämätöntä dataa sekamuodoista, kuten PDF:istä, HTML:istä ja kuvista.',
+        'Energent.ai:n avulla ML-tutkijat ja R&D-insinöörit voivat poimia tarkkaa tietoa ilman, että heidän tarvitsee käyttää 80 % ajastaan datan puhdistamiseen tai huolehtia tiedon menetyksestä. Käyttäjät voivat esittää monimutkaisia tutkimuskysymyksiä ja tunnistaa semanttisia trendejä useista tietolähteistä sekä ymmärtää LLM:n tuotoksia syvällisen tulkinnan avulla, mikä nopeuttaa tutkimus- ja kehitysprosesseja.',
       ],
     },
     foundingTeam: {
@@ -181,19 +180,18 @@ export const fi = {
     },
     realTimeApi: {
       title: 'Reaaliaikaisen API:n hinnoittelu',
-      description: 'Nopein näkö-kielimalli reaaliaikaisella vasteella 0.5–5 sekuntia per sivu.',
+      description: 'Nopein visuaalinen kielimalli reaaliaikaisella vasteella 0,5–5 sekuntia per sivu.',
     },
     plans: {
       starter: {
-        name: 'Aloittelija',
+        name: 'Aloitus',
         monthlyPrice: '499',
         annualPrice: '5000',
-        description:
-          'Yrityksille, jotka haluavat aloittaa reaaliaikaisen dokumenttien käsittelyn ja datan jäsentämisen.',
+        description: 'Yrityksille, jotka haluavat aloittaa reaaliaikaisen dokumenttien käsittelyn ja datan poiminnan.',
         features: [
-          'Jäsennä koko teksti Markdowniksi tai taulukot PDF/kuvasta CSV:ksi',
+          'Poimi koko teksti Markdowniksi tai taulukot PDF/kuvasta CSV:ksi',
           '20k krediittiä kuukaudessa, sitten $0.025 per krediitti',
-          'Jäsennä avainarvoparit JSON-muotoon',
+          'Poimi avainarvoparit JSON-muotoon',
           'Käyttämättömät krediitit siirtyvät seuraavaan kuukauteen',
           'Ei piilokuluja',
           '30 päivän rahat takaisin -takuu',
@@ -206,9 +204,9 @@ export const fi = {
         description:
           'Tiimeille, jotka haluavat laajentaa dokumenttien käsittelyä parannetulla tuella ja ominaisuuksilla.',
         features: [
-          'Kaikki Aloittelija-ominaisuudet',
+          'Kaikki Aloitus-ominaisuudet',
           '100k krediittiä kuukaudessa, sitten $0.015 per krediitti',
-          'Räätälöity asiakaslähtöinen käyttöönotto',
+          'Mukautettu asiakasohjelma',
           'Käyttämättömät krediitit siirtyvät seuraavaan kuukauteen',
           'Ei piilokuluja',
           '30 päivän rahat takaisin -takuu',
@@ -219,11 +217,11 @@ export const fi = {
         monthlyPrice: '4500',
         annualPrice: '45000',
         description:
-          'Yrityksille, jotka tarvitsevat edistyneitä ominaisuuksia, yksityistä isännöintiä ja premium-tukea.',
+          'Suuryrityksille, jotka tarvitsevat edistyneitä ominaisuuksia, yksityistä hostingia ja ensiluokkaista tukea.',
         features: [
           'Kaikki Hopea-ominaisuudet',
           '500k krediittiä kuukaudessa, sitten $0.009 per krediitti',
-          'Yksityinen mallin isännöinti (paikallinen tai pilvi)',
+          'Yksityinen mallin hosting (paikallinen tai pilvi)',
           'Mukautuspalvelut saatavilla',
           'Käyttämättömät krediitit siirtyvät seuraavaan kuukauteen',
           'Ei piilokuluja',
@@ -234,27 +232,27 @@ export const fi = {
         name: 'Yritys',
         price: 'Ota yhteyttä',
         description:
-          'Suurille organisaatioille, jotka tarvitsevat räätälöityjä ratkaisuja, omistettua tukea ja yritystason tietoturvaa.',
+          'Suurille organisaatioille, jotka tarvitsevat räätälöityjä ratkaisuja, omistettua tukea ja yritystason turvallisuutta.',
         features: [
           'Kaikki Kulta-ominaisuudet',
-          'Räätälöity mallin koulutus',
+          'Mukautettu mallin koulutus',
           'Custom Integrations and API Responses',
           'Henkilökohtainen 1-1 tiimikoulutus',
-          'Oma tilivastaava',
+          'Omistautunut tilivastaava',
           'Etusijainen tuki',
         ],
       },
     },
     disclaimers: {
-      noHiddenFees: '* Ei piilokuluja; Kuukausittainen maksu käytön mukaan; 30 päivän rahat takaisin -takuu.',
+      noHiddenFees: '* Ei piilokuluja; Kuukausimaksu käytön mukaan; 30 päivän rahat takaisin -takuu.',
       tokenExplanation:
         '** Sivut, jotka ylittävät 500 tokenia, aiheuttavat lisäluoton jokaista ylimääräistä 500 tokenia kohden.',
     },
     specialOffer: {
-      title: '🎉 Erikoistarjous startup-yrityksille ja voittoa tavoittelemattomille järjestöille! 🎉',
+      title: '🎉 Erikoistarjous startupeille ja voittoa tavoittelemattomille järjestöille! 🎉',
       getStart: 'Hanki',
       highlight: '3 kuukautta ILMAISEKSI',
-      forText: 'startup-yrityksille',
+      forText: 'startupeille',
       startupDetails: '(alle 10 henkilöä)',
       orText: 'tai',
       nonprofitText: 'Voittoa tavoittelemattomille järjestöille.',
@@ -266,18 +264,18 @@ export const fi = {
   playground: {
     title: 'AnyParser Sandbox',
     description:
-      'Ensimmäinen LLM, joka nopeasti ja tarkasti purkaa koko sisällön PDF-tiedostoista*, PPT-tiedostoista ja kuvista**.',
+      'Ensimmäinen LLM, joka nopeasti ja tarkasti poimii koko sisällön PDF-tiedostoista*, PPT-tiedostoista ja kuvista**.',
     tabs: {
       plainText: 'Koko sisältö',
       table: 'Vain taulukko',
-      keyValuePair: 'Pura avain-arvo -parit',
+      keyValuePair: 'Poimi avain-arvo -parit',
     },
     disclaimers: {
       pageLimit:
-        '*Jokaisen ladatun tiedoston kohdalla käsittelemme vain ensimmäiset kymmenen sivua paremman saatavuuden vuoksi.',
+        '*Jokaisen ladatun tiedoston osalta käsittelemme vain ensimmäiset kymmenen sivua paremman saatavuuden vuoksi.',
       fileSize:
-        '**MAKSIMI TIEDOSTOKOKO ON 10MB. Tämän sivun päivittäminen poistaa kaikki tiedostot ja käsitellyt tiedot, koska emme tallenna tietojasi.',
-      privacyPolicy: 'Näytä AnyParserin tietosuojakäytäntö.',
+        '**MAKSIMITIEDOSTOKOKO ON 10MB. Tämän sivun päivittäminen tyhjentää kaikki tiedostot ja käsitellyt tiedot, koska emme tallenna tietojasi.',
+      privacyPolicy: 'Katso AnyParserin tietosuojakäytäntö.',
     },
     feedback: {
       button: 'Palaute',
@@ -298,7 +296,7 @@ export const fi = {
     quota: {
       title: 'Kiintiö',
       pages: 'sivut',
-      limitReached: 'Sivujen purkuraja saavutettu.',
+      limitReached: 'Sivujen poimintakiintiö saavutettu.',
       contactForMore: 'Ota yhteyttä saadaksesi lisää sivukiintiötä.',
       contactEmail: 'info@cambioml.com',
     },
@@ -307,7 +305,7 @@ export const fi = {
       dropFiles: 'Pudota tiedostot tähän',
       filesOnly: 'vain tiedostot',
       maxSize: 'Maksimikoko 10MB',
-      noSensitiveInfo: 'Älä lataa arkaluonteisia tietoja.',
+      noSensitiveInfo: 'Älä lataa arkaluontoisia tietoja.',
       fileTypeNotSupported: 'Tiedostotyyppiä ei tueta.',
       sizeLimitExceeded: 'Koko ylittää {limit}MB rajan. Yritä uudelleen.',
     },
@@ -323,10 +321,10 @@ export const fi = {
       addKeyValuePair: 'Lisää avain-arvo -pari',
       removeKeyValuePair: 'Poista avain-arvo -pari',
       expandKeyDescription: 'Laajenna avainkuvaus',
-      extract: 'Pura',
-      extracting: 'Puretaan...',
-      extractKeyValue: 'Pura avain-arvo',
-      extractKeyValuePairs: 'Pura avain-arvo -parit',
+      extract: 'Poimi',
+      extracting: 'Poimitaan...',
+      extractKeyValue: 'Poimi avain-arvo',
+      extractKeyValuePairs: 'Poimi avain-arvo -parit',
       yourKeys: 'Sinun avaimet',
       inputRemoved: 'Syöte poistettu',
       undo: 'Kumoa',
@@ -336,43 +334,114 @@ export const fi = {
     },
     info: {
       plainText: {
-        title: 'Pura koko sisältö',
-        description: 'AnyParserin avulla voit purkaa sisällön raakadatastasi, kuten PDF-, TXT- ja HTML-tiedostoista.',
+        title: 'Poimi koko sisältö',
+        description: 'AnyParserilla voit poimia sisällön raakadatastasi, kuten PDF-, TXT- ja HTML-tiedostoista.',
         howTo:
-          "Kun olet ladannut ja valinnut tiedoston, suorita 'Koko sisältö' -toiminto, joka purkaa tiedostosi sisällön ja palauttaa sen Markdown-muodossa.",
-        nextSteps: 'Seuraavat vaiheet',
+          "Kun olet ladannut ja valinnut tiedoston, suorita 'Koko sisältö' -toiminto, joka poimii tiedostosi sisällön ja palauttaa sen Markdown-muodossa.",
+        nextSteps: 'Seuraavat askeleet',
         nextStepsDescription:
-          'Voit ladata raakamuotoisen Markdownin tekstinä tai ladata JSONin mistä tahansa puretuista taulukoista',
+          'Voit ladata raakamuotoisen Markdownin tekstinä tai ladata JSONin kaikista poimituista taulukoista',
       },
       table: {
-        title: 'Vain taulukon purku',
+        title: 'Vain taulukon poiminta',
         description:
-          'AnyParserin avulla voit purkaa taulukoita tiedostoistasi, purkaa niistä tiettyjä avaimia ja kartoittaa ne tietokantasi rakenteeseen.',
-        step1: '1. Pura taulukot',
+          'AnyParserilla voit poimia taulukoita tiedostoistasi, poimia niistä tiettyjä avaimia ja kartoittaa ne tietokantasi skeemaan.',
+        step1: '1. Poimi taulukot',
         step1Description:
-          'Ensin sinun täytyy purkaa taulukot tiedostostasi. AnyParser purkaa kaikki taulukot HTML-muotoon.\n\nKun taulukot on purettu, voit ladata raakamuotoisen HTML:n tai ladata kaikki taulukot Excel-tiedostoon.',
+          'Ensiksi sinun tulee poimia taulukot tiedostostasi. AnyParser poimii kaikki taulukot HTML-muotoon.\n\nKun taulukot on poimittu, voit ladata raakamuotoisen HTML:n tai ladata kaikki taulukot Excel-tiedostoon.',
         step2: '2. Valitse taulukot kartoitettavaksi',
         step2Description:
-          'Kun taulukon purku on suoritettu, valitse taulukot, joista haluat purkaa tietoja.\n\nTässä osiossa voit myös esikatsella kunkin taulukon HTML-muotoa.',
-        step3: '3. Kartoitusrakenne',
+          'Kun olet suorittanut taulukon poiminnan, valitse taulukot, joista haluat poimia tietoja.\n\nTässä osiossa voit myös esikatsella kunkin taulukon HTML-muotoa.',
+        step3: '3. Kartoitusskeema',
         step3Description:
-          "Kun olet purkanut ja valinnut taulukot, voit lisätä avaimet, jotka haluat purkaa. Jos haluat poistaa kartoitettu avain, napsauta (X) laatikossa. Jos haluat poistaa syöteavaimen, voit napsauttaa (X) kuvaketta sen laatikossa.\n\nKun olet lisännyt joitakin avaimia, voit suorittaa Kartoitusrakenne-toiminnon. Kartoituksen jälkeen voit muokata mitä tahansa kartoitettuja avaimia napsauttamalla muokkauskynä-kuvaketta.\n\nNapsauttamalla 'Kartoitusrakenne' uudelleen suoritetaan vain syöteavaimet ilman kartoitettuja avaimia. Jos haluat luoda uuden kartoitettu avain, voit ensin poistaa kartoitettu avain napsauttamalla X.",
-        nextSteps: 'Seuraavat vaiheet',
+          "Kun olet poiminut ja valinnut taulukot, voit sitten lisätä avaimet, jotka haluat poimia. Jos haluat poistaa kartoitettua avainta, napsauta laatikon (X)-kuvaketta. Jos haluat poistaa syöteavaimen, voit napsauttaa sen laatikon (X)-kuvaketta.\n\nKun olet lisännyt joitakin avaimia, voit suorittaa Kartoitusskeema-toiminnon. Kartoituksen jälkeen voit muokata mitä tahansa kartoitettuja avaimia napsauttamalla muokkauskynäkuvaketta.\n\nNapsauttamalla 'Kartoitusskeema' uudelleen suoritetaan vain syöteavaimet ilman kartoitettuja avaimia. Jos haluat luoda uuden kartoitettavan avaimen, voit ensin poistaa kartoitettua avainta napsauttamalla X.",
+        nextSteps: 'Seuraavat askeleet',
         nextStepsDescription:
-          'Kun olet tyytyväinen tulokseen, voit ladata CSV- tai JSON-tiedoston. Tämä on käytettävissä vain, jos vähintään yhdellä syöteavaimella on ei-tyhjä kartoitettu avain.',
+          'Kun olet tyytyväinen tulokseen, voit ladata CSV:n tai JSONin. Tämä on käytettävissä vain, jos vähintään yhdellä syöteavaimella on ei-tyhjä kartoitettu avain.',
       },
       keyValuePair: {
-        title: 'Pura avain-arvo -parit',
+        title: 'Poimi avain-arvo -parit',
         description:
-          'AnyParserin avulla voit tunnistaa ja purkaa rakenteellisia avain-arvo -pareja raakadatastasi, kuten laskuista, sopimuksista tai lomakkeista.',
+          'AnyParserilla voit tunnistaa ja poimia rakenteellisia avain-arvo -pareja raakadatastasi, kuten laskuista, sopimuksista tai lomakkeista.',
         howTo:
-          "Kun olet ladannut ja valinnut tiedoston, suorita 'Avain-arvo -pari' -toiminto, joka analysoi tiedostosi, tunnistaa avainkentät ja purkaa niiden vastaavat arvot rakenteellisessa JSON-muodossa.",
-        nextSteps: 'Seuraavat vaiheet',
+          "Kun olet ladannut ja valinnut tiedoston, suorita 'Avain-arvo -pari' -toiminto, joka analysoi tiedostosi, tunnistaa avainkentät ja poimii niiden vastaavat arvot rakenteellisessa JSON-muodossa.",
+        nextSteps: 'Seuraavat askeleet',
         nextStepsDescription:
-          'Voit ladata puretut avain-arvo -parit JSON-tiedostona tai integroida suoraan työnkulkuusi API:n avulla automatisoidaksesi jatkokäsittelyn.',
+          'Voit ladata poimitut avain-arvo -parit JSON-tiedostona tai integroida suoraan työnkulkuusi API:n kautta automatisoidaksesi jatkokäsittelyn.',
       },
     },
     comingSoon: 'Tulossa pian',
+  },
+  solutionPages: {
+    compliance: {
+      title: 'ComplianceAI',
+      description: 'Tule automaattisesti yhteensopivaksi LLM:ien kanssa',
+      section: {
+        title: 'Automatisoi vaatimustenmukaisuusprosessisi AI-arvioijilla',
+        paragraph:
+          'Oletko huolissasi vaatimustenmukaisuudesta tai riskistä yksityisille LLM:illesi? Tarjoamme erikoistuneen vaatimustenmukaisuus-LLM:n sääntelyvaatimustenmukaisuuteen ja riskienhallintaan. Tämä järjestelmä seuraa automaattisesti sääntelymuutoksia ja sovittaa ne sisäisiin käytäntöihisi ja valvontasi, varmistaen merkittävien säädösten ja vaatimusten oikea-aikaisen seurannan, reagoinnin ja raportoinnin.',
+      },
+      useCases: [
+        {
+          title: 'Vaatimustenmukaisuuden käyttötapaus 1',
+          description: 'Käytä uniflowia vaatimustenmukaisuuteen.',
+        },
+      ],
+      button: 'Aloita AutoRaterilla',
+      autorater: {
+        title: 'AutoRater',
+        description: 'Tule automaattisesti yhteensopivaksi LLM:ien kanssa',
+        section: {
+          title: 'Automatisoi AutoRater-prosessisi AI-arvioijilla',
+          paragraph:
+            'Oletko huolissasi AutoRaterista tai riskistä yksityisille LLM:illesi? Tarjoamme erikoistuneen AutoRater-LLM:n sääntelyyn ja riskienhallintaan. Tämä järjestelmä seuraa automaattisesti sääntelymuutoksia ja sovittaa ne sisäisiin käytäntöihisi ja valvontasi, varmistaen merkittävien säädösten ja vaatimusten oikea-aikaisen seurannan, reagoinnin ja raportoinnin.',
+        },
+      },
+    },
+    finance: {
+      title: 'Räätälöity AI-avustajasi löytämään oivalluksia',
+      description:
+        'Löydä väärin hinnoiteltu osake nopeammin.\nPerustele sijoituspäätöksesi todellisilla tiedoilla.\nOmista ja hallitse täysin oma AI-agenttisi.',
+      iconSection: {
+        title: 'Kiinnostunut käyttämään LLM:ejä parantaaksesi\nsalkkusi suorituskykyä?',
+        points: [
+          'Haluatko poimia kaupankäyntisignaaleja rakenteettomasta datasta 10x nopeammin?',
+          'Tarvitsetko henkilökohtaisen AI-selittäjän tulkitsemaan kaupankäyntisignaaleja?',
+          'Oletko huolissasi tietovuodosta käyttäessäsi julkisia LLM API:ita?',
+        ],
+      },
+      features: [
+        {
+          title: 'Pääsy tuntemattomiin oivalluksiin monilähdedatasta',
+          text: 'Vähennä datan puhdistamiseen käytettyä aikaa jopa 90%\n\nPääsy 10x enemmän taloudellisiin oivalluksiin useista lähteistä\n\nOmista ja hallitse täysin oma AI-agenttisi',
+        },
+        {
+          title: 'Perustele sijoituspäätöksesi todisteilla',
+          text: 'Perustele omat sijoituspäätöksesi todellisilla tiedoilla\n\nKirjoita ekonomistin näkemyksesi omalla tyylilläsi\n\nOmista ja hallitse täysin oma AI-agenttisi',
+        },
+        {
+          title: 'Käyttötapaukset',
+        },
+      ],
+    },
+    researchDevelopment: {
+      title: 'Pääsy tunnettuun ja\navaaminen tuntemattomaan T&K:ssa',
+      description:
+        'Vähennä datan puhdistamiseen käytettyä aikaa jopa 90%\nPysy ajan tasalla huippututkimuksesta\nLöydä tuntemattomat T&K:ssa helposti',
+      features: [
+        {
+          title: 'Pääsy tuntemattomiin oivalluksiin monilähdedatasta',
+          text: '• Vähennä datan puhdistamiseen käytettyä aikaa jopa 90%\n• Löydä tuntemattomat T&K:ssa helposti\n• Omista ja hallitse täysin oma AI-agenttisi',
+        },
+        {
+          title: 'Kirjoita tutkimusraporttisi todistaaksesi huipputason',
+          text: '• Perustele tutkimuksesi uutuus todellisilla tiedoilla\n• Vertaa tutkimustasi huipputason kanssa helposti\n• Omista ja hallitse täysin oma AI-agenttisi',
+        },
+        {
+          title: 'Käyttötapaukset',
+        },
+      ],
+    },
   },
   footer: {
     copyright: 'Cambio Corp',
@@ -386,8 +455,8 @@ export const fi = {
       blog: 'Blogi',
     },
     sandbox: {
-      title: 'Sandbox',
-      launchSandbox: 'Käynnistä Sandbox',
+      title: 'Hiekkalaatikko',
+      launchSandbox: 'Käynnistä hiekkalaatikko',
       account: 'Tili',
     },
     company: {
@@ -416,10 +485,10 @@ export const fi = {
       freePages: 'Jokainen API voi purkaa jopa 100 sivua ilmaiseksi!',
       note: 'Huomautus:',
       limitations: [
-        'Ilmaiset API-avaimet ovat rajoitettu 10 purettuun sivuun per API-kutsu.',
-        'AnyParser ei koskaan tallenna tai käytä tietojasi koulutukseen.',
+        'Ilmaiset API-avaimet ovat rajoitettu 10 purkettuun sivuun per API-kutsu.',
+        'AnyParser ei koskaan tallenna tai käytä dataasi koulutukseen.',
       ],
-      verifyEmail: 'Vahvista sähköpostisi luodaksesi ja kopioidaksesi API-avaimesi.',
+      verifyEmail: 'Vahvista sähköpostisi, jotta voit luoda ja kopioida API-avaimesi.',
       resendVerification: 'Lähetä vahvistussähköposti uudelleen',
       sendingVerification: 'Lähetetään vahvistussähköpostia...',
       maxKeysGenerated: 'Olet luonut maksimimäärän API-avaimia',
@@ -438,36 +507,58 @@ export const fi = {
     logout: 'Kirjaudu ulos',
   },
   blog: {
-    noPosts: 'Ei blogikirjoituksia saatavilla vielä.',
+    noPosts: 'Blogikirjoituksia ei ole vielä saatavilla.',
     checkBackSoon: 'Tarkista pian päivityksiä varten!',
     backTo: 'Takaisin',
   },
   bookDemo: {
     title: 'Varaa demo',
+    pageTitle: '🗓️ Varaa demo',
+    pageDescription: 'Näytämme, kuinka voit maksimoida datan purkamisen',
+    formTitle: 'Demopyynnön lomake',
+    submitted: {
+      title: 'Demopyyntö lähetetty!',
+      subtitle: 'Käsittelemme sen ja palaamme pian asiaan',
+      goHomeButton: 'Siirry kotisivulle',
+    },
+    form: {
+      name: 'Nimi',
+      email: 'Sähköposti',
+      company: 'Yritys',
+      linkedin: 'LinkedIn',
+      message: 'Viesti',
+      helpMessage: 'Kuinka voimme auttaa sinua?',
+      submit: 'Lähetä',
+      emailValidation: 'Anna kelvollinen sähköpostiosoite.',
+    },
+    calendly: {
+      submitFormMessage: 'Lähetä demopyynnön lomake',
+      backToPreview: 'Takaisin esikatseluun',
+    },
     sent: 'Lähetetty!',
     error: 'Yhteydenotto epäonnistui. Yritä uudelleen.',
   },
   notFound: {
     title: '404',
-    subtitle: 'Hups! Tätä sivua ei ole olemassa',
-    goHome: 'Siirry etusivulle',
+    subtitle: 'Hups! Tämä sivu ei ole olemassa',
+    goHome: 'Siirry kotisivulle',
   },
   messages: {
     success: {
       sent: 'Lähetetty!',
-      subscriptionSuccessful: 'Tilauksen tekeminen onnistui!',
+      subscriptionSuccessful: 'Tilaus onnistui!',
       apiKeyCopied: 'API-avain kopioitu leikepöydälle!',
       verificationResent: 'Vahvistussähköposti lähetetty uudelleen!',
       fileUploaded: 'Tiedosto(t) ladattu onnistuneesti!',
       resultCopied: 'Tulos kopioitu leikepöydälle',
-      extractionComplete: 'Purku valmis!',
+      extractionComplete: 'Purkamisprosessi valmis!',
       newInputAdded: 'Uusi syöte lisätty',
-      removeUndone: 'Poisto kumottu',
-      generatingFor: 'Luodaan tiivistelmiä kohteelle',
-      summariesGenerated: 'Tiivistelmät luotu kohteelle',
-      downloadingSummaries: 'Ladataan tiivistelmiä kohteelle',
+      removeUndone: 'Poisto peruttu',
+      generatingFor: 'Luodaan yhteenvetoja kohteelle',
+      summariesGenerated: 'Yhteenvedot luotu kohteelle',
+      downloadingSummaries: 'Ladataan yhteenvetoja kohteelle',
       tablesGenerated: 'Taulukot luotu kohteesta',
-      schemaMapGenerated: 'Kartoitusrakenne luotu kohteelle',
+      schemaMapGenerated: 'Skeemakartta luotu kohteelle',
       extracted: 'purettu!',
     },
     error: {
@@ -475,31 +566,31 @@ export const fi = {
       pleaseSignIn: 'Kirjaudu sisään hallitaksesi tilaustasi',
       errorFetchingApiKeys: 'Virhe API-avainten hakemisessa',
       errorResendingEmail: 'Virhe vahvistussähköpostin lähettämisessä',
-      failedAccessToken: 'Virhe pääsytunnuksen saamisessa',
+      failedAccessToken: 'Virhe pääsytunnuksen hankkimisessa',
       fileTypeNotSupported: 'Tiedostotyyppiä ei tueta.',
-      maxFileSize: 'Maksimitiedostokoko on 10MB.',
+      maxFileSize: 'Suurin tiedostokoko on 10 MB.',
       loadingStarterFile: 'Virhe aloitustiedoston lataamisessa. Yritä uudelleen.',
       undefinedResult: 'Saatiin määrittelemätön tulos. Yritä uudelleen.',
       parameterInvalid: 'Parametri on virheellinen. Yritä uudelleen.',
-      jobNotFound: 'Tehtävää ei löytynyt. Yritä uudelleen.',
+      jobNotFound: 'Työtä ei löytynyt. Yritä uudelleen.',
       pageLimitReached: 'Sivujen purkuraja saavutettu.',
       jobFailed: 'Työ epäonnistui. Yritä uudelleen.',
       extractionError: 'Virhe purkamisessa. Yritä uudelleen.',
       requestTimeout: 'Pyyntö aikakatkaistiin. Yritä uudelleen.',
       invalidModelType: 'Virheellinen mallityyppi. Yritä uudelleen.',
-      uploadError: 'Virhe latauksessa. Yritä uudelleen.',
-      noTablesFound: 'Exceliin vietäviä taulukoita ei löytynyt',
-      noValidTables: 'Exceliin vietäviä kelvollisia taulukoita ei löytynyt',
+      uploadError: 'Virhe lataamisessa. Yritä uudelleen.',
+      noTablesFound: 'Taulukoita ei löytynyt Exceliin vietäväksi',
+      noValidTables: 'Kelvollisia taulukoita ei löytynyt Exceliin vietäväksi',
       maxInputsReached: 'Enintään 10 syötettä sallittu',
       extractLimitReached: 'Purkamisraja saavutettu.',
-      extractionFailed: 'Purkaus epäonnistui. Yritä uudelleen.',
-      errorDuringExtraction: 'Virhe purkamisen aikana. Yritä uudelleen.',
+      extractionFailed: 'Purkamisprosessi epäonnistui. Yritä uudelleen.',
+      errorDuringExtraction: 'Virhe purkamisprosessin aikana. Yritä uudelleen.',
       selectFileFirst: 'Valitse ensin tiedosto',
       noFileSelected: 'Tiedostoa ei ole valittu',
-      missingFormData: 'Puuttuu formData. Yritä uudelleen.',
-      schemaExtractionError: 'Virhe skeeman purkamisessa. Yritä uudelleen.',
-      undefinedMarkdown: 'Vastaanotettu määrittelemätön markdown. Yritä uudelleen.',
-      errorMapping: 'Virhe skeeman kartoittamisessa. Yritä uudelleen.',
+      missingFormData: 'Puuttuvat lomaketiedot. Yritä uudelleen.',
+      schemaExtractionError: 'Skeeman purkuvirhe. Yritä uudelleen.',
+      undefinedMarkdown: 'Saatiin määrittelemätön markdown. Yritä uudelleen.',
+      errorMapping: 'Virhe skeeman kartoittamisessa kohteelle. Yritä uudelleen.',
     },
   },
 } as const;
