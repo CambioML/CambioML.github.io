@@ -146,11 +146,17 @@ CRITICAL RULES:
 8. Preserve all spacing and indentation exactly as provided
 9. Do NOT add markdown code blocks or backticks or any formatting markers
 10. Do NOT add any prefixes, suffixes, or wrapper text
-11. If a string content contains single quote, the string should be double quoted
+11. When using single quotes for strings, properly escape ANY apostrophes (contractions, possessives, or within words) using backslash (e.g., "he's" becomes "he\\'s", "all'ufficio" becomes "all\\'ufficio")
 
 EXAMPLE:
-Input: "  name: 'Hello World',\n  greeting: 'Hi there'"
-Output: "  name: 'Bonjour le Monde',\n  greeting: 'Salut'"
+Input:   name: 'Hello World',\n  greeting: 'Hi there'
+Output:   name: 'Bonjour le Monde',\n  greeting: 'Salut'
+
+Input:   message: "He's coming",\n  status: "It's ready"
+Output:   message: "Il arrive",\n  status: "C'est prêt"
+
+Input:   description: 'Improve workflows from field to office',\n  title: 'User\\'s guide'
+Output:   description: 'Migliora i flussi di lavoro dal campo all\\'ufficio',\n  title: 'Guida dell\\'utente'
 
 FORBIDDEN EXAMPLES:
 ❌ Do NOT add: export declarations, variable assignments, or any wrappers

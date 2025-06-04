@@ -154,3 +154,20 @@ export function replaceLocaleInPath(pathname: string, newLocale: Locale): string
   // If no locale found, add it as the first segment
   return `/${newLocale}${pathname}`;
 }
+
+// RTL (Right-to-Left) languages
+export const rtlLocales: Locale[] = ['ar', 'hi']; // Arabic and Hindi
+
+export function isRtlLocale(locale: Locale): boolean {
+  return rtlLocales.includes(locale);
+}
+
+export function getCurrentLocaleFromHeaders(): Locale {
+  // In Next.js 13+, we can check the pathname from headers
+  if (typeof window !== 'undefined') {
+    return getLocaleFromPathname(window.location.pathname);
+  }
+
+  // Server-side fallback to default locale
+  return defaultLocale;
+}

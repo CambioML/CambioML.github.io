@@ -10,20 +10,20 @@ export const ja = {
     aboutUs: '私たちについて',
     trySandbox: 'サンドボックスを試す',
     getApiKey: 'APIキーを取得',
-    aiOgSpecialist: 'AI O&Gスペシャリスト',
-    aiOgDescription: 'フィールドからオフィスへのワークフローを強化します。',
-    aiHr: 'AI HR',
-    aiHrDescription: '繰り返しのHRワークフローを処理します。',
-    aiDataScientist: 'AIデータサイエンティスト',
-    aiDataDescription: '大規模なデータワークフローを加速します',
+    aiOgSpecialist: 'AI 石油＆ガススペシャリスト',
+    aiOgDescription: '現場からオフィスへのワークフローを強化します。',
+    aiHr: 'AI 人事',
+    aiHrDescription: '繰り返しの人事ワークフローを処理します。',
+    aiDataScientist: 'AI データサイエンティスト',
+    aiDataDescription: '大規模なデータワークフローを加速します。',
     securityWhitepaper: 'セキュリティホワイトペーパー',
     securityDescription: '包括的なセキュリティとコンプライアンスガイド。',
     deploymentOverview: '展開概要',
-    deploymentDescription: 'エンタープライズ展開の要件。',
-    awsDeployment: 'AWS展開',
-    awsDescription: 'AWS VM展開ガイド。',
-    azureDeployment: 'Azure展開',
-    azureDescription: 'Azure VM展開ガイド。',
+    deploymentDescription: '企業展開の要件。',
+    awsDeployment: 'AWS 展開',
+    awsDescription: 'AWS VM 展開ガイド。',
+    azureDeployment: 'Azure 展開',
+    azureDescription: 'Azure VM 展開ガイド。',
   },
   common: {
     language: '言語',
@@ -32,42 +32,42 @@ export const ja = {
     french: 'フランス語',
     chinese: '中国語',
     getStarted: '始める',
-    learnMore: '詳細を学ぶ',
+    learnMore: 'もっと詳しく',
     contactUs: 'お問い合わせ',
     readMore: 'もっと読む',
   },
   homepage: {
     hero: {
-      title: 'AnyParser: 文書解析のためのVision LLM',
+      title: 'AnyParser: ドキュメント解析のためのVision LLM',
       subtitle: 'PDF、PPT、Word、画像を数クリックで設定可能なオプションで解析！',
       description:
-        'OCRユーザーの80%がグルーコードの維持に疲れています。比類のない精度、完全なプライバシー、以下のような設定可能なオプションで時間を節約してください:',
-      features: ['個人情報を削除,', '表やチャートを抽出,', '脚注やヘッダーを保持,'],
-      moreFeatures: 'さらに多く！',
+        'OCRユーザーの80%がグルーコードの維持に疲れています。比類のない精度、完全なプライバシー、以下のような設定可能なオプションで時間を節約しましょう：',
+      features: ['個人情報の削除,', '表やチャートの抽出,', '脚注やヘッダーの保持,'],
+      moreFeatures: 'さらに多くの機能！',
       tryFree: '無料で試す',
       getApi: 'APIアクセスを取得',
       bookDemo: 'デモを予約',
-      noCreditCard: 'クレジットカード不要',
+      noCreditCard: 'クレジットカードは不要',
     },
     capabilities: {
       title: 'AnyParserの機能',
       items: [
-        'プライバシー保護: "個人情報を削除"機能を有効にすると、AnyParserが文書抽出中にP.I.I.を自動的に編集します。',
-        'モデルにページ番号、ヘッダー、フッター、図、チャートなどを含めるか省略するかを指示できます。',
-        'AnyParserはテキストと表を抽出するだけでなく、図、チャート、脚注も2倍速く、業界平均より5倍効率的に取得します。',
-        '従来のOCRベースのモデルが抱える混乱した表やレイアウトに別れを告げ、業界平均より2倍の精度と2.5倍のリコールを実現します。',
+        'プライバシー保護：「個人情報を削除」機能を有効にすると、AnyParserが文書抽出中にPIIを自動的に編集します。',
+        'モデルにページ番号、ヘッダー、フッター、図表などを含めるか省略するかを指示できます。',
+        'AnyParserはテキストや表を抽出するだけでなく、重要な情報を含む図表や脚注も2倍の速さで5倍のコスト効率で取得します。',
+        '従来のOCRベースモデルが抱える混乱した表やレイアウトに別れを告げ、業界平均より2倍の精度と2.5倍のリコールを実現します。',
       ],
     },
     howItWorks: {
       title: 'AnyParserの動作方法',
-      subtitle: '直感的なユーザーインターフェースであらゆる文書からデータを解析',
+      subtitle: '使いやすいインターフェースでどんな文書からでもデータを解析',
       tryFree: '無料で試す',
       steps: [
         {
           title: '01',
           subtitle: '文書をドラッグ＆ドロップ',
           description:
-            '「ファイルをアップロード」をクリックして解析したい文書を簡単にドラッグ＆ドロップするか、クリップボードからスクリーンショットを貼り付けるだけです。開始するためのサンプル文書も提供しています。',
+            '「ファイルをアップロード」をクリックして解析したい文書を簡単にドラッグ＆ドロップするか、クリップボードからスクリーンショットを貼り付けます。開始を助けるサンプル文書も提供しています。',
         },
         {
           title: '02',
@@ -79,7 +79,7 @@ export const ja = {
           title: '03',
           subtitle: '結果をシステムにエクスポート',
           description:
-            'HTML、Excel、JSON、またはビジネスワークフローに合わせたデータベーススキーマなど、好みの形式でデータをダウンロードできます。',
+            'HTML、Excel、JSON、またはビジネスワークフローに合わせたデータベーススキーマなど、好みの形式でデータをダウンロードします。',
         },
       ],
     },
@@ -87,13 +87,13 @@ export const ja = {
       {
         title: 'データを正確に解析',
         description:
-          'AnyParserのプレイグラウンドは直感的で高速かつ簡単です。今すぐインターフェースを試して、残りの時間を休憩に使いましょう。',
+          'AnyParserプレイグラウンドは使いやすく、迅速で直感的です。今すぐインターフェースを試して、残りの一日を休みましょう。',
         actionLabel: '無料で試す',
       },
       {
         title: 'AnyParserで構築',
         description:
-          'AnyParserのプレイグラウンドは直感的で高速かつ本当に簡単です。今すぐインターフェースを試して、残りの時間を休憩に使いましょう。',
+          'AnyParserプレイグラウンドは使いやすく、迅速で本当に直感的です。今すぐインターフェースを試して、残りの一日を休みましょう。',
         actionLabel: 'APIアクセスを取得',
       },
     ],
@@ -107,27 +107,27 @@ export const ja = {
         position: 'CEO - Epsilla',
       },
       {
-        text: '"AnyParserは、私たちのベンチマークで10以上の他のパーサーを上回り、最速のマルチモデルLLMソリューションでトップクラスの履歴書解析精度を提供しました。"',
+        text: '"AnyParserは10以上の他のパーサーをベンチマークで上回り、最速のマルチモデルLLMソリューションでトップクラスの履歴書解析精度を提供しました。その間、優れた性能を維持しました。"',
         author: 'イーサン・ジェン',
         position: 'CTO - Jobright',
       },
       {
-        text: '"AnyParserの高度なマルチモーダルAIは、他のアプローチが失敗するところで成果を上げます。複雑な文書には、この視覚と言語の融合が必要です。"',
+        text: '"AnyParserの高度なマルチモーダルAIは、他のアプローチが失敗するところで成果を上げます。複雑な文書には視覚と言語の融合が必要です。"',
         author: 'ジョン・コンラット',
         position: '主任科学者 - AWS',
       },
       {
-        text: '"AI教育者として、私はML実践者の学生のためにSOTAソリューションを探しています。AnyParserは文書解析における取得精度を向上させ、セキュリティ、コスト、効率のバランスを取りながら革新的なツールを提供します！"',
+        text: '"AI教育者として、私はML実践者の学生のために最先端のソリューションを求めています。AnyParserはドキュメント解析における取得精度を向上させ、セキュリティ、コスト、効率のバランスを取りながら、どのパイプラインにも革新的なツールを提供します！"',
         author: 'キャス',
         position: '上級科学者 - AWS',
       },
       {
-        text: '"私は、合成データ生成の新しい方法論、RAGでのリトリーバーモデルの微調整、そしてそれらの革新から生まれたオープンソース製品を含む、AIとLLMの分野でのAnyParserの革新に感銘を受けています。"',
+        text: '"私はAnyParserのAIとLLMの分野での革新に感銘を受けています。これには、合成データ生成の新しい方法論、RAGでのリトリーバーモデルの微調整、そしてこれらの革新から生まれたオープンソース製品が含まれます。"',
         author: 'フェリックス・バイ',
         position: '上級ソリューションアーキテクト - AWS',
       },
       {
-        text: '"私はAnyParserの品質がLangchain / Unstructuredのような従来のOCRツールをはるかに超えていることを確認しました。これを今後のプロジェクトで使用するのが楽しみです。"',
+        text: '"私はAnyParserの品質がLangchainやUnstructuredのような従来のOCRツールをはるかに超えていることを確認しました。将来のプロジェクトでこれを使用するのが楽しみです。"',
         author: 'スティーブ・クーパー',
         position: '共同創設者 - ai ticker chat',
       },
@@ -142,15 +142,15 @@ export const ja = {
     whoWeAre: {
       title: '私たちについて',
       description: [
-        'Energent.aiは、AWSやTeslaの元ML科学者とエンジニアのチームで、AIを活用してさまざまな業界でR&Dを迅速化することへの共通の情熱に駆られています。',
-        '私たちのチームは、機械学習の専門知識と業界特有の洞察を組み合わせ、最先端でありながら顧客のニーズに深く対応した技術を作り出すことを可能にしています。',
+        'Energent.aiは、AWSやTeslaの元ML科学者とエンジニアのチームであり、AIを活用してさまざまな業界の研究開発を迅速化するという共通の情熱に駆られています。',
+        '私たちのチームは、機械学習の専門知識と業界特有の洞察を組み合わせることで、最先端でありながら顧客のニーズに深く対応した技術を創造しています。',
       ],
     },
     whatWeOffer: {
       title: '提供するもの',
       description: [
         'Energent.aiは、PDF、HTML、画像などの混合形式から非構造化データを正確に抽出するLLMベースのデータ強化ツールを提供します。',
-        'Energent.aiを使用することで、ML科学者やR&Dエンジニアは、データクリーニングに80%の時間を費やしたり、情報損失を心配することなく正確な情報を抽出できます。ユーザーは複雑な研究質問を行い、複数のデータソース間で意味的な傾向を特定し、LLM出力を詳細に解釈することで、R&Dプロセスを加速できます。',
+        'Energent.aiを使用すると、ML科学者や研究開発エンジニアはデータクリーニングに80％の時間を費やすことなく、情報損失を心配することなく正確な情報を抽出できます。ユーザーは複雑な研究質問を行い、複数のデータソース間で意味的な傾向を特定し、LLM出力を詳細に解釈することで、研究開発プロセスを加速できます。',
       ],
     },
     foundingTeam: {
@@ -160,8 +160,8 @@ export const ja = {
       title: '投資家',
     },
     getStarted: {
-      title: '始める準備はできましたか？',
-      description: 'Energent.aiでR&Dプロセスを加速している何千もの研究者やエンジニアに参加しましょう。',
+      title: '始める準備はできていますか？',
+      description: 'Energent.aiで研究開発プロセスを加速している数千人の研究者やエンジニアに参加しましょう。',
       buttonText: '始める',
       docsButtonText: 'ドキュメントを読む',
     },
@@ -175,7 +175,7 @@ export const ja = {
     },
     realTimeApi: {
       title: 'リアルタイムAPI価格',
-      description: 'ページごとに約0.5〜5秒のリアルタイム応答を持つ最速のビジョン言語モデル。',
+      description: 'ページあたり0.5〜5秒のリアルタイム応答を備えた最速の視覚言語モデル。',
     },
     plans: {
       starter: {
@@ -185,9 +185,9 @@ export const ja = {
         description: 'リアルタイムの文書処理とデータ抽出を始めたい企業向け。',
         features: [
           'Markdownへの全文抽出またはPDF/画像からCSVへの表抽出',
-          '月間20,000クレジット、その後はクレジットごとに$0.025',
-          'JSONへのキー値ペア抽出',
-          '未使用のクレジットは翌月に繰り越し',
+          '月額20,000クレジット、その後はクレジットごとに$0.025',
+          'JSONへの主要値ペア抽出',
+          '未使用クレジットは翌月に繰り越し可能',
           '隠れた料金なし',
           '30日間の返金保証',
         ],
@@ -199,9 +199,9 @@ export const ja = {
         description: '強化されたサポートと機能で文書処理を拡大したいチーム向け。',
         features: [
           'スターターのすべての機能',
-          '月間100,000クレジット、その後はクレジットごとに$0.015',
+          '月額100,000クレジット、その後はクレジットごとに$0.015',
           'カスタマイズされたクライアントオンボーディング',
-          '未使用のクレジットは翌月に繰り越し',
+          '未使用クレジットは翌月に繰り越し可能',
           '隠れた料金なし',
           '30日間の返金保証',
         ],
@@ -213,10 +213,10 @@ export const ja = {
         description: '高度な機能、プライベートホスティング、プレミアムサポートを必要とする企業向け。',
         features: [
           'シルバーのすべての機能',
-          '月間500,000クレジット、その後はクレジットごとに$0.009',
+          '月額500,000クレジット、その後はクレジットごとに$0.009',
           'プライベートモデルホスティング（オンプレミスまたはクラウド）',
-          'カスタマイズサービス利用可能',
-          '未使用のクレジットは翌月に繰り越し',
+          'カスタマイズサービスが利用可能',
+          '未使用クレジットは翌月に繰り越し可能',
           '隠れた料金なし',
           '30日間の返金保証',
         ],
@@ -224,13 +224,12 @@ export const ja = {
       enterprise: {
         name: 'エンタープライズ',
         price: 'お問い合わせ',
-        description:
-          'カスタムソリューション、専用サポート、エンタープライズグレードのセキュリティを必要とする大規模な組織向け。',
+        description: 'カスタムソリューション、専用サポート、企業グレードのセキュリティを必要とする大規模な組織向け。',
         features: [
           'ゴールドのすべての機能',
           'カスタムモデルトレーニング',
-          'カスタム統合とAPIレスポンス',
-          '個別の1対1チームトレーニング',
+          'カスタム統合とAPI応答',
+          'パーソナライズされた1対1のチームトレーニング',
           '専任のアカウントマネージャー',
           '優先サポート',
         ],
@@ -238,12 +237,12 @@ export const ja = {
     },
     disclaimers: {
       noHiddenFees: '* 隠れた料金なし; 月額払い; 30日間の返金保証。',
-      tokenExplanation: '** 500トークンを超えるページは、追加の500トークンごとにクレジットが発生します。',
+      tokenExplanation: '** 500トークンを超えるページは、追加の500トークンごとに追加クレジットが発生します。',
     },
     specialOffer: {
       title: '🎉 スタートアップと非営利団体向け特別オファー！ 🎉',
       getStart: '取得',
-      highlight: '3ヶ月間無料',
+      highlight: '3か月無料',
       forText: 'スタートアップ向け',
       startupDetails: '(10人未満)',
       orText: 'または',
@@ -255,17 +254,17 @@ export const ja = {
   },
   playground: {
     title: 'AnyParser サンドボックス',
-    description: 'PDF*、PPT、画像**から迅速かつ正確に完全な内容を抽出する初のLLM。',
+    description: 'PDF*、PPT、および画像**から迅速かつ正確に完全なコンテンツを抽出する初のLLM。',
     tabs: {
-      plainText: '完全な内容',
-      table: '表のみ',
+      plainText: '完全なコンテンツ',
+      table: 'テーブルのみ',
       keyValuePair: 'キーと値のペアを抽出',
     },
     disclaimers: {
       pageLimit: '*アップロードされたファイルごとに、利用可能性を向上させるために最初の10ページのみを処理します。',
       fileSize:
         '**最大ファイルサイズは10MBです。このページを更新すると、すべてのファイルと処理されたデータがクリアされます。データは保存されません。',
-      privacyPolicy: 'AnyParserのプライバシーポリシーを表示。',
+      privacyPolicy: 'AnyParserのプライバシーポリシーを見る。',
     },
     feedback: {
       button: 'フィードバック',
@@ -275,7 +274,7 @@ export const ja = {
       messageLabel: 'メッセージ',
       submitButton: '送信',
       successMessage: '送信完了！',
-      errorMessage: '連絡に失敗しました。もう一度お試しください。',
+      errorMessage: '送信に失敗しました。もう一度お試しください。',
     },
     files: {
       title: 'ファイル',
@@ -286,7 +285,7 @@ export const ja = {
     quota: {
       title: 'クォータ',
       pages: 'ページ',
-      limitReached: '抽出ページの制限に達しました。',
+      limitReached: '抽出ページ制限に達しました。',
       contactForMore: 'さらにページクォータを取得するにはお問い合わせください。',
       contactEmail: 'info@cambioml.com',
     },
@@ -306,8 +305,8 @@ export const ja = {
     },
     keyValue: {
       keyNamePlaceholder: 'キー名',
-      keyDescriptionPlaceholder: '(オプション) キーを定義してAnyParserの精度を向上',
-      keyNameRequired: 'キー名が必要です',
+      keyDescriptionPlaceholder: '(オプション) キーを定義してAnyParserの精度を向上させる',
+      keyNameRequired: 'キー名は必須です',
       addKeyValuePair: 'キーと値のペアを追加',
       removeKeyValuePair: 'キーと値のペアを削除',
       expandKeyDescription: 'キーの説明を展開',
@@ -324,43 +323,115 @@ export const ja = {
     },
     info: {
       plainText: {
-        title: '完全な内容を抽出',
-        description: 'AnyParserを使用すると、PDF、TXT、HTMLファイルなどの生の非構造化データから内容を抽出できます。',
+        title: '完全なコンテンツを抽出',
+        description:
+          'AnyParserを使用すると、PDF、TXT、HTMLファイルなどの生の非構造化データからコンテンツを抽出できます。',
         howTo:
-          "ファイルをアップロードして選択した後、'完全な内容'フローを実行すると、ファイルの内容が抽出され、Markdown形式で返されます。",
+          'ファイルをアップロードして選択した後、「Plain Text」フローを実行すると、ファイルのコンテンツが抽出され、Markdown形式で返されます。',
         nextSteps: '次のステップ',
         nextStepsDescription:
           '生のMarkdownをテキストファイルとしてダウンロードするか、抽出されたテーブルからJSONをダウンロードできます。',
       },
       table: {
-        title: '表のみの抽出',
+        title: 'テーブルのみの抽出',
         description:
-          'AnyParserを使用すると、ファイルから表を抽出し、特定のキーを抽出してデータベーススキーマにマッピングできます。',
-        step1: '1. 表を抽出',
+          'AnyParserを使用すると、ファイルからテーブルを抽出し、特定のキーを抽出してデータベーススキーマにマッピングできます。',
+        step1: '1. テーブルを抽出',
         step1Description:
-          'まず、ファイルから表を抽出する必要があります。AnyParserはすべての表をHTML形式で抽出します。\n\n抽出後、生のHTMLをダウンロードするか、すべての表をExcelファイルとしてダウンロードできます。',
-        step2: '2. マッピングする表を選択',
+          'まず、ファイルからテーブルを抽出する必要があります。AnyParserはすべてのテーブルをHTML形式で抽出します。\n\n抽出後、生のHTMLをダウンロードするか、すべてのテーブルをExcelファイルにダウンロードできます。',
+        step2: '2. マッピングするテーブルを選択',
         step2Description:
-          '表の抽出を実行した後、データを抽出したい表を選択します。\n\nこのセクションでは、各表のHTMLをプレビューする機能もあります。',
+          'テーブル抽出を実行した後、データを抽出したいテーブルを選択します。\n\nこのセクションでは、各テーブルのHTMLをプレビューする機能もあります。',
         step3: '3. スキーマをマッピング',
         step3Description:
-          "表を抽出して選択した後、抽出したいキーを追加できます。マッピングされたキーを削除したい場合は、ボックス内の(X)をクリックしてください。入力キーを削除したい場合は、ボックス内の(X)アイコンをクリックできます。\n\nキーを追加したら、スキーママッピング機能を実行できます。マッピング後、編集アイコンをクリックしてマッピングされたキーを編集できます。\n\n'スキーママッピング'を再度クリックすると、マッピングされたキーなしで入力キーのみが再実行されます。新しいマッピングキーを生成したい場合は、まずマッピングされたキーを削除してから(X)をクリックしてください。",
+          'テーブルを抽出して選択した後、抽出したいキーを追加できます。マッピングされたキーを削除したい場合は、ボックス内の(X)をクリックします。入力キーを削除したい場合は、ボックス内の(X)アイコンをクリックできます。\n\nキーを追加したら、スキーママッピング機能を実行できます。マッピング後、編集鉛筆アイコンをクリックしてマッピングされたキーを編集できます。\n\n「スキーマをマッピング」を再度クリックすると、マッピングされたキーなしで入力キーのみが再実行されます。新しいマッピングキーを生成したい場合は、まずマッピングされたキーを削除してからXをクリックしてください。',
         nextSteps: '次のステップ',
         nextStepsDescription:
-          '出力に満足したら、CSVまたはJSONをダウンロードできます。これは、少なくとも1つの入力キーに空でないマッピングキーがある場合にのみ有効です。',
+          '出力に満足したら、CSVまたはJSONをダウンロードできます。これには、少なくとも1つの入力キーが空でないマッピングキーを持っている場合にのみ有効になります。',
       },
       keyValuePair: {
         title: 'キーと値のペアを抽出',
         description:
-          'AnyParserを使用すると、請求書、契約書、フォームなどの生の非構造化データから構造化されたキーと値のペアを識別して抽出できます。',
+          'AnyParserを使用すると、請求書、契約書、フォームなどの生の非構造化データから構造化されたキーと値のペアを特定して抽出できます。',
         howTo:
-          "ファイルをアップロードして選択した後、'キーと値のペア'フローを実行すると、ファイルを分析し、キー項目を識別して、それに対応する値を構造化されたJSON形式で抽出します。",
+          'ファイルをアップロードして選択した後、「Key-Value Pair」フローを実行すると、ファイルを分析し、キー項目を特定し、それに対応する値を構造化されたJSON形式で抽出します。',
         nextSteps: '次のステップ',
         nextStepsDescription:
-          '抽出されたキーと値のペアをJSONファイルとしてダウンロードするか、APIを介してワークフローに直接統合してさらに処理を自動化できます。',
+          '抽出されたキーと値のペアをJSONファイルとしてダウンロードするか、APIを介してワークフローに直接統合してさらなる処理を自動化できます。',
       },
     },
     comingSoon: '近日公開',
+  },
+  solutionPages: {
+    compliance: {
+      title: 'ComplianceAI',
+      description: 'LLMで自動コンプライアンスを取得',
+      section: {
+        title: 'AI評価者でコンプライアンスプロセスを自動化',
+        paragraph:
+          'プライベートLLMのコンプライアンスやリスクについて心配ですか？私たちは規制コンプライアンスとリスク管理のための専門的なコンプライアンスLLMを提供します。このシステムは規制の変更を自動的に監視し、内部ポリシーやコントロールと整合させることで、重要な規制や要件のタイムリーな追跡、対応、報告を保証します。',
+      },
+      useCases: [
+        {
+          title: 'コンプライアンスユースケース1',
+          description: 'コンプライアンスのためにuniflowを使用。',
+        },
+      ],
+      button: 'AutoRaterを開始',
+      autorater: {
+        title: 'AutoRater',
+        description: 'LLMで自動コンプライアンスを取得',
+        section: {
+          title: 'AI評価者でAutoRaterプロセスを自動化',
+          paragraph:
+            'プライベートLLMのAutoRaterやリスクについて心配ですか？私たちは規制AutoRaterとリスク管理のための専門的なAutoRater LLMを提供します。このシステムは規制の変更を自動的に監視し、内部ポリシーやコントロールと整合させることで、重要な規制や要件のタイムリーな追跡、対応、報告を保証します。',
+        },
+      },
+    },
+    finance: {
+      title: '洞察を発見するためのカスタマイズされたAIアシスタント',
+      description:
+        'ミスプライスされた株式をより早く見つける。\n実際のデータで投資決定を説明する。\n独自のAIエージェントを完全に所有し、制御する。',
+      iconSection: {
+        title: 'LLMを使用してポートフォリオパフォーマンスを向上させたいですか？',
+        points: [
+          '非構造化データから取引シグナルを10倍速く抽出したいですか？',
+          '取引シグナルを解釈するためのパーソナライズされたAI解説者が必要ですか？',
+          '公共のLLM APIを使用することによる情報漏洩を懸念していますか？',
+        ],
+      },
+      features: [
+        {
+          title: '複数ソースデータから未知の洞察へのアクセス',
+          text: 'データクリーニングにかかる時間を最大90％削減\n\n複数のソースから10倍多くの金融洞察へのアクセス\n\n独自のAIエージェントを完全に所有し、制御する',
+        },
+        {
+          title: '証拠をもとに投資決定を解釈する',
+          text: '独自の投資決定を実際のデータで裏付ける\n\n独自のスタイルで経済学者の見解を書く\n\n独自のAIエージェントを完全に所有し、制御する',
+        },
+        {
+          title: 'ユースケース',
+        },
+      ],
+    },
+    researchDevelopment: {
+      title: 'R&Dで既知のものにアクセスし未知のものを解き明かす',
+      description:
+        'データクリーニングにかかる時間を最大90％削減\n最先端の研究に追いつく\nR&Dで未知のものを簡単に発見する',
+      features: [
+        {
+          title: '複数ソースデータから未知の洞察へのアクセス',
+          text: '• データクリーニングにかかる時間を最大90％削減\n• R&Dで未知のものを簡単に発見する\n• 独自のAIエージェントを完全に所有し、制御する',
+        },
+        {
+          title: '最先端を証明するための研究報告書を書く',
+          text: '• 実際のデータで研究の新規性を裏付ける\n• 最先端技術と簡単に比較する\n• 独自のAIエージェントを完全に所有し、制御する',
+        },
+        {
+          title: 'ユースケース',
+        },
+      ],
+    },
   },
   footer: {
     copyright: 'Cambio Corp',
@@ -370,7 +441,7 @@ export const ja = {
     },
     solutions: {
       title: 'ソリューション',
-      finance: '金融',
+      finance: 'ファイナンス',
       blog: 'ブログ',
     },
     sandbox: {
@@ -404,22 +475,22 @@ export const ja = {
       freePages: '各APIは最大100ページを無料で抽出できます！',
       note: '注意:',
       limitations: [
-        '無料APIキーは、APIコールごとに抽出可能なページが10ページに制限されています。',
-        'AnyParserはデータを保存したり、トレーニングに使用したりしません。',
+        '無料APIキーは1回のAPI呼び出しにつき抽出可能なページ数が10ページに制限されています。',
+        'AnyParserはあなたのデータを保存したり学習に使用したりすることはありません。',
       ],
-      verifyEmail: 'APIキーを生成してコピーするには、メールを確認してください。',
+      verifyEmail: 'APIキーを生成してコピーするにはメールを確認してください。',
       resendVerification: '確認メールを再送信',
       sendingVerification: '確認メールを送信中...',
-      maxKeysGenerated: '最大数のAPIキーを生成しました',
+      maxKeysGenerated: '最大APIキー数を生成しました',
       generateNew: '新しいAPIキーを生成',
       generating: '生成中...',
     },
     subscriptions: {
       title: 'サブスクリプション',
       description: '製品を表示またはサブスクリプションを変更します。',
-      viewProducts: '製品を表示',
+      viewProducts: '製品を見る',
     },
-    documentation: 'AnyParser ドキュメントをチェック',
+    documentation: 'AnyParserドキュメントをチェック',
   },
   auth: {
     login: 'ログイン',
@@ -427,11 +498,33 @@ export const ja = {
   },
   blog: {
     noPosts: 'まだブログ投稿はありません。',
-    checkBackSoon: '近日中に更新をご確認ください！',
+    checkBackSoon: '更新をお待ちください！',
     backTo: '戻る',
   },
   bookDemo: {
     title: 'デモを予約',
+    pageTitle: '🗓️ デモを予約',
+    pageDescription: 'データ抽出を最大化する方法をご紹介します',
+    formTitle: 'デモリクエストフォーム',
+    submitted: {
+      title: 'デモリクエストが送信されました！',
+      subtitle: '内容を確認し、すぐにご連絡いたします',
+      goHomeButton: 'ホームページへ戻る',
+    },
+    form: {
+      name: '名前',
+      email: 'メールアドレス',
+      company: '会社',
+      linkedin: 'LinkedIn',
+      message: 'メッセージ',
+      helpMessage: 'どのようにお手伝いできますか？',
+      submit: '送信',
+      emailValidation: '有効なメールアドレスを入力してください。',
+    },
+    calendly: {
+      submitFormMessage: 'デモリクエストフォームを送信してください',
+      backToPreview: 'プレビューに戻る',
+    },
     sent: '送信完了！',
     error: '連絡に失敗しました。もう一度お試しください。',
   },
@@ -445,17 +538,17 @@ export const ja = {
       sent: '送信完了！',
       subscriptionSuccessful: 'サブスクリプションが成功しました！',
       apiKeyCopied: 'APIキーがクリップボードにコピーされました！',
-      verificationResent: '確認メールが再送信されました！',
+      verificationResent: '確認メールを再送信しました！',
       fileUploaded: 'ファイルが正常にアップロードされました！',
       resultCopied: '結果がクリップボードにコピーされました',
       extractionComplete: '抽出完了！',
       newInputAdded: '新しい入力が追加されました',
-      removeUndone: '削除が元に戻されました',
+      removeUndone: '削除を元に戻しました',
       generatingFor: '要約を生成中',
       summariesGenerated: '要約が生成されました',
       downloadingSummaries: '要約をダウンロード中',
-      tablesGenerated: '表が生成されました',
-      schemaMapGenerated: 'スキーママップが生成されました',
+      tablesGenerated: 'テーブルを生成しました',
+      schemaMapGenerated: 'スキーママップを生成しました',
       extracted: '抽出完了！',
     },
     error: {
@@ -468,26 +561,26 @@ export const ja = {
       maxFileSize: '最大ファイルサイズは10MBです。',
       loadingStarterFile: 'スターターファイルの読み込みエラー。もう一度お試しください。',
       undefinedResult: '未定義の結果を受信しました。もう一度お試しください。',
-      parameterInvalid: 'パラメータが無効です。もう一度お試しください。',
-      jobNotFound: 'ジョブが見つかりませんでした。もう一度お試しください。',
+      parameterInvalid: 'パラメーターが無効です。もう一度お試しください。',
+      jobNotFound: 'ジョブが見つかりません。もう一度お試しください。',
       pageLimitReached: '抽出ページの制限に達しました。',
       jobFailed: 'ジョブが失敗しました。もう一度お試しください。',
-      extractionError: '抽出エラーが発生しました。もう一度お試しください。',
+      extractionError: '抽出エラー。もう一度お試しください。',
       requestTimeout: 'リクエストがタイムアウトしました。もう一度お試しください。',
       invalidModelType: '無効なモデルタイプです。もう一度お試しください。',
-      uploadError: 'アップロードエラーが発生しました。もう一度お試しください。',
+      uploadError: 'アップロードエラー。もう一度お試しください。',
       noTablesFound: 'Excelにエクスポートするテーブルが見つかりません',
       noValidTables: 'Excelにエクスポートする有効なテーブルが見つかりません',
-      maxInputsReached: '最大10件の入力が許可されています',
+      maxInputsReached: '最大10入力まで許可されています',
       extractLimitReached: '抽出制限に達しました。',
       extractionFailed: '抽出に失敗しました。もう一度お試しください。',
       errorDuringExtraction: '抽出中にエラーが発生しました。もう一度お試しください。',
-      selectFileFirst: '最初にファイルを選択してください',
+      selectFileFirst: 'まずファイルを選択してください',
       noFileSelected: 'ファイルが選択されていません',
-      missingFormData: 'formDataが不足しています。もう一度お試しください。',
-      schemaExtractionError: 'スキーマ抽出エラーが発生しました。もう一度お試しください。',
+      missingFormData: 'フォームデータが欠落しています。もう一度お試しください。',
+      schemaExtractionError: 'スキーマ抽出エラー。もう一度お試しください。',
       undefinedMarkdown: '未定義のマークダウンを受信しました。もう一度お試しください。',
-      errorMapping: 'スキーマのマッピングエラーが発生しました。もう一度お試しください。',
+      errorMapping: 'スキーマのマッピングエラー。もう一度お試しください。',
     },
   },
 } as const;

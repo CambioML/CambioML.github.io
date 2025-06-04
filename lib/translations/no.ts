@@ -17,13 +17,13 @@ export const no = {
     aiDataScientist: 'AI Dataforsker',
     aiDataDescription: 'Akselererer dataarbeidsflyter i stor skala',
     securityWhitepaper: 'Sikkerhetsdokument',
-    securityDescription: 'Omfattende guide til sikkerhet og samsvar.',
-    deploymentOverview: 'Oversikt over distribusjon',
-    deploymentDescription: 'Krav til distribusjon for bedrifter.',
-    awsDeployment: 'AWS Distribusjon',
-    awsDescription: 'Veiledning for distribusjon av AWS VM.',
-    azureDeployment: 'Azure Distribusjon',
-    azureDescription: 'Veiledning for distribusjon av Azure VM.',
+    securityDescription: 'Omfattende guide for sikkerhet og samsvar.',
+    deploymentOverview: 'Oversikt over implementering',
+    deploymentDescription: 'Krav til bedriftsimplementering.',
+    awsDeployment: 'AWS-implementering',
+    awsDescription: 'Veiledning for AWS VM-implementering.',
+    azureDeployment: 'Azure-implementering',
+    azureDescription: 'Veiledning for Azure VM-implementering.',
   },
   common: {
     language: 'Språk',
@@ -41,25 +41,25 @@ export const no = {
       title: 'AnyParser: Vision LLM for dokumentparsing',
       subtitle: 'Parser PDF-er, PPT-er, Word og bilder med konfigurerbare alternativer på få klikk!',
       description:
-        '80 % av OCR-brukere er lei av å vedlikeholde limkode. Spar tid med uovertruffen nøyaktighet, fullstendig personvern og konfigurerbare alternativer som:',
+        '80% av OCR-brukere er lei av å vedlikeholde limkode. Spar tid med uovertruffen nøyaktighet, fullstendig personvern og konfigurerbare alternativer som:',
       features: [
-        'fjerne privat identitetsinformasjon,',
-        'ekstrahere tabeller og diagrammer,',
-        'beholde fotnoter og overskrifter,',
+        'fjerning av privat identitetsinformasjon,',
+        'uttrekk av tabeller og diagrammer,',
+        'bevaring av fotnoter og overskrifter,',
       ],
       moreFeatures: 'og mye mer!',
       tryFree: 'Prøv GRATIS',
       getApi: 'Få API-tilgang',
-      bookDemo: 'Bestill en demo',
+      bookDemo: 'Book en demo',
       noCreditCard: 'Ingen kredittkort nødvendig',
     },
     capabilities: {
       title: 'AnyParsers kapabiliteter',
       items: [
         'Personvern: Aktiver funksjonen "Fjern privat informasjon", og AnyParser vil automatisk redigere P.I.I. under dokumentuttrekk.',
-        'Du kan instruere modellen til å inkludere eller utelate sidetall, overskrifter, bunntekster, figurer, diagrammer osv.',
-        'AnyParser ekstraherer ikke bare tekst og tabeller, den henter også figurer, diagrammer og fotnoter fylt med viktig informasjon 2X raskere og 5X mer kostnadseffektivt.',
-        'Si farvel til rotete tabeller og kaotiske oppsett som plager tradisjonelle OCR-baserte modeller med 2X mer presisjon og 2.5X mer tilbakekalling enn bransjegjennomsnittet.',
+        'Du kan instruere modellen til å inkludere eller utelate sidetall, overskrifter, bunntekster, figurer, diagrammer, osv.',
+        'AnyParser trekker ikke bare ut tekst og tabeller, den henter også figurer, diagrammer og fotnoter fylt med vital informasjon 2X raskere og 5X mer kostnadseffektivt.',
+        'Si farvel til rotete tabeller og kaotiske oppsett som plager tradisjonelle OCR-baserte modeller med 2X mer presisjon og 2.5X mer tilbakekalling enn bransjens gjennomsnitt.',
       ],
     },
     howItWorks: {
@@ -106,12 +106,12 @@ export const no = {
     title: 'Anmeldelser',
     testimonials: [
       {
-        text: '"Vi hadde prøvd alle verktøy for pdf-ekstraksjon, og AnyParser ga oss de mest nøyaktige resultatene."',
+        text: '"Vi hadde prøvd alle verktøy for PDF-uttrekk, og AnyParser ga oss de mest nøyaktige resultatene."',
         author: 'Richard Song',
         position: 'CEO - Epsilla',
       },
       {
-        text: '"AnyParser overgikk 10+ andre parsere i våre benchmarks, og leverte toppnivå nøyaktighet for CV-parsing med den raskeste multi-modell LLM-løsningen—alt mens den opprettholdt eksepsjonell ytelse."',
+        text: '"AnyParser overgikk 10+ andre parsere i våre benchmarks, og leverte toppnivå nøyaktighet i CV-parsing med den raskeste multi-modell LLM-løsningen—alt mens den opprettholdt eksepsjonell ytelse."',
         author: 'Ethan Zheng',
         position: 'CTO - Jobright',
       },
@@ -121,12 +121,12 @@ export const no = {
         position: 'Principal Scientist - AWS',
       },
       {
-        text: '"Som AI-pedagog søker jeg SOTA-løsninger for mine ML-praktikere. AnyParser forbedrer nøyaktigheten i dokumentparsing samtidig som den balanserer sikkerhet, kostnad og effektivitet—et innovativt verktøy for enhver pipeline!"',
+        text: '"Som AI-pedagog søker jeg SOTA-løsninger for mine ML-praktikantstudenter. AnyParser forbedrer nøyaktigheten i dokumentparsing samtidig som den balanserer sikkerhet, kostnad og effektivitet—et innovativt verktøy for enhver pipeline!"',
         author: 'Cass',
         position: 'Senior Scientist - AWS',
       },
       {
-        text: '"Jeg er imponert over AnyParsers innovasjon innen AI og LLM, inkludert de nye metodene for syntetisk datagenerering, finjustering av retriever-modeller i RAG, og deres open-source produkter basert på disse innovasjonene."',
+        text: '"Jeg er imponert over AnyParsers innovasjon innen AI og LLM, inkludert de nye metodene for syntetisk datagenerering, finjustering av retriever-modeller i RAG, og deres open-source produkter fra disse innovasjonene."',
         author: 'Felix Bai',
         position: 'Sr. Solution Architect - AWS',
       },
@@ -146,15 +146,15 @@ export const no = {
     whoWeAre: {
       title: 'Hvem vi er',
       description: [
-        'Energent.ai er et team av tidligere ML-forskere og ingeniører hos AWS og Tesla, drevet av en felles lidenskap for å utnytte AI til å akselerere FoU på tvers av ulike bransjer.',
-        'Vår teams kombinasjon av maskinlæringskompetanse og bransjespesifikke innsikter gjør oss i stand til å skape teknologi som ikke bare er banebrytende, men også dypt tilpasset kundens behov.',
+        'Energent.ai er et team av tidligere ML-forskere og ingeniører hos AWS og Tesla, drevet av en felles lidenskap for å utnytte AI til å akselerere FoU på tvers av ulike industrier.',
+        'Vår kombinasjon av maskinlæringskompetanse og bransjespesifikke innsikter gjør oss i stand til å skape teknologi som ikke bare er banebrytende, men også dypt tilpasset kundenes behov.',
       ],
     },
     whatWeOffer: {
       title: 'Hva vi tilbyr',
       description: [
-        'Energent.ai tilbyr LLM-baserte dataforbedringsverktøy som presist ekstraherer ustrukturert data fra blandede formater som PDF-er, HTML-er og bilder.',
-        'Med Energent.ai kan ML-forskere og FoU-ingeniører ekstrahere nøyaktig informasjon uten å bruke 80 % av tiden på datarensing eller bekymre seg for informasjonsmangel. Brukere kan stille komplekse forskningsspørsmål og identifisere semantiske trender på tvers av flere datakilder, og forstå LLM-resultater via dyptgående tolkning, og dermed akselerere FoU-prosesser.',
+        'Energent.ai tilbyr LLM-baserte dataforbedringsverktøy som presist trekker ut ustrukturert data fra blandede formater som PDF-er, HTML-er og bilder.',
+        'Med Energent.ai kan ML-forskere og FoU-ingeniører trekke ut nøyaktig informasjon uten å bruke 80% av tiden på datarengjøring eller bekymre seg for informasjonsmangel. Brukere kan stille komplekse forskningsspørsmål og identifisere semantiske trender på tvers av flere datakilder, og forstå LLM-resultater via dyptgående tolkning, og dermed akselerere FoU-prosesser.',
       ],
     },
     foundingTeam: {
@@ -179,7 +179,7 @@ export const no = {
     },
     realTimeApi: {
       title: 'Priser for sanntids-API',
-      description: 'Den raskeste visjons-språkmodellen med sanntidsrespons på rundt 0,5 til 5 sekunder per side.',
+      description: 'Den raskeste visjons-språkmodellen med sanntidsrespons på rundt 0.5 til 5 sekunder per side.',
     },
     plans: {
       starter: {
@@ -188,12 +188,12 @@ export const no = {
         annualPrice: '5000',
         description: 'For bedrifter som ønsker å komme i gang med sanntids dokumentbehandling og datauttrekk.',
         features: [
-          'Ekstraher full tekst til Markdown eller ekstraher tabeller fra PDF/bilde til CSV',
+          'Trekk ut full tekst til Markdown eller trekk ut tabeller fra PDF/bilde til CSV',
           '20k kreditter per måned, deretter $0.025 per kreditt',
-          'Ekstraher nøkkelverdipar til JSON',
+          'Trekk ut nøkkelverdipar til JSON',
           'Ubrukte kreditter overføres til neste måned',
           'Ingen skjulte avgifter',
-          '30 dagers pengene-tilbake-garanti',
+          '30 dagers pengene tilbake-garanti',
         ],
       },
       silver: {
@@ -204,38 +204,38 @@ export const no = {
         features: [
           'Alle Start-funksjoner',
           '100k kreditter per måned, deretter $0.015 per kreditt',
-          'Tilpasset klientopplæring',
+          'Tilpasset klientonboarding',
           'Ubrukte kreditter overføres til neste måned',
           'Ingen skjulte avgifter',
-          '30 dagers pengene-tilbake-garanti',
+          '30 dagers pengene tilbake-garanti',
         ],
       },
       gold: {
         name: 'Gull',
         monthlyPrice: '4500',
         annualPrice: '45000',
-        description: 'For bedrifter som trenger avanserte funksjoner, privat hosting og premium support.',
+        description: 'For bedrifter som trenger avanserte funksjoner, privat hosting og premium støtte.',
         features: [
           'Alle Sølv-funksjoner',
           '500k kreditter per måned, deretter $0.009 per kreditt',
-          'Privat modellhosting (lokalt eller skybasert)',
+          'Privat modellhosting (lokalt eller i skyen)',
           'Tilpasningstjenester tilgjengelig',
           'Ubrukte kreditter overføres til neste måned',
           'Ingen skjulte avgifter',
-          '30 dagers pengene-tilbake-garanti',
+          '30 dagers pengene tilbake-garanti',
         ],
       },
       enterprise: {
         name: 'Bedrift',
         price: 'Kontakt oss',
         description:
-          'For store organisasjoner som trenger skreddersydde løsninger, dedikert støtte og sikkerhet på bedriftsnivå.',
+          'For store organisasjoner som krever tilpassede løsninger, dedikert støtte og sikkerhet på bedriftsnivå.',
         features: [
           'Alle Gull-funksjoner',
           'Tilpasset modelltrening',
-          'Tilpassede integrasjoner og API-responser',
+          'Tilpassede integrasjoner og API-svar',
           'Personlig 1-1 teamtrening',
-          'Dedikert kontoadministrator',
+          'Dedikert kontoansvarlig',
           'Prioritert støtte',
         ],
       },
@@ -260,21 +260,22 @@ export const no = {
   },
   playground: {
     title: 'AnyParser Sandbox',
-    description: 'Den første LLM som raskt og nøyaktig henter fullstendig innhold fra PDF-er*, PPT-er og bilder**.',
+    description:
+      'Den første LLM som raskt og nøyaktig kan trekke ut fullstendig innhold fra PDF-er*, PPT-er og bilder**.',
     tabs: {
       plainText: 'Fullstendig innhold',
       table: 'Kun tabell',
-      keyValuePair: 'Hent nøkkel-verdi-par',
+      keyValuePair: 'Trekk ut nøkkel-verdi-par',
     },
     disclaimers: {
       pageLimit: '*For hver opplastet fil behandler vi kun de første ti sidene for bedre tilgjengelighet.',
       fileSize:
-        '**MAKSIMAL FILSTØRRELSE ER 10MB. Oppdatering av denne siden vil fjerne alle filer og behandlet data siden vi ikke lagrer dine data.',
+        '**MAKSIMAL FILSTØRRELSE ER 10MB. Oppdatering av denne siden vil slette alle filer og prosesserte data siden vi ikke lagrer dine data.',
       privacyPolicy: 'Se AnyParser personvernpolicy.',
     },
     feedback: {
       button: 'Tilbakemelding',
-      title: 'Tilbakemelding for Sandbox',
+      title: 'Tilbakemelding på Sandbox',
       nameLabel: 'Navn',
       emailLabel: 'E-post',
       messageLabel: 'Melding',
@@ -291,7 +292,7 @@ export const no = {
     quota: {
       title: 'Kvote',
       pages: 'sider',
-      limitReached: 'Grense for sideuttrekk nådd.',
+      limitReached: 'Begrensning for uttrukne sider nådd.',
       contactForMore: 'Vennligst kontakt oss for å få mer sidekvote.',
       contactEmail: 'info@cambioml.com',
     },
@@ -316,10 +317,10 @@ export const no = {
       addKeyValuePair: 'Legg til nøkkel-verdi-par',
       removeKeyValuePair: 'Fjern nøkkel-verdi-par',
       expandKeyDescription: 'Utvid nøkkelbeskrivelse',
-      extract: 'Hent',
-      extracting: 'Henter...',
-      extractKeyValue: 'Hent nøkkel-verdi',
-      extractKeyValuePairs: 'Hent nøkkel-verdi-par',
+      extract: 'Trekk ut',
+      extracting: 'Trekk ut...',
+      extractKeyValue: 'Trekk ut nøkkel-verdi',
+      extractKeyValuePairs: 'Trekk ut nøkkel-verdi-par',
       yourKeys: 'Dine nøkler',
       inputRemoved: 'Inndata fjernet',
       undo: 'Angre',
@@ -329,44 +330,115 @@ export const no = {
     },
     info: {
       plainText: {
-        title: 'Hent fullstendig innhold',
+        title: 'Trekk ut fullstendig innhold',
         description:
-          'Med AnyParser kan du hente innholdet fra dine rå, ustrukturerte data, som PDF-er, TXT-er og HTML-filer.',
+          'Med AnyParser kan du trekke ut innhold fra dine rå, ustrukturerte data, som PDF-er, TXT-er og HTML-filer.',
         howTo:
-          "Når du har lastet opp og valgt en fil, kjør 'Plain Text'-flyten, som vil hente innholdet i filen din og returnere det i Markdown-format.",
+          "Når du har lastet opp og valgt en fil, kjør 'Plain Text'-flyten, som vil trekke ut innholdet i filen din og returnere det i Markdown-format.",
         nextSteps: 'Neste steg',
         nextStepsDescription:
-          'Du kan laste ned den rå Markdown som en tekstfil, eller laste ned JSON fra eventuelle hentede tabeller',
+          'Du kan laste ned den rå Markdown som en tekstfil, eller laste ned JSON fra eventuelle uttrukne tabeller',
       },
       table: {
-        title: 'Kun tabelluttrekk',
+        title: 'Kun tabelluttrekking',
         description:
-          'Med AnyParser kan du hente tabeller fra filene dine, hente spesifikke nøkler fra dem, og kartlegge det til din databasestruktur.',
-        step1: '1. Hent tabeller',
+          'Med AnyParser kan du trekke ut tabeller fra filene dine, trekke ut spesifikke nøkler fra dem, og kartlegge det til din databaseskjema.',
+        step1: '1. Trekk ut tabeller',
         step1Description:
-          'Først må du hente tabellene fra filen din. AnyParser vil hente alle tabellene i HTML-format.\n\nNår de er hentet, kan du laste ned den rå HTML eller laste ned alle tabellene i en Excel-fil.',
+          'Først må du trekke ut tabellene fra filen din. AnyParser vil trekke ut alle tabellene til HTML-format.\n\nNår de er trukket ut, kan du laste ned den rå HTML eller laste ned alle tabellene til en Excel-fil.',
         step2: '2. Velg tabeller for kartlegging',
         step2Description:
-          'Etter å ha kjørt tabelluttrekket, velg tabellene du ønsker å hente data fra.\n\nI denne delen vil du også ha muligheten til å forhåndsvise hver tabells HTML.',
-        step3: '3. Kartlegg struktur',
+          'Etter å ha kjørt tabelluttrekkingen, velg tabellene du ønsker å trekke ut data fra.\n\nI denne seksjonen vil du også ha muligheten til å forhåndsvise hver tabells HTML.',
+        step3: '3. Kartlegg skjema',
         step3Description:
-          "Når du har hentet og valgt tabellene, kan du deretter legge til nøklene du ønsker å hente. Hvis du ønsker å fjerne den kartlagte nøkkelen, klikk på (X) i boksen. Hvis du ønsker å fjerne en inndata-nøkkel, kan du klikke på (X)-ikonet i boksen.\n\nNår du har lagt til noen nøkler, kan du kjøre funksjonen Kartlegg struktur. Etter kartlegging kan du redigere noen av de kartlagte nøklene ved å klikke på redigeringsblyant-ikonet.\n\nÅ klikke 'Kartlegg struktur' igjen vil kun kjøre inndata-nøklene uten noen kartlagte nøkler. Hvis du ønsker å generere en ny kartlagt nøkkel, kan du først fjerne den kartlagte nøkkelen ved å klikke X.",
+          "Når du har trukket ut og valgt tabellene, kan du deretter legge til nøklene du ønsker å trekke ut. Hvis du ønsker å fjerne den kartlagte nøkkelen, klikk på (X) i boksen. Hvis du ønsker å fjerne en inndata-nøkkel, kan du klikke på (X)-ikonet i boksen.\n\nNår du har lagt til noen nøkler, kan du kjøre funksjonen Kartlegg skjema. Etter kartlegging kan du redigere noen av de kartlagte nøklene ved å klikke på rediger blyant-ikonet.\n\nÅ klikke 'Kartlegg skjema' igjen vil bare kjøre inndata-nøkler uten noen kartlagte nøkler. Hvis du ønsker å generere en ny kartlagt nøkkel, kan du først fjerne den kartlagte nøkkelen ved å klikke X.",
         nextSteps: 'Neste steg',
         nextStepsDescription:
           'Når du er fornøyd med resultatet, kan du laste ned CSV eller JSON. Dette vil kun være aktivert hvis minst én inndata-nøkkel har en ikke-tom kartlagt nøkkel.',
       },
       keyValuePair: {
-        title: 'Hent nøkkel-verdi-par',
+        title: 'Trekk ut nøkkel-verdi-par',
         description:
-          'Med AnyParser kan du identifisere og hente strukturerte nøkkel-verdi-par fra dine rå, ustrukturerte data, som fakturaer, kontrakter eller skjemaer.',
+          'Med AnyParser kan du identifisere og trekke ut strukturerte nøkkel-verdi-par fra dine rå, ustrukturerte data, som fakturaer, kontrakter eller skjemaer.',
         howTo:
-          "Når du har lastet opp og valgt en fil, kjør 'Key-Value Pair'-flyten, som vil analysere filen din, identifisere nøkkelfelt, og hente deres tilsvarende verdier i et strukturert JSON-format.",
+          "Når du har lastet opp og valgt en fil, kjør 'Key-Value Pair'-flyten, som vil analysere filen din, identifisere nøkkelfelter, og trekke ut deres tilsvarende verdier i et strukturert JSON-format.",
         nextSteps: 'Neste steg',
         nextStepsDescription:
-          'Du kan laste ned de hentede nøkkel-verdi-parene som en JSON-fil, eller integrere direkte med din arbeidsflyt via vår API for å automatisere videre behandling.',
+          'Du kan laste ned de uttrukne nøkkel-verdi-parene som en JSON-fil, eller integrere direkte med din arbeidsflyt via vår API for å automatisere videre behandling.',
       },
     },
     comingSoon: 'Kommer snart',
+  },
+  solutionPages: {
+    compliance: {
+      title: 'ComplianceAI',
+      description: 'Bli automatisk kompatibel med LLM-er',
+      section: {
+        title: 'Automatiser din compliance-prosess med AI-vurderere',
+        paragraph:
+          'Er du bekymret for compliance eller risiko for dine private LLM-er? Vi tilbyr en spesialisert compliance LLM for regulatorisk compliance og risikostyring. Dette systemet overvåker automatisk regulatoriske endringer og tilpasser dem til dine interne retningslinjer og kontroller, og sikrer rettidig sporing, respons og rapportering på viktige reguleringer og krav.',
+      },
+      useCases: [
+        {
+          title: 'Compliance-brukstilfelle 1',
+          description: 'Bruk uniflow for compliance.',
+        },
+      ],
+      button: 'Start med AutoRater',
+      autorater: {
+        title: 'AutoRater',
+        description: 'Bli automatisk kompatibel med LLM-er',
+        section: {
+          title: 'Automatiser din AutoRater-prosess med AI-vurderere',
+          paragraph:
+            'Er du bekymret for AutoRater eller risiko for dine private LLM-er? Vi tilbyr en spesialisert AutoRater LLM for regulatorisk AutoRater og risikostyring. Dette systemet overvåker automatisk regulatoriske endringer og tilpasser dem til dine interne retningslinjer og kontroller, og sikrer rettidig sporing, respons og rapportering på viktige reguleringer og krav.',
+        },
+      },
+    },
+    finance: {
+      title: 'Din tilpassede AI-assistent for å oppdage innsikter',
+      description:
+        'Finn feilprisede aksjer raskere.\nForklar dine investeringsbeslutninger med ekte data.\nEie og kontrollere din egen proprietære AI-agent fullt ut.',
+      iconSection: {
+        title: 'Interessert i å bruke LLM-er for å forbedre din\nportefølje ytelse?',
+        points: [
+          'Ønsker du å trekke ut handelsignaler fra ustrukturert data 10x raskere?',
+          'Trenger du en personlig AI-forklarer for å tolke handelsignalene?',
+          'Er du bekymret for informasjonslekkasje ved bruk av offentlige LLM API-er?',
+        ],
+      },
+      features: [
+        {
+          title: 'Tilgang til ukjente innsikter fra multisource-data',
+          text: 'Reduser tiden brukt på datarensing med opptil 90%\n\nTilgang til 10x flere finansielle innsikter fra flere kilder\n\nEie og kontrollere din egen proprietære AI-agent fullt ut',
+        },
+        {
+          title: 'Tolk dine investeringsbeslutninger med bevis',
+          text: 'Støtt opp dine egne investeringsbeslutninger med ekte data\n\nSkriv dine økonomiske synspunkter med din egen stil\n\nEie og kontrollere din egen proprietære AI-agent fullt ut',
+        },
+        {
+          title: 'Brukstilfeller',
+        },
+      ],
+    },
+    researchDevelopment: {
+      title: 'Få tilgang til det kjente og\nlåse opp det ukjente innen FoU',
+      description:
+        'Reduser tiden brukt på datarensing med opptil 90%\nHold deg oppdatert med den nyeste forskningen\nOppdag det ukjente innen FoU med letthet',
+      features: [
+        {
+          title: 'Tilgang til ukjente innsikter fra multisource-data',
+          text: '• Reduser tiden brukt på datarensing med opptil 90%\n• Oppdag det ukjente innen FoU med letthet\n• Eie og kontrollere din egen proprietære AI-agent fullt ut',
+        },
+        {
+          title: 'Skriv din forskningsrapport for å bevise den nyeste teknologien',
+          text: '• Støtt opp din forskningsnyhet med ekte data\n• Sammenlign din forskning med SOTA med letthet\n• Eie og kontrollere din egen proprietære AI-agent fullt ut',
+        },
+        {
+          title: 'Brukstilfeller',
+        },
+      ],
+    },
   },
   footer: {
     copyright: 'Cambio Corp',
@@ -380,18 +452,18 @@ export const no = {
       blog: 'Blogg',
     },
     sandbox: {
-      title: 'Sandbox',
-      launchSandbox: 'Start Sandbox',
+      title: 'Sandkasse',
+      launchSandbox: 'Start Sandkasse',
       account: 'Konto',
     },
     company: {
-      title: 'Selskap',
+      title: 'Firma',
       aboutUs: 'Om oss',
     },
     resources: {
       title: 'Ressurser',
-      anyParserDocs: 'AnyParser-dokumentasjon',
-      privacyPolicy: 'Personvernpolicy',
+      anyParserDocs: 'AnyParser Dokumentasjon',
+      privacyPolicy: 'Personvernregler',
       termsOfService: 'Vilkår for bruk',
     },
   },
@@ -407,13 +479,13 @@ export const no = {
       title: 'AnyParser API-nøkkel',
       gettingStarted: 'Kom i gang med AnyParser',
       limitedTime: 'Begrenset tid!',
-      freePages: 'Hver API kan hente opptil 100 sider gratis!',
+      freePages: 'Hver API kan trekke ut opptil 100 sider gratis!',
       note: 'Merk:',
       limitations: [
-        'Gratis API-nøkler er begrenset til 10 hentede sider per API-kall.',
-        'AnyParser lagrer aldri eller trener på dine data.',
+        'Gratis API-nøkler er begrenset til 10 uttrukne sider per API-kall.',
+        'AnyParser lagrer eller trener aldri på dine data.',
       ],
-      verifyEmail: 'Vennligst bekreft e-posten din for å generere og kopiere dine API-nøkler.',
+      verifyEmail: 'Vennligst bekreft e-posten din for å generere og kopiere API-nøklene dine.',
       resendVerification: 'Send bekreftelses-e-post på nytt',
       sendingVerification: 'Sender bekreftelses-e-post...',
       maxKeysGenerated: 'Du har generert maksimalt antall API-nøkler',
@@ -425,7 +497,7 @@ export const no = {
       description: 'Se produkter eller endre abonnementet ditt.',
       viewProducts: 'Se produkter',
     },
-    documentation: 'Sjekk ut AnyParser-dokumentasjon',
+    documentation: 'Sjekk ut AnyParser Dokumentasjon',
   },
   auth: {
     login: 'Logg inn',
@@ -437,14 +509,36 @@ export const no = {
     backTo: 'Tilbake til',
   },
   bookDemo: {
-    title: 'Book en demo',
+    title: 'Bestill en demo',
+    pageTitle: '🗓️ Bestill en demo',
+    pageDescription: 'La oss vise deg hvordan du kan maksimere din datauttrekking',
+    formTitle: 'Demoforespørselskjema',
+    submitted: {
+      title: 'Demoforepørsel sendt!',
+      subtitle: 'Vi vil gjennomgå den og komme tilbake til deg snart',
+      goHomeButton: 'Gå til Hjemmesiden',
+    },
+    form: {
+      name: 'Navn',
+      email: 'E-post',
+      company: 'Firma',
+      linkedin: 'LinkedIn',
+      message: 'Melding',
+      helpMessage: 'Hvordan kan vi hjelpe deg?',
+      submit: 'Send inn',
+      emailValidation: 'Vennligst skriv inn en gyldig e-postadresse.',
+    },
+    calendly: {
+      submitFormMessage: 'Vennligst send inn demoforespørselskjemaet',
+      backToPreview: 'Tilbake til forhåndsvisning',
+    },
     sent: 'Sendt!',
     error: 'Kontakt mislyktes. Vennligst prøv igjen.',
   },
   notFound: {
     title: '404',
     subtitle: 'Oops! Denne siden eksisterer ikke',
-    goHome: 'Gå til hjemmesiden',
+    goHome: 'Gå til Hjemmesiden',
   },
   messages: {
     success: {
@@ -454,15 +548,15 @@ export const no = {
       verificationResent: 'Bekreftelses-e-post sendt på nytt!',
       fileUploaded: 'Fil(er) lastet opp vellykket!',
       resultCopied: 'Resultat kopiert til utklippstavlen',
-      extractionComplete: 'Uttrekk fullført!',
-      newInputAdded: 'Ny inndata lagt til',
+      extractionComplete: 'Uttrekking fullført!',
+      newInputAdded: 'Ny input lagt til',
       removeUndone: 'Fjerning angret',
       generatingFor: 'Genererer oppsummeringer for',
       summariesGenerated: 'Oppsummeringer generert for',
       downloadingSummaries: 'Laster ned oppsummeringer for',
       tablesGenerated: 'Genererte tabell(er) fra',
-      schemaMapGenerated: 'Genererte strukturkart for',
-      extracted: 'hentet!',
+      schemaMapGenerated: 'Genererte Schema Map for',
+      extracted: 'uttrukket!',
     },
     error: {
       contactFailed: 'Kontakt mislyktes. Vennligst prøv igjen.',
@@ -476,24 +570,24 @@ export const no = {
       undefinedResult: 'Mottok udefinert resultat. Vennligst prøv igjen.',
       parameterInvalid: 'Parameter er ugyldig. Vennligst prøv igjen.',
       jobNotFound: 'Jobb ikke funnet. Vennligst prøv igjen.',
-      pageLimitReached: 'Grense for sideuttrekk nådd.',
+      pageLimitReached: 'Grense for antall sider nådd.',
       jobFailed: 'Jobben har mislyktes. Vennligst prøv igjen.',
-      extractionError: 'Feil under utvinning. Vennligst prøv igjen.',
-      requestTimeout: 'forespørselen tidsavbrutt. Vennligst prøv igjen.',
+      extractionError: 'Feil ved uttrekking. Vennligst prøv igjen.',
+      requestTimeout: 'Forespørselen tidsavbrutt. Vennligst prøv igjen.',
       invalidModelType: 'Ugyldig modelltype. Vennligst prøv igjen.',
-      uploadError: 'Feil under opplasting. Vennligst prøv igjen.',
+      uploadError: 'Feil ved opplasting. Vennligst prøv igjen.',
       noTablesFound: 'Ingen tabeller funnet for eksport til Excel',
       noValidTables: 'Ingen gyldige tabeller funnet for eksport til Excel',
-      maxInputsReached: 'Maksimalt 10 inndata tillatt',
-      extractLimitReached: 'Utvinning grense nådd.',
-      extractionFailed: 'Utvinning mislyktes. Vennligst prøv igjen.',
-      errorDuringExtraction: 'Feil under utvinning. Vennligst prøv igjen.',
+      maxInputsReached: 'Maksimalt 10 input tillatt',
+      extractLimitReached: 'Grense for uttrekking nådd.',
+      extractionFailed: 'Uttrekking mislyktes. Vennligst prøv igjen.',
+      errorDuringExtraction: 'Feil under uttrekking. Vennligst prøv igjen.',
       selectFileFirst: 'Vennligst velg en fil først',
       noFileSelected: 'Ingen fil valgt',
-      missingFormData: 'Mangler formData. Vennligst prøv igjen.',
-      schemaExtractionError: 'Feil under skjemautvinning. Vennligst prøv igjen.',
+      missingFormData: 'Manglende formData. Vennligst prøv igjen.',
+      schemaExtractionError: 'Feil ved schema-uttrekking. Vennligst prøv igjen.',
       undefinedMarkdown: 'Mottok udefinert markdown. Vennligst prøv igjen.',
-      errorMapping: 'Feil under kartlegging av skjema for. Vennligst prøv igjen.',
+      errorMapping: 'Feil ved mapping av schema for. Vennligst prøv igjen.',
     },
   },
 } as const;
