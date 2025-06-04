@@ -8,13 +8,6 @@ const nextConfig = {
     config.resolve.alias.canvas = false;
     return config;
   },
-  redirects: async () => [
-    {
-      source: '/solutions/research-%26-development',
-      destination: '/en/solutions/research-&-development',
-      permanent: true,
-    },
-  ],
 };
 
 //prettier-ignore

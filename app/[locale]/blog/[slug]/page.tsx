@@ -17,6 +17,7 @@ export async function generateMetadata({ params }: { params: { slug: string; loc
     title: `${post.title} | Energent.ai Blog`,
     description: post.excerpt,
     keywords: post.keywords,
+    metadataBase: new URL('https://www.cambioml.com'),
     openGraph: {
       title: post.title,
       description: post.excerpt,
