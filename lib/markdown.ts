@@ -1,5 +1,5 @@
 import fs from 'fs/promises';
-import { statSync, existsSync } from 'fs';
+import { statSync, existsSync, readdirSync, readFileSync } from 'fs';
 import path from 'path';
 import { remark } from 'remark';
 import { unified } from 'unified';
@@ -38,7 +38,7 @@ const blogDirectory = path.join(process.cwd(), 'blog');
 const resourcesDirectory = path.join(process.cwd(), 'resources');
 
 // Get all blog posts from the markdown files for a specific locale
-export async function getAllBlogPosts(locale: Locale = 'en'): Promise<BlogPost[]> {
+export function getAllBlogPosts(locale: Locale = 'en'): BlogPost[] {
   const localeDirectory = path.join(blogDirectory, locale);
 
   // Check if directory exists first
@@ -49,7 +49,7 @@ export async function getAllBlogPosts(locale: Locale = 'en'): Promise<BlogPost[]
 
   try {
     // Get all markdown files from the locale blog directory
-    const fileNames = await fs.readdir(localeDirectory);
+    const fileNames = readdirSync(localeDirectory);
 
     // Filter for markdown files only
     const markdownFiles = fileNames.filter((fileName) => fileName.endsWith('.md'));
@@ -60,7 +60,7 @@ export async function getAllBlogPosts(locale: Locale = 'en'): Promise<BlogPost[]
     }
 
     // Process each file
-    const allPostsDataPromises = markdownFiles.map(async (fileName): Promise<BlogPost | null> => {
+    const allPostsData = markdownFiles.map((fileName): BlogPost | null => {
       // Remove ".md" to get the slug
       const slug = fileName.replace(/\.md$/, '');
 
@@ -68,7 +68,7 @@ export async function getAllBlogPosts(locale: Locale = 'en'): Promise<BlogPost[]
       const fullPath = path.join(localeDirectory, fileName);
 
       try {
-        const fileContents = await fs.readFile(fullPath, 'utf8');
+        const fileContents = readFileSync(fullPath, 'utf8');
 
         // Use gray-matter to parse the post metadata
         const matterResult = matter(fileContents);
@@ -97,8 +97,8 @@ export async function getAllBlogPosts(locale: Locale = 'en'): Promise<BlogPost[]
           }
         }
 
-        // Get an excerpt using the cleanMarkdownForExcerpt function
-        const cleanedContent = await cleanMarkdownForExcerpt(matterResult.content);
+        // Get an excerpt using the synchronous cleanMarkdownForExcerptSync function
+        const cleanedContent = cleanMarkdownForExcerptSync(matterResult.content);
         const excerpt = cleanedContent.slice(0, 200) + '...';
 
         const image = matterResult.data.image || '';
@@ -121,7 +121,6 @@ export async function getAllBlogPosts(locale: Locale = 'en'): Promise<BlogPost[]
     });
 
     // Wait for all promises to resolve and filter out null results
-    const allPostsData = await Promise.all(allPostsDataPromises);
     const validPosts = allPostsData.filter((post): post is BlogPost => post !== null);
 
     // Sort posts by date
@@ -205,6 +204,42 @@ async function cleanMarkdownForExcerpt(content: string): Promise<string> {
     .replace(/\n+/g, ' ') // Replace multiple newlines with space
     .replace(/\s+/g, ' ') // Replace multiple spaces with single space
     .trim();
+}
+
+// Synchronous helper function to clean markdown formatting for excerpt
+function cleanMarkdownForExcerptSync(content: string): string {
+  // Remove the headings (title) from the content
+  let cleanedContent = content.replace(/^#+\s+.*$/m, '');
+
+  // Remove basic markdown formatting
+  cleanedContent = cleanedContent
+    // Remove code blocks
+    .replace(/```[\s\S]*?```/g, '')
+    // Remove inline code
+    .replace(/`[^`]*`/g, '')
+    // Remove bold text (**text** or __text__)
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/__([^_]+)__/g, '$1')
+    // Remove italic text (*text* or _text_)
+    .replace(/\*([^*]+)\*/g, '$1')
+    .replace(/_([^_]+)_/g, '$1')
+    // Remove links [text](url)
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    // Remove images ![alt](url)
+    .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1')
+    // Remove list markers
+    .replace(/^\s*[*\-+]\s+/gm, '')
+    .replace(/^\s*\d+\.\s+/gm, '')
+    // Remove blockquotes
+    .replace(/^\s*>\s+/gm, '')
+    // Remove horizontal rules
+    .replace(/^[*\-_]{3,}$/gm, '')
+    // Clean up whitespace
+    .replace(/\n+/g, ' ') // Replace multiple newlines with space
+    .replace(/\s+/g, ' ') // Replace multiple spaces with single space
+    .trim();
+
+  return cleanedContent;
 }
 
 // Get all resources from the markdown files for a specific locale

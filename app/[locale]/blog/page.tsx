@@ -9,7 +9,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   const { locale: paramLocale } = await params;
   const locale: Locale = (paramLocale as Locale) || 'en';
   const t = getTranslation(locale);
-  const blogPosts = await getAllBlogPosts(locale);
+  const blogPosts = getAllBlogPosts(locale);
 
   return (
     // Full-width background container

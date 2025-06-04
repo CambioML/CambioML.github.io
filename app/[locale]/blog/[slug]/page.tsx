@@ -1,23 +1,17 @@
-import { Metadata } from 'next';
 import Link from 'next/link';
-import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
-import { getAllBlogPosts, getBlogPostBySlug, type BlogPost } from '@/lib/markdown';
+import ReactMarkdown from 'react-markdown';
+import { Metadata } from 'next';
+import { locales } from '@/lib/i18n';
 import { getTranslation, type Locale } from '@/lib/translations';
 import { MarkdownComponents } from '@/app/components/dark/markdown-components';
-import { locales } from '@/lib/i18n';
+import { getAllBlogPosts, getBlogPostBySlug, type BlogPost } from '@/lib/markdown';
 
 // Generate metadata for the page
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string; locale: string }>;
-}): Promise<Metadata> {
-  // In Next.js 15, params is a Promise that needs to be awaited
-  const resolvedParams = await params;
-  const locale: Locale = (resolvedParams.locale as Locale) || 'en';
-  const post = await getBlogPostBySlug(resolvedParams.slug, locale);
+export async function generateMetadata({ params }: { params: { slug: string; locale: string } }): Promise<Metadata> {
+  const locale: Locale = (params.locale as Locale) || 'en';
+  const post = await getBlogPostBySlug(params.slug, locale);
 
   return {
     title: `${post.title} | Energent.ai Blog`,
@@ -44,12 +38,12 @@ export async function generateMetadata({
 }
 
 // Generate static paths for all blog posts and locales
-export async function generateStaticParams() {
+export function generateStaticParams() {
   const paths: { locale: string; slug: string }[] = [];
 
   for (const locale of locales) {
     try {
-      const posts = await getAllBlogPosts(locale as Locale);
+      const posts = getAllBlogPosts(locale as Locale);
       const localePaths = posts.map((post: BlogPost) => ({
         locale: locale,
         slug: post.slug,
@@ -63,10 +57,8 @@ export async function generateStaticParams() {
   return paths;
 }
 
-export default async function BlogPostPage({ params }: { params: Promise<{ slug: string; locale: string }> }) {
-  // In Next.js 15, params is a Promise that needs to be awaited
-  const resolvedParams = await params;
-  const { slug, locale: paramLocale } = resolvedParams;
+export default async function BlogPostPage({ params }: { params: { slug: string; locale: string } }) {
+  const { slug, locale: paramLocale } = params;
   const locale: Locale = (paramLocale as Locale) || 'en';
   const post = await getBlogPostBySlug(slug, locale);
   const t = getTranslation(locale);
