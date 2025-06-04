@@ -1,3 +1,6 @@
+'use client';
+
+import { useTranslation } from '@/lib/use-translation';
 import Container from '../Container';
 import Logo from '../navbar/Logo';
 import FooterMenu from './FooterMenu';
@@ -23,6 +26,8 @@ const socialLinks = [
 ];
 
 const Footer = () => {
+  const { t, locale } = useTranslation();
+
   return (
     <div className="w-full bg-[#1E1E1E]">
       <Container styles="h-fit min-h-[300px]">
@@ -35,67 +40,69 @@ const Footer = () => {
                 <SocialButton key={socialLink.url} image={socialLink.image} url={socialLink.url} />
               ))}
             </div>
-            <div className="text-sm">© {new Date().getFullYear()} Cambio Corp </div>
+            <div className="text-sm">
+              © {new Date().getFullYear()} {t.footer.copyright}{' '}
+            </div>
           </div>
           <div className="col-span-1"></div>
           <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
             <FooterMenu
-              title="Libraries"
+              title={t.footer.libraries.title}
               links={[
                 {
-                  title: 'AnyParser',
+                  title: t.footer.libraries.anyParser,
                   url: 'https://docs.cambioml.com',
                 },
               ]}
             />
             <FooterMenu
-              title="Solutions"
+              title={t.footer.solutions.title}
               links={[
                 {
-                  title: 'Finance',
-                  url: '/solutions/finance',
+                  title: t.footer.solutions.finance,
+                  url: `/${locale}/solutions/finance`,
                 },
                 {
-                  title: 'Blog',
-                  url: '/blog',
+                  title: t.footer.solutions.blog,
+                  url: `/${locale}/blog`,
                 },
               ]}
             />
             <FooterMenu
-              title="Sandbox"
+              title={t.footer.sandbox.title}
               links={[
                 {
-                  title: 'Launch Sandbox',
-                  url: '/sandbox',
+                  title: t.footer.sandbox.launchSandbox,
+                  url: `/${locale}/anyparser`,
                 },
                 {
-                  title: 'Account',
-                  url: '/account',
-                },
-              ]}
-            />
-            <FooterMenu
-              title="Company"
-              links={[
-                {
-                  title: 'About us',
-                  url: '/company/about-us',
+                  title: t.footer.sandbox.account,
+                  url: `/${locale}/account`,
                 },
               ]}
             />
             <FooterMenu
-              title="Resources"
+              title={t.footer.company.title}
               links={[
                 {
-                  title: 'AnyParser Docs',
+                  title: t.footer.company.aboutUs,
+                  url: `/${locale}/company/about-us`,
+                },
+              ]}
+            />
+            <FooterMenu
+              title={t.footer.resources.title}
+              links={[
+                {
+                  title: t.footer.resources.anyParserDocs,
                   url: 'https://docs.cambioml.com',
                 },
                 {
-                  title: 'Privacy Policy',
+                  title: t.footer.resources.privacyPolicy,
                   url: '/legal/privacy-policy.pdf',
                 },
                 {
-                  title: 'Terms of Service',
+                  title: t.footer.resources.termsOfService,
                   url: '/legal/terms-of-service.pdf',
                 },
               ]}

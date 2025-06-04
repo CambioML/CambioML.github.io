@@ -12,6 +12,7 @@ import PulsingIcon from '../PulsingIcon';
 // import { useProductionContext } from '../playground/ProductionContext';
 import { usePostHog } from 'posthog-js/react';
 import SampleUploadFile from '../playground/SampleUploadFile';
+import { useTranslation } from '@/lib/use-translation';
 
 type SampleUploadFile = {
   fileName: string;
@@ -40,6 +41,7 @@ const sampleUploadFiles: SampleUploadFile[] = [
 const UploadModal = () => {
   const uploadModal = useUploadModal();
   const posthog = usePostHog();
+  const { t } = useTranslation();
 
   const { loggedIn, filesToUpload, addFiles, setFilesToUpload, files } = usePlaygroundStore();
 
@@ -80,9 +82,9 @@ const UploadModal = () => {
       });
       uploadModal.setUploadModalState(UploadModalState.LOGIN);
       handleClose();
-      toast.success('File(s) uploaded successfully!');
+      toast.success(t.messages.success.fileUploaded);
     }
-  }, [uploadModal.uploadModalState, handleClose, uploadModal, filesToUpload, addFiles, posthog, setFilesToUpload]);
+  }, [uploadModal.uploadModalState, handleClose, uploadModal, filesToUpload, addFiles, posthog, setFilesToUpload, t]);
 
   const generateRandomString = (length = 4) => {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -166,16 +168,16 @@ const UploadModal = () => {
                   <Dropzone />
                   <div className="w-full flex items-center gap-4">
                     <hr className="flex-1 border-t border-gray-300" />
-                    <span className="text-gray-500">OR</span>
+                    <span className="text-gray-500">{t.playground.uploadModal.or}</span>
                     <hr className="flex-1 border-t border-gray-300" />
                   </div>
                   <div className="w-full h-[30vh] min-h-[50px] border-2 bg-gray-100 border-dashed border-gray-300 hover:border-neutral-500 text-xl flex items-center justify-center gap-4 rounded-md">
                     <MonitorArrowUp size={32} />
-                    Paste a screenshot
+                    {t.playground.uploadModal.pasteScreenshot}
                   </div>
                   <div className="w-full flex items-center gap-4">
                     <hr className="flex-1 border-t border-gray-300" />
-                    <span className="text-gray-500">OR</span>
+                    <span className="text-gray-500">{t.playground.uploadModal.or}</span>
                     <hr className="flex-1 border-t border-gray-300" />
                   </div>
                   <div className="w-full h-[30vh] min-h-[50px] flex flex-row items-center justify-center gap-8">
@@ -192,7 +194,7 @@ const UploadModal = () => {
               )}
               {uploadModal.uploadModalState === UploadModalState.UPLOADING && (
                 <div className="flex flex-col justify-center items-center gap-4 text-xl">
-                  Uploading
+                  {t.playground.uploadModal.uploading}
                   <PulsingIcon Icon={CloudArrowUp} size={40} />
                 </div>
               )}

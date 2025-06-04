@@ -5,43 +5,48 @@ import Container from '../../Container';
 import Logo from './Logo';
 import NavMenu from './NavMenu';
 import NavMenuFull from './NavMenuFull';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useWindowScroll } from '@/app/hooks/useWindowScroll';
+import { useTranslation } from '@/lib/use-translation';
+import { getLocaleFromPathname } from '@/lib/i18n';
 import ProductHunt from './ProductHunt';
 import Button from '../../Button';
-
-const menuItems = [
-  {
-    label: 'Pricing',
-    links: [],
-    url: '/pricing-rt',
-  },
-  {
-    label: 'Blog',
-    links: [],
-  },
-  {
-    label: 'Company',
-    links: ['About us'],
-  },
-  {
-    label: 'Docs',
-    url: 'https://docs.cambioml.com',
-    links: [],
-  },
-];
+import { LanguageSwitcher } from '../../LanguageSwitcher';
 
 const Navbar = () => {
   const router = useRouter();
+  const pathname = usePathname();
+  const currentLocale = getLocaleFromPathname(pathname);
+  const { t, locale } = useTranslation();
   const isScrolled = useWindowScroll(50);
 
-  const makeOnClick = (label: string, link: string, callback: () => void) => {
-    const url = `/${label}/${link}`.toLowerCase().replaceAll(' ', '-');
-    return () => {
-      router.push(url);
-      callback();
-    };
-  };
+  const menuItems = [
+    {
+      label: t.nav.pricing,
+      links: [],
+      url: `/${locale}/pricing-rt`,
+    },
+    {
+      label: t.nav.blog,
+      links: [],
+      url: `/${locale}/blog`,
+    },
+    {
+      label: t.nav.company,
+      links: [
+        {
+          label: t.nav.aboutUs,
+          url: `/${locale}/company/about-us`,
+        },
+      ],
+      url: `/${locale}/company/about-us`,
+    },
+    {
+      label: t.nav.docs,
+      url: 'https://docs.cambioml.com',
+      links: [],
+    },
+  ];
 
   return (
     <div
@@ -62,14 +67,18 @@ const Navbar = () => {
                 <NavMenu key={item.label + i} label={item.label} links={item.links} url={item.url} />
               ))}
               <div className="w-[150px]">
-                <Button label="Try Sandbox" onClick={() => router.push('/sandbox')} outline />
+                <Button label={t.nav.trySandbox} onClick={() => router.push(`/${currentLocale}/anyparser`)} outline />
               </div>
               <div className="w-[150px]">
-                <Button label="Get API key" onClick={() => router.push('/account')} />
+                <Button label={t.nav.getApiKey} onClick={() => router.push(`/${currentLocale}/account`)} />
               </div>
+              <LanguageSwitcher className="ml-2" theme="dark" />
             </div>
             <div className="lg:hidden">
-              <NavMenuFull menuItems={menuItems} makeOnClick={makeOnClick} />
+              <div className="flex items-center gap-3">
+                <LanguageSwitcher theme="dark" />
+                <NavMenuFull menuItems={menuItems} />
+              </div>
             </div>
           </div>
         </Container>

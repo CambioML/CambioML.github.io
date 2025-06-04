@@ -5,9 +5,9 @@ import Heading from '../Heading';
 import LoginButton from '../auth/LoginButton';
 import LogoutButton, { LogoutButtonProps } from '../auth/LogoutButton';
 import PageHero from '../hero/PageHero';
-import useUserProfile from '../../hooks/useUserProfile';
+import useUserProfile from '@/app/hooks/useUserProfile';
 import Image from 'next/image';
-import { imgPrefix } from '../../hooks/useImgPrefix';
+import { imgPrefix } from '@/app/hooks/useImgPrefix';
 import Button from '../Button';
 import useAccountStore from '@/app/hooks/useAccountStore';
 import getNewApiKey from '@/app/actions/account/getNewApiKey';
@@ -19,6 +19,7 @@ import { useRouter } from 'next/navigation';
 import { useProductionContext } from '../playground/ProductionContext';
 import { resendVerificationEmail } from '../../actions/account/resendVerificationEmail';
 import PortalButton from '../pricing/PortalButton';
+import { useTranslation } from '@/lib/use-translation';
 
 const MAX_API_KEYS = 1;
 
@@ -82,6 +83,7 @@ const AccountPageContainer = () => {
   const { isProduction } = useProductionContext();
   const router = useRouter();
   const [emailVerified, setEmailVerified] = useState(false);
+  const { t } = useTranslation();
 
   const logoutUrl = isProduction
     ? process.env.NEXT_PUBLIC_LOGOUT_URL_ACCOUNT
@@ -140,32 +142,32 @@ const AccountPageContainer = () => {
 
   return (
     <div className="pb-10 w-full h-full flex flex-col justify-center items-center">
-      <PageHero title="Account" short />
+      <PageHero title={t.account.title} short />
       <Container styles="min-h-[70vh] h-fit py-10 w-[850px]">
         <div className="w-full h-full flex flex-col gap-16">
           <div>
-            <Heading title="Profile" />
+            <Heading title={t.account.profile.title} />
             <div className="w-full h-[275px] flex flex-col items-center justify-center">
               {loading && <LoadingComponent icon={UserCircle} />}
               {!loading && error && (
                 <ProfileContainer
                   loginButton={LoginButton}
                   profilePic={imgPrefix + '/images/default-profile.png'}
-                  phrase={`Error loading user profile: ${error}`}
+                  phrase={`${t.account.profile.errorLoading}: ${error}`}
                 />
               )}
               {!loading && !error && !profile && (
                 <ProfileContainer
                   loginButton={LoginButton}
                   profilePic={imgPrefix + '/images/default-profile.png'}
-                  phrase="Please log in."
+                  phrase={t.account.profile.pleaseLogin}
                 />
               )}
               {!loading && !error && profile && (
                 <ProfileContainer
                   logoutButton={LogoutButton}
                   profilePic={profile.picture}
-                  phrase={`Welcome, ${profile.name}`}
+                  phrase={`${t.account.profile.welcome}, ${profile.name}`}
                   logoutUrl={logoutUrl || 'https://www.cambioml.com/account'}
                   disabled={isLoading}
                 />
@@ -173,17 +175,17 @@ const AccountPageContainer = () => {
             </div>
           </div>
           <div>
-            <Heading title="AnyParser API Key" />
+            <Heading title={t.account.apiKey.title} />
             <div>
-              <h3 className={sectionHeadingStyle}>Getting Started with AnyParser</h3>
+              <h3 className={sectionHeadingStyle}>{t.account.apiKey.gettingStarted}</h3>
               <div className="w-full bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mt-2 mb-4">
-                <p className="font-semibold">Limited time!</p>
-                <p>Each API can extract up to 100 pages for free!</p>
+                <p className="font-semibold">{t.account.apiKey.limitedTime}</p>
+                <p>{t.account.apiKey.freePages}</p>
                 <p> </p>
-                <p className="font-semibold mt-4">Note:</p>
+                <p className="font-semibold mt-4">{t.account.apiKey.note}</p>
                 <ul className="list-disc ml-4">
-                  <li>Free API keys are limited to 10 extracted pages per API call.</li>
-                  <li>AnyParser never stores or trains on your data.</li>
+                  <li>{t.account.apiKey.limitations[0]}</li>
+                  <li>{t.account.apiKey.limitations[1]}</li>
                 </ul>
               </div>
             </div>
@@ -191,7 +193,9 @@ const AccountPageContainer = () => {
               {loading && <LoadingComponent icon={Key} />}
               {!loading && error && (
                 <>
-                  <div>Error loading user profile: {error}</div>
+                  <div>
+                    {t.account.profile.errorLoading}: {error}
+                  </div>
                 </>
               )}
               {!loading && !error && !profile && (
@@ -201,9 +205,9 @@ const AccountPageContainer = () => {
               )}
               {!loading && !error && profile && !emailVerified && (
                 <>
-                  <p className="text-md">Please verify your email in order to generate and copy your API keys. </p>
+                  <p className="text-md">{t.account.apiKey.verifyEmail} </p>
                   <Button
-                    label={`${sendingVerification ? 'Sending verification email...' : 'Resend verification email'}`}
+                    label={`${sendingVerification ? t.account.apiKey.sendingVerification : t.account.apiKey.resendVerification}`}
                     onClick={handleResendVerificationEmail}
                     disabled={isLoading}
                     small
@@ -217,13 +221,13 @@ const AccountPageContainer = () => {
                 <div className="w-full h-full flex flex-col items-start justify-start gap-8">
                   {apiKeys.length >= MAX_API_KEYS ? (
                     <div className="w-full h-[50px] flex items-center justify-center gap-4 text-lg bg-neutral-100 border-2 border-neutral-300 p-4 rounded-xl text-neutral-700">
-                      {`You've generated the maximum API keys`}
+                      {t.account.apiKey.maxKeysGenerated}
                       <Confetti size={32} />
                     </div>
                   ) : (
                     <div className="w-full h-[50px]">
                       <Button
-                        label={`${isLoading ? 'Generating...' : 'Generate New API Key'}`}
+                        label={`${isLoading ? t.account.apiKey.generating : t.account.apiKey.generateNew}`}
                         onClick={handleGenerateAPIKey}
                         small
                         disabled={isLoading || apiKeys.length >= MAX_API_KEYS}
@@ -254,15 +258,15 @@ const AccountPageContainer = () => {
               )}
               {!isProduction && (
                 <div className="w-full">
-                  <h3 className={sectionHeadingStyle}>Subscriptions</h3>
-                  <p className="pb-4">View products or modify your subscription.</p>
+                  <h3 className={sectionHeadingStyle}>{t.account.subscriptions.title}</h3>
+                  <p className="pb-4">{t.account.subscriptions.description}</p>
                   {loading ? (
                     <LoadingComponent icon={UserCircle} />
                   ) : profile?.cdkProfile && profile?.cdkProfile.subscriptionId ? (
                     <PortalButton />
                   ) : (
                     <Button
-                      label="View Products"
+                      label={t.account.subscriptions.viewProducts}
                       onClick={() => router.push('/products-fdce3eb9-aa2b-4abf-8842-4bde6dc987c4')}
                       small
                     />
@@ -270,7 +274,7 @@ const AccountPageContainer = () => {
                 </div>
               )}
               <Button
-                label="Check out AnyParser Documentation"
+                label={t.account.documentation}
                 onClick={() => window.open('https://docs.cambioml.com', '_blank')}
                 small
                 labelIcon={BookOpenText}

@@ -5,11 +5,13 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { imgPrefix } from '@/app/hooks/useImgPrefix';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from '@/lib/use-translation';
 import Button from '../Button';
 import Container from '../Container';
 
 const Hero = () => {
   const router = useRouter();
+  const { t, locale } = useTranslation();
   const [isPlaying, setIsPlaying] = useState(false);
 
   const playVideo = () => {
@@ -30,10 +32,10 @@ const Hero = () => {
                   transition={{ delay: 0.2, duration: 0.7 }}
                 >
                   <h1 className="text-center">
-                    <span className="bg-gradient">AnyParser: Vision LLM for Document Parsing</span>
+                    <span className="bg-gradient">{t.homepage.hero.title}</span>
                   </h1>
                   <div className="text-lg text-center py-1.5 max-w-4xl mx-auto text-foreground">
-                    Parsing PDFs, PPTs, Word, and images with configurable options in a few clicks!
+                    {t.homepage.hero.subtitle}
                   </div>
                 </motion.div>
               </div>
@@ -76,24 +78,23 @@ const Hero = () => {
 
                 <div className="w-full h-full flex flex-col items-center justify-center px-10 lg:col-span-1">
                   <div className="text-lg text-left py-2 text-foreground">
-                    80% of OCR users are tired of maintaining glue code. Free up your time with unmatched accuracy,
-                    complete privacy and configurable options such as:
+                    {t.homepage.hero.description}
                     <ul className="list-disc pl-6 py-1">
-                      <li>removing private identity info,</li>
-                      <li>extract table and charts,</li>
-                      <li>keeping footnotes and headers,</li>
+                      {t.homepage.hero.features.map((feature: string, index: number) => (
+                        <li key={index}>{feature}</li>
+                      ))}
                     </ul>
-                    and much more!
+                    {t.homepage.hero.moreFeatures}
                   </div>
                   <div className="w-full pt-8 pb-2 flex items-center justify-center gap-4">
-                    <Button label="Try for FREE" onClick={() => router.push('/sandbox')} />
-                    <Button label="Get API Access" onClick={() => router.push('/account')} outline />
+                    <Button label={t.homepage.hero.tryFree} onClick={() => router.push(`/${locale}/anyparser`)} />
+                    <Button label={t.homepage.hero.getApi} onClick={() => router.push(`/${locale}/account`)} outline />
                   </div>
                   <div className="w-full pt-4">
-                    <Button label="Book a Demo" onClick={() => router.push('/book-demo')} secondaryColor />
+                    <Button label={t.homepage.hero.bookDemo} onClick={() => router.push('/book-demo')} secondaryColor />
                   </div>
                   <div className="w-full py-1 flex items-center justify-center text-foreground">
-                    No credit card required
+                    {t.homepage.hero.noCreditCard}
                   </div>
                 </div>
               </motion.div>

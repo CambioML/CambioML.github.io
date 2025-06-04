@@ -118,9 +118,23 @@ interface S3FileSource {
 }
 
 export const PlaygroundTabs = {
-  PLAIN_TEXT: 'Full Content',
-  TABLE: 'Table Only',
-  KEY_VALUE_PAIR: 'Extract Key-Value Pairs',
+  PLAIN_TEXT: 'plainText',
+  TABLE: 'table',
+  KEY_VALUE_PAIR: 'keyValuePair',
+};
+
+// Helper function to get translated tab labels
+export const getPlaygroundTabLabel = (tabKey: string, t: any) => {
+  switch (tabKey) {
+    case PlaygroundTabs.PLAIN_TEXT:
+      return t.playground.tabs.plainText;
+    case PlaygroundTabs.TABLE:
+      return t.playground.tabs.table;
+    case PlaygroundTabs.KEY_VALUE_PAIR:
+      return t.playground.tabs.keyValuePair;
+    default:
+      return tabKey;
+  }
 };
 
 export enum JobType {

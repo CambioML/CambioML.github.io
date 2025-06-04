@@ -3,11 +3,11 @@
 import { useCallback, useState, useRef } from 'react';
 import MenuItem from './MenuItem';
 import { useRouter } from 'next/navigation';
-import { useOutsideClick } from '../../hooks/useOutsideClick';
+import { useOutsideClick } from '@/app/hooks/useOutsideClick';
 
 interface NavMenuProps {
   label: string;
-  links: string[];
+  links: { label: string; url: string }[];
   url?: string;
 }
 
@@ -19,10 +19,9 @@ const NavMenu = ({ label, links, url }: NavMenuProps) => {
     toggleOpen();
   }, excludeRef);
 
-  const makeOnClick = (label: string, link: string) => {
-    const url = `/${label}/${link}`.toLowerCase().replaceAll(' ', '-');
+  const makeOnClick = (linkObj: { label: string; url: string }) => {
     return () => {
-      router.push(url);
+      router.push(linkObj.url);
       setIsOpen(false);
     };
   };
@@ -77,8 +76,8 @@ const NavMenu = ({ label, links, url }: NavMenuProps) => {
         >
           <div className="flex flex-col cursor-pointer">
             <>
-              {links.map((thisLink, i) => (
-                <MenuItem key={i + thisLink} onClick={makeOnClick(label, thisLink)} label={thisLink} />
+              {links.map((linkObj, i) => (
+                <MenuItem key={i + linkObj.label} onClick={makeOnClick(linkObj)} label={linkObj.label} />
               ))}
             </>
           </div>

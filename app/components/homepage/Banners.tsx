@@ -3,11 +3,12 @@
 import '@/app/theme.css';
 import { motion } from 'framer-motion';
 import { imgPrefix } from '@/app/hooks/useImgPrefix';
+import { useRouter } from 'next/navigation';
+import { useTranslation } from '@/lib/use-translation';
 import Container from '../Container';
 import Button from '../Button';
 import Image from 'next/image';
 import CodeBlock from '../CodeBlock';
-import { useRouter } from 'next/navigation';
 
 interface BannerProps {
   title: string;
@@ -64,32 +65,35 @@ const Banner = ({ title, description, actionLabel, action, inverse, imgPath, cod
 
 const Banners = () => {
   const router = useRouter();
+  const { t, locale } = useTranslation();
 
   return (
     <section className="theme-dark h-fit w-full pt-20">
       <Container styles="relative z-10 min-h-[800px] h-fit pb-20">
         <div className="w-full h-full flex flex-col items-center justify-start px-10 gap-8">
-          <Banner
-            index={0}
-            title="Parse data accurately"
-            description="AnyParser playground is straight-forward, fast, and intuitive. Try the interface now and take a break for the rest of the day"
-            actionLabel={'Try for FREE'}
-            action={() => router.push('/sandbox')}
-            imgPath="/images/homepage/banner-1.png"
-          />
-          <Banner
-            index={1}
-            title="Build with AnyParser"
-            description="AnyParser playground is straight-forward, fast, truly intuitive, try the interface now and take a break for the rest of the day"
-            actionLabel={'Get API access'}
-            action={() => router.push('/account')}
-            inverse
-            code={`from any_parser import AnyParser
+          {t.homepage.banners.map(
+            (banner: { title: string; description: string; actionLabel: string }, index: number) => (
+              <Banner
+                key={index}
+                index={index}
+                title={banner.title}
+                description={banner.description}
+                actionLabel={banner.actionLabel}
+                action={() => router.push(index === 0 ? `/${locale}/anyparser` : `/${locale}/account`)}
+                inverse={index === 1}
+                imgPath={index === 0 ? '/images/homepage/banner-1.png' : undefined}
+                code={
+                  index === 1
+                    ? `from any_parser import AnyParser
 
 op = AnyParser(example_apikey)
 
-content_result = op.extract(example_local_file)`}
-          />
+content_result = op.extract(example_local_file)`
+                    : undefined
+                }
+              />
+            )
+          )}
         </div>
       </Container>
     </section>
