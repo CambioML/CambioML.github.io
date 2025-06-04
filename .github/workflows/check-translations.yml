@@ -1,0 +1,152 @@
+name: Check Translation Completeness
+
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review]
+    branches:
+      - main
+
+jobs:
+  check-translations:
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      pull-requests: write
+      contents: read
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check translation completeness
+        id: check_completeness
+        run: |
+          echo "🔍 Checking translation completeness..."
+          
+          # Define supported languages
+          LANGUAGES=("de" "ja" "pt" "ru" "it" "ar" "ko" "nl" "hi" "tr" "sv" "pl" "no" "da" "fi" "cs" "hu" "ro")
+          
+          MISSING_TRANSLATIONS=""
+          INCOMPLETE_AREAS=""
+          
+          # Check blog translations
+          if [ -d "blog/en" ]; then
+            echo "Checking blog translations..."
+            for file in blog/en/*.md; do
+              if [ -f "$file" ]; then
+                filename=$(basename "$file")
+                for lang in "${LANGUAGES[@]}"; do
+                  if [ ! -f "blog/$lang/$filename" ]; then
+                    MISSING_TRANSLATIONS="$MISSING_TRANSLATIONS\n- Blog: $filename (missing $lang translation)"
+                    INCOMPLETE_AREAS="blog"
+                  fi
+                done
+              fi
+            done
+          fi
+          
+          # Check resource translations
+          if [ -d "resources/en" ]; then
+            echo "Checking resource translations..."
+            for file in resources/en/*.md; do
+              if [ -f "$file" ]; then
+                filename=$(basename "$file")
+                for lang in "${LANGUAGES[@]}"; do
+                  if [ ! -f "resources/$lang/$filename" ]; then
+                    MISSING_TRANSLATIONS="$MISSING_TRANSLATIONS\n- Resources: $filename (missing $lang translation)"
+                    INCOMPLETE_AREAS="$INCOMPLETE_AREAS resources"
+                  fi
+                done
+              fi
+            done
+          fi
+          
+          # Check TypeScript translation files
+          echo "Checking TypeScript translation files..."
+          for lang in "${LANGUAGES[@]}"; do
+            if [ ! -f "lib/translations/$lang.ts" ]; then
+              MISSING_TRANSLATIONS="$MISSING_TRANSLATIONS\n- TypeScript translations: $lang.ts missing"
+              INCOMPLETE_AREAS="$INCOMPLETE_AREAS typescript"
+            fi
+          done
+          
+          # Remove duplicates from incomplete areas
+          INCOMPLETE_AREAS=$(echo "$INCOMPLETE_AREAS" | tr ' ' '\n' | sort -u | tr '\n' ' ')
+          
+          if [ -n "$MISSING_TRANSLATIONS" ]; then
+            echo "❌ Translation check failed!"
+            echo "Missing translations found:"
+            echo -e "$MISSING_TRANSLATIONS"
+            echo "translations_complete=false" >> $GITHUB_OUTPUT
+            echo "missing_translations<<EOF" >> $GITHUB_OUTPUT
+            echo -e "$MISSING_TRANSLATIONS" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            echo "incomplete_areas=$INCOMPLETE_AREAS" >> $GITHUB_OUTPUT
+          else
+            echo "✅ All translations are complete!"
+            echo "translations_complete=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create translation status check
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const isComplete = '${{ steps.check_completeness.outputs.translations_complete }}' === 'true';
+            const missingTranslations = String.raw`${{ steps.check_completeness.outputs.missing_translations }}`.replace(/\\n/g, '\n');
+            const incompleteAreas = '${{ steps.check_completeness.outputs.incomplete_areas }}';
+            
+            // Create a check run
+            const checkRun = await github.rest.checks.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'Translation Completeness',
+              head_sha: context.payload.pull_request.head.sha,
+              status: 'completed',
+              conclusion: isComplete ? 'success' : 'failure',
+              output: {
+                title: isComplete ? '✅ All translations complete' : '❌ Missing translations detected',
+                summary: isComplete 
+                  ? 'All required translations are present and up to date.'
+                  : `Missing translations detected in: ${incompleteAreas}\n\nThis PR cannot be merged until all translations are complete.`,
+                text: isComplete 
+                  ? 'Ready for deployment! All blog posts, resources, and TypeScript translation files have been translated to all supported languages.'
+                  : `The following translations are missing:\n${missingTranslations}\n\nPlease wait for the auto-translation workflows to complete, or add the missing translations manually.`
+              }
+            });
+
+      - name: Comment on PR if translations incomplete
+        if: steps.check_completeness.outputs.translations_complete == 'false'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const missingTranslations = String.raw`${{ steps.check_completeness.outputs.missing_translations }}`.replace(/\\n/g, '\n');
+            const incompleteAreas = '${{ steps.check_completeness.outputs.incomplete_areas }}';
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `🚫 **Translation check failed!**
+
+            This PR cannot be merged until all translations are complete.
+
+            **Missing translations in:** ${incompleteAreas}
+
+            **Details:**
+            ${missingTranslations}
+
+            **What to do:**
+            - Wait for the auto-translation workflows to complete
+            - Or add the missing translations manually
+            - Re-run this check once translations are added
+
+            The deployment will be blocked until all translations are present.`
+            })
+
+      - name: Fail if translations incomplete
+        if: steps.check_completeness.outputs.translations_complete == 'false'
+        run: |
+          echo "❌ Translation check failed - blocking deployment"
+          exit 1

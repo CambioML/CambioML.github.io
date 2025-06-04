@@ -3,9 +3,11 @@
 import { SignIn } from '@phosphor-icons/react/dist/ssr';
 import Button from '../Button';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useTranslation } from '@/lib/use-translation';
 
 const LoginButton = () => {
   const { loginWithRedirect } = useAuth0();
+  const { t } = useTranslation();
 
   const handleAuth0Login = () => {
     // posthog.capture('playground_login', { route: '/playground' });
@@ -18,7 +20,7 @@ const LoginButton = () => {
   };
   return (
     <div className="w-full max-w-[500px]">
-      <Button label="Login" small onClick={handleAuth0Login} labelIcon={SignIn} />
+      <Button label={t.auth.login} small onClick={handleAuth0Login} labelIcon={SignIn} />
     </div>
   );
 };

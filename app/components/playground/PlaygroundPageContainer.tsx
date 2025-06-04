@@ -1,15 +1,17 @@
 'use client';
 import PageHero from '../hero/PageHero';
+import UploadModal from '../modals/UploadModal';
 import PlaygroundContainer from './PlaygroundContainer';
 import { Auth0Provider } from '@auth0/auth0-react';
+import { useTranslation } from '@/lib/use-translation';
 import { ProductionProvider } from './ProductionContext';
-import UploadModal from '../modals/UploadModal';
 
 interface PlaygroundPageContainerProps {
   production: boolean;
 }
 
 const PlaygroundPageContainer = ({ production }: PlaygroundPageContainerProps) => {
+  const { t } = useTranslation();
   const redirectUri = production
     ? process.env.NEXT_PUBLIC_AUTH0_REDIRECT_URI
     : process.env.NEXT_PUBLIC_PRE_PROD_AUTH0_REDIRECT_URI;
@@ -28,11 +30,7 @@ const PlaygroundPageContainer = ({ production }: PlaygroundPageContainerProps) =
         <div className="relative min-h-screen w-full overflow-hidden bg-gray-50">
           {/* Main content */}
           <div className="relative z-10 py-10 w-full h-fit flex flex-col justify-center items-center">
-            <PageHero
-              title="AnyParser Sandbox"
-              description={`The first LLM to quickly and accurately extract full content from PDFs*, PPTs, and images**.`}
-              short
-            />
+            <PageHero title={t.playground.title} description={t.playground.description} short />
             <PlaygroundContainer />
             <UploadModal />
           </div>

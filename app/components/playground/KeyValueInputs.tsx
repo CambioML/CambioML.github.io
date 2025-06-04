@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { v4 as uuidv4 } from 'uuid';
 import Button from '../Button';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
+import { useTranslation } from '@/lib/use-translation';
 
 interface InputProps {
   id: string;
@@ -23,24 +24,39 @@ interface KeyValueInputsProps {
 }
 
 const AddButton = ({ onClick }: { onClick?: () => void }) => {
+  const { t } = useTranslation();
   return (
-    <button className="border hover:bg-gray-100 p-1 rounded" onClick={onClick} aria-label="Add Key-Value Pair">
+    <button
+      className="border hover:bg-gray-100 p-1 rounded"
+      onClick={onClick}
+      aria-label={t.playground.keyValue.addKeyValuePair}
+    >
       <BiPlus size={12} />
     </button>
   );
 };
 
 const RemoveButton = ({ onClick }: { onClick?: () => void }) => {
+  const { t } = useTranslation();
   return (
-    <button className="border hover:bg-gray-100 p-1 rounded" onClick={onClick} aria-label="Remove Key-Value Pair">
+    <button
+      className="border hover:bg-gray-100 p-1 rounded"
+      onClick={onClick}
+      aria-label={t.playground.keyValue.removeKeyValuePair}
+    >
       <BiMinus size={12} />
     </button>
   );
 };
 
 const ExpandButton = ({ active, onClick }: { active: boolean; onClick: () => void }) => {
+  const { t } = useTranslation();
   return (
-    <button className="hover:bg-gray-100 p-1 rounded -mt-1" onClick={onClick} aria-label="Expand Key Description">
+    <button
+      className="hover:bg-gray-100 p-1 rounded -mt-1"
+      onClick={onClick}
+      aria-label={t.playground.keyValue.expandKeyDescription}
+    >
       <BiCaretRight className={`transition-all duration-300 ${active ? 'rotate-90' : ''}`} />
     </button>
   );
@@ -48,6 +64,8 @@ const ExpandButton = ({ active, onClick }: { active: boolean; onClick: () => voi
 
 const Input = ({ id, errors, register, onAdd, onRemove, canRemove = true, onInputChange }: InputProps) => {
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
+  const { t } = useTranslation();
+
   return (
     <div className="flex min-h-12">
       <div className="flex flex-col gap-1 mr-1">
@@ -70,9 +88,9 @@ const Input = ({ id, errors, register, onAdd, onRemove, canRemove = true, onInpu
             required: true,
             onChange: () => setTimeout(onInputChange, 0),
           })}
-          placeholder="Key Name"
+          placeholder={t.playground.keyValue.keyNamePlaceholder}
           type="text"
-          aria-label="Key Name Input"
+          aria-label={t.playground.keyValue.keyNamePlaceholder}
           className={`
             w-full
             p-1
@@ -88,7 +106,7 @@ const Input = ({ id, errors, register, onAdd, onRemove, canRemove = true, onInpu
         />
         {errors[`${id}-key`] && (
           <span className="text-xs text-rose-500 mt-0.5">
-            {errors[`${id}-key`]?.message?.toString() || 'Key name is required'}
+            {errors[`${id}-key`]?.message?.toString() || t.playground.keyValue.keyNameRequired}
           </span>
         )}
         <div
@@ -99,9 +117,9 @@ const Input = ({ id, errors, register, onAdd, onRemove, canRemove = true, onInpu
             {...register(`${id}-description`, {
               onChange: () => setTimeout(onInputChange, 0),
             })}
-            placeholder="(Optional) Define keys to enhance AnyParser's accuracy"
+            placeholder={t.playground.keyValue.keyDescriptionPlaceholder}
             rows={2}
-            aria-label="Key Description"
+            aria-label={t.playground.keyValue.keyDescriptionPlaceholder}
             className={`
               resize-none
               text-sm
@@ -126,6 +144,7 @@ const Input = ({ id, errors, register, onAdd, onRemove, canRemove = true, onInpu
 
 export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValueInputsProps) {
   const { selectedFileIndex, files, updateFileAtIndex } = usePlaygroundStore();
+  const { t } = useTranslation();
   const {
     register,
     getValues,
@@ -188,11 +207,11 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
     if (inputs.length < 10) {
       const newUuid = uuidv4();
       setInputs((prev) => [...prev, newUuid]);
-      toast.success('New input added');
+      toast.success(t.playground.keyValue.newInputAdded);
       // Save after adding new input
       setTimeout(saveToStore, 0);
     } else {
-      toast.error('Maximum 10 inputs allowed');
+      toast.error(t.playground.keyValue.maxInputsAllowed);
     }
   };
 
@@ -231,9 +250,9 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
     toast.dismiss('undo-toast');
 
     toast.success(
-      (t) => (
+      (toastId) => (
         <div className="flex items-center gap-2">
-          <span>Input removed</span>
+          <span>{t.playground.keyValue.inputRemoved}</span>
           <button
             className="text-blue-500 hover:text-blue-700 font-medium cursor-pointer"
             onClick={(e) => {
@@ -255,12 +274,12 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
                   return newInputs;
                 });
 
-                toast.dismiss(t.id);
-                toast.success('Remove undone');
+                toast.dismiss(toastId.id);
+                toast.success(t.playground.keyValue.removeUndone);
               }
             }}
           >
-            Undo
+            {t.playground.keyValue.undo}
           </button>
         </div>
       ),
@@ -296,12 +315,12 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
     <div className="flex flex-col gap-4">
       <Button
         id="extract-key-value-btn"
-        label={isLoading ? 'Extracting...' : 'Extract Key-Value'}
+        label={isLoading ? t.playground.keyValue.extracting : t.playground.keyValue.extractKeyValue}
         onClick={handleSubmit(extractButtonClickHandler)}
         disabled={isLoading}
-        aria-label="Extract Key-Value Pairs"
+        aria-label={t.playground.keyValue.extractKeyValuePairs}
       />
-      <strong>Your Keys</strong>
+      <strong>{t.playground.keyValue.yourKeys}</strong>
       <div className="h-[calc(80vh-240px)] overscroll-contain overflow-y-auto">
         <div className="flex flex-col gap-2 p-2">
           {inputs.map((uuid) => (

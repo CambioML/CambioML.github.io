@@ -1,17 +1,6 @@
-import Banners from './components/homepage/Banners';
-import Reviews from './components/homepage/Reviews';
-import Capabilities from './components/homepage/Capabilities';
-import Hero from './components/homepage/Hero';
-import HowItWorks from './components/homepage/HowItWorks';
+import { redirect } from 'next/navigation';
+import { defaultLocale } from '@/lib/i18n';
 
-export default function Home() {
-  return (
-    <>
-      <Hero />
-      <Reviews />
-      <Capabilities />
-      <HowItWorks />
-      <Banners />
-    </>
-  );
+export default function RootPage() {
+  redirect(`/${defaultLocale}`);
 }

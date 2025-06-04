@@ -3,6 +3,7 @@
 import '@/app/theme.css';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
+import { useTranslation } from '@/lib/use-translation';
 import Button from '../Button';
 import Container from '../Container';
 import YouTubeFacade from '../YoutubeFacade';
@@ -36,6 +37,8 @@ const HowItWorksCard = ({ title, subtitle, description, index }: HowItWorksCardP
 
 const HowItWorks = () => {
   const router = useRouter();
+  const { t, locale } = useTranslation();
+
   return (
     <section className="theme-dark h-fit w-full">
       <Container styles="relative z-10 h-fit">
@@ -48,7 +51,7 @@ const HowItWorks = () => {
               viewport={{ once: true }}
             >
               <h1 className="text-6xl font-semibold">
-                <span className="bg-gradient">How AnyParser Works</span>
+                <span className="bg-gradient">{t.homepage.howItWorks.title}</span>
               </h1>
             </motion.div>
 
@@ -59,7 +62,7 @@ const HowItWorks = () => {
               transition={{ delay: 0.2, duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <Button label="Try for FREE" onClick={() => router.push('/sandbox')} />
+              <Button label={t.homepage.howItWorks.tryFree} onClick={() => router.push(`/${locale}/anyparser`)} />
             </motion.div>
 
             <motion.div
@@ -69,7 +72,7 @@ const HowItWorks = () => {
               transition={{ delay: 0.3, duration: 0.6 }}
               viewport={{ once: true }}
             >
-              Parse any data from any documents with straight-forward user interface
+              {t.homepage.howItWorks.subtitle}
             </motion.div>
           </div>
 
@@ -88,24 +91,17 @@ const HowItWorks = () => {
 
         <div className="h-fit">
           <div className="pt-20 gap-8 grid grid-cols-1 lg:grid-cols-3 items-stretch justify-items-center w-full h-fit pb-8">
-            <HowItWorksCard
-              index={0}
-              title="01"
-              subtitle="Drag and drop the documents"
-              description="Click 'Upload File' to easily drag and drop the documents you want to parse, or simply paste a screenshot from your clipboard. We've also provided sample documentation to help you get started."
-            />
-            <HowItWorksCard
-              index={1}
-              title="02"
-              subtitle="Edit parsing and privacy settings"
-              description="AnyParser automatically categorizes various types of information, including PII (Personally Identifiable Information), footnotes, tables, and more. Just export the data you need!"
-            />
-            <HowItWorksCard
-              index={2}
-              title="03"
-              subtitle="Export results to your system"
-              description="Download your data in your preferred format—whether it's HTML, Excel, JSON, or a database schema tailored to your business workflow."
-            />
+            {t.homepage.howItWorks.steps.map(
+              (step: { title: string; subtitle: string; description: string }, index: number) => (
+                <HowItWorksCard
+                  key={index}
+                  index={index}
+                  title={step.title}
+                  subtitle={step.subtitle}
+                  description={step.description}
+                />
+              )
+            )}
           </div>
         </div>
       </Container>

@@ -9,12 +9,13 @@ import FadeIn from '@/app/components/dark/animations/fade-in';
 interface BlogCardProps {
   post: BlogPost;
   index: number;
+  locale: string;
 }
 
-export function BlogCard({ post, index }: BlogCardProps) {
+export function BlogCard({ post, index, locale }: BlogCardProps) {
   return (
     <FadeIn delay={0.02 * index}>
-      <Link href={`/blog/${post.slug}`} className="block h-full">
+      <Link href={`/${locale}/blog/${post.slug}`} className="block h-full">
         <motion.div
           className="bg-card-1 border border-border-1 rounded-lg overflow-hidden h-full flex flex-col"
           whileHover={{ y: -5 }}

@@ -26,6 +26,13 @@ export const locales: Locale[] = [
 ];
 export const defaultLocale: Locale = 'en';
 
+// Universal function for generating static params for locale-based pages
+export function generateLocaleStaticParams() {
+  return locales.map((locale) => ({
+    locale: locale,
+  }));
+}
+
 // Language display names for UI components
 export const languageNames: Record<Locale, string> = {
   en: 'English',
@@ -134,23 +141,16 @@ export function getLocaleFromPathname(pathname: string): Locale {
   return getPreferredLocale();
 }
 
-export function getPathnameWithoutLocale(pathname: string): string {
+export function replaceLocaleInPath(pathname: string, newLocale: Locale): string {
   const segments = pathname.split('/');
-  const potentialLocale = segments[1] as Locale;
+  const currentLocale = segments[1] as Locale;
 
-  if (locales.includes(potentialLocale)) {
-    return '/' + segments.slice(2).join('/');
+  if (locales.includes(currentLocale)) {
+    // Replace the existing locale with the new one
+    segments[1] = newLocale;
+    return segments.join('/');
   }
 
-  return pathname;
-}
-
-export function getLocalizedPath(pathname: string, locale: Locale): string {
-  const pathWithoutLocale = getPathnameWithoutLocale(pathname);
-
-  if (locale === defaultLocale) {
-    return pathWithoutLocale;
-  }
-
-  return `/${locale}${pathWithoutLocale}`;
+  // If no locale found, add it as the first segment
+  return `/${newLocale}${pathname}`;
 }

@@ -2,10 +2,13 @@
 
 import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
-import OpenAI from 'openai';
+import { AzureOpenAI } from 'openai';
 
 // Configuration
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const AZURE_OPENAI_API_KEY = process.env.AZURE_OPENAI_API_KEY;
+const AZURE_OPENAI_ENDPOINT = process.env.AZURE_OPENAI_ENDPOINT;
+const AZURE_OPENAI_API_VERSION = process.env.AZURE_OPENAI_API_VERSION || '2024-04-01-preview';
+const AZURE_OPENAI_DEPLOYMENT = process.env.AZURE_OPENAI_DEPLOYMENT || 'gpt-4o';
 const SUPPORTED_LOCALES = [
   'en',
   'zh',
@@ -32,14 +35,22 @@ const SUPPORTED_LOCALES = [
 ] as const;
 type Locale = (typeof SUPPORTED_LOCALES)[number];
 
-// Initialize OpenAI client
-if (!OPENAI_API_KEY) {
-  console.error('❌ OPENAI_API_KEY environment variable is required');
+// Initialize Azure OpenAI client
+if (!AZURE_OPENAI_API_KEY) {
+  console.error('❌ AZURE_OPENAI_API_KEY environment variable is required');
   process.exit(1);
 }
 
-const openai = new OpenAI({
-  apiKey: OPENAI_API_KEY,
+if (!AZURE_OPENAI_ENDPOINT) {
+  console.error('❌ AZURE_OPENAI_ENDPOINT environment variable is required');
+  process.exit(1);
+}
+
+const openai = new AzureOpenAI({
+  apiKey: AZURE_OPENAI_API_KEY,
+  endpoint: AZURE_OPENAI_ENDPOINT,
+  apiVersion: AZURE_OPENAI_API_VERSION,
+  deployment: AZURE_OPENAI_DEPLOYMENT,
 });
 
 // Language mapping
@@ -68,69 +79,205 @@ const LANGUAGE_NAMES: Record<Locale, string> = {
   ro: 'Romanian',
 };
 
-// Translation prompt for blog posts
-const BLOG_TRANSLATION_PROMPT = `You are a professional translator and technical content specialist. Your task is to translate blog posts from one language to another while maintaining the technical accuracy, tone, and structure.
+// System prompt for blog posts
+const BLOG_TRANSLATION_SYSTEM_PROMPT = `You are a professional translator. Your ONLY task is to translate the exact text provided by the user from {sourceLanguage} to {targetLanguage}.
 
-Guidelines:
-1. Preserve all markdown formatting (headers, links, code blocks, images, etc.)
-2. Keep all technical terms accurate and consistent
-3. Maintain the original tone and style
-4. Preserve any metadata/frontmatter at the top of the file
-5. Keep URLs, image paths, and code examples unchanged
-6. Adapt cultural references appropriately for the target audience
-7. Ensure the translation reads naturally in the target language
-8. Keep brand names and product names unchanged unless there's an official localized version
-9. CRITICAL: Always use double quotes for all frontmatter metadata fields:
-   - Use double quotes for title: "Your translated title"
-   - Use double quotes for keywords: "keyword1,keyword2,keyword3"
-   - Use double quotes for any other string fields in the frontmatter
-   - Ensure all frontmatter fields remain syntactically valid YAML
-   - Example: keywords: "déploiement AWS,contrôle de l'infrastructure,mode hors ligne"
+CRITICAL RULES:
+1. Translate ONLY the exact text content provided in the user message
+2. Do NOT generate, create, or add any new content
+3. Do NOT change, add, or remove any formatting, structure, or syntax
+4. Do NOT add markdown code blocks or backticks or any formatting markers
+5. Keep all markdown, YAML, code blocks, and technical syntax exactly as provided
+6. Only change the human-readable text content to the target language
+7. Preserve all technical terms, URLs, variable names, and code examples unchanged
+8. Do NOT be creative - translate literally and directly
+9. Do NOT add any prefixes, suffixes, or wrapper text
+10. Output must start and end exactly like the input
 
-Source Language: {sourceLanguage}
-Target Language: {targetLanguage}
+EXAMPLE:
+Input: "---\\ntitle: 'Hello World'\\n---\\n# Test"
+Output: "---\\ntitle: 'Bonjour le Monde'\\n---\\n# Test"
 
-Return only the translated content, preserving all markdown formatting and ensuring double quotes for all frontmatter metadata.
+FORBIDDEN EXAMPLES:
+❌ Do NOT add: code block markers, yaml/markdown/typescript blocks, or any wrappers
+❌ Do NOT add: "Here is the translation:", "Translated content:", etc.
+❌ Do NOT change the first or last characters of the content
 
-Please translate the following blog post:
+Remember: Your output must be IDENTICAL in structure to the input, with only human-readable text translated.`;
 
-{content}`;
+// System prompt for TypeScript translation files
+const TRANSLATION_FILE_SYSTEM_PROMPT = `You are a professional translator. Your ONLY task is to translate the string values in the exact TypeScript code provided by the user from {sourceLanguage} to {targetLanguage}.
 
-// Translation prompt for TypeScript translation files
-const TRANSLATION_FILE_PROMPT = `You are a professional translator specializing in software localization. Your task is to translate a TypeScript translation file from one language to another.
+CRITICAL RULES:
+1. Translate ONLY the exact TypeScript code provided in the user message
+2. Do NOT generate, create, or add any new code or structure
+3. Only translate the text inside string quotes (single or double quotes)
+4. Keep ALL object keys, variable names, syntax, and structure exactly identical
+5. IMPORTANT: Change the export variable name from the source locale to the target locale (e.g., "export const en = {" should become "export const {targetLocale} = {")
+6. Do NOT change any punctuation, brackets, commas, or semicolons
+7. Do NOT add or remove any lines or code structure
+8. Preserve all spacing and indentation exactly as provided
+9. Do NOT add markdown code blocks or backticks or any formatting markers
+10. Do NOT add any prefixes, suffixes, or wrapper text
+11. The "export const {locale}" should be the current locale.
 
-CRITICAL INSTRUCTIONS:
-1. Output ONLY the TypeScript code - NO markdown formatting, NO code blocks, NO backticks
-2. Preserve the exact TypeScript structure and formatting
-3. Keep all object keys unchanged
-4. Translate only the string values
-5. Maintain consistent terminology throughout
-6. Keep proper TypeScript syntax (quotes, commas, semicolons)
-7. Preserve any template literals or interpolation syntax
-8. Ensure translations are appropriate for a technical/business context
-9. Keep brand names unchanged unless there's an official localized version
-10. The output should be ready to save directly as a .ts file
-11. IMPORTANT: Replace the export variable name with the target locale code. For example, if translating to German (de), use "export const de =" instead of "export const en ="
-12. CRITICAL: Properly escape all quotes and special characters in strings:
-    - If using single quotes for strings, escape internal single quotes as \'
-    - If using double quotes for strings, escape internal double quotes as \"
-    - Escape backslashes as \\
-    - Ensure all strings are properly terminated and valid TypeScript
+EXAMPLE:
+Input: "export const en = {\n  name: 'Hello World',\n"
+Output: "export const fr = {\n  name: 'Bonjour le Monde',\n"
 
-Source Language: {sourceLanguage}
-Target Language: {targetLanguage}
-Target Locale Code: {targetLocale}
+FORBIDDEN EXAMPLES:
+❌ Do NOT add: code block markers, typescript/javascript blocks, or any wrappers
+❌ Do NOT add: "Here is the translation:", "Translated code:", etc.
+❌ Do NOT change the first or last characters of the content structure
 
-Translate the following TypeScript translation file:
+Remember: Your output must be IDENTICAL in structure to the input, with only string values translated and the export variable name changed to the target locale.`;
 
-{content}
+// System prompt for TypeScript content chunks (without export declaration)
+const TRANSLATION_CONTENT_CHUNK_SYSTEM_PROMPT = `You are a professional translator. Your ONLY task is to translate the string values in the exact TypeScript object content provided by the user from {sourceLanguage} to {targetLanguage}.
 
-Remember: 
-- Output ONLY the TypeScript code without any markdown formatting
-- Replace the export variable name with "{targetLocale}" (e.g., "export const {targetLocale} =")
-- PROPERLY ESCAPE ALL QUOTES AND SPECIAL CHARACTERS in translated strings
-- Use consistent quote style (single quotes) throughout the file
-- Ensure all strings are syntactically valid TypeScript`;
+CRITICAL RULES:
+1. Translate ONLY the exact TypeScript object content provided in the user message
+2. Do NOT generate, create, or add any new code or structure
+3. Only translate the text inside string quotes (single or double quotes)
+4. Keep ALL object keys, variable names, syntax, and structure exactly identical
+5. Do NOT add any export declarations or variable assignments
+6. Do NOT change any punctuation, brackets, commas, or semicolons
+7. Do NOT add or remove any lines or code structure
+8. Preserve all spacing and indentation exactly as provided
+9. Do NOT add markdown code blocks or backticks or any formatting markers
+10. Do NOT add any prefixes, suffixes, or wrapper text
+11. If a string content contains single quote, the string should be double quoted
+
+EXAMPLE:
+Input: "  name: 'Hello World',\n  greeting: 'Hi there'"
+Output: "  name: 'Bonjour le Monde',\n  greeting: 'Salut'"
+
+FORBIDDEN EXAMPLES:
+❌ Do NOT add: export declarations, variable assignments, or any wrappers
+❌ Do NOT add: "Here is the translation:", "Translated code:", etc.
+❌ Do NOT add: code block markers, typescript/javascript blocks
+
+Remember: Your output must be IDENTICAL in structure to the input, with only string values translated.`;
+
+/**
+ * Estimate token count (conservative estimation: 1 token ≈ 1 character)
+ */
+function estimateTokenCount(text: string): number {
+  return Math.ceil(text.length / 1);
+}
+
+/**
+ * Split content into chunks for translation
+ */
+function splitContentIntoChunks(content: string, isBlogPost: boolean = true, maxTokens: number = 10000): string[] {
+  const estimatedTokens = estimateTokenCount(content);
+
+  if (estimatedTokens <= maxTokens) {
+    return [content];
+  }
+
+  console.log(`📊 Content estimated at ${estimatedTokens} tokens, splitting into chunks...`);
+
+  const chunks: string[] = [];
+
+  if (isBlogPost) {
+    // For blog posts (markdown), split by sections/paragraphs
+    const sections = content.split(/\n(?=#{1,6}\s)/); // Split by headers
+
+    let currentChunk = '';
+
+    for (const section of sections) {
+      if (estimateTokenCount(currentChunk + section) > maxTokens && currentChunk) {
+        chunks.push(currentChunk.trim());
+        currentChunk = section;
+      } else {
+        currentChunk += (currentChunk ? '\n' : '') + section;
+      }
+    }
+
+    if (currentChunk) {
+      chunks.push(currentChunk.trim());
+    }
+
+    // If still too large, split by paragraphs
+    if (chunks.some((chunk) => estimateTokenCount(chunk) > maxTokens)) {
+      const refinedChunks: string[] = [];
+
+      for (const chunk of chunks) {
+        if (estimateTokenCount(chunk) <= maxTokens) {
+          refinedChunks.push(chunk);
+        } else {
+          const paragraphs = chunk.split(/\n\s*\n/);
+          let currentParagraphChunk = '';
+
+          for (const paragraph of paragraphs) {
+            if (estimateTokenCount(currentParagraphChunk + paragraph) > maxTokens && currentParagraphChunk) {
+              refinedChunks.push(currentParagraphChunk.trim());
+              currentParagraphChunk = paragraph;
+            } else {
+              currentParagraphChunk += (currentParagraphChunk ? '\n\n' : '') + paragraph;
+            }
+          }
+
+          if (currentParagraphChunk) {
+            refinedChunks.push(currentParagraphChunk.trim());
+          }
+        }
+      }
+
+      return refinedChunks;
+    }
+
+    return chunks;
+  } else {
+    // For TypeScript files, handle export declaration specially
+    const lines = content.split('\n');
+    const exportLineIndex = lines.findIndex((line) => line.trim().startsWith('export const'));
+
+    if (exportLineIndex === -1) {
+      // Fallback to simple line-based splitting if no export found
+      let currentChunk = '';
+      for (const line of lines) {
+        if (estimateTokenCount(currentChunk + line + '\n') > maxTokens && currentChunk) {
+          chunks.push(currentChunk.trim());
+          currentChunk = line + '\n';
+        } else {
+          currentChunk += line + '\n';
+        }
+      }
+      if (currentChunk) {
+        chunks.push(currentChunk.trim());
+      }
+      return chunks;
+    }
+
+    // For TypeScript files with export, preserve the export in first chunk only
+    const exportLine = lines[exportLineIndex];
+    const beforeExport = lines.slice(0, exportLineIndex);
+    const afterExport = lines.slice(exportLineIndex + 1);
+
+    // First chunk: everything up to and including the export line
+    const firstChunk = [...beforeExport, exportLine].join('\n');
+    chunks.push(firstChunk);
+
+    // Subsequent chunks: just the object content without export declarations
+    let currentChunk = '';
+    for (const line of afterExport) {
+      if (estimateTokenCount(currentChunk + line + '\n') > maxTokens && currentChunk) {
+        chunks.push(currentChunk.trim());
+        currentChunk = line + '\n';
+      } else {
+        currentChunk += line + '\n';
+      }
+    }
+
+    if (currentChunk) {
+      chunks.push(currentChunk.trim());
+    }
+
+    return chunks;
+  }
+}
 
 /**
  * Translate content using OpenAI API
@@ -142,42 +289,130 @@ async function translateContent(
   isBlogPost: boolean = true,
   targetLocale?: string
 ): Promise<string> {
-  const prompt = isBlogPost ? BLOG_TRANSLATION_PROMPT : TRANSLATION_FILE_PROMPT;
+  const estimatedTokens = estimateTokenCount(content);
+  const maxTokensPerChunk = 10000;
 
-  let formattedPrompt = prompt
+  // If content is small enough, translate directly
+  if (estimatedTokens <= maxTokensPerChunk) {
+    console.log(`📄 Single chunk translation (${estimatedTokens} tokens)`);
+    return await translateSingleChunk(content, sourceLanguage, targetLanguage, isBlogPost, targetLocale, true, 0);
+  }
+
+  // Split into chunks and translate each
+  console.log(`📄 Large file detected (${estimatedTokens} tokens), splitting into chunks...`);
+  const chunks = splitContentIntoChunks(content, isBlogPost, maxTokensPerChunk);
+
+  console.log(`📦 Split into ${chunks.length} chunks`);
+
+  const translatedChunks: string[] = [];
+
+  for (let i = 0; i < chunks.length; i++) {
+    const chunk = chunks[i];
+    const isFirstChunk = i === 0;
+    console.log(`🔄 Translating chunk ${i + 1}/${chunks.length} (${estimateTokenCount(chunk)} tokens)...`);
+
+    // Log chunk input
+    console.log(
+      `📥 Chunk ${i + 1} input (first 200 chars):`,
+      chunk.substring(0, 200) + (chunk.length > 200 ? '...' : '')
+    );
+
+    try {
+      const translatedChunk = await translateSingleChunk(
+        chunk,
+        sourceLanguage,
+        targetLanguage,
+        isBlogPost,
+        targetLocale,
+        isFirstChunk,
+        i
+      );
+
+      // Log chunk output
+      console.log(
+        `📤 Chunk ${i + 1} output (first 200 chars):`,
+        translatedChunk.substring(0, 200) + (translatedChunk.length > 200 ? '...' : '')
+      );
+      console.log(`📊 Chunk ${i + 1} size: input=${chunk.length} chars, output=${translatedChunk.length} chars`);
+
+      translatedChunks.push(translatedChunk);
+
+      // Add delay between chunks to respect API rate limits
+      if (i < chunks.length - 1) {
+        console.log('⏳ Waiting 2 seconds before next chunk...');
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+      }
+    } catch (error) {
+      console.error(`❌ Failed to translate chunk ${i + 1}:`, error);
+      throw error;
+    }
+  }
+
+  // Join chunks back together
+  const joinedContent = isBlogPost ? translatedChunks.join('\n\n') : translatedChunks.join('\n');
+
+  console.log(`✅ Successfully translated all ${chunks.length} chunks`);
+  console.log(`📋 Final content size: ${joinedContent.length} chars`);
+
+  return joinedContent;
+}
+
+/**
+ * Translate a single chunk of content using OpenAI API
+ */
+async function translateSingleChunk(
+  content: string,
+  sourceLanguage: string,
+  targetLanguage: string,
+  isBlogPost: boolean = true,
+  targetLocale?: string,
+  isFirstChunk: boolean = true,
+  chunkIndex: number = 0
+): Promise<string> {
+  // Use the appropriate system prompt based on content type and chunk position
+  let systemPrompt: string;
+
+  if (isBlogPost) {
+    systemPrompt = BLOG_TRANSLATION_SYSTEM_PROMPT;
+  } else if (isFirstChunk || chunkIndex === 0) {
+    // First chunk of TypeScript file (contains export declaration)
+    systemPrompt = TRANSLATION_FILE_SYSTEM_PROMPT;
+  } else {
+    // Subsequent chunks of TypeScript file (content only, no export)
+    systemPrompt = TRANSLATION_CONTENT_CHUNK_SYSTEM_PROMPT;
+  }
+
+  // Format the system prompt with language information
+  let formattedSystemPrompt = systemPrompt
     .replace('{sourceLanguage}', sourceLanguage)
-    .replace('{targetLanguage}', targetLanguage)
-    .replace('{content}', content);
+    .replace('{targetLanguage}', targetLanguage);
 
-  // For translation files, also replace the target locale code
+  // For translation files, also replace the target locale code if needed
   if (!isBlogPost && targetLocale) {
-    formattedPrompt = formattedPrompt.replace(/\{targetLocale\}/g, targetLocale);
+    formattedSystemPrompt = formattedSystemPrompt.replace(/\{targetLocale\}/g, targetLocale);
   }
 
   try {
-    console.log(`🔄 Translating from ${sourceLanguage} to ${targetLanguage}...`);
-
     const response = await openai.chat.completions.create({
-      model: 'gpt-4o-mini', // Using the most capable model for best translation quality
+      model: AZURE_OPENAI_DEPLOYMENT,
       messages: [
         {
           role: 'system',
-          content:
-            'You are a professional translator with expertise in technical content, marketing copy, and software localization.',
+          content: formattedSystemPrompt,
         },
         {
           role: 'user',
-          content: formattedPrompt,
+          content: content, // Only the content to translate, no additional instructions
         },
       ],
-      temperature: 0.3, // Low temperature for consistent, accurate translations
-      max_tokens: 8000, // Increased to handle large translation files
+      temperature: 0.3,
+      max_tokens: 16384, // Increased to maximum for GPT-4o
     });
 
     const translatedContent = response.choices[0]?.message?.content;
 
     if (!translatedContent) {
-      throw new Error('No translation received from OpenAI API');
+      throw new Error('No translation received from Azure OpenAI API');
     }
 
     return translatedContent.trim();
@@ -422,7 +657,10 @@ Examples:
   bun run scripts/i18n-ai-translator.ts translations
 
 Environment Variables:
-  OPENAI_API_KEY - Your OpenAI API key (required)
+  AZURE_OPENAI_API_KEY - Your Azure OpenAI API key (required)
+  AZURE_OPENAI_ENDPOINT - Your Azure OpenAI endpoint (required)
+  AZURE_OPENAI_API_VERSION - Your Azure OpenAI API version (optional, defaults to '2024-04-01-preview')
+  AZURE_OPENAI_DEPLOYMENT - Your Azure OpenAI deployment (optional, defaults to 'gpt-4o')
         `);
         break;
     }

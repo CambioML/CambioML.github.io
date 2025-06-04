@@ -5,6 +5,7 @@ import { useProductionContext } from './ProductionContext';
 import updateQuota from '@/app/actions/updateQuota';
 import { AxiosError } from 'axios';
 import useAccountStore from '@/app/hooks/useAccountStore';
+import { useTranslation } from '@/lib/use-translation';
 
 const QUOTA_YELLOW_THRESHOLD = 50;
 const QUOTA_ORANGE_THRESHOLD = 25;
@@ -20,6 +21,7 @@ const QuotaDisplay = ({ userId, isCollapsed }: QuotaDisplayProps) => {
   const { apiURL } = useProductionContext();
   const [isLoading, setIsLoading] = useState(false);
   const { apiKeys } = useAccountStore();
+  const { t } = useTranslation();
   const quotaPercent = (remainingQuota / totalQuota) * 100;
 
   const handleRefresh = async () => {
@@ -70,7 +72,9 @@ const QuotaDisplay = ({ userId, isCollapsed }: QuotaDisplayProps) => {
   return (
     <div className="w-full flex flex-col items-center pt-2">
       <div className="w-full flex justify-between items-center mb-2">
-        <h2 className={`font-semibold ${fileCollapsed ? 'inline lg:hidden' : 'inline'} text-lg`}>Quota</h2>
+        <h2 className={`font-semibold ${fileCollapsed ? 'inline lg:hidden' : 'inline'} text-lg`}>
+          {t.playground.quota.title}
+        </h2>
         <div
           className="flex items-center text-neutral-600 justify-center bg-white rounded-md w-[30px] h-[30px] hover:bg-neutral-100 hover:text-neutral-800 hover:border-2 shrink-0 cursor-pointer"
           onClick={handleRefresh}
@@ -81,7 +85,7 @@ const QuotaDisplay = ({ userId, isCollapsed }: QuotaDisplayProps) => {
       {totalQuota === 0 || isLoading ? (
         <>
           <div className={`w-full bg-neutral-300 rounded-full h-2.5 animate-pulse`}> &nbsp;</div>
-          <span className="text-xs mt-1">{`--/-- pages`}</span>
+          <span className="text-xs mt-1">{`--/-- ${t.playground.quota.pages}`}</span>
         </>
       ) : (
         <>
@@ -94,7 +98,7 @@ const QuotaDisplay = ({ userId, isCollapsed }: QuotaDisplayProps) => {
             ></div>
           </div>
           <span className="text-xs mt-1">
-            {`${remainingQuota}/${totalQuota}`} {!isCollapsed && ' pages'}
+            {`${remainingQuota}/${totalQuota}`} {!isCollapsed && ` ${t.playground.quota.pages}`}
           </span>
         </>
       )}

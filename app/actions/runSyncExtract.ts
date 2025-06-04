@@ -1,6 +1,6 @@
 import axios from 'axios';
 import getApiKeysForUser from './account/getApiKeysForUser';
-import { ApiKey } from '../hooks/useAccountStore';
+import { ApiKey } from '@/app/hooks/useAccountStore';
 
 interface IParams {
   userId: string;

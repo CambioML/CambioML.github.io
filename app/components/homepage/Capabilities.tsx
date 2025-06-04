@@ -2,26 +2,10 @@
 
 import '@/app/theme.css';
 import { motion } from 'framer-motion';
+import { useTranslation } from '@/lib/use-translation';
 import Container from '../Container';
 import ProductHunt from '../dark/navbar/ProductHunt';
 import AiTools from '../dark/navbar/AiTools';
-
-const capabilities = [
-  {
-    description:
-      'Privacy Protection: Activate the "Remove Private Information" feature, and AnyParser will automatically redact P.I.I. during the document extraction.',
-  },
-  {
-    description: 'You can instruct the model to include or omit page numbers, headers, footers, figures, charts, etc.',
-  },
-  {
-    description: `AnyParser doesn't just extract text and tables, it also retrieves figures, charts, and footnotes packed with vital information 2X faster and 5X more cost efficient`,
-  },
-  {
-    description:
-      'Bid farewell to jumbled tables and chaotic layouts that plague traditional OCR-based models with a 2X more precision and 2.5X more recall than industry average.',
-  },
-];
 
 interface CapabilityCardProps {
   description: string;
@@ -43,6 +27,8 @@ const CapabilityCard = ({ description, index }: CapabilityCardProps) => {
 };
 
 const Capabilities = () => {
+  const { t } = useTranslation();
+
   return (
     <section className="theme-dark h-fit w-full pt-20">
       <Container styles="relative z-10 h-fit lg:h-[600px]">
@@ -54,13 +40,13 @@ const Capabilities = () => {
             viewport={{ once: true }}
           >
             <h1 className="text-center">
-              <span className="bg-gradient">AnyParser&apos;s Capabilities</span>
+              <span className="bg-gradient">{t.homepage.capabilities.title}</span>
             </h1>
           </motion.div>
 
           <div className="pt-20 gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-start justify-items-center w-full">
-            {capabilities.map((capability, i) => (
-              <CapabilityCard key={i} index={i} {...capability} />
+            {t.homepage.capabilities.items.map((description: string, i: number) => (
+              <CapabilityCard key={i} index={i} description={description} />
             ))}
           </div>
 

@@ -7,20 +7,21 @@ import { usePostHog } from 'posthog-js/react';
 
 interface PlaygroundTabProps {
   label: string;
+  tabKey: string;
   icon?: Icon;
 }
 
 const unselectedStyle = 'text-neutral-500 hover:bg-neutral-100 border-b-2';
 const selectedStyle = 'text-neutral-800 border-2 border-b-0';
 
-const PlaygroundTab = ({ label, icon: Icon }: PlaygroundTabProps) => {
+const PlaygroundTab = ({ label, tabKey, icon: Icon }: PlaygroundTabProps) => {
   const { selectedFileIndex, files, updateSelectedFile, loggedIn } = usePlaygroundStore();
   const [selectedFile, setSelectedFile] = useState<PlaygroundFile>();
   const posthog = usePostHog();
   const handleClick = () => {
     if (loggedIn) {
-      updateSelectedFile('activeTab', label);
-      const module = label.replace(' ', '_').toLocaleLowerCase();
+      updateSelectedFile('activeTab', tabKey);
+      const module = tabKey.replace(' ', '_').toLocaleLowerCase();
       const posthogLabel = `playground.${module}.tab`.toLocaleLowerCase();
       posthog.capture(posthogLabel, { route: '/playground', module: module });
     }
@@ -33,12 +34,12 @@ const PlaygroundTab = ({ label, icon: Icon }: PlaygroundTabProps) => {
   }, [selectedFileIndex, files]);
   return (
     <div
-      className={`text-xl flex items-center justify-center gap-2 cursor-pointer rounded-t-xl font-semibold  transition duration-300 border-solid ${selectedFile?.activeTab === label ? selectedStyle : unselectedStyle}`}
+      className={`text-xl flex items-center justify-center gap-2 cursor-pointer rounded-t-xl font-semibold  transition duration-300 border-solid ${selectedFile?.activeTab === tabKey ? selectedStyle : unselectedStyle}`}
       onClick={handleClick}
     >
       <h2>{label}</h2>
       {Icon && <Icon size={24} />}
-      <InfoButton infoType={label} />
+      <InfoButton infoType={tabKey} />
     </div>
   );
 };
