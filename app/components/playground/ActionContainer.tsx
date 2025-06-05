@@ -36,7 +36,7 @@ const ActionContainer = () => {
             </div>
           </div>
         ) : (
-          <div className="h-full border-solid border-2 border-t-0 border-neutral-200 rounded-b-xl p-4 pt-0 box-border">
+          <div className="h-[712px] border-solid border-2 border-t-0 border-neutral-200 rounded-b-xl p-4 pt-0 box-border">
             {(selectedFile?.activeTab === PlaygroundTabs.PLAIN_TEXT || selectedFileIndex === null) && (
               <ExtractContainer />
             )}

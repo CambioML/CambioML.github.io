@@ -10,12 +10,15 @@ const LoginButton = () => {
   const { t } = useTranslation();
 
   const handleAuth0Login = () => {
+    // Save current URL to localStorage before redirecting to Auth0
+    localStorage.setItem('auth_redirect_url', window.location.pathname + window.location.search);
+
     // posthog.capture('playground_login', { route: '/playground' });
     loginWithRedirect({
       authorizationParams: {
         scope: 'openid profile email',
       },
-      appState: { returnTo: window.location.pathname }, // Send user back to the current page
+      appState: { returnTo: '/login/callback' }, // Send user back to the current page
     });
   };
   return (

@@ -66,7 +66,7 @@ export function LanguageSwitcher({ className = '', theme = 'light' }: LanguageSw
             exit={{ opacity: 0, y: -10, scale: 0.95 }}
             transition={{ duration: 0.15 }}
             className={cn(
-              'absolute top-full right-0 mt-2 w-48 rounded-lg shadow-xl z-50 max-h-[400px] overflow-y-auto overscroll-contain',
+              'absolute top-full right-0 mt-2 w-48 rounded-lg shadow-xl z-40 max-h-[400px] overflow-y-auto overscroll-contain',
               theme === 'dark'
                 ? 'bg-black/90 backdrop-blur-lg border border-white/10'
                 : 'bg-white border border-gray-200'

@@ -41,7 +41,7 @@ const HowItWorks = () => {
 
   return (
     <section className="theme-dark h-fit w-full">
-      <Container styles="relative z-10 h-fit">
+      <Container styles="h-fit">
         <div className="w-full h-fit grid grid-cols-1 lg:grid-cols-[400px_1fr]">
           <div className="w-full h-full flex flex-col items-center justify-center px-10">
             <motion.div

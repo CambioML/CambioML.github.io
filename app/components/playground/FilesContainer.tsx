@@ -4,18 +4,12 @@ import { CaretLeft, FileDashed } from '@phosphor-icons/react';
 import FileItem from './FileItem';
 import LogoutButton from '../auth/LogoutButton';
 import QuotaDisplay from './QuotaDisplay';
-import { useProductionContext } from './ProductionContext';
 import { CaretRight } from '@phosphor-icons/react/dist/ssr';
 import { useTranslation } from '@/lib/use-translation';
 
 const FilesContainer = () => {
-  const { files, loggedIn, userId, fileCollapsed, setFileCollapsed } = usePlaygroundStore();
-  const { isProduction } = useProductionContext();
   const { t } = useTranslation();
-
-  const logoutUrl = isProduction
-    ? process.env.NEXT_PUBLIC_LOGOUT_URL_PLAYGROUND
-    : process.env.NEXT_PUBLIC_LOGOUT_URL_PLAYGROUND_PRE_PROD;
+  const { files, loggedIn, userId, fileCollapsed, setFileCollapsed } = usePlaygroundStore();
 
   return (
     <div className={`h-[500px] lg:h-full w-full min-h-[200px] grid lg:grid-cols-[1fr_20px]`}>
@@ -41,7 +35,7 @@ const FilesContainer = () => {
         {loggedIn && (
           <>
             <div className="row-span-1 h-full border-y-2 py-2 w-full flex flex-col gap-2 items-center justify-center">
-              <LogoutButton logoutUrl={logoutUrl || 'https://www.cambioml.com/playground'} collapsed={fileCollapsed} />
+              <LogoutButton collapsed={fileCollapsed} />
             </div>
             <QuotaDisplay userId={userId} isCollapsed={fileCollapsed} />
           </>

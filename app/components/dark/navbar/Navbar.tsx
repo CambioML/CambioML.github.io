@@ -50,7 +50,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`fixed w-full z-50 flex flex-col justify-center transition-all duration-300 ease-in-out ${
+      className={`fixed w-full z-40 flex flex-col justify-center transition-all duration-300 ease-in-out ${
         isScrolled ? 'bg-background/80 backdrop-blur-lg border-b border-border-1 h-[75px]' : 'bg-transparent h-[100px]'
       }`}
     >

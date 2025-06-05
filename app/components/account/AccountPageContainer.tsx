@@ -40,7 +40,6 @@ interface ProfileContainerProps {
   loginButton?: React.FC;
   profilePic?: string;
   phrase: string;
-  logoutUrl?: string;
   disabled?: boolean;
 }
 
@@ -49,7 +48,6 @@ const ProfileContainer = ({
   loginButton: LoginButton,
   profilePic,
   phrase,
-  logoutUrl,
   disabled,
 }: ProfileContainerProps) => {
   return (
@@ -65,7 +63,7 @@ const ProfileContainer = ({
         <h1 className="text-xl text-neutral-800">{phrase}</h1>
       </div>
       <div className="w-full h-[50px] flex items-center justify-center">
-        {LogoutButton && <LogoutButton logoutUrl={logoutUrl || ''} disabled={disabled} />}
+        {LogoutButton && <LogoutButton disabled={disabled} />}
         {LoginButton && <LoginButton />}
       </div>
     </div>
@@ -84,10 +82,6 @@ const AccountPageContainer = () => {
   const router = useRouter();
   const [emailVerified, setEmailVerified] = useState(false);
   const { t } = useTranslation();
-
-  const logoutUrl = isProduction
-    ? process.env.NEXT_PUBLIC_LOGOUT_URL_ACCOUNT
-    : process.env.NEXT_PUBLIC_LOGOUT_URL_ACCOUNT_PRE_PROD;
 
   const handleGenerateAPIKey = async () => {
     setIsLoading(true);
@@ -168,7 +162,6 @@ const AccountPageContainer = () => {
                   logoutButton={LogoutButton}
                   profilePic={profile.picture}
                   phrase={`${t.account.profile.welcome}, ${profile.name}`}
-                  logoutUrl={logoutUrl || 'https://www.cambioml.com/account'}
                   disabled={isLoading}
                 />
               )}

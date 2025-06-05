@@ -31,7 +31,7 @@ const Capabilities = () => {
 
   return (
     <section className="theme-dark h-fit w-full pt-20">
-      <Container styles="relative z-10 h-fit lg:h-[600px]">
+      <Container styles="h-fit lg:h-[600px]">
         <div className="w-full h-full flex flex-col items-center justify-start px-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

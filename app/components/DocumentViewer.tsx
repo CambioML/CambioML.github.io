@@ -14,16 +14,18 @@ type DocumentViewerProps = {
 };
 
 const DocumentViewer: React.FC<DocumentViewerProps> = ({ fileType, fileUrl }) => {
-  const defaultLayoutPluginInstance = defaultLayoutPlugin();
+  const defaultLayoutPluginInstance = defaultLayoutPlugin({
+    sidebarTabs: () => [],
+  });
 
   const renderContent = () => {
     if (fileType === 'application/pdf') {
       return (
-        <Worker workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}>
-          <div className="h-full">
+        <div className="h-full w-full">
+          <Worker workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}>
             <Viewer fileUrl={fileUrl} plugins={[defaultLayoutPluginInstance]} />
-          </div>
-        </Worker>
+          </Worker>
+        </div>
       );
     } else if (
       fileType === 'application/vnd.openxmlformats-officedocument.presentationml.presentation' ||
@@ -31,14 +33,14 @@ const DocumentViewer: React.FC<DocumentViewerProps> = ({ fileType, fileUrl }) =>
       fileType === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     ) {
       return (
-        <div className="h-full w-full border-[1px] rounded-lg">
+        <div className="h-[80vh] w-full border-[1px] rounded-lg">
           <ComingSoonBanner text="Preview for Office Files coming soon" />
           {/* <DocViewer documents={[{ uri: fileUrl, fileName: fileName }]} pluginRenderers={DocViewerRenderers} /> */}
         </div>
       );
     } else if (fileType.startsWith('image/')) {
       return (
-        <div className="h-full w-full border-[1px] rounded-lg">
+        <div className="h-auto w-full border-[1px] rounded-lg">
           <Image
             alt="Document"
             src={fileUrl}
