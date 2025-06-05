@@ -13,7 +13,7 @@ interface PlaygroundPageContainerProps {
 const PlaygroundPageContainer = ({ production }: PlaygroundPageContainerProps) => {
   const { t } = useTranslation();
   // Always redirect to the callback page for consistent handling
-  const redirectUri = `${window.location.origin}/login/callback`;
+  const redirectUri = `${typeof window !== 'undefined' ? window.location.origin : ''}/login/callback`;
 
   return (
     <Auth0Provider

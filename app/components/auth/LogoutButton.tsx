@@ -17,7 +17,7 @@ const LogoutButton = ({ disabled, collapsed }: LogoutButtonProps) => {
     localStorage.setItem('auth_redirect_url', window.location.pathname + window.location.search);
 
     logout({
-      logoutParams: { returnTo: `${window.location.origin}/logout/callback` },
+      logoutParams: { returnTo: `${typeof window !== 'undefined' ? window.location.origin : ''}/logout/callback` },
     });
   };
 
