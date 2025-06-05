@@ -174,10 +174,10 @@ const ExtractKeyValuePairContainer = () => {
 
   return (
     <div className="h-full w-full pt-4 relative">
-      <div className="w-[calc(90%-11rem)] h-full overflow-auto overscroll-contain">
+      <div className="w-[calc(90%-11rem)] h-full">
         <ExtractKeyValuePairTutorial />
         {fileUrl && (hideResult || !selectedFile?.extractKeyValueResult) && (
-          <div>
+          <div className="h-full">
             <DocumentViewer
               fileType={selectedFile?.file instanceof File ? selectedFile.file.type : 'pdf'}
               fileUrl={fileUrl}

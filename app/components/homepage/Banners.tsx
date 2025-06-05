@@ -69,7 +69,7 @@ const Banners = () => {
 
   return (
     <section className="theme-dark h-fit w-full pt-20">
-      <Container styles="relative z-10 min-h-[800px] h-fit pb-20">
+      <Container styles="min-h-[800px] h-fit pb-20">
         <div className="w-full h-full flex flex-col items-center justify-start px-10 gap-8">
           {t.homepage.banners.map(
             (banner: { title: string; description: string; actionLabel: string }, index: number) => (

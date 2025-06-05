@@ -13,7 +13,7 @@ interface PageHeroProps {
 const PageHero = ({ title, description, button, short }: PageHeroProps) => {
   return (
     <div className={`w-full h-full overflow-hidden relative`}>
-      <Container styles={`relative z-10 ${short ? 'min-h-[200px] mt-24' : 'h-[55vh] min-h-[650px]'} w-full`}>
+      <Container styles={`${short ? 'min-h-[200px] mt-24' : 'h-[55vh] min-h-[650px]'} w-full`}>
         <div className="flex justify-center items-center h-full w-full">
           <div className="max-w-[800px] flex flex-col items-center justify-center gap-20 h-full">
             <div>

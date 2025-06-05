@@ -24,7 +24,7 @@ const Hero = () => {
         {/* Main content */}
         <AnimatePresence>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <Container styles="relative z-10 h-fit min-h-[650px] py-10 lg:py-20">
+            <Container styles="h-fit min-h-[650px] py-10 lg:py-20">
               <div className="w-full h-fit relative mb-4">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}

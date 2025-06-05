@@ -33,7 +33,6 @@ const PlaygroundContainer = () => {
 
         <div
           className={`
-            relative z-10
             w-full
             lg:h-[80vh]
             grid

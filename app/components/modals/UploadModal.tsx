@@ -5,7 +5,6 @@ import { X, CloudArrowUp, MonitorArrowUp } from '@phosphor-icons/react';
 import { useCallback, useEffect, useState } from 'react';
 import { useOutsideClickModal } from '@/app/hooks/useOutsideClickModal';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
-import LoginComponent from '../auth/Login';
 import Dropzone from '../playground/Dropzone';
 import { toast } from 'react-hot-toast';
 import PulsingIcon from '../PulsingIcon';
@@ -142,7 +141,7 @@ const UploadModal = () => {
 
   return (
     <div
-      className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70"
+      className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[100] outline-none focus:outline-none bg-neutral-800/70"
       id="upload-modal"
     >
       <div className="relative w-full md:w-4/5 max-w-screen-2xl my-6 mx-auto h-full lg:h-auto md:h-auto">
@@ -161,8 +160,7 @@ const UploadModal = () => {
                 <X size={24} />
               </button>
             </div>
-            <div className="flex items-center justify-center h-[600px] lg:h-[90vh] w-auto p-10 max-h-[900px]">
-              {uploadModal.uploadModalState === UploadModalState.LOGIN && <LoginComponent />}
+            <div className="z-50 flex items-center justify-center h-[600px] lg:h-[90vh] w-auto p-10 max-h-[900px]">
               {uploadModal.uploadModalState === UploadModalState.ADD_FILES && (
                 <div className="w-full h-full flex flex-col justify-center items-center gap-4 ">
                   <Dropzone />

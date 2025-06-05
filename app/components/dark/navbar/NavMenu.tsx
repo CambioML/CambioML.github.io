@@ -51,7 +51,7 @@ const NavMenu = ({ label, links, url }: NavMenuProps) => {
       </div>
       {isOpen && (
         <div
-          className="absolute rounded-2xl w-[200px] bg-zinc-900/95 backdrop-blur-xl border border-blue-500/30 overflow-hidden right-0 top-12 text-sm z-50 shadow-[0_0_20px_4px_rgba(0,0,0,0.5)] shadow-blue-500/20"
+          className="absolute rounded-2xl w-[200px] bg-zinc-900/95 backdrop-blur-xl border border-blue-500/30 overflow-hidden right-0 top-12 text-sm z-40 shadow-[0_0_20px_4px_rgba(0,0,0,0.5)] shadow-blue-500/20"
           ref={ref}
         >
           <div className="flex flex-col cursor-pointer">

@@ -32,7 +32,7 @@ const customers = [
 const Customers = () => {
   return (
     <div className="h-full w-full py-20">
-      <Container styles="relative z-10 h-[200px]">
+      <Container styles="h-[200px]">
         <div className="w-full h-full flex flex-col items-center justify-start px-10">
           <Heading title="Leading Companies Build with AnyParser" center />
           <div className="py-5 flex gap-20 max-w-800 align-items justify-items h-[100px] w-full lg:w-max overflow-auto">

@@ -12,9 +12,8 @@ interface PlaygroundPageContainerProps {
 
 const PlaygroundPageContainer = ({ production }: PlaygroundPageContainerProps) => {
   const { t } = useTranslation();
-  const redirectUri = production
-    ? process.env.NEXT_PUBLIC_AUTH0_REDIRECT_URI
-    : process.env.NEXT_PUBLIC_PRE_PROD_AUTH0_REDIRECT_URI;
+  // Always redirect to the callback page for consistent handling
+  const redirectUri = `${window.location.origin}/login/callback`;
 
   return (
     <Auth0Provider
@@ -29,7 +28,7 @@ const PlaygroundPageContainer = ({ production }: PlaygroundPageContainerProps) =
       <ProductionProvider initialValue={production}>
         <div className="relative min-h-screen w-full overflow-hidden bg-gray-50">
           {/* Main content */}
-          <div className="relative z-10 py-10 w-full h-fit flex flex-col justify-center items-center">
+          <div className="py-10 w-full h-fit flex flex-col justify-center items-center">
             <PageHero title={t.playground.title} description={t.playground.description} short />
             <PlaygroundContainer />
             <UploadModal />
