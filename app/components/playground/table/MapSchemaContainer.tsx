@@ -433,7 +433,7 @@ const MapSchemaContainer = () => {
                 </div>
               </div>
               <div
-                className={`row-span-1 h-full border-b-[1px] border-neutral-200 flex items-center justify-center gap-2 h-fit pb-2`}
+                className={`row-span-1 border-b-[1px] border-neutral-200 flex items-center justify-center gap-2 h-fit pb-2`}
               >
                 <div className={`w-full h-fit gap-4 grid grid-cols-[1fr_150px]`}>
                   <InputBasic

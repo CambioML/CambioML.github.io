@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import Markdown, { Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { useTranslation } from '@/lib/use-translation';
 
 interface ResultContentProps {
   extractResult: QueryResult;
@@ -40,6 +41,7 @@ const ResultContent = ({ extractResult }: ResultContentProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [pageHeights, setPageHeights] = useState<number[]>([]);
   const currentPageRef = useRef(resultZoomModal.page);
+  const { t } = useTranslation();
 
   const handleScroll = () => {
     if (containerRef.current && pageHeights.length > 0) {
@@ -126,7 +128,9 @@ const ResultContent = ({ extractResult }: ResultContentProps) => {
         <CaretLeft size={18} weight="bold" />
       </div>
       <div className="absolute bottom-5 right-5 z-10 p-2 rounded-full text-neutral-600 bg-white font-semibold">
-        Page {resultZoomModal.page + 1} of {extractResult.length}
+        {t.playground.results.pageOf
+          .replace('{page}', String(resultZoomModal.page + 1))
+          .replace('{total}', String(extractResult.length))}
       </div>
       <div
         ref={containerRef}
@@ -177,6 +181,7 @@ const ResultContainer = ({ extractResult }: ResultContainerProps) => {
   const { files, selectedFileIndex } = usePlaygroundStore();
   const resultZoomModal = useResultZoomModal();
   const compareModal = useCompareModal();
+  const { t } = useTranslation();
 
   const handleZoomClick = () => {
     resultZoomModal.setContent(
@@ -227,7 +232,7 @@ const ResultContainer = ({ extractResult }: ResultContainerProps) => {
   const handleCopyClick = () => {
     const text = extractResult.join('\n\n');
     navigator.clipboard.writeText(text);
-    toast.success('Result copied to clipboard');
+    toast.success(t.messages.success.resultCopied);
   };
 
   useEffect(() => {
@@ -242,7 +247,7 @@ const ResultContainer = ({ extractResult }: ResultContainerProps) => {
   }, [files, selectedFileIndex]);
 
   return (
-    <div className="w-full h-[calc(50vh+2rem)] relative">
+    <div className="w-full h-[calc(100%-60px)] relative">
       <div style={{ display: 'none' }} id="raw-extract-result">
         {JSON.stringify(extractResult)}
       </div>
@@ -250,19 +255,19 @@ const ResultContainer = ({ extractResult }: ResultContainerProps) => {
         className="absolute top-4 right-5 z-10 cursor-pointer px-4 py-2 rounded-full text-neutral-600 bg-neutral-100 hover:text-neutral-800 hover:bg-neutral-200 font-semibold flex items-center gap-1"
         onClick={handleZoomClick}
       >
-        Expand <FrameCorners size={18} weight="bold" />
+        {t.playground.results.expand} <FrameCorners size={18} weight="bold" />
       </div>
       <div
         className="absolute top-16 right-5 z-10 cursor-pointer p-2 rounded-full text-neutral-600 bg-neutral-100 hover:text-neutral-800 hover:bg-neutral-200 font-semibold flex items-center gap-1"
         onClick={handleCompareClick}
       >
-        Compare <Files size={18} weight="bold" />
+        {t.playground.results.compare} <Files size={18} weight="bold" />
       </div>
       <div
         className="absolute top-28 right-5 z-10 cursor-pointer px-4 py-2 rounded-full text-neutral-600 bg-neutral-100 hover:text-neutral-800 hover:bg-neutral-200 font-semibold flex items-center gap-1"
         onClick={handleCopyClick}
       >
-        Copy <Copy size={18} weight="bold" />
+        {t.playground.results.copy} <Copy size={18} weight="bold" />
       </div>
       <ResultContent extractResult={extractResult} />
     </div>

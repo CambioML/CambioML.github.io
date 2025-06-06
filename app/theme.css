@@ -8,6 +8,16 @@
   --border-1: rgb(34, 34, 34);
   --card-1: rgb(10, 10, 10);
 
+  /* Table-specific color variables */
+  --table-border: rgba(156, 163, 175, 0.8); /* gray-400 with higher opacity for better visibility */
+  --table-header-bg: #1f2937; /* solid gray-800 for dark header */
+  --table-header-text: #ffffff; /* pure white for maximum contrast */
+  --table-cell-bg: #111827; /* solid gray-900 for dark background */
+  --table-cell-bg-alt: #1f2937; /* solid gray-800 for alternating rows */
+  --table-cell-text: #f9fafb; /* gray-50 for better readability */
+  --table-hover-bg: #374151; /* solid gray-700 for darker hover state */
+  --table-accent: rgba(112, 190, 250, 0.4); /* stronger accent visibility */
+
   --scroll-duration: 10;
   --scroll-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
 }
@@ -46,6 +56,168 @@
   font-family: 'Inter Tight', sans-serif;
 }
 
+/* Override text-neutral-500 to text-gray-100 in dark theme for better readability */
+.theme-dark .text-neutral-500 {
+  color: rgb(243 244 246); /* text-gray-100 equivalent */
+}
+
+/* Table styling for dark theme */
+.theme-dark table {
+  border-collapse: collapse;
+  background-color: var(--table-cell-bg);
+  border: 1px solid var(--table-border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
+.theme-dark th {
+  background-color: var(--table-header-bg);
+  color: var(--table-header-text);
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 16px;
+  border: 1px solid var(--table-border);
+  position: relative;
+}
+
+.theme-dark th::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--light), transparent);
+}
+
+.theme-dark td {
+  color: var(--table-cell-text);
+  padding: 10px 16px;
+  border: 1px solid var(--table-border);
+  background-color: var(--table-cell-bg);
+  transition: background-color 0.15s ease;
+}
+
+.theme-dark tr:nth-child(even) td {
+  background-color: var(--table-cell-bg-alt);
+}
+
+.theme-dark tr:hover td {
+  background-color: var(--table-hover-bg);
+}
+
+/* Enhanced markdown table styling in dark theme */
+.theme-dark .markdown table {
+  border-collapse: collapse;
+  background-color: var(--table-cell-bg);
+  border: 2px solid var(--table-border);
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+  margin: 1.5rem 0;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.theme-dark .markdown th {
+  background: var(--table-header-bg);
+  color: var(--table-header-text);
+  font-weight: 600;
+  text-align: left;
+  padding: 14px 18px;
+  border: 1px solid var(--table-border);
+  position: relative;
+  font-size: 0.95rem;
+}
+
+.theme-dark .markdown th::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--light), transparent);
+}
+
+.theme-dark .markdown td {
+  color: var(--table-cell-text);
+  padding: 12px 18px;
+  border: 1px solid var(--table-border);
+  background-color: var(--table-cell-bg);
+  transition: all 0.15s ease;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.theme-dark .markdown tr:nth-child(even) td {
+  background-color: var(--table-cell-bg-alt);
+}
+
+.theme-dark .markdown tr:hover td {
+  background-color: var(--table-hover-bg);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.theme-dark .markdown tbody tr:first-child td {
+  border-top: 2px solid var(--table-accent);
+}
+
+/* Table containers and wrappers */
+.theme-dark .table-container {
+  overflow-x: auto;
+  border-radius: 8px;
+  background-color: var(--table-cell-bg);
+  border: 1px solid var(--table-border);
+}
+
+/* Direct HTML table styling for rendered content */
+.theme-dark div[dangerouslySetInnerHTML] table,
+.theme-dark #result-container table {
+  border-collapse: collapse !important;
+  background-color: var(--table-cell-bg) !important;
+  border: 2px solid var(--table-border) !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  margin: 1.5rem 0 !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4) !important;
+}
+
+.theme-dark div[dangerouslySetInnerHTML] th,
+.theme-dark #result-container th {
+  background: var(--table-header-bg) !important;
+  color: var(--table-header-text) !important;
+  font-weight: 600 !important;
+  text-align: left !important;
+  padding: 14px 18px !important;
+  border: 1px solid var(--table-border) !important;
+  position: relative !important;
+  font-size: 0.95rem !important;
+}
+
+.theme-dark div[dangerouslySetInnerHTML] td,
+.theme-dark #result-container td {
+  color: var(--table-cell-text) !important;
+  padding: 12px 18px !important;
+  border: 1px solid var(--table-border) !important;
+  background-color: var(--table-cell-bg) !important;
+  transition: all 0.15s ease !important;
+  font-size: 0.9rem !important;
+  line-height: 1.5 !important;
+}
+
+.theme-dark div[dangerouslySetInnerHTML] tr:nth-child(even) td,
+.theme-dark #result-container tr:nth-child(even) td {
+  background-color: var(--table-cell-bg-alt) !important;
+}
+
+.theme-dark div[dangerouslySetInnerHTML] tr:hover td,
+.theme-dark #result-container tr:hover td {
+  background-color: var(--table-hover-bg) !important;
+}
+
 /* Custom gradient utility class */
 .bg-gradient {
   display: inline-block;
@@ -70,6 +242,27 @@
 
 .text-foreground {
   color: var(--foreground);
+}
+
+/* Table-specific utility classes */
+.border-table {
+  border-color: var(--table-border);
+}
+
+.bg-table-header {
+  background-color: var(--table-header-bg);
+}
+
+.bg-table-cell {
+  background-color: var(--table-cell-bg);
+}
+
+.text-table-header {
+  color: var(--table-header-text);
+}
+
+.text-table-cell {
+  color: var(--table-cell-text);
 }
 
 /* Marquee animations - Forward */

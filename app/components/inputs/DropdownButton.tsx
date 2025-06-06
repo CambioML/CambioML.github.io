@@ -1,5 +1,6 @@
 import { CaretDown, CaretUp, Icon } from '@phosphor-icons/react';
 import React, { useState, useRef } from 'react';
+import { useTranslation } from '@/lib/use-translation';
 
 export interface Option {
   value: string;
@@ -17,6 +18,7 @@ interface DropdownButtonProps {
 const DropdownButton = ({ options, disabled = false, optionLabel, icon: Icon }: DropdownButtonProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   const toggleDropdown = () => {
     if (!disabled) {
@@ -36,7 +38,7 @@ const DropdownButton = ({ options, disabled = false, optionLabel, icon: Icon }: 
         onClick={toggleDropdown}
       >
         {Icon && <Icon size={24} />}
-        <div className="p-2 relative mr-8">{optionLabel ? optionLabel : 'Select an option'}</div>
+        <div className="p-2 relative mr-8">{optionLabel ? optionLabel : t.common.selectOption}</div>
         {isOpen ? (
           <CaretUp size={24} className="absolute right-2 top-1/4" />
         ) : (

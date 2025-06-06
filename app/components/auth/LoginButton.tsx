@@ -6,7 +6,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useTranslation } from '@/lib/use-translation';
 
 const LoginButton = () => {
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithPopup } = useAuth0();
   const { t } = useTranslation();
 
   const handleAuth0Login = () => {
@@ -14,11 +14,10 @@ const LoginButton = () => {
     localStorage.setItem('auth_redirect_url', window.location.pathname + window.location.search);
 
     // posthog.capture('playground_login', { route: '/playground' });
-    loginWithRedirect({
+    loginWithPopup({
       authorizationParams: {
         scope: 'openid profile email',
       },
-      appState: { returnTo: '/login/callback' }, // Send user back to the current page
     });
   };
   return (
