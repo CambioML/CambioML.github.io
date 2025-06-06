@@ -372,7 +372,12 @@ const MapTableSelectContainer = () => {
             )}
           </div>
           <div className="col-span-2 flex gap-4">
-            <Button label={t.playground.table.reRunExtract} onClick={handleRetry} small labelIcon={ArrowsCounterClockwise} />
+            <Button
+              label={t.playground.table.reRunExtract}
+              onClick={handleRetry}
+              small
+              labelIcon={ArrowsCounterClockwise}
+            />
             <Button
               label={t.playground.table.mapToSchema}
               onClick={handleContinueClick}
