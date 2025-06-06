@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import type { BlogPost } from '@/lib/markdown';
 import FadeIn from '@/app/components/dark/animations/fade-in';
+import PlaygroundContainer from '../playground/PlaygroundContainer';
 
 interface BlogCardProps {
   post: BlogPost;

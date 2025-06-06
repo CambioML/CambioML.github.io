@@ -14,6 +14,11 @@
   --cambio-primary: #d1a3a4;
 }
 
+
+table {
+  width: 80%;
+}
+
 html,
 body,
 :root {
@@ -152,6 +157,7 @@ th {
 
 .markdown {
   table {
+    wdith: 80%;
     border-collapse: collapse;
   }
 

@@ -1,10 +1,8 @@
 import { create } from 'zustand';
 
 export enum UploadModalState {
-  LOGIN,
   ADD_FILES,
   UPLOADING,
-  UPLOADED,
 }
 
 interface UploadModalStore {
@@ -20,7 +18,7 @@ interface UploadModalStore {
 export const useUploadModal = create<UploadModalStore>((set) => ({
   isOpen: false,
   image: '',
-  uploadModalState: UploadModalState.LOGIN,
+  uploadModalState: UploadModalState.ADD_FILES,
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),
   setImage: (image) => set({ image }),

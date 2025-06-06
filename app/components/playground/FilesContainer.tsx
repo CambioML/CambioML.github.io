@@ -30,7 +30,7 @@ const FilesContainer = () => {
         </div>
 
         <div className="row-span-1 h-full flex items-center justify-center py-2">
-          {files.length > 0 && <UploadButton small disabled={!loggedIn} collapsed={fileCollapsed} />}
+          {files.length > 0 && <UploadButton small collapsed={fileCollapsed} />}
         </div>
         {loggedIn && (
           <>

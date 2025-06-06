@@ -34,9 +34,12 @@ interface PlaygroundStore {
   loggedIn: boolean;
   totalQuota: number;
   remainingQuota: number;
+  loadingQuota: boolean;
+  pendingAction: (() => void) | null;
   setFileCollapsed: (collapsed: boolean) => void;
   setTotalQuota: (totalQuota: number) => void;
   setRemainingQuota: (remainingQuota: number) => void;
+  setLoadingQuota: (loading: boolean) => void;
   setSelectedFileIndex: (index: number) => void;
   setFiles: (files: File[]) => void;
   setFilesToUpload: (files: File[]) => void;
@@ -44,6 +47,9 @@ interface PlaygroundStore {
   setClientId: (clientId: string) => void;
   setUserId: (userId: string) => void;
   setLoggedIn: (loggedIn: boolean) => void;
+  setPendingAction: (action: (() => void) | null) => void;
+  executePendingAction: () => void;
+  getState: () => PlaygroundStore;
   addFiles: ({ files }: { files: File | File[] }) => void;
   addHTMLFile: (file: string) => void;
   addFilesFormData: (newResponse: PresignedResponse) => void;
@@ -95,7 +101,7 @@ const initialFileState = {
   compareResult: '',
 };
 
-const usePlaygroundStore = create<PlaygroundStore>((set) => ({
+const usePlaygroundStore = create<PlaygroundStore>((set, get) => ({
   modelType: ModelType.PRO,
   extractSettings: {
     removePII: true,
@@ -107,6 +113,7 @@ const usePlaygroundStore = create<PlaygroundStore>((set) => ({
   },
   totalQuota: 0,
   remainingQuota: 0,
+  loadingQuota: true,
   selectedFileIndex: null,
   files: [],
   filesToUpload: [],
@@ -117,6 +124,7 @@ const usePlaygroundStore = create<PlaygroundStore>((set) => ({
   activeTab: '',
   userId: '',
   fileCollapsed: false,
+  pendingAction: null,
   setFileCollapsed: (collapsed) => {
     set({ fileCollapsed: collapsed });
   },
@@ -128,6 +136,9 @@ const usePlaygroundStore = create<PlaygroundStore>((set) => ({
   },
   setRemainingQuota: (remainingQuota) => {
     set({ remainingQuota });
+  },
+  setLoadingQuota: (loading) => {
+    set({ loadingQuota: loading });
   },
   setSelectedFileIndex: (index) => {
     set({ selectedFileIndex: index });
@@ -242,6 +253,19 @@ const usePlaygroundStore = create<PlaygroundStore>((set) => ({
   updateModelType: (modelType) => {
     set({ modelType });
   },
+  setPendingAction: (action: (() => void) | null) => {
+    set({ pendingAction: action });
+  },
+  executePendingAction: () => {
+    set((state) => {
+      if (state.pendingAction) {
+        state.pendingAction();
+        return { pendingAction: null };
+      }
+      return state;
+    });
+  },
+  getState: () => get(),
 }));
 
 export default usePlaygroundStore;

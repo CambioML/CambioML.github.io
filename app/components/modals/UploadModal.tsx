@@ -42,7 +42,7 @@ const UploadModal = () => {
   const posthog = usePostHog();
   const { t } = useTranslation();
 
-  const { loggedIn, filesToUpload, addFiles, setFilesToUpload, files } = usePlaygroundStore();
+  const { filesToUpload, addFiles, setFilesToUpload, files } = usePlaygroundStore();
 
   const [showModal, setShowModal] = useState(uploadModal.isOpen);
 
@@ -62,12 +62,6 @@ const UploadModal = () => {
   }, [uploadModal.isOpen]);
 
   useEffect(() => {
-    if (loggedIn && uploadModal.uploadModalState === UploadModalState.LOGIN) {
-      uploadModal.setUploadModalState(UploadModalState.ADD_FILES);
-    }
-  }, [loggedIn, uploadModal.uploadModalState, uploadModal]);
-
-  useEffect(() => {
     if (uploadModal.uploadModalState === UploadModalState.UPLOADING) {
       filesToUpload.forEach((file) => {
         posthog.capture('playground.upload.start', { route: '/playground', file_type: file.type, module: 'upload' });
@@ -79,7 +73,7 @@ const UploadModal = () => {
         route: '/playground',
         module: 'upload',
       });
-      uploadModal.setUploadModalState(UploadModalState.LOGIN);
+      uploadModal.setUploadModalState(UploadModalState.ADD_FILES);
       handleClose();
       toast.success(t.messages.success.fileUploaded);
     }
@@ -169,8 +163,8 @@ const UploadModal = () => {
                     <span className="text-gray-500">{t.playground.uploadModal.or}</span>
                     <hr className="flex-1 border-t border-gray-300" />
                   </div>
-                  <div className="w-full h-[30vh] min-h-[50px] border-2 bg-gray-100 border-dashed border-gray-300 hover:border-neutral-500 text-xl flex items-center justify-center gap-4 rounded-md">
-                    <MonitorArrowUp size={32} />
+                  <div className="w-full h-[30vh] min-h-[50px] border-2 bg-gray-100 border-dashed border-gray-300 hover:border-neutral-500 text-xl flex items-center justify-center gap-4 rounded-md text-gray-600">
+                    <MonitorArrowUp size={32} className="text-gray-600" />
                     {t.playground.uploadModal.pasteScreenshot}
                   </div>
                   <div className="w-full flex items-center gap-4">

@@ -8,9 +8,9 @@ import { useProductionContext } from './ProductionContext';
 import { useTranslation } from '@/lib/use-translation';
 
 const DropzoneContainerClass =
-  'border-2 bg-gray-100 border-dashed border-gray-300 h-[40vh] min-h-[150px] rounded-md text-center cursor-pointer transition duration-300 ease-in-out flex flex-col items-center justify-center hover:border-neutral-500 w-full';
+  'border-2 bg-gray-100 border-dashed border-gray-300 h-[40vh] min-h-[150px] rounded-md text-center cursor-pointer transition duration-300 ease-in-out flex flex-col items-center justify-center hover:border-neutral-500 w-full text-gray-600';
 
-const iconContainerClasses = 'flex items-center justify-center text-3xl mb-4';
+const iconContainerClasses = 'flex items-center justify-center text-3xl mb-4 text-gray-600';
 
 type AllowedTypes = {
   [key: string]: { limit: number; name: string };
@@ -78,8 +78,8 @@ const Dropzone = () => {
       <p className="mt-2">{isDragActive ? t.playground.upload.dropFiles : t.playground.upload.dragAndDrop}</p>
       <p className="text-sm text-gray-500">{generateAllowedTypesString(allowedTypes)}</p>
       <p className="text-sm text-gray-500">{t.playground.upload.noSensitiveInfo}</p>
-      <div className="text-md text-amber-700 text-gray-500 flex justify-center items-center gap-2 bg-amber-200 rounded-lg p-2">
-        <Info weight="bold" />
+      <div className="flex justify-center items-center gap-2 bg-amber-200 rounded-lg p-2">
+        <Info weight="bold" className="text-amber-700" />
         {t.playground.upload.maxSize}
       </div>
     </div>

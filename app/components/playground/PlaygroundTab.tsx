@@ -4,6 +4,8 @@ import { Icon } from '@phosphor-icons/react';
 import { useEffect, useState } from 'react';
 import InfoButton from './InfoButton';
 import { usePostHog } from 'posthog-js/react';
+import { cn } from '@/lib/cn';
+import useTheme from '@/app/hooks/useTheme';
 
 interface PlaygroundTabProps {
   label: string;
@@ -11,20 +13,17 @@ interface PlaygroundTabProps {
   icon?: Icon;
 }
 
-const unselectedStyle = 'text-neutral-500 hover:bg-neutral-100 border-b-2';
-const selectedStyle = 'text-neutral-800 border-2 border-b-0';
-
 const PlaygroundTab = ({ label, tabKey, icon: Icon }: PlaygroundTabProps) => {
-  const { selectedFileIndex, files, updateSelectedFile, loggedIn } = usePlaygroundStore();
+  const { selectedFileIndex, files, updateSelectedFile } = usePlaygroundStore();
   const [selectedFile, setSelectedFile] = useState<PlaygroundFile>();
   const posthog = usePostHog();
+  const theme = useTheme();
+
   const handleClick = () => {
-    if (loggedIn) {
-      updateSelectedFile('activeTab', tabKey);
-      const module = tabKey.replace(' ', '_').toLocaleLowerCase();
-      const posthogLabel = `playground.${module}.tab`.toLocaleLowerCase();
-      posthog.capture(posthogLabel, { route: '/playground', module: module });
-    }
+    updateSelectedFile('activeTab', tabKey);
+    const module = tabKey.replace(' ', '_').toLocaleLowerCase();
+    const posthogLabel = `playground.${module}.tab`.toLocaleLowerCase();
+    posthog.capture(posthogLabel, { route: '/playground', module: module });
   };
 
   useEffect(() => {
@@ -32,9 +31,18 @@ const PlaygroundTab = ({ label, tabKey, icon: Icon }: PlaygroundTabProps) => {
       setSelectedFile(files[selectedFileIndex]);
     }
   }, [selectedFileIndex, files]);
+
+  const isSelected = selectedFile?.activeTab === tabKey;
+  const isDark = theme === 'dark';
+
   return (
     <div
-      className={`text-xl flex items-center justify-center gap-2 cursor-pointer rounded-t-xl font-semibold  transition duration-300 border-solid ${selectedFile?.activeTab === tabKey ? selectedStyle : unselectedStyle}`}
+      className={cn(
+        'text-xl flex items-center justify-center gap-2 cursor-pointer rounded-t-xl font-semibold transition duration-300 border-solid',
+        isSelected
+          ? `${isDark ? 'text-neutral-100' : 'text-neutral-800'} border-2 border-b-0`
+          : `${isDark ? 'text-neutral-400 hover:bg-neutral-800' : 'text-neutral-500 hover:bg-neutral-100'} border-b-2`
+      )}
       onClick={handleClick}
     >
       <h2>{label}</h2>
