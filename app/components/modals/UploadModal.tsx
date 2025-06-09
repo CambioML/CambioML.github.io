@@ -163,7 +163,7 @@ const UploadModal = () => {
                     <span className="text-gray-500">{t.playground.uploadModal.or}</span>
                     <hr className="flex-1 border-t border-gray-300" />
                   </div>
-                  <div className="w-full h-[30vh] min-h-[50px] border-2 bg-gray-100 border-dashed border-gray-300 hover:border-neutral-500 text-xl flex items-center justify-center gap-4 rounded-md text-gray-600">
+                  <div className="w-full h-[30vh] min-h-[50px] border bg-gray-100 border-dashed border-gray-300 hover:border-neutral-500 text-xl flex items-center justify-center gap-4 rounded-md text-gray-600">
                     <MonitorArrowUp size={32} className="text-gray-600" />
                     {t.playground.uploadModal.pasteScreenshot}
                   </div>

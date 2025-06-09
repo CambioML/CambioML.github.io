@@ -13,6 +13,7 @@ import DocumentViewer from '../DocumentViewer';
 import KeyValueInputs from './KeyValueInputs';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 import ExtractKeyValuePairTutorial from '../tutorials/ExtractKeyValuePairTutorial';
+import QuotaLimitPage from './QuotaLimitPage';
 import { useTranslation } from '@/lib/use-translation';
 import { useAuth0 } from '@auth0/auth0-react';
 
@@ -35,8 +36,18 @@ const downloadExtractedData = (formattedData: string, file?: PlaygroundFile['fil
 const ExtractKeyValuePairContainer = () => {
   const [hideResult, setHideResult] = useState(false);
   const { apiURL, isProduction } = useProductionContext();
-  const { selectedFileIndex, files, updateFileAtIndex, addFilesFormData, loggedIn, setPendingAction, getState } =
-    usePlaygroundStore();
+  const {
+    selectedFileIndex,
+    files,
+    updateFileAtIndex,
+    addFilesFormData,
+    loggedIn,
+    setPendingAction,
+    getState,
+    pendingAction,
+    remainingQuota,
+    loadingQuota,
+  } = usePlaygroundStore();
   const { t } = useTranslation();
   const { loginWithPopup } = useAuth0();
 
@@ -218,58 +229,67 @@ const ExtractKeyValuePairContainer = () => {
   }, [selectedFile?.file]);
 
   return (
-    <div className="h-full w-full pt-4 relative">
-      <div className="w-[calc(90%-11rem)] h-full">
-        <ExtractKeyValuePairTutorial />
-        {fileUrl && (hideResult || !selectedFile?.extractKeyValueResult) && (
-          <div className="h-full">
-            <DocumentViewer
-              fileType={selectedFile?.file instanceof File ? selectedFile.file.type : 'pdf'}
-              fileUrl={fileUrl}
-            />
-            {selectedFile?.extractKeyValueResult && (
-              <div className="absolute bottom-4 left-4">
-                <Button
-                  label={t.playground.extraction.backToResult}
-                  labelIcon={ArrowLeft}
-                  onClick={() => setHideResult(false)}
+    <>
+      {selectedFile?.extractKeyValueState === ExtractState.LIMIT_REACHED ||
+      (selectedFile?.extractKeyValueState !== ExtractState.DONE_EXTRACTING &&
+        loggedIn &&
+        remainingQuota <= 0 &&
+        !loadingQuota) ? (
+        <QuotaLimitPage />
+      ) : (
+        <div className="h-full w-full pt-4 relative">
+          <div className="w-[calc(90%-11rem)] h-full">
+            <ExtractKeyValuePairTutorial />
+            {fileUrl && (hideResult || !selectedFile?.extractKeyValueResult) && (
+              <div className="h-full">
+                <DocumentViewer
+                  fileType={selectedFile?.file instanceof File ? selectedFile.file.type : 'pdf'}
+                  fileUrl={fileUrl}
                 />
+                {selectedFile?.extractKeyValueResult && (
+                  <div className="absolute bottom-4 left-4">
+                    <Button
+                      label={t.playground.extraction.backToResult}
+                      labelIcon={ArrowLeft}
+                      onClick={() => setHideResult(false)}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+            {!hideResult && selectedFile?.extractKeyValueResult && (
+              <div className="pb-24">
+                <CodeBlock language="json" code={selectedFile?.extractKeyValueResult} aria-label="Extraction Result" />
+                <div className="absolute bottom-4 left-4 flex gap-2 w-fit">
+                  <Button
+                    label={t.playground.extraction.backToFile}
+                    labelIcon={ArrowLeft}
+                    onClick={() => setHideResult(true)}
+                  />
+                  <Button
+                    label={t.playground.extraction.download}
+                    labelIcon={Download}
+                    onClick={() => downloadExtractedData(selectedFile?.extractKeyValueResult, selectedFile?.file)}
+                  />
+                </div>
               </div>
             )}
           </div>
-        )}
-        {!hideResult && selectedFile?.extractKeyValueResult && (
-          <div className="pb-24">
-            <CodeBlock language="json" code={selectedFile?.extractKeyValueResult} aria-label="Extraction Result" />
-            <div className="absolute bottom-4 left-4 flex gap-2 w-fit">
-              <Button
-                label={t.playground.extraction.backToFile}
-                labelIcon={ArrowLeft}
-                onClick={() => setHideResult(true)}
-              />
-              <Button
-                label={t.playground.extraction.download}
-                labelIcon={Download}
-                onClick={() => downloadExtractedData(selectedFile?.extractKeyValueResult, selectedFile?.file)}
+          <div className="h-[calc(100%-1rem)] max-w-72 w-[30%] p-4 rounded-2xl shadow-md absolute top-4 right-0">
+            <div className="w-full h-full overflow-hidden flex flex-col gap-2">
+              <KeyValueInputs
+                onSubmit={onSubmit}
+                isLoading={
+                  selectedFile?.extractKeyValueState === ExtractState.EXTRACTING ||
+                  selectedFile?.extractKeyValueState === ExtractState.UPLOADING ||
+                  !!pendingAction
+                }
               />
             </div>
           </div>
-        )}
-      </div>
-      <div className="h-[calc(100%-1rem)] max-w-72 w-[30%] p-4 rounded-2xl shadow-[0px_0px_4px_2px_rgba(0,_0,_0,_0.1)] absolute top-4 right-0">
-        <div className="w-full max-h-full overflow-hidden flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <KeyValueInputs
-              onSubmit={onSubmit}
-              isLoading={
-                selectedFile?.extractKeyValueState === ExtractState.EXTRACTING ||
-                selectedFile?.extractKeyValueState === ExtractState.UPLOADING
-              }
-            />
-          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

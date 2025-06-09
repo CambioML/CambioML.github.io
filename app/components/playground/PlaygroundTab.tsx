@@ -40,8 +40,8 @@ const PlaygroundTab = ({ label, tabKey, icon: Icon }: PlaygroundTabProps) => {
       className={cn(
         'text-xl flex items-center justify-center gap-2 cursor-pointer rounded-t-xl font-semibold transition duration-300 border-solid',
         isSelected
-          ? `${isDark ? 'text-neutral-100' : 'text-neutral-800'} border-2 border-b-0`
-          : `${isDark ? 'text-neutral-400 hover:bg-neutral-800' : 'text-neutral-500 hover:bg-neutral-100'} border-b-2`
+          ? `${isDark ? 'text-neutral-100' : 'text-neutral-800'} border border-b-0`
+          : `${isDark ? 'text-neutral-400 hover:bg-neutral-800' : 'text-neutral-500 hover:bg-neutral-100'} border-b`
       )}
       onClick={handleClick}
     >

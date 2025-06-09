@@ -17,7 +17,7 @@ const FeatureImage = ({ image, alt, height, shadow, border, enableModal }: Featu
   const imageModal = useImageModal();
   return (
     <div
-      className={`${border && 'border-solid border-2 border-neutral-100'} ${shadow && 'shadow-lg'} rounded-xl w-full ${height || 'h-[600px]'} relative ${enableModal && 'cursor-pointer hover:scale-105 transition-all duration-300'}`}
+      className={`${border && 'border-solid border border-neutral-100'} ${shadow && 'shadow-lg'} rounded-xl w-full ${height || 'h-[600px]'} relative ${enableModal && 'cursor-pointer hover:scale-105 transition-all duration-300'}`}
       onClick={() => {
         if (enableModal) {
           imageModal.setImage(imgPrefix + image);

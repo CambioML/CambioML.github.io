@@ -33,7 +33,7 @@ const SolutionsCard = ({ title, subtitle, description, url, image, imageContain 
         "
       >
         <div id={createId(title)} className="absolute -top-28" />
-        <div className="grid grid-cols-1 lg:grid-cols-2 w-full h-fit lg:h-[400px] border-solid border-2 rounded-3xl xl:rounded-4xl hover:shadow-md">
+        <div className="grid grid-cols-1 lg:grid-cols-2 w-full h-fit lg:h-[400px] border-solid border rounded-3xl xl:rounded-4xl hover:shadow-md">
           <div
             className="
                     aspect-square
@@ -47,7 +47,7 @@ const SolutionsCard = ({ title, subtitle, description, url, image, imageContain 
                     lg:rounded-r-none
                     lg:rounded-l-[inherit]
                     border-solid
-                    border-b-2
+                    border-b
                     border-neutral-200
                     lg:border-r-2
                     lg:border-b-0

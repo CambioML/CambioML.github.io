@@ -26,7 +26,7 @@ const TextArea = ({ id, label, disabled, register, required, errors }: TextAreaP
           pt-6
           font-light
           bg-white
-          border-2
+          border
           rounded-md
           outline-none
           transition

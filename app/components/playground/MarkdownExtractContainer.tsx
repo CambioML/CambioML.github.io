@@ -49,6 +49,7 @@ const MarkdownExtractContainer = () => {
     setPendingAction,
     loadingQuota,
     getState,
+    pendingAction,
   } = usePlaygroundStore();
   const [selectedFile, setSelectedFile] = useState<PlaygroundFile>();
   const [filename, setFilename] = useState<string>('');
@@ -464,7 +465,7 @@ const MarkdownExtractContainer = () => {
       {selectedFile?.extractState === ExtractState.LIMIT_REACHED ||
       (selectedFile?.extractState !== ExtractState.DONE_EXTRACTING &&
         loggedIn &&
-        remainingQuota === 0 &&
+        remainingQuota <= 0 &&
         !loadingQuota) ? (
         <QuotaLimitPage />
       ) : (
@@ -474,21 +475,22 @@ const MarkdownExtractContainer = () => {
               <div className="flex flex-col items-center justify-center">
                 <span id="extract-file-name">{filename}</span>
 
-                {/* First row with two buttons side by side */}
-                <div className="flex gap-4 items-center justify-center mt-8">
+                <div className="flex flex-col gap-4 items-center justify-center mt-1">
+                  {/* Extract button below */}
+                  <div className="w-fit">
+                    <Button
+                      label={t.playground.extraction.extractPlainText}
+                      onClick={() => handleExtract()}
+                      small
+                      labelIcon={FileText}
+                      id="extract-plain-text-btn"
+                      disabled={!!pendingAction}
+                    />
+                  </div>
                   <ModelToggleDropdown />
-                  <ExtractSettingsChecklist removePIIOnly={isProduction} />
                 </div>
-
-                {/* Extract button below */}
-                <div className="w-fit mt-8">
-                  <Button
-                    label={t.playground.extraction.extractPlainText}
-                    onClick={() => handleExtract()}
-                    small
-                    labelIcon={FileText}
-                    id="extract-plain-text-btn"
-                  />
+                <div className="w-full mt-4">
+                  <ExtractSettingsChecklist removePIIOnly={isProduction} />
                 </div>
               </div>
             </div>

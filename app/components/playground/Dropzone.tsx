@@ -8,7 +8,7 @@ import { useProductionContext } from './ProductionContext';
 import { useTranslation } from '@/lib/use-translation';
 
 const DropzoneContainerClass =
-  'border-2 bg-gray-100 border-dashed border-gray-300 h-[40vh] min-h-[150px] rounded-md text-center cursor-pointer transition duration-300 ease-in-out flex flex-col items-center justify-center hover:border-neutral-500 w-full text-gray-600';
+  'border bg-gray-100 border-dashed border-gray-300 h-[40vh] min-h-[150px] rounded-md text-center cursor-pointer transition duration-300 ease-in-out flex flex-col items-center justify-center hover:border-neutral-500 w-full text-gray-600';
 
 const iconContainerClasses = 'flex items-center justify-center text-3xl mb-4 text-gray-600';
 

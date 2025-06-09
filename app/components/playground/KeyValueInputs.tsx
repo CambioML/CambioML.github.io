@@ -96,7 +96,7 @@ const Input = ({ id, errors, register, onAdd, onRemove, canRemove = true, onInpu
           type="text"
           aria-label={t.playground.keyValue.keyNamePlaceholder}
           className={cn(
-            'w-full p-1 font-light border-2 rounded-md outline-none transition-colors',
+            'w-full p-1 font-light border rounded-md outline-none transition-colors',
             isDark
               ? 'bg-neutral-800 text-white placeholder:text-neutral-400'
               : 'bg-white text-black placeholder:text-neutral-500',
@@ -121,7 +121,7 @@ const Input = ({ id, errors, register, onAdd, onRemove, canRemove = true, onInpu
             rows={2}
             aria-label={t.playground.keyValue.keyDescriptionPlaceholder}
             className={cn(
-              'resize-none text-sm break-words w-full p-1 font-light border-2 rounded-md outline-none transition',
+              'resize-none text-sm break-words w-full p-1 font-light border rounded-md outline-none transition',
               isDark
                 ? 'bg-neutral-800 text-white placeholder:text-neutral-400'
                 : 'bg-white text-black placeholder:text-neutral-500',
@@ -309,7 +309,7 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 h-full">
       <Button
         id="extract-key-value-btn"
         label={isLoading ? t.playground.keyValue.extracting : t.playground.keyValue.extractKeyValue}
@@ -318,8 +318,8 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
         aria-label={t.playground.keyValue.extractKeyValuePairs}
       />
       <strong>{t.playground.keyValue.yourKeys}</strong>
-      <div className="h-[calc(80vh-240px)] overscroll-contain overflow-y-auto">
-        <div className="flex flex-col gap-2 p-2">
+      <div className="h-full overscroll-contain overflow-y-auto">
+        <div className="flex flex-col gap-2 p-2 h-full">
           {inputs.map((uuid) => (
             <Input
               key={uuid}

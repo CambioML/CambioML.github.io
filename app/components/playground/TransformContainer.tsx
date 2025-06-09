@@ -11,7 +11,7 @@ enum TransformMethod {
 
 const selectedTabStyle = 'text-neutral-800 border-b-4 border-neutral-800 font-semibold';
 const unselectedTabStyle = 'text-neutral-500 border-neutral-200';
-const tabStyle = 'p-2 text-center cursor-pointer border-solid border-b-2 hover:border-b-4 hover:font-semibold';
+const tabStyle = 'p-2 text-center cursor-pointer border-solid border-b hover:border-b-4 hover:font-semibold';
 
 const TransformContainer = () => {
   const { isProduction } = useProductionContext();

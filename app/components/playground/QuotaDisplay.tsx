@@ -92,7 +92,7 @@ const QuotaDisplay = ({ userId, isCollapsed }: QuotaDisplayProps) => {
           {t.playground.quota.title}
         </h2>
         <div
-          className="flex items-center text-neutral-600 justify-center bg-white rounded-md w-[30px] h-[30px] hover:bg-neutral-100 hover:text-neutral-800 hover:border-2 shrink-0 cursor-pointer"
+          className="flex items-center text-neutral-600 justify-center bg-white rounded-md w-[30px] h-[30px] hover:bg-neutral-100 hover:text-neutral-800 hover:border shrink-0 cursor-pointer"
           onClick={handleRefresh}
         >
           <ArrowsClockwise size={20} />

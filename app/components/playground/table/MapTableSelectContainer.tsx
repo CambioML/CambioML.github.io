@@ -14,7 +14,7 @@ import { useTranslation } from '@/lib/use-translation';
 // import { convertExcelToPdf } from '@/app/actions/convertXLSXtoPDF';
 
 const selectButtonStyles =
-  'w-full text-center cursor-pointer border-[1px] text-neutral-600 border-neutral-400 rounded-lg flex gap-2 justify-center items-center hover:bg-neutral-100 hover:border-2 hover:font-semibold';
+  'w-full text-center cursor-pointer border-[1px] text-neutral-600 border-neutral-400 rounded-lg flex gap-2 justify-center items-center hover:bg-neutral-100 hover:border hover:font-semibold';
 
 const MapTableSelectContainer = () => {
   const { selectedFileIndex, files, updateFileAtIndex } = usePlaygroundStore();

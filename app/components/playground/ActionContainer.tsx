@@ -17,8 +17,16 @@ const ActionContainer = () => {
   const { selectedFileIndex, files } = usePlaygroundStore();
   const [selectedFile, setSelectedFile] = useState<PlaygroundFile>();
   const { isAuthenticated, isLoading, getAccessTokenSilently, logout } = useAuth0();
-  const { remainingQuota, loggedIn, setLoggedIn, setClientId, setToken, setUserId, executePendingAction } =
-    usePlaygroundStore();
+  const {
+    remainingQuota,
+    loggedIn,
+    setLoggedIn,
+    setClientId,
+    setToken,
+    setUserId,
+    executePendingAction,
+    loadingQuota,
+  } = usePlaygroundStore();
   const posthog = usePostHog();
   const { t } = useTranslation();
   const theme = useTheme();
@@ -83,10 +91,15 @@ const ActionContainer = () => {
 
   // Execute pending action when user logs in
   useEffect(() => {
-    if (remainingQuota) {
-      executePendingAction();
+    if (loadingQuota) {
+      return;
     }
-  }, [remainingQuota, executePendingAction]);
+    if (remainingQuota > 0) {
+      executePendingAction();
+    } else {
+      toast.error(t.messages.error.quotaExceeded);
+    }
+  }, [remainingQuota, loadingQuota, executePendingAction]);
 
   useEffect(() => {
     if (selectedFileIndex !== null && files.length > 0) {
@@ -112,7 +125,7 @@ const ActionContainer = () => {
         <div
           className={cn(
             isDark ? 'h-[400px]' : 'h-[73vh]',
-            'border-solid border-2 border-t-0 border-neutral-200 rounded-b-xl p-4 pt-0 box-border'
+            'border-solid border border-t-0 border-neutral-200 rounded-b-xl p-4 pt-0 box-border'
           )}
         >
           {(selectedFile?.activeTab === PlaygroundTabs.PLAIN_TEXT || selectedFileIndex === null) && (

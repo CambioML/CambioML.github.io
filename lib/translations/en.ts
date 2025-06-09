@@ -632,6 +632,7 @@ export const en = {
       errorTransforming: 'Error transforming {filename}. Please try again.',
       requestTimeoutFile: 'Transform request for {filename} timed out. Please try again.',
       errorExtractingFile: 'Error extracting {filename}. Please try again.',
+      quotaExceeded: 'Quota exceeded. Please upgrade your plan or contact us for more credits.',
     },
   },
 } as const;

@@ -40,6 +40,7 @@ const TableExtractContainer = () => {
     loggedIn,
     setPendingAction,
     loadingQuota,
+    pendingAction,
   } = usePlaygroundStore();
   const [selectedFile, setSelectedFile] = useState<PlaygroundFile>();
   const [filename, setFilename] = useState<string>('');
@@ -485,7 +486,7 @@ const TableExtractContainer = () => {
       {selectedFile?.instructionExtractState === ExtractState.LIMIT_REACHED ||
       (selectedFile?.instructionExtractState !== ExtractState.DONE_EXTRACTING &&
         loggedIn &&
-        remainingQuota === 0 &&
+        remainingQuota <= 0 &&
         !loadingQuota) ? (
         <QuotaLimitPage />
       ) : (
@@ -501,10 +502,13 @@ const TableExtractContainer = () => {
                       onClick={() => handleTableExtractTransform()}
                       small
                       labelIcon={Table}
+                      disabled={!!pendingAction}
                     />
                   </div>
                 </div>
-                <ExtractSettingsChecklist removePIIOnly />
+                <div className="w-fit">
+                  <ExtractSettingsChecklist removePIIOnly />
+                </div>
               </div>
             )}
             {selectedFile?.instructionExtractState === ExtractState.EXTRACTING && (
