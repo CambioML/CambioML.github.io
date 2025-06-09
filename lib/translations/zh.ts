@@ -23,7 +23,7 @@ export const zh = {
     awsDeployment: 'AWS 部署',
     awsDescription: 'AWS 虚拟机部署指南。',
     azureDeployment: 'Azure 部署',
-    azureDescription: 'Azure 虚拟机部署指南。'
+    azureDescription: 'Azure 虚拟机部署指南。',
   },
   common: {
     language: '语言',
@@ -35,23 +35,19 @@ export const zh = {
     learnMore: '了解更多',
     contactUs: '联系我们',
     readMore: '阅读更多',
-    selectOption: '选择一个选项'
+    selectOption: '选择一个选项',
   },
   homepage: {
     hero: {
       title: 'AnyParser：用于文档解析的视觉 LLM',
       subtitle: '通过可配置选项解析 PDF、PPT、Word 和图像，只需几次点击即可完成！',
       description: '80% 的 OCR 用户厌倦了维护粘合代码。通过无与伦比的准确性、完全隐私和可配置选项释放您的时间，例如：',
-      features: [
-        '删除私人身份信息，',
-        '提取表格和图表，',
-        '保留脚注和页眉，'
-      ],
+      features: ['删除私人身份信息，', '提取表格和图表，', '保留脚注和页眉，'],
       moreFeatures: '以及更多功能！',
       tryFree: '免费试用',
       getApi: '获取 API 访问权限',
       bookDemo: '预约演示',
-      noCreditCard: '无需信用卡'
+      noCreditCard: '无需信用卡',
     },
     capabilities: {
       title: 'AnyParser 的功能',
@@ -59,8 +55,8 @@ export const zh = {
         '隐私保护：启用“删除私人信息”功能，AnyParser 将在文档提取过程中自动编辑 P.I.I。',
         '您可以指示模型包括或省略页码、页眉、页脚、图形、图表等。',
         'AnyParser 不仅提取文本和表格，还能检索包含重要信息的图形、图表和脚注，速度提高 2 倍，成本效率提高 5 倍。',
-        '告别传统 OCR 模型困扰的混乱表格和布局，精度提高 2 倍，召回率提高 2.5 倍，超过行业平均水平。'
-      ]
+        '告别传统 OCR 模型困扰的混乱表格和布局，精度提高 2 倍，召回率提高 2.5 倍，超过行业平均水平。',
+      ],
     },
     howItWorks: {
       title: 'AnyParser 的工作原理',
@@ -70,32 +66,35 @@ export const zh = {
         {
           title: '01',
           subtitle: '拖放文档',
-          description: '点击“上传文件”，轻松拖放您想要解析的文档，或者直接从剪贴板粘贴截图。我们还提供了示例文档帮助您开始使用。'
+          description:
+            '点击“上传文件”，轻松拖放您想要解析的文档，或者直接从剪贴板粘贴截图。我们还提供了示例文档帮助您开始使用。',
         },
         {
           title: '02',
           subtitle: '编辑解析和隐私设置',
-          description: 'AnyParser 自动分类各种信息类型，包括 PII（个人可识别信息）、脚注、表格等。只需导出您需要的数据！'
+          description:
+            'AnyParser 自动分类各种信息类型，包括 PII（个人可识别信息）、脚注、表格等。只需导出您需要的数据！',
         },
         {
           title: '03',
           subtitle: '将结果导出到您的系统',
-          description: '以您喜欢的格式下载数据——无论是 HTML、Excel、JSON，还是针对您的业务工作流程量身定制的数据库架构。'
-        }
-      ]
+          description:
+            '以您喜欢的格式下载数据——无论是 HTML、Excel、JSON，还是针对您的业务工作流程量身定制的数据库架构。',
+        },
+      ],
     },
     banners: [
       {
         title: '准确解析数据',
         description: 'AnyParser 操作界面简单、快速且直观。现在试试界面，享受一天的轻松时光',
-        actionLabel: '免费试用'
+        actionLabel: '免费试用',
       },
       {
         title: '使用 AnyParser 构建',
         description: 'AnyParser 操作界面简单、快速且真正直观，现在试试界面，享受一天的轻松时光',
-        actionLabel: '获取 API 访问权限'
-      }
-    ]
+        actionLabel: '获取 API 访问权限',
+      },
+    ],
   },
   reviews: {
     title: '评价',
@@ -103,78 +102,78 @@ export const zh = {
       {
         text: '"我们尝试了所有的 PDF 提取工具，AnyParser 给出了最准确的结果。"',
         author: 'Richard Song',
-        position: 'CEO - Epsilla'
+        position: 'CEO - Epsilla',
       },
       {
         text: '"AnyParser 在我们的基准测试中超越了 10 多个其他解析器，提供了顶级的简历解析准确性，同时是最快的多模型 LLM 解决方案——并保持了卓越的性能。"',
         author: 'Ethan Zheng',
-        position: 'CTO - Jobright'
+        position: 'CTO - Jobright',
       },
       {
         text: '"AnyParser 的先进多模态 AI 在其他方法失败的地方表现出色。复杂文档需要这种视觉与语言的融合。"',
         author: 'Jon Conradt',
-        position: 'Principal Scientist - AWS'
+        position: 'Principal Scientist - AWS',
       },
       {
         text: '"作为一名 AI 教育者，我为我的机器学习实践学生寻找最先进的解决方案。AnyParser 在文档解析中提高了检索准确性，同时平衡了安全性、成本和效率——是任何管道的创新工具！"',
         author: 'Cass',
-        position: 'Senior Scientist - AWS'
+        position: 'Senior Scientist - AWS',
       },
       {
         text: '"我对 AnyParser 在 AI 和 LLM 领域的创新印象深刻，包括合成数据生成的新方法、RAG 中检索模型的微调，以及他们基于这些创新的开源产品。"',
         author: 'Felix Bai',
-        position: 'Sr. Solution Architect - AWS'
+        position: 'Sr. Solution Architect - AWS',
       },
       {
         text: '"我验证了 AnyParser 的质量远远超越了传统的 OCR 工具，例如 Langchain / Unstructured。期待在我们的未来项目中使用它。"',
         author: 'Steve Cooper',
-        position: 'Cofounder - ai ticker chat'
+        position: 'Cofounder - ai ticker chat',
       },
       {
         text: '"它远胜于其他工具！我们的数据分析师能够将产出提高三倍。"',
         author: 'Jamal',
-        position: 'CEO - xtrategise'
-      }
-    ]
+        position: 'CEO - xtrategise',
+      },
+    ],
   },
   company: {
     whoWeAre: {
       title: '我们是谁',
       description: [
         'Energent.ai 是一个由 AWS 和 Tesla 的前机器学习科学家和工程师组成的团队，他们怀着共同的热情，致力于利用 AI 加速各行业的研发。',
-        '我们团队结合了机器学习技能和行业特定的洞察力，使我们能够创造出不仅是最先进的技术，还能深刻满足客户需求的技术。'
-      ]
+        '我们团队结合了机器学习技能和行业特定的洞察力，使我们能够创造出不仅是最先进的技术，还能深刻满足客户需求的技术。',
+      ],
     },
     whatWeOffer: {
       title: '我们提供什么',
       description: [
         'Energent.ai 提供基于 LLM 的数据增强工具，可精确提取混合格式（如 PDF、HTML 和图像）中的非结构化数据。',
-        '通过 Energent.ai，机器学习科学家和研发工程师可以提取准确的信息，而无需花费 80% 的时间进行数据清理或担心信息丢失。用户可以提出复杂的研究问题，识别多个数据源之间的语义趋势，并通过深入解释了解 LLM 输出，从而加速研发过程。'
-      ]
+        '通过 Energent.ai，机器学习科学家和研发工程师可以提取准确的信息，而无需花费 80% 的时间进行数据清理或担心信息丢失。用户可以提出复杂的研究问题，识别多个数据源之间的语义趋势，并通过深入解释了解 LLM 输出，从而加速研发过程。',
+      ],
     },
     foundingTeam: {
-      title: '创始团队'
+      title: '创始团队',
     },
     investors: {
-      title: '我们的投资者'
+      title: '我们的投资者',
     },
     getStarted: {
       title: '准备好开始了吗？',
       description: '加入数千名研究人员和工程师，他们正在使用 Energent.ai 加速研发过程。',
       buttonText: '开始使用',
-      docsButtonText: '阅读文档'
-    }
+      docsButtonText: '阅读文档',
+    },
   },
   pricing: {
     billing: {
       monthly: '每月',
       annually: '每年',
       perMonth: '/月',
-      perYear: '/年'
+      perYear: '/年',
     },
     realTimeApi: {
       title: '实时 API 定价',
-      description: '最快的视觉语言模型，实时响应时间约为每页 0.5 到 5 秒。'
+      description: '最快的视觉语言模型，实时响应时间约为每页 0.5 到 5 秒。',
     },
     plans: {
       starter: {
@@ -188,8 +187,8 @@ export const zh = {
           '将关键值对提取为 JSON',
           '未使用的点数可结转至下个月',
           '无隐藏费用',
-          '30 天退款保证'
-        ]
+          '30 天退款保证',
+        ],
       },
       silver: {
         name: '银版',
@@ -202,8 +201,8 @@ export const zh = {
           '定制化客户入门指导',
           '未使用的点数可结转至下个月',
           '无隐藏费用',
-          '30 天退款保证'
-        ]
+          '30 天退款保证',
+        ],
       },
       gold: {
         name: '金版',
@@ -217,8 +216,8 @@ export const zh = {
           '提供定制化服务',
           '未使用的点数可结转至下个月',
           '无隐藏费用',
-          '30 天退款保证'
-        ]
+          '30 天退款保证',
+        ],
       },
       enterprise: {
         name: '企业版',
@@ -230,13 +229,13 @@ export const zh = {
           '自定义集成和API响应',
           '个性化一对一团队培训',
           '专属客户经理',
-          '优先支持'
-        ]
-      }
+          '优先支持',
+        ],
+      },
     },
     disclaimers: {
       noHiddenFees: '* 无隐藏费用；按月支付；30天退款保证。',
-      tokenExplanation: '** 超过500个标记的页面将每增加500个标记额外扣除一个信用点。'
+      tokenExplanation: '** 超过500个标记的页面将每增加500个标记额外扣除一个信用点。',
     },
     specialOffer: {
       title: '🎉 为初创企业和非营利组织提供特别优惠！ 🎉',
@@ -248,8 +247,8 @@ export const zh = {
       nonprofitText: '非营利组织。',
       emailText: '发送邮件至',
       emailLink: 'info@cambioml.com',
-      redeemText: '以兑换您的信用点！'
-    }
+      redeemText: '以兑换您的信用点！',
+    },
   },
   playground: {
     title: 'AnyParser 沙盒',
@@ -257,12 +256,12 @@ export const zh = {
     tabs: {
       plainText: '完整内容',
       table: '仅表格',
-      keyValuePair: '提取键值对'
+      keyValuePair: '提取键值对',
     },
     disclaimers: {
       pageLimit: '*对于每个上传的文件，我们仅处理前十页以提高可用性。',
       fileSize: '**最大文件大小为10MB。刷新此页面将清除所有文件和处理数据，因为我们不存储您的数据。',
-      privacyPolicy: '查看 AnyParser 隐私政策。'
+      privacyPolicy: '查看 AnyParser 隐私政策。',
     },
     feedback: {
       button: '反馈',
@@ -272,20 +271,20 @@ export const zh = {
       messageLabel: '消息',
       submitButton: '提交',
       successMessage: '已发送！',
-      errorMessage: '联系失败。请重试。'
+      errorMessage: '联系失败。请重试。',
     },
     files: {
       title: '文件',
       uploadFile: '上传文件',
       pleaseUploadFile: '请上传一个文件。',
-      noFilesUploaded: '未上传文件'
+      noFilesUploaded: '未上传文件',
     },
     quota: {
       title: '配额',
       pages: '页数',
       limitReached: '已达到提取页面限制。',
       contactForMore: '请联系我们以获取更多页面配额。',
-      contactEmail: 'info@cambioml.com'
+      contactEmail: 'info@cambioml.com',
     },
     upload: {
       dragAndDrop: '将单个文件拖放到此处或点击选择文件',
@@ -294,12 +293,12 @@ export const zh = {
       maxSize: '最大大小10MB',
       noSensitiveInfo: '请勿上传任何敏感信息。',
       fileTypeNotSupported: '文件类型不支持。',
-      sizeLimitExceeded: '大小超过{limit}MB限制。请重试。'
+      sizeLimitExceeded: '大小超过{limit}MB限制。请重试。',
     },
     uploadModal: {
       or: '或',
       pasteScreenshot: '粘贴截图',
-      uploading: '正在上传'
+      uploading: '正在上传',
     },
     keyValue: {
       keyNamePlaceholder: '键名称',
@@ -317,7 +316,7 @@ export const zh = {
       undo: '撤销',
       maxInputsAllowed: '最多允许10个输入',
       newInputAdded: '已添加新输入',
-      removeUndone: '移除已撤销'
+      removeUndone: '移除已撤销',
     },
     info: {
       plainText: {
@@ -325,27 +324,30 @@ export const zh = {
         description: '使用 AnyParser，您可以从您的原始、非结构化数据中提取内容，例如PDF、TXT和HTML文件。',
         howTo: '上传并选择文件后，运行“完整内容”流程，它将提取文件内容并以Markdown格式返回。',
         nextSteps: '后续步骤',
-        nextStepsDescription: '您可以将原始Markdown下载为文本文件，或从任何提取的表格中下载JSON。'
+        nextStepsDescription: '您可以将原始Markdown下载为文本文件，或从任何提取的表格中下载JSON。',
       },
       table: {
         title: '仅表格提取',
         description: '使用 AnyParser，您可以从文件中提取表格，提取其中的特定键，并将其映射到您的数据库架构。',
         step1: '1. 提取表格',
-        step1Description: '首先，您需要从文件中提取表格。AnyParser会将所有表格提取为HTML格式。\n\n提取后，您可以下载原始HTML或将所有表格下载为Excel文件。',
+        step1Description:
+          '首先，您需要从文件中提取表格。AnyParser会将所有表格提取为HTML格式。\n\n提取后，您可以下载原始HTML或将所有表格下载为Excel文件。',
         step2: '2. 选择要映射的表格',
         step2Description: '运行表格提取后，选择您希望提取数据的表格。\n\n在此部分，您还可以预览每个表格的HTML。',
         step3: '3. 映射架构',
-        step3Description: '提取并选择表格后，您可以添加要提取的键。如果希望移除映射键，请点击框中的(X)。如果希望移除输入键，可以点击其框中的(X)图标。\n\n添加一些键后，您可以运行映射架构功能。映射后，您可以通过点击编辑铅笔图标编辑任何映射键。\n\n再次点击“映射架构”将仅重新运行输入键而不包含任何映射键。如果希望生成新的映射键，可以先通过点击X移除映射键。',
+        step3Description:
+          '提取并选择表格后，您可以添加要提取的键。如果希望移除映射键，请点击框中的(X)。如果希望移除输入键，可以点击其框中的(X)图标。\n\n添加一些键后，您可以运行映射架构功能。映射后，您可以通过点击编辑铅笔图标编辑任何映射键。\n\n再次点击“映射架构”将仅重新运行输入键而不包含任何映射键。如果希望生成新的映射键，可以先通过点击X移除映射键。',
         nextSteps: '后续步骤',
-        nextStepsDescription: '对输出满意后，您可以下载CSV或JSON。这只有在至少一个输入键有非空映射键时才会启用。'
+        nextStepsDescription: '对输出满意后，您可以下载CSV或JSON。这只有在至少一个输入键有非空映射键时才会启用。',
       },
       keyValuePair: {
         title: '提取键值对',
         description: '使用 AnyParser，您可以从您的原始、非结构化数据中识别并提取结构化的键值对，例如发票、合同或表单。',
         howTo: '上传并选择文件后，运行“键值对”流程，它将分析您的文件，识别关键字段，并以结构化JSON格式提取其对应的值。',
         nextSteps: '后续步骤',
-        nextStepsDescription: '您可以将提取的键值对下载为JSON文件，或通过我们的API直接集成到您的工作流程中以自动化进一步处理。'
-      }
+        nextStepsDescription:
+          '您可以将提取的键值对下载为JSON文件，或通过我们的API直接集成到您的工作流程中以自动化进一步处理。',
+      },
     },
     comingSoon: '即将推出',
     interactivePlayground: '交互式试用',
@@ -362,7 +364,7 @@ export const zh = {
       download: '下载',
       backToResult: '返回结果',
       backToFile: '返回文件',
-      extractingData: '正在提取数据...'
+      extractingData: '正在提取数据...',
     },
     table: {
       selectTables: '选择表',
@@ -372,13 +374,13 @@ export const zh = {
       reRunExtract: '重新运行提取',
       mapToSchema: '映射到您的架构',
       noTablesExtracted: '未提取表',
-      goToExtractTables: '前往提取表'
+      goToExtractTables: '前往提取表',
     },
     results: {
       expand: '展开',
       compare: '比较',
       copy: '复制',
-      pageOf: '第 {page} 页，共 {total} 页'
+      pageOf: '第 {page} 页，共 {total} 页',
     },
     extractSettings: {
       removeFromOutput: '从输出中移除：',
@@ -387,8 +389,8 @@ export const zh = {
       footnotes: '脚注',
       headersFooters: '页眉和页脚',
       tables: '表格',
-      chartsFigures: '图表和图形'
-    }
+      chartsFigures: '图表和图形',
+    },
   },
   solutionPages: {
     compliance: {
@@ -396,13 +398,14 @@ export const zh = {
       description: '通过LLM实现自动合规',
       section: {
         title: '通过AI评估员自动化您的合规流程',
-        paragraph: '您是否担心您的私有LLM的合规性或风险？我们提供专门的合规LLM，用于监管合规和风险管理。该系统会自动监控监管变化，并将其与您的内部政策和控制措施对齐，确保及时跟踪、响应和报告重要的法规和要求。'
+        paragraph:
+          '您是否担心您的私有LLM的合规性或风险？我们提供专门的合规LLM，用于监管合规和风险管理。该系统会自动监控监管变化，并将其与您的内部政策和控制措施对齐，确保及时跟踪、响应和报告重要的法规和要求。',
       },
       useCases: [
         {
           title: '合规用例1',
-          description: '使用uniflow进行合规。'
-        }
+          description: '使用uniflow进行合规。',
+        },
       ],
       button: '开始使用AutoRater',
       autorater: {
@@ -410,9 +413,10 @@ export const zh = {
         description: '通过LLM实现自动合规',
         section: {
           title: '通过AI评估员自动化您的AutoRater流程',
-          paragraph: '您是否担心您的私有LLM的AutoRater或风险？我们提供专门的AutoRater LLM，用于监管AutoRater和风险管理。该系统会自动监控监管变化，并将其与您的内部政策和控制措施对齐，确保及时跟踪、响应和报告重要的法规和要求。'
-        }
-      }
+          paragraph:
+            '您是否担心您的私有LLM的AutoRater或风险？我们提供专门的AutoRater LLM，用于监管AutoRater和风险管理。该系统会自动监控监管变化，并将其与您的内部政策和控制措施对齐，确保及时跟踪、响应和报告重要的法规和要求。',
+        },
+      },
     },
     finance: {
       title: '您的定制化AI助手，发现洞察',
@@ -422,22 +426,22 @@ export const zh = {
         points: [
           '您是否希望从非结构化数据中提取交易信号快10倍？',
           '您是否需要一个个性化的AI解释器来解读交易信号？',
-          '您是否担心使用公共LLM API会导致信息泄露？'
-        ]
+          '您是否担心使用公共LLM API会导致信息泄露？',
+        ],
       },
       features: [
         {
           title: '从多源数据中获取未知洞察',
-          text: '将数据清理时间减少最多90%\n\n从多个来源获取多达10倍的金融洞察\n\n完全拥有并控制您的专属AI代理'
+          text: '将数据清理时间减少最多90%\n\n从多个来源获取多达10倍的金融洞察\n\n完全拥有并控制您的专属AI代理',
         },
         {
           title: '用证据解释您的投资决策',
-          text: '用真实数据支持您的投资决策\n\n用您自己的风格撰写经济学家观点\n\n完全拥有并控制您的专属AI代理'
+          text: '用真实数据支持您的投资决策\n\n用您自己的风格撰写经济学家观点\n\n完全拥有并控制您的专属AI代理',
         },
         {
-          title: '用例'
-        }
-      ]
+          title: '用例',
+        },
+      ],
     },
     researchDevelopment: {
       title: '访问已知信息，\n解锁研发中的未知信息',
@@ -445,44 +449,44 @@ export const zh = {
       features: [
         {
           title: '从多源数据中获取未知洞察',
-          text: '• 将数据清理时间减少最多90%\n• 轻松发现研发中的未知信息\n• 完全拥有并控制您的专属AI代理'
+          text: '• 将数据清理时间减少最多90%\n• 轻松发现研发中的未知信息\n• 完全拥有并控制您的专属AI代理',
         },
         {
           title: '撰写研究报告以证明最先进技术',
-          text: '• 用真实数据支持您的研究创新\n• 轻松比较您的研究与最先进技术\n• 完全拥有并控制您的专属AI代理'
+          text: '• 用真实数据支持您的研究创新\n• 轻松比较您的研究与最先进技术\n• 完全拥有并控制您的专属AI代理',
         },
         {
-          title: '用例'
-        }
-      ]
-    }
+          title: '用例',
+        },
+      ],
+    },
   },
   footer: {
     copyright: 'Cambio公司',
     libraries: {
       title: '库',
-      anyParser: 'AnyParser'
+      anyParser: 'AnyParser',
     },
     solutions: {
       title: '解决方案',
       finance: '财务',
-      blog: '博客'
+      blog: '博客',
     },
     sandbox: {
       title: '沙盒',
       launchSandbox: '启动沙盒',
-      account: '账户'
+      account: '账户',
     },
     company: {
       title: '公司',
-      aboutUs: '关于我们'
+      aboutUs: '关于我们',
     },
     resources: {
       title: '资源',
       anyParserDocs: 'AnyParser 文档',
       privacyPolicy: '隐私政策',
-      termsOfService: '服务条款'
-    }
+      termsOfService: '服务条款',
+    },
   },
   account: {
     title: '账户',
@@ -490,7 +494,7 @@ export const zh = {
       title: '个人资料',
       errorLoading: '加载用户资料时出错',
       pleaseLogin: '请登录。',
-      welcome: '欢迎'
+      welcome: '欢迎',
     },
     apiKey: {
       title: 'AnyParser API 密钥',
@@ -498,34 +502,31 @@ export const zh = {
       limitedTime: '限时优惠！',
       freePages: '每个 API 可免费提取最多 100 页！',
       note: '注意：',
-      limitations: [
-        '免费 API 密钥每次 API 调用最多提取 10 页。',
-        'AnyParser 从不存储或使用您的数据进行训练。'
-      ],
+      limitations: ['免费 API 密钥每次 API 调用最多提取 10 页。', 'AnyParser 从不存储或使用您的数据进行训练。'],
       verifyEmail: '请验证您的电子邮件以生成并复制您的 API 密钥。',
       resendVerification: '重新发送验证邮件',
       sendingVerification: '正在发送验证邮件...',
       maxKeysGenerated: '您已生成了最大数量的 API 密钥',
       generateNew: '生成新的 API 密钥',
-      generating: '正在生成...'
+      generating: '正在生成...',
     },
     subscriptions: {
       title: '订阅',
       description: '查看产品或修改您的订阅。',
-      viewProducts: '查看产品'
+      viewProducts: '查看产品',
     },
-    documentation: '查看 AnyParser 文档'
+    documentation: '查看 AnyParser 文档',
   },
   auth: {
     login: '登录',
     logout: '登出',
     completingAuthentication: '正在完成身份验证...',
-    completingLogout: '正在完成注销...'
+    completingLogout: '正在完成注销...',
   },
   blog: {
     noPosts: '暂无博客文章。',
     checkBackSoon: '请稍后回来查看更新！',
-    backTo: '返回'
+    backTo: '返回',
   },
   bookDemo: {
     title: '预约演示',
@@ -535,7 +536,7 @@ export const zh = {
     submitted: {
       title: '演示请求已提交！',
       subtitle: '我们会审核并尽快回复您',
-      goHomeButton: '返回主页'
+      goHomeButton: '返回主页',
     },
     form: {
       name: '姓名',
@@ -545,19 +546,19 @@ export const zh = {
       message: '消息',
       helpMessage: '我们能帮您什么忙？',
       submit: '提交',
-      emailValidation: '请输入有效的电子邮件地址。'
+      emailValidation: '请输入有效的电子邮件地址。',
     },
     calendly: {
       submitFormMessage: '请提交演示请求表单',
-      backToPreview: '返回预览'
+      backToPreview: '返回预览',
     },
     sent: '已发送！',
-    error: '联系失败。请重试。'
+    error: '联系失败。请重试。',
   },
   notFound: {
     title: '404',
     subtitle: '哎呀！此页面不存在',
-    goHome: '返回主页'
+    goHome: '返回主页',
   },
   messages: {
     success: {
@@ -576,7 +577,7 @@ export const zh = {
       tablesGenerated: '已从中生成表格',
       schemaMapGenerated: '已生成架构映射',
       extracted: '已提取！',
-      tablesGeneratedFrom: '已从 {filename} 生成表格！'
+      tablesGeneratedFrom: '已从 {filename} 生成表格！',
     },
     error: {
       contactFailed: '联系失败。请重试。',
@@ -612,7 +613,7 @@ export const zh = {
       errorTransforming: '转换 {filename} 时出错。请重试。',
       requestTimeoutFile: '转换请求 {filename} 超时。请重试。',
       errorExtractingFile: '提取 {filename} 时出错。请重试。',
-      quotaExceeded: '超出配额。请升级您的计划或联系我们以获取更多额度。'
-    }
-  }
+      quotaExceeded: '超出配额。请升级您的计划或联系我们以获取更多额度。',
+    },
+  },
 } as const;
