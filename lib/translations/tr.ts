@@ -35,6 +35,7 @@ export const tr = {
     learnMore: 'Daha Fazla Bilgi Edinin',
     contactUs: 'Bize Ulaşın',
     readMore: 'Daha Fazla Oku',
+    selectOption: 'Bir seçenek seçin',
   },
   homepage: {
     hero: {
@@ -361,6 +362,47 @@ export const tr = {
       },
     },
     comingSoon: 'Yakında geliyor',
+    interactivePlayground: 'Etkileşimli Oyun Alanı',
+    extraction: {
+      uploading: 'Yükleniyor',
+      extracting: 'Çıkartılıyor',
+      generatingHtmlTable: 'HTML Tablosu Oluşturuluyor',
+      extractTable: 'Tabloyu Çıkart',
+      extractPlainText: 'Düz Metni Çıkart',
+      noTableDetected: 'Çıktıda tablo tespit edilmedi. Tekrar deneyin veya başka bir dosya seçin',
+      reRunDocument: 'Belgeyi Yeniden Çalıştır',
+      reRunPage: 'Sayfayı Yeniden Çalıştır {pageNumber}',
+      downloadMarkdown: "Markdown'u İndir",
+      download: 'İndir',
+      backToResult: 'Sonuca Geri Dön',
+      backToFile: 'Dosyaya Geri Dön',
+      extractingData: 'Veriler çıkartılıyor...',
+    },
+    table: {
+      selectTables: 'Tabloları Seç',
+      selectAll: 'Tümünü Seç',
+      deselectAll: 'Seçimi Kaldır',
+      noTablesFound: 'Hiçbir tablo bulunamadı',
+      reRunExtract: 'Çıkarmayı Yeniden Çalıştır',
+      mapToSchema: 'Şemanıza Eşleştirin',
+      noTablesExtracted: 'Hiçbir Tablo Çıkarılmadı',
+      goToExtractTables: 'Tabloları Çıkarmaya Git',
+    },
+    results: {
+      expand: 'Genişlet',
+      compare: 'Karşılaştır',
+      copy: 'Kopyala',
+      pageOf: 'Sayfa {page} / {total}',
+    },
+    extractSettings: {
+      removeFromOutput: 'Çıktıdan kaldır:',
+      personalIdentifiableInfo: 'Kişisel Tanımlanabilir Bilgiler (PII)',
+      pageNumbers: 'Sayfa Numaraları',
+      footnotes: 'Dipnotlar',
+      headersFooters: 'Başlıklar ve Altbilgiler',
+      tables: 'Tablolar',
+      chartsFigures: 'Grafikler ve Şekiller',
+    },
   },
   solutionPages: {
     compliance: {
@@ -495,6 +537,8 @@ export const tr = {
   auth: {
     login: 'Giriş Yap',
     logout: 'Çıkış Yap',
+    completingAuthentication: 'Kimlik doğrulama tamamlanıyor...',
+    completingLogout: 'Çıkış tamamlanıyor...',
   },
   blog: {
     noPosts: 'Henüz blog gönderisi mevcut değil.',
@@ -550,6 +594,7 @@ export const tr = {
       tablesGenerated: 'Tablo(lar) oluşturuldu',
       schemaMapGenerated: 'Şema Haritası oluşturuldu',
       extracted: 'çıkarıldı!',
+      tablesGeneratedFrom: '{filename} dosyasından tablo(lar) oluşturuldu!',
     },
     error: {
       contactFailed: 'İletişim başarısız oldu. Lütfen tekrar deneyin.',
@@ -581,6 +626,11 @@ export const tr = {
       schemaExtractionError: 'Şema Çıkarımı hatası. Lütfen tekrar deneyin.',
       undefinedMarkdown: 'Tanımsız markdown alındı. Lütfen tekrar deneyin.',
       errorMapping: 'Şema eşlemesi sırasında hata oluştu. Lütfen tekrar deneyin.',
+      jobFailedFile: '{filename}: İşlem başarısız oldu. Lütfen tekrar deneyin.',
+      errorTransforming: '{filename} dönüştürülürken hata oluştu. Lütfen tekrar deneyin.',
+      requestTimeoutFile: '{filename} için dönüştürme isteği zaman aşımına uğradı. Lütfen tekrar deneyin.',
+      errorExtractingFile: '{filename} çıkarılırken hata oluştu. Lütfen tekrar deneyin.',
+      quotaExceeded: 'Kotayı aştınız. Lütfen planınızı yükseltin veya daha fazla kredi için bizimle iletişime geçin.',
     },
   },
 } as const;

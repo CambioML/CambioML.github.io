@@ -35,6 +35,7 @@ export const hu = {
     learnMore: 'Tudj meg többet',
     contactUs: 'Lépj kapcsolatba velünk',
     readMore: 'Olvass tovább',
+    selectOption: 'Válasszon egy lehetőséget',
   },
   homepage: {
     hero: {
@@ -372,6 +373,47 @@ export const hu = {
       },
     },
     comingSoon: 'Hamarosan',
+    interactivePlayground: 'Interaktív játszótér',
+    extraction: {
+      uploading: 'Feltöltés',
+      extracting: 'Kinyerés',
+      generatingHtmlTable: 'HTML táblázat generálása',
+      extractTable: 'Táblázat kinyerése',
+      extractPlainText: 'Egyszerű szöveg kinyerése',
+      noTableDetected: 'Nem található táblázat a kimenetben. Próbálja újra, vagy válasszon másik fájlt',
+      reRunDocument: 'Dokumentum újrafuttatása',
+      reRunPage: 'Oldal újrafuttatása {pageNumber}',
+      downloadMarkdown: 'Markdown letöltése',
+      download: 'Letöltés',
+      backToResult: 'Vissza az eredményhez',
+      backToFile: 'Vissza a fájlhoz',
+      extractingData: 'Adatok kinyerése...',
+    },
+    table: {
+      selectTables: 'Táblák kiválasztása',
+      selectAll: 'Mindet kiválaszt',
+      deselectAll: 'Mindet töröl',
+      noTablesFound: 'Nem találhatók táblák itt:',
+      reRunExtract: 'Újraindítás Kivonatolás',
+      mapToSchema: 'Térképezés a saját sémájához',
+      noTablesExtracted: 'Nincsenek kivonatolt táblák',
+      goToExtractTables: 'Ugrás a Táblák Kivonatolásához',
+    },
+    results: {
+      expand: 'Kibontás',
+      compare: 'Összehasonlítás',
+      copy: 'Másolás',
+      pageOf: 'Oldal {page} / {total}',
+    },
+    extractSettings: {
+      removeFromOutput: 'Eltávolítás a kimenetből:',
+      personalIdentifiableInfo: 'Személyes azonosítható információk (PII)',
+      pageNumbers: 'Oldalszámok',
+      footnotes: 'Lábjegyzetek',
+      headersFooters: 'Fejléc és lábléc',
+      tables: 'Táblázatok',
+      chartsFigures: 'Diagramok és ábrák',
+    },
   },
   solutionPages: {
     compliance: {
@@ -506,6 +548,8 @@ export const hu = {
   auth: {
     login: 'Bejelentkezés',
     logout: 'Kijelentkezés',
+    completingAuthentication: 'Hitelesítés befejezése...',
+    completingLogout: 'Kijelentkezés befejezése...',
   },
   blog: {
     noPosts: 'Még nincsenek blogbejegyzések.',
@@ -561,6 +605,7 @@ export const hu = {
       tablesGenerated: 'Táblázat(ok) generálva',
       schemaMapGenerated: 'Séma térkép generálva',
       extracted: 'kinyerve!',
+      tablesGeneratedFrom: 'Táblázat(ok) létrehozva a(z) {filename} fájlból!',
     },
     error: {
       contactFailed: 'Kapcsolat sikertelen. Kérjük, próbálja újra.',
@@ -592,6 +637,12 @@ export const hu = {
       schemaExtractionError: 'Séma kinyerési hiba. Kérjük, próbálja újra.',
       undefinedMarkdown: 'Nem definiált markdown érkezett. Kérjük, próbálja újra.',
       errorMapping: 'Hiba a séma leképezésekor. Kérjük, próbálja újra.',
+      jobFailedFile: '{filename}: A feladat sikertelen. Kérjük, próbálja újra.',
+      errorTransforming: 'Hiba történt a(z) {filename} átalakításakor. Kérjük, próbálja újra.',
+      requestTimeoutFile: 'A(z) {filename} átalakítási kérés időtúllépést szenvedett. Kérjük, próbálja újra.',
+      errorExtractingFile: 'Hiba történt a(z) {filename} kinyerésekor. Kérjük, próbálja újra.',
+      quotaExceeded:
+        'A kvóta túllépve. Kérjük, frissítse a tervét, vagy lépjen kapcsolatba velünk további kreditekért.',
     },
   },
 } as const;

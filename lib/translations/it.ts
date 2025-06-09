@@ -35,6 +35,7 @@ export const it = {
     learnMore: 'Scopri di più',
     contactUs: 'Contattaci',
     readMore: 'Leggi di più',
+    selectOption: "Seleziona un'opzione",
   },
   homepage: {
     hero: {
@@ -372,6 +373,47 @@ export const it = {
       },
     },
     comingSoon: 'In arrivo',
+    interactivePlayground: 'Parco giochi interattivo',
+    extraction: {
+      uploading: 'Caricamento',
+      extracting: 'Estrazione',
+      generatingHtmlTable: 'Generazione della tabella HTML',
+      extractTable: 'Estrai tabella',
+      extractPlainText: 'Estrai testo semplice',
+      noTableDetected: "Nessuna tabella rilevata nell'output. Riprova o seleziona un altro file",
+      reRunDocument: 'Esegui nuovamente il documento',
+      reRunPage: 'Esegui nuovamente la pagina {pageNumber}',
+      downloadMarkdown: 'Scarica Markdown',
+      download: 'Scarica',
+      backToResult: 'Torna al risultato',
+      backToFile: 'Torna al file',
+      extractingData: 'Estrazione dei dati...',
+    },
+    table: {
+      selectTables: 'Seleziona Tabelle',
+      selectAll: 'Seleziona Tutto',
+      deselectAll: 'Deseleziona Tutto',
+      noTablesFound: 'Nessuna tabella trovata in',
+      reRunExtract: "Esegui nuovamente l'estrazione",
+      mapToSchema: 'Mappa al tuo Schema',
+      noTablesExtracted: 'Nessuna Tabella Estratta',
+      goToExtractTables: 'Vai a Estrarre Tabelle',
+    },
+    results: {
+      expand: 'Espandi',
+      compare: 'Confronta',
+      copy: 'Copia',
+      pageOf: 'Pagina {page} di {total}',
+    },
+    extractSettings: {
+      removeFromOutput: "Rimuovi dall'output:",
+      personalIdentifiableInfo: 'Informazioni personali identificabili (PII)',
+      pageNumbers: 'Numeri di pagina',
+      footnotes: 'Note a piè di pagina',
+      headersFooters: 'Intestazioni e piè di pagina',
+      tables: 'Tabelle',
+      chartsFigures: 'Grafici e figure',
+    },
   },
   solutionPages: {
     compliance: {
@@ -506,6 +548,8 @@ export const it = {
   auth: {
     login: 'Accedi',
     logout: 'Esci',
+    completingAuthentication: "Completamento dell'autenticazione...",
+    completingLogout: 'Completamento del logout...',
   },
   blog: {
     noPosts: 'Non ci sono ancora post sul blog disponibili.',
@@ -561,6 +605,7 @@ export const it = {
       tablesGenerated: 'Tabella(e) generata(e) da',
       schemaMapGenerated: 'Mappa Schema generata per',
       extracted: 'estratto!',
+      tablesGeneratedFrom: 'Tabella(e) generata(e) da {filename}!',
     },
     error: {
       contactFailed: 'Contatto fallito. Per favore riprova.',
@@ -592,6 +637,11 @@ export const it = {
       schemaExtractionError: 'Errore di estrazione dello schema. Per favore riprova.',
       undefinedMarkdown: 'Markdown non definito ricevuto. Per favore riprova.',
       errorMapping: 'Errore nella mappatura dello schema per. Per favore riprova.',
+      jobFailedFile: '{filename}: Il lavoro è fallito. Per favore riprova.',
+      errorTransforming: 'Errore durante la trasformazione di {filename}. Per favore riprova.',
+      requestTimeoutFile: 'La richiesta di trasformazione per {filename} è scaduta. Per favore riprova.',
+      errorExtractingFile: "Errore durante l'estrazione di {filename}. Per favore riprova.",
+      quotaExceeded: 'Quota superata. Per favore, aggiorna il tuo piano o contattaci per ottenere più crediti.',
     },
   },
 } as const;

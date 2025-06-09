@@ -35,6 +35,7 @@ export const en = {
     learnMore: 'Learn More',
     contactUs: 'Contact Us',
     readMore: 'Read More',
+    selectOption: 'Select an option',
   },
   homepage: {
     hero: {
@@ -363,6 +364,47 @@ export const en = {
       },
     },
     comingSoon: 'Coming soon',
+    interactivePlayground: 'Interactive Playground',
+    extraction: {
+      uploading: 'Uploading',
+      extracting: 'Extracting',
+      generatingHtmlTable: 'Generating HTML Table',
+      extractTable: 'Extract Table',
+      extractPlainText: 'Extract Plain Text',
+      noTableDetected: 'No table detected in output. Retry or select another file',
+      reRunDocument: 'Re-run Document',
+      reRunPage: 'Re-run Page {pageNumber}',
+      downloadMarkdown: 'Download Markdown',
+      download: 'Download',
+      backToResult: 'Back to Result',
+      backToFile: 'Back to File',
+      extractingData: 'Extracting data...',
+    },
+    table: {
+      selectTables: 'Select Tables',
+      selectAll: 'Select All',
+      deselectAll: 'Deselect All',
+      noTablesFound: 'No tables found in',
+      reRunExtract: 'Re-run Extract',
+      mapToSchema: 'Map to your Schema',
+      noTablesExtracted: 'No Tables Extracted',
+      goToExtractTables: 'Go to Extract Tables',
+    },
+    results: {
+      expand: 'Expand',
+      compare: 'Compare',
+      copy: 'Copy',
+      pageOf: 'Page {page} of {total}',
+    },
+    extractSettings: {
+      removeFromOutput: 'Remove from output:',
+      personalIdentifiableInfo: 'Personal Identifiable Information (PII)',
+      pageNumbers: 'Page Numbers',
+      footnotes: 'Footnotes',
+      headersFooters: 'Headers & Footers',
+      tables: 'Tables',
+      chartsFigures: 'Charts & Figures',
+    },
   },
   solutionPages: {
     compliance: {
@@ -497,6 +539,8 @@ export const en = {
   auth: {
     login: 'Login',
     logout: 'Logout',
+    completingAuthentication: 'Completing authentication...',
+    completingLogout: 'Completing logout...',
   },
   blog: {
     noPosts: 'No blog posts available yet.',
@@ -552,6 +596,7 @@ export const en = {
       tablesGenerated: 'Generated table(s) from',
       schemaMapGenerated: 'Generated Schema Map for',
       extracted: 'extracted!',
+      tablesGeneratedFrom: 'Generated table(s) from {filename}!',
     },
     error: {
       contactFailed: 'Contact failed. Please try again.',
@@ -583,6 +628,11 @@ export const en = {
       schemaExtractionError: 'Schema Extraction error. Please try again.',
       undefinedMarkdown: 'Received undefined markdown. Please try again.',
       errorMapping: 'Error mapping schema for. Please try again.',
+      jobFailedFile: '{filename}: Job has failed. Please try again.',
+      errorTransforming: 'Error transforming {filename}. Please try again.',
+      requestTimeoutFile: 'Transform request for {filename} timed out. Please try again.',
+      errorExtractingFile: 'Error extracting {filename}. Please try again.',
+      quotaExceeded: 'Quota exceeded. Please upgrade your plan or contact us for more credits.',
     },
   },
 } as const;

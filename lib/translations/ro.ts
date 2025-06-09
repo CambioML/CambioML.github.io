@@ -35,6 +35,7 @@ export const ro = {
     learnMore: 'Află mai multe',
     contactUs: 'Contactează-ne',
     readMore: 'Citește mai mult',
+    selectOption: 'Selectați o opțiune',
   },
   homepage: {
     hero: {
@@ -372,6 +373,47 @@ export const ro = {
       },
     },
     comingSoon: 'În curând',
+    interactivePlayground: 'Loc de joacă interactiv',
+    extraction: {
+      uploading: 'Se încarcă',
+      extracting: 'Se extrage',
+      generatingHtmlTable: 'Se generează tabelul HTML',
+      extractTable: 'Extrage tabelul',
+      extractPlainText: 'Extrage text simplu',
+      noTableDetected: 'Nu s-a detectat niciun tabel în rezultat. Reîncercați sau selectați un alt fișier',
+      reRunDocument: 'Rulează din nou documentul',
+      reRunPage: 'Rulează din nou pagina {pageNumber}',
+      downloadMarkdown: 'Descarcă Markdown',
+      download: 'Descarcă',
+      backToResult: 'Înapoi la rezultat',
+      backToFile: 'Înapoi la fișier',
+      extractingData: 'Se extrag datele...',
+    },
+    table: {
+      selectTables: 'Selectați tabelele',
+      selectAll: 'Selectați tot',
+      deselectAll: 'Deselectați tot',
+      noTablesFound: 'Nu s-au găsit tabele în',
+      reRunExtract: 'Rulați din nou extragerea',
+      mapToSchema: 'Mapați la schema dvs.',
+      noTablesExtracted: 'Nu s-au extras tabele',
+      goToExtractTables: 'Mergeți la extragerea tabelelor',
+    },
+    results: {
+      expand: 'Extindeți',
+      compare: 'Comparați',
+      copy: 'Copiați',
+      pageOf: 'Pagina {page} din {total}',
+    },
+    extractSettings: {
+      removeFromOutput: 'Elimină din rezultat:',
+      personalIdentifiableInfo: 'Informații personale identificabile (PII)',
+      pageNumbers: 'Numerele paginilor',
+      footnotes: 'Note de subsol',
+      headersFooters: 'Antete și subsoluri',
+      tables: 'Tabele',
+      chartsFigures: 'Grafice și figuri',
+    },
   },
   solutionPages: {
     compliance: {
@@ -506,6 +548,8 @@ export const ro = {
   auth: {
     login: 'Autentificare',
     logout: 'Deconectare',
+    completingAuthentication: 'Se finalizează autentificarea...',
+    completingLogout: 'Se finalizează deconectarea...',
   },
   blog: {
     noPosts: 'Nu există postări pe blog disponibile încă.',
@@ -561,6 +605,7 @@ export const ro = {
       tablesGenerated: 'Tabel(e) generat(e) din',
       schemaMapGenerated: 'Hartă Schema generată pentru',
       extracted: 'extras!',
+      tablesGeneratedFrom: 'Tabel(e) generat(e) din {filename}!',
     },
     error: {
       contactFailed: 'Contactul a eșuat. Te rugăm să încerci din nou.',
@@ -592,6 +637,12 @@ export const ro = {
       schemaExtractionError: 'Eroare la extragerea schemei. Te rugăm să încerci din nou.',
       undefinedMarkdown: 'Markdown-ul primit este nedefinit. Te rugăm să încerci din nou.',
       errorMapping: 'Eroare la maparea schemei pentru. Te rugăm să încerci din nou.',
+      jobFailedFile: '{filename}: Procesul a eșuat. Vă rugăm să încercați din nou.',
+      errorTransforming: 'Eroare la transformarea {filename}. Vă rugăm să încercați din nou.',
+      requestTimeoutFile: 'Cererea de transformare pentru {filename} a expirat. Vă rugăm să încercați din nou.',
+      errorExtractingFile: 'Eroare la extragerea {filename}. Vă rugăm să încercați din nou.',
+      quotaExceeded:
+        'Cota depășită. Vă rugăm să faceți upgrade planului dvs. sau să ne contactați pentru mai multe credite.',
     },
   },
 } as const;

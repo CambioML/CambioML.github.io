@@ -7,6 +7,7 @@ import { locales } from '@/lib/i18n';
 import { getTranslation, type Locale } from '@/lib/translations';
 import { MarkdownComponents } from '@/app/components/dark/markdown-components';
 import { getAllBlogPosts, getBlogPostBySlug, type BlogPost } from '@/lib/markdown';
+import PlaygroundWithProvider from '@/app/components/playground/PlaygroundWithProvider';
 
 // Generate metadata for the page
 export async function generateMetadata({ params }: { params: { slug: string; locale: string } }): Promise<Metadata> {
@@ -112,6 +113,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string;
         <div className="py-8 px-4 md:px-8 lg:px-40">
           <div className="container mx-auto">
             <article className="max-w-none">
+              <PlaygroundWithProvider initialValue={true} />
               <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} components={MarkdownComponents}>
                 {post.content}
               </ReactMarkdown>

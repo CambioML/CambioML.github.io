@@ -35,6 +35,7 @@ export const zh = {
     learnMore: '了解更多',
     contactUs: '联系我们',
     readMore: '阅读更多',
+    selectOption: '选择一个选项',
   },
   homepage: {
     hero: {
@@ -349,6 +350,47 @@ export const zh = {
       },
     },
     comingSoon: '即将推出',
+    interactivePlayground: '交互式试用',
+    extraction: {
+      uploading: '正在上传',
+      extracting: '正在提取',
+      generatingHtmlTable: '正在生成 HTML 表格',
+      extractTable: '提取表格',
+      extractPlainText: '提取纯文本',
+      noTableDetected: '输出中未检测到表格。请重试或选择其他文件',
+      reRunDocument: '重新运行文档',
+      reRunPage: '重新运行页面 {pageNumber}',
+      downloadMarkdown: '下载 Markdown',
+      download: '下载',
+      backToResult: '返回结果',
+      backToFile: '返回文件',
+      extractingData: '正在提取数据...',
+    },
+    table: {
+      selectTables: '选择表',
+      selectAll: '全选',
+      deselectAll: '取消全选',
+      noTablesFound: '在中未找到表',
+      reRunExtract: '重新运行提取',
+      mapToSchema: '映射到您的架构',
+      noTablesExtracted: '未提取表',
+      goToExtractTables: '前往提取表',
+    },
+    results: {
+      expand: '展开',
+      compare: '比较',
+      copy: '复制',
+      pageOf: '第 {page} 页，共 {total} 页',
+    },
+    extractSettings: {
+      removeFromOutput: '从输出中移除：',
+      personalIdentifiableInfo: '个人身份信息 (PII)',
+      pageNumbers: '页码',
+      footnotes: '脚注',
+      headersFooters: '页眉和页脚',
+      tables: '表格',
+      chartsFigures: '图表和图形',
+    },
   },
   solutionPages: {
     compliance: {
@@ -478,6 +520,8 @@ export const zh = {
   auth: {
     login: '登录',
     logout: '登出',
+    completingAuthentication: '正在完成身份验证...',
+    completingLogout: '正在完成注销...',
   },
   blog: {
     noPosts: '暂无博客文章。',
@@ -533,6 +577,7 @@ export const zh = {
       tablesGenerated: '已从中生成表格',
       schemaMapGenerated: '已生成架构映射',
       extracted: '已提取！',
+      tablesGeneratedFrom: '已从 {filename} 生成表格！',
     },
     error: {
       contactFailed: '联系失败。请重试。',
@@ -564,6 +609,11 @@ export const zh = {
       schemaExtractionError: '架构提取错误。请重试。',
       undefinedMarkdown: '收到未定义的 Markdown。请重试。',
       errorMapping: '映射架构时出错。请重试。',
+      jobFailedFile: '{filename}: 任务失败。请重试。',
+      errorTransforming: '转换 {filename} 时出错。请重试。',
+      requestTimeoutFile: '转换请求 {filename} 超时。请重试。',
+      errorExtractingFile: '提取 {filename} 时出错。请重试。',
+      quotaExceeded: '超出配额。请升级您的计划或联系我们以获取更多额度。',
     },
   },
 } as const;

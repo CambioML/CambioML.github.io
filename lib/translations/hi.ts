@@ -35,6 +35,7 @@ export const hi = {
     learnMore: 'और जानें',
     contactUs: 'हमसे संपर्क करें',
     readMore: 'अधिक पढ़ें',
+    selectOption: 'एक विकल्प चुनें',
   },
   homepage: {
     hero: {
@@ -365,6 +366,47 @@ export const hi = {
       },
     },
     comingSoon: 'जल्द ही आ रहा है',
+    interactivePlayground: 'इंटरएक्टिव प्लेग्राउंड',
+    extraction: {
+      uploading: 'अपलोड हो रहा है',
+      extracting: 'निकाला जा रहा है',
+      generatingHtmlTable: 'HTML तालिका बनाई जा रही है',
+      extractTable: 'तालिका निकालें',
+      extractPlainText: 'सादा पाठ निकालें',
+      noTableDetected: 'आउटपुट में कोई तालिका नहीं मिली। पुनः प्रयास करें या कोई अन्य फ़ाइल चुनें',
+      reRunDocument: 'दस्तावेज़ को पुनः चलाएं',
+      reRunPage: 'पृष्ठ {pageNumber} को पुनः चलाएं',
+      downloadMarkdown: 'मार्कडाउन डाउनलोड करें',
+      download: 'डाउनलोड करें',
+      backToResult: 'परिणाम पर वापस जाएं',
+      backToFile: 'फ़ाइल पर वापस जाएं',
+      extractingData: 'डेटा निकाला जा रहा है...',
+    },
+    table: {
+      selectTables: 'तालिकाएँ चुनें',
+      selectAll: 'सभी चुनें',
+      deselectAll: 'सभी चयन रद्द करें',
+      noTablesFound: 'में कोई तालिकाएँ नहीं मिलीं',
+      reRunExtract: 'पुनः निष्कर्षण चलाएँ',
+      mapToSchema: 'अपनी स्कीमा से मिलाएँ',
+      noTablesExtracted: 'कोई तालिकाएँ निष्कर्षित नहीं हुईं',
+      goToExtractTables: 'तालिकाएँ निष्कर्षित करने पर जाएँ',
+    },
+    results: {
+      expand: 'विस्तार करें',
+      compare: 'तुलना करें',
+      copy: 'कॉपी करें',
+      pageOf: 'पृष्ठ {page} का {total}',
+    },
+    extractSettings: {
+      removeFromOutput: 'आउटपुट से हटाएं:',
+      personalIdentifiableInfo: 'व्यक्तिगत पहचान योग्य जानकारी (PII)',
+      pageNumbers: 'पृष्ठ संख्या',
+      footnotes: 'पाद टिप्पणियाँ',
+      headersFooters: 'हेडर और फुटर',
+      tables: 'तालिकाएँ',
+      chartsFigures: 'चार्ट और चित्र',
+    },
   },
   solutionPages: {
     compliance: {
@@ -499,6 +541,8 @@ export const hi = {
   auth: {
     login: 'लॉगिन',
     logout: 'लॉगआउट',
+    completingAuthentication: 'प्रमाणीकरण पूरा हो रहा है...',
+    completingLogout: 'लॉगआउट पूरा हो रहा है...',
   },
   blog: {
     noPosts: 'अभी तक कोई ब्लॉग पोस्ट उपलब्ध नहीं है।',
@@ -554,6 +598,7 @@ export const hi = {
       tablesGenerated: 'से तालिका(एं) उत्पन्न की गईं',
       schemaMapGenerated: 'के लिए स्कीमा मैप उत्पन्न किया गया',
       extracted: 'निकाला गया!',
+      tablesGeneratedFrom: '{filename} से तालिका(एं) उत्पन्न की गई!',
     },
     error: {
       contactFailed: 'संपर्क विफल। कृपया पुनः प्रयास करें।',
@@ -585,6 +630,11 @@ export const hi = {
       schemaExtractionError: 'स्कीमा निष्कर्षण त्रुटि। कृपया पुनः प्रयास करें।',
       undefinedMarkdown: 'अपरिभाषित मार्कडाउन प्राप्त हुआ। कृपया पुनः प्रयास करें।',
       errorMapping: 'के लिए स्कीमा मैपिंग में त्रुटि। कृपया पुनः प्रयास करें।',
+      jobFailedFile: '{filename}: कार्य विफल हो गया है। कृपया पुनः प्रयास करें।',
+      errorTransforming: '{filename} को बदलने में त्रुटि। कृपया पुनः प्रयास करें।',
+      requestTimeoutFile: '{filename} के लिए रूपांतरण अनुरोध समय समाप्त हो गया। कृपया पुनः प्रयास करें।',
+      errorExtractingFile: '{filename} को निकालने में त्रुटि। कृपया पुनः प्रयास करें।',
+      quotaExceeded: 'कोटा समाप्त हो गया है। कृपया अपनी योजना को अपग्रेड करें या अधिक क्रेडिट के लिए हमसे संपर्क करें।',
     },
   },
 } as const;

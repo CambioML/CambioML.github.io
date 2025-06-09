@@ -35,6 +35,7 @@ export const sv = {
     learnMore: 'Läs mer',
     contactUs: 'Kontakta oss',
     readMore: 'Läs mer',
+    selectOption: 'Välj ett alternativ',
   },
   homepage: {
     hero: {
@@ -368,6 +369,47 @@ export const sv = {
       },
     },
     comingSoon: 'Kommer snart',
+    interactivePlayground: 'Interaktiv lekplats',
+    extraction: {
+      uploading: 'Laddar upp',
+      extracting: 'Extraherar',
+      generatingHtmlTable: 'Genererar HTML-tabell',
+      extractTable: 'Extrahera tabell',
+      extractPlainText: 'Extrahera ren text',
+      noTableDetected: 'Ingen tabell upptäckt i resultatet. Försök igen eller välj en annan fil',
+      reRunDocument: 'Kör om dokumentet',
+      reRunPage: 'Kör om sidan {pageNumber}',
+      downloadMarkdown: 'Ladda ner Markdown',
+      download: 'Ladda ner',
+      backToResult: 'Tillbaka till resultat',
+      backToFile: 'Tillbaka till filen',
+      extractingData: 'Extraherar data...',
+    },
+    table: {
+      selectTables: 'Välj tabeller',
+      selectAll: 'Välj alla',
+      deselectAll: 'Avmarkera alla',
+      noTablesFound: 'Inga tabeller hittades i',
+      reRunExtract: 'Kör extrahering igen',
+      mapToSchema: 'Kartlägg till ditt schema',
+      noTablesExtracted: 'Inga tabeller extraherade',
+      goToExtractTables: 'Gå till Extrahera tabeller',
+    },
+    results: {
+      expand: 'Expandera',
+      compare: 'Jämför',
+      copy: 'Kopiera',
+      pageOf: 'Sida {page} av {total}',
+    },
+    extractSettings: {
+      removeFromOutput: 'Ta bort från resultatet:',
+      personalIdentifiableInfo: 'Personligt identifierbar information (PII)',
+      pageNumbers: 'Sidnummer',
+      footnotes: 'Fotnoter',
+      headersFooters: 'Rubriker & sidfötter',
+      tables: 'Tabeller',
+      chartsFigures: 'Diagram & figurer',
+    },
   },
   solutionPages: {
     compliance: {
@@ -502,6 +544,8 @@ export const sv = {
   auth: {
     login: 'Logga in',
     logout: 'Logga ut',
+    completingAuthentication: 'Slutför autentisering...',
+    completingLogout: 'Slutför utloggning...',
   },
   blog: {
     noPosts: 'Inga blogginlägg tillgängliga ännu.',
@@ -557,6 +601,7 @@ export const sv = {
       tablesGenerated: 'Genererade tabell(er) från',
       schemaMapGenerated: 'Genererade schema för',
       extracted: 'extraherad!',
+      tablesGeneratedFrom: 'Genererade tabell(er) från {filename}!',
     },
     error: {
       contactFailed: 'Kontakt misslyckades. Vänligen försök igen.',
@@ -588,6 +633,11 @@ export const sv = {
       schemaExtractionError: 'Fel vid schemaextraktion. Vänligen försök igen.',
       undefinedMarkdown: 'Mottog odefinierad markdown. Vänligen försök igen.',
       errorMapping: 'Fel vid schemamappning för. Vänligen försök igen.',
+      jobFailedFile: '{filename}: Jobbet har misslyckats. Försök igen.',
+      errorTransforming: 'Fel vid omvandling av {filename}. Försök igen.',
+      requestTimeoutFile: 'Omvandlingsförfrågan för {filename} tog för lång tid. Försök igen.',
+      errorExtractingFile: 'Fel vid extrahering av {filename}. Försök igen.',
+      quotaExceeded: 'Kvoten överskriden. Uppgradera din plan eller kontakta oss för fler krediter.',
     },
   },
 } as const;

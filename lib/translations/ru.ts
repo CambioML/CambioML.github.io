@@ -35,6 +35,7 @@ export const ru = {
     learnMore: 'Узнать больше',
     contactUs: 'Связаться с нами',
     readMore: 'Читать далее',
+    selectOption: 'Выберите вариант',
   },
   homepage: {
     hero: {
@@ -366,6 +367,47 @@ export const ru = {
       },
     },
     comingSoon: 'Скоро',
+    interactivePlayground: 'Интерактивная площадка',
+    extraction: {
+      uploading: 'Загрузка',
+      extracting: 'Извлечение',
+      generatingHtmlTable: 'Создание HTML таблицы',
+      extractTable: 'Извлечь таблицу',
+      extractPlainText: 'Извлечь простой текст',
+      noTableDetected: 'Таблица не обнаружена в выводе. Повторите попытку или выберите другой файл',
+      reRunDocument: 'Повторно выполнить документ',
+      reRunPage: 'Повторно выполнить страницу {pageNumber}',
+      downloadMarkdown: 'Скачать Markdown',
+      download: 'Скачать',
+      backToResult: 'Назад к результату',
+      backToFile: 'Назад к файлу',
+      extractingData: 'Извлечение данных...',
+    },
+    table: {
+      selectTables: 'Выберите таблицы',
+      selectAll: 'Выбрать все',
+      deselectAll: 'Снять выделение со всех',
+      noTablesFound: 'Таблицы не найдены в',
+      reRunExtract: 'Повторно выполнить извлечение',
+      mapToSchema: 'Сопоставить с вашей схемой',
+      noTablesExtracted: 'Таблицы не извлечены',
+      goToExtractTables: 'Перейти к извлечению таблиц',
+    },
+    results: {
+      expand: 'Развернуть',
+      compare: 'Сравнить',
+      copy: 'Копировать',
+      pageOf: 'Страница {page} из {total}',
+    },
+    extractSettings: {
+      removeFromOutput: 'Удалить из вывода:',
+      personalIdentifiableInfo: 'Персональная идентифицируемая информация (PII)',
+      pageNumbers: 'Номера страниц',
+      footnotes: 'Сноски',
+      headersFooters: 'Колонтитулы',
+      tables: 'Таблицы',
+      chartsFigures: 'Диаграммы и рисунки',
+    },
   },
   solutionPages: {
     compliance: {
@@ -500,6 +542,8 @@ export const ru = {
   auth: {
     login: 'Войти',
     logout: 'Выйти',
+    completingAuthentication: 'Завершение аутентификации...',
+    completingLogout: 'Завершение выхода...',
   },
   blog: {
     noPosts: 'Блог-посты пока недоступны.',
@@ -555,6 +599,7 @@ export const ru = {
       tablesGenerated: 'Сгенерированы таблицы из',
       schemaMapGenerated: 'Сгенерирована карта схемы для',
       extracted: 'извлечено!',
+      tablesGeneratedFrom: 'Создана(ы) таблица(ы) из {filename}!',
     },
     error: {
       contactFailed: 'Не удалось связаться. Пожалуйста, попробуйте снова.',
@@ -586,6 +631,13 @@ export const ru = {
       schemaExtractionError: 'Ошибка извлечения схемы. Пожалуйста, попробуйте снова.',
       undefinedMarkdown: 'Получен неопределенный markdown. Пожалуйста, попробуйте снова.',
       errorMapping: 'Ошибка сопоставления схемы для. Пожалуйста, попробуйте снова.',
+      jobFailedFile: '{filename}: Задача не выполнена. Пожалуйста, попробуйте снова.',
+      errorTransforming: 'Ошибка преобразования {filename}. Пожалуйста, попробуйте снова.',
+      requestTimeoutFile:
+        'Запрос на преобразование для {filename} превысил время ожидания. Пожалуйста, попробуйте снова.',
+      errorExtractingFile: 'Ошибка извлечения {filename}. Пожалуйста, попробуйте снова.',
+      quotaExceeded:
+        'Квота превышена. Пожалуйста, обновите свой план или свяжитесь с нами для получения дополнительных кредитов.',
     },
   },
 } as const;

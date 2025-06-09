@@ -35,6 +35,7 @@ export const ko = {
     learnMore: '더 알아보기',
     contactUs: '문의하기',
     readMore: '더 읽기',
+    selectOption: '옵션을 선택하세요',
   },
   homepage: {
     hero: {
@@ -360,6 +361,47 @@ export const ko = {
       },
     },
     comingSoon: '곧 출시 예정',
+    interactivePlayground: '인터랙티브 놀이터',
+    extraction: {
+      uploading: '업로드 중',
+      extracting: '추출 중',
+      generatingHtmlTable: 'HTML 테이블 생성 중',
+      extractTable: '테이블 추출',
+      extractPlainText: '일반 텍스트 추출',
+      noTableDetected: '출력에서 테이블이 감지되지 않았습니다. 다시 시도하거나 다른 파일을 선택하세요',
+      reRunDocument: '문서 다시 실행',
+      reRunPage: '페이지 {pageNumber} 다시 실행',
+      downloadMarkdown: '마크다운 다운로드',
+      download: '다운로드',
+      backToResult: '결과로 돌아가기',
+      backToFile: '파일로 돌아가기',
+      extractingData: '데이터 추출 중...',
+    },
+    table: {
+      selectTables: '테이블 선택',
+      selectAll: '모두 선택',
+      deselectAll: '모두 선택 해제',
+      noTablesFound: '테이블을 찾을 수 없습니다',
+      reRunExtract: '추출 다시 실행',
+      mapToSchema: '스키마에 매핑',
+      noTablesExtracted: '추출된 테이블 없음',
+      goToExtractTables: '테이블 추출로 이동',
+    },
+    results: {
+      expand: '확장',
+      compare: '비교',
+      copy: '복사',
+      pageOf: '{page}페이지 중 {total}페이지',
+    },
+    extractSettings: {
+      removeFromOutput: '출력에서 제거:',
+      personalIdentifiableInfo: '개인 식별 정보 (PII)',
+      pageNumbers: '페이지 번호',
+      footnotes: '각주',
+      headersFooters: '헤더 및 푸터',
+      tables: '테이블',
+      chartsFigures: '차트 및 그림',
+    },
   },
   solutionPages: {
     compliance: {
@@ -494,6 +536,8 @@ export const ko = {
   auth: {
     login: '로그인',
     logout: '로그아웃',
+    completingAuthentication: '인증 완료 중...',
+    completingLogout: '로그아웃 완료 중...',
   },
   blog: {
     noPosts: '아직 블로그 게시물이 없습니다.',
@@ -549,6 +593,7 @@ export const ko = {
       tablesGenerated: '테이블이 생성되었습니다',
       schemaMapGenerated: '스키마 맵이 생성되었습니다',
       extracted: '추출 완료!',
+      tablesGeneratedFrom: '{filename}에서 테이블이 생성되었습니다!',
     },
     error: {
       contactFailed: '연락 실패. 다시 시도해주세요.',
@@ -580,6 +625,11 @@ export const ko = {
       schemaExtractionError: '스키마 추출 오류. 다시 시도해주세요.',
       undefinedMarkdown: '정의되지 않은 마크다운을 받았습니다. 다시 시도해주세요.',
       errorMapping: '스키마 매핑 오류 발생. 다시 시도해주세요.',
+      jobFailedFile: '{filename}: 작업이 실패했습니다. 다시 시도해 주세요.',
+      errorTransforming: '{filename} 변환 중 오류가 발생했습니다. 다시 시도해 주세요.',
+      requestTimeoutFile: '{filename}에 대한 변환 요청이 시간 초과되었습니다. 다시 시도해 주세요.',
+      errorExtractingFile: '{filename} 추출 중 오류가 발생했습니다. 다시 시도해 주세요.',
+      quotaExceeded: '할당량을 초과했습니다. 플랜을 업그레이드하거나 추가 크레딧을 위해 저희에게 문의하세요.',
     },
   },
 } as const;

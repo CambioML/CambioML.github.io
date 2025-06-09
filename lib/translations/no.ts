@@ -35,6 +35,7 @@ export const no = {
     learnMore: 'Lær mer',
     contactUs: 'Kontakt oss',
     readMore: 'Les mer',
+    selectOption: 'Velg et alternativ',
   },
   homepage: {
     hero: {
@@ -368,6 +369,47 @@ export const no = {
       },
     },
     comingSoon: 'Kommer snart',
+    interactivePlayground: 'Interaktiv lekeplass',
+    extraction: {
+      uploading: 'Laster opp',
+      extracting: 'Ekstraherer',
+      generatingHtmlTable: 'Genererer HTML-tabell',
+      extractTable: 'Ekstraher tabell',
+      extractPlainText: 'Ekstraher ren tekst',
+      noTableDetected: 'Ingen tabell oppdaget i resultatet. Prøv igjen eller velg en annen fil',
+      reRunDocument: 'Kjør dokumentet på nytt',
+      reRunPage: 'Kjør siden på nytt {pageNumber}',
+      downloadMarkdown: 'Last ned Markdown',
+      download: 'Last ned',
+      backToResult: 'Tilbake til resultat',
+      backToFile: 'Tilbake til fil',
+      extractingData: 'Ekstraherer data...',
+    },
+    table: {
+      selectTables: 'Velg tabeller',
+      selectAll: 'Velg alle',
+      deselectAll: 'Fjern alle valg',
+      noTablesFound: 'Ingen tabeller funnet i',
+      reRunExtract: 'Kjør ekstraksjon på nytt',
+      mapToSchema: 'Kartlegg til ditt skjema',
+      noTablesExtracted: 'Ingen tabeller ekstrahert',
+      goToExtractTables: 'Gå til Ekstraher tabeller',
+    },
+    results: {
+      expand: 'Utvid',
+      compare: 'Sammenlign',
+      copy: 'Kopier',
+      pageOf: 'Side {page} av {total}',
+    },
+    extractSettings: {
+      removeFromOutput: 'Fjern fra resultatet:',
+      personalIdentifiableInfo: 'Personlig identifiserbar informasjon (PII)',
+      pageNumbers: 'Sidetall',
+      footnotes: 'Fotnoter',
+      headersFooters: 'Overskrifter og bunntekster',
+      tables: 'Tabeller',
+      chartsFigures: 'Diagrammer og figurer',
+    },
   },
   solutionPages: {
     compliance: {
@@ -502,6 +544,8 @@ export const no = {
   auth: {
     login: 'Logg inn',
     logout: 'Logg ut',
+    completingAuthentication: 'Fullfører autentisering...',
+    completingLogout: 'Fullfører utlogging...',
   },
   blog: {
     noPosts: 'Ingen blogginnlegg tilgjengelig ennå.',
@@ -557,6 +601,7 @@ export const no = {
       tablesGenerated: 'Genererte tabell(er) fra',
       schemaMapGenerated: 'Genererte Schema Map for',
       extracted: 'uttrukket!',
+      tablesGeneratedFrom: 'Genererte tabell(er) fra {filename}!',
     },
     error: {
       contactFailed: 'Kontakt mislyktes. Vennligst prøv igjen.',
@@ -588,6 +633,11 @@ export const no = {
       schemaExtractionError: 'Feil ved schema-uttrekking. Vennligst prøv igjen.',
       undefinedMarkdown: 'Mottok udefinert markdown. Vennligst prøv igjen.',
       errorMapping: 'Feil ved mapping av schema for. Vennligst prøv igjen.',
+      jobFailedFile: '{filename}: Jobben har mislyktes. Vennligst prøv igjen.',
+      errorTransforming: 'Feil ved transformering av {filename}. Vennligst prøv igjen.',
+      requestTimeoutFile: 'Transformasjonsforespørselen for {filename} utløp. Vennligst prøv igjen.',
+      errorExtractingFile: 'Feil ved utpakking av {filename}. Vennligst prøv igjen.',
+      quotaExceeded: 'Kvote overskredet. Vennligst oppgrader planen din eller kontakt oss for flere kreditter.',
     },
   },
 } as const;

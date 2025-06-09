@@ -213,7 +213,7 @@ const AccountPageContainer = () => {
               {!loading && !error && profile && emailVerified && (
                 <div className="w-full h-full flex flex-col items-start justify-start gap-8">
                   {apiKeys.length >= MAX_API_KEYS ? (
-                    <div className="w-full h-[50px] flex items-center justify-center gap-4 text-lg bg-neutral-100 border-2 border-neutral-300 p-4 rounded-xl text-neutral-700">
+                    <div className="w-full h-[50px] flex items-center justify-center gap-4 text-lg bg-neutral-100 border border-neutral-300 p-4 rounded-xl text-neutral-700">
                       {t.account.apiKey.maxKeysGenerated}
                       <Confetti size={32} />
                     </div>

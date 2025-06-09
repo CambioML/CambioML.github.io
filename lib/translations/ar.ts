@@ -35,6 +35,7 @@ export const ar = {
     learnMore: 'تعرف على المزيد',
     contactUs: 'اتصل بنا',
     readMore: 'اقرأ المزيد',
+    selectOption: 'اختر خيارًا',
   },
   homepage: {
     hero: {
@@ -358,6 +359,47 @@ export const ar = {
       },
     },
     comingSoon: 'قريبًا',
+    interactivePlayground: 'ملعب تفاعلي',
+    extraction: {
+      uploading: 'جارٍ التحميل',
+      extracting: 'جارٍ الاستخراج',
+      generatingHtmlTable: 'جارٍ إنشاء جدول HTML',
+      extractTable: 'استخراج الجدول',
+      extractPlainText: 'استخراج النص العادي',
+      noTableDetected: 'لم يتم اكتشاف جدول في النتيجة. حاول مرة أخرى أو اختر ملفًا آخر',
+      reRunDocument: 'إعادة تشغيل المستند',
+      reRunPage: 'إعادة تشغيل الصفحة {pageNumber}',
+      downloadMarkdown: 'تحميل Markdown',
+      download: 'تحميل',
+      backToResult: 'العودة إلى النتيجة',
+      backToFile: 'العودة إلى الملف',
+      extractingData: 'جارٍ استخراج البيانات...',
+    },
+    table: {
+      selectTables: 'اختر الجداول',
+      selectAll: 'اختر الكل',
+      deselectAll: 'إلغاء تحديد الكل',
+      noTablesFound: 'لم يتم العثور على جداول في',
+      reRunExtract: 'إعادة تشغيل الاستخراج',
+      mapToSchema: 'ربط بالمخطط الخاص بك',
+      noTablesExtracted: 'لم يتم استخراج أي جداول',
+      goToExtractTables: 'اذهب إلى استخراج الجداول',
+    },
+    results: {
+      expand: 'توسيع',
+      compare: 'مقارنة',
+      copy: 'نسخ',
+      pageOf: 'الصفحة {page} من {total}',
+    },
+    extractSettings: {
+      removeFromOutput: 'إزالة من النتيجة:',
+      personalIdentifiableInfo: 'المعلومات الشخصية (PII)',
+      pageNumbers: 'أرقام الصفحات',
+      footnotes: 'الحواشي السفلية',
+      headersFooters: 'الرؤوس والتذييلات',
+      tables: 'الجداول',
+      chartsFigures: 'الرسوم البيانية والأشكال',
+    },
   },
   solutionPages: {
     compliance: {
@@ -492,6 +534,8 @@ export const ar = {
   auth: {
     login: 'تسجيل الدخول',
     logout: 'تسجيل الخروج',
+    completingAuthentication: 'جارٍ إكمال المصادقة...',
+    completingLogout: 'جارٍ إكمال تسجيل الخروج...',
   },
   blog: {
     noPosts: 'لا توجد منشورات مدونة متاحة حتى الآن.',
@@ -547,6 +591,7 @@ export const ar = {
       tablesGenerated: 'تم إنشاء الجدول(الجداول) من',
       schemaMapGenerated: 'تم إنشاء خريطة المخطط لـ',
       extracted: 'تم الاستخراج!',
+      tablesGeneratedFrom: 'تم إنشاء الجدول(الجداول) من {filename}!',
     },
     error: {
       contactFailed: 'فشل الاتصال. يرجى المحاولة مرة أخرى.',
@@ -578,6 +623,11 @@ export const ar = {
       schemaExtractionError: 'خطأ في استخراج المخطط. يرجى المحاولة مرة أخرى.',
       undefinedMarkdown: 'تم استلام Markdown غير محدد. يرجى المحاولة مرة أخرى.',
       errorMapping: 'خطأ في تعيين المخطط لـ. يرجى المحاولة مرة أخرى.',
+      jobFailedFile: '{filename}: فشل المهمة. يرجى المحاولة مرة أخرى.',
+      errorTransforming: 'حدث خطأ أثناء تحويل {filename}. يرجى المحاولة مرة أخرى.',
+      requestTimeoutFile: 'انتهت مهلة طلب التحويل لـ {filename}. يرجى المحاولة مرة أخرى.',
+      errorExtractingFile: 'حدث خطأ أثناء استخراج {filename}. يرجى المحاولة مرة أخرى.',
+      quotaExceeded: 'تم تجاوز الحصة. يرجى ترقية خطتك أو الاتصال بنا للحصول على المزيد من الاعتمادات.',
     },
   },
 } as const;

@@ -35,6 +35,7 @@ export const da = {
     learnMore: 'Lær mere',
     contactUs: 'Kontakt os',
     readMore: 'Læs mere',
+    selectOption: 'Vælg en mulighed',
   },
   homepage: {
     hero: {
@@ -368,6 +369,47 @@ export const da = {
       },
     },
     comingSoon: 'Kommer snart',
+    interactivePlayground: 'Interaktiv legeplads',
+    extraction: {
+      uploading: 'Uploader',
+      extracting: 'Ekstraherer',
+      generatingHtmlTable: 'Genererer HTML-tabel',
+      extractTable: 'Ekstraher tabel',
+      extractPlainText: 'Ekstraher almindelig tekst',
+      noTableDetected: 'Ingen tabel fundet i output. Prøv igen eller vælg en anden fil',
+      reRunDocument: 'Kør dokument igen',
+      reRunPage: 'Kør side {pageNumber} igen',
+      downloadMarkdown: 'Download Markdown',
+      download: 'Download',
+      backToResult: 'Tilbage til resultat',
+      backToFile: 'Tilbage til fil',
+      extractingData: 'Ekstraherer data...',
+    },
+    table: {
+      selectTables: 'Vælg tabeller',
+      selectAll: 'Vælg alle',
+      deselectAll: 'Fravælg alle',
+      noTablesFound: 'Ingen tabeller fundet i',
+      reRunExtract: 'Kør udtræk igen',
+      mapToSchema: 'Kortlæg til dit skema',
+      noTablesExtracted: 'Ingen tabeller udtrukket',
+      goToExtractTables: 'Gå til udtræk tabeller',
+    },
+    results: {
+      expand: 'Udvid',
+      compare: 'Sammenlign',
+      copy: 'Kopiér',
+      pageOf: 'Side {page} af {total}',
+    },
+    extractSettings: {
+      removeFromOutput: 'Fjern fra output:',
+      personalIdentifiableInfo: 'Personligt identificerbare oplysninger (PII)',
+      pageNumbers: 'Sidetal',
+      footnotes: 'Fodnoter',
+      headersFooters: 'Overskrifter & fodnoter',
+      tables: 'Tabeller',
+      chartsFigures: 'Diagrammer & figurer',
+    },
   },
   solutionPages: {
     compliance: {
@@ -502,6 +544,8 @@ export const da = {
   auth: {
     login: 'Log ind',
     logout: 'Log ud',
+    completingAuthentication: 'Fuldfører autentifikation...',
+    completingLogout: 'Fuldfører logud...',
   },
   blog: {
     noPosts: 'Ingen blogindlæg tilgængelige endnu.',
@@ -557,6 +601,7 @@ export const da = {
       tablesGenerated: 'Genererede tabel(ler) fra',
       schemaMapGenerated: 'Genererede Schema Map for',
       extracted: 'udtrukket!',
+      tablesGeneratedFrom: 'Genererede tabel(ler) fra {filename}!',
     },
     error: {
       contactFailed: 'Kontakt mislykkedes. Prøv venligst igen.',
@@ -588,6 +633,11 @@ export const da = {
       schemaExtractionError: 'Fejl ved Schema Udtrækning. Prøv venligst igen.',
       undefinedMarkdown: 'Modtog udefineret markdown. Prøv venligst igen.',
       errorMapping: 'Fejl ved kortlægning af schema for. Prøv venligst igen.',
+      jobFailedFile: '{filename}: Jobbet mislykkedes. Prøv venligst igen.',
+      errorTransforming: 'Fejl ved transformering af {filename}. Prøv venligst igen.',
+      requestTimeoutFile: 'Transformeringsanmodning for {filename} overskred tidsgrænsen. Prøv venligst igen.',
+      errorExtractingFile: 'Fejl ved udtrækning af {filename}. Prøv venligst igen.',
+      quotaExceeded: 'Kvote overskredet. Opgrader venligst din plan eller kontakt os for flere kreditter.',
     },
   },
 } as const;

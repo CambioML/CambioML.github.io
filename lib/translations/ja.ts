@@ -35,6 +35,7 @@ export const ja = {
     learnMore: 'もっと詳しく',
     contactUs: 'お問い合わせ',
     readMore: 'もっと読む',
+    selectOption: 'オプションを選択',
   },
   homepage: {
     hero: {
@@ -361,6 +362,47 @@ export const ja = {
       },
     },
     comingSoon: '近日公開',
+    interactivePlayground: 'インタラクティブプレイグラウンド',
+    extraction: {
+      uploading: 'アップロード中',
+      extracting: '抽出中',
+      generatingHtmlTable: 'HTMLテーブルを生成中',
+      extractTable: 'テーブルを抽出',
+      extractPlainText: 'プレーンテキストを抽出',
+      noTableDetected: '出力にテーブルが検出されませんでした。再試行するか、別のファイルを選択してください',
+      reRunDocument: 'ドキュメントを再実行',
+      reRunPage: 'ページ {pageNumber} を再実行',
+      downloadMarkdown: 'Markdownをダウンロード',
+      download: 'ダウンロード',
+      backToResult: '結果に戻る',
+      backToFile: 'ファイルに戻る',
+      extractingData: 'データを抽出中...',
+    },
+    table: {
+      selectTables: 'テーブルを選択',
+      selectAll: 'すべて選択',
+      deselectAll: 'すべて選択解除',
+      noTablesFound: 'テーブルが見つかりません',
+      reRunExtract: '抽出を再実行',
+      mapToSchema: 'スキーマにマッピング',
+      noTablesExtracted: 'テーブルが抽出されていません',
+      goToExtractTables: 'テーブル抽出に移動',
+    },
+    results: {
+      expand: '展開',
+      compare: '比較',
+      copy: 'コピー',
+      pageOf: 'ページ {page} / {total}',
+    },
+    extractSettings: {
+      removeFromOutput: '出力から削除:',
+      personalIdentifiableInfo: '個人識別情報 (PII)',
+      pageNumbers: 'ページ番号',
+      footnotes: '脚注',
+      headersFooters: 'ヘッダーとフッター',
+      tables: 'テーブル',
+      chartsFigures: 'チャートと図',
+    },
   },
   solutionPages: {
     compliance: {
@@ -495,6 +537,8 @@ export const ja = {
   auth: {
     login: 'ログイン',
     logout: 'ログアウト',
+    completingAuthentication: '認証を完了しています...',
+    completingLogout: 'ログアウトを完了しています...',
   },
   blog: {
     noPosts: 'まだブログ投稿はありません。',
@@ -550,6 +594,7 @@ export const ja = {
       tablesGenerated: 'テーブルを生成しました',
       schemaMapGenerated: 'スキーママップを生成しました',
       extracted: '抽出完了！',
+      tablesGeneratedFrom: '{filename} からテーブルを生成しました！',
     },
     error: {
       contactFailed: '連絡に失敗しました。もう一度お試しください。',
@@ -581,6 +626,12 @@ export const ja = {
       schemaExtractionError: 'スキーマ抽出エラー。もう一度お試しください。',
       undefinedMarkdown: '未定義のマークダウンを受信しました。もう一度お試しください。',
       errorMapping: 'スキーマのマッピングエラー。もう一度お試しください。',
+      jobFailedFile: '{filename}: ジョブが失敗しました。もう一度お試しください。',
+      errorTransforming: '{filename} の変換中にエラーが発生しました。もう一度お試しください。',
+      requestTimeoutFile: '{filename} の変換リクエストがタイムアウトしました。もう一度お試しください。',
+      errorExtractingFile: '{filename} の抽出中にエラーが発生しました。もう一度お試しください。',
+      quotaExceeded:
+        'クォータを超えました。プランをアップグレードするか、追加のクレジットについてお問い合わせください。',
     },
   },
 } as const;

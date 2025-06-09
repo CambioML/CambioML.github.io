@@ -35,6 +35,7 @@ export const fi = {
     learnMore: 'Lisätietoja',
     contactUs: 'Ota yhteyttä',
     readMore: 'Lue lisää',
+    selectOption: 'Valitse vaihtoehto',
   },
   homepage: {
     hero: {
@@ -371,6 +372,47 @@ export const fi = {
       },
     },
     comingSoon: 'Tulossa pian',
+    interactivePlayground: 'Vuorovaikutteinen leikkikenttä',
+    extraction: {
+      uploading: 'Ladataan',
+      extracting: 'Poimitaan',
+      generatingHtmlTable: 'Luodaan HTML-taulukko',
+      extractTable: 'Poimi taulukko',
+      extractPlainText: 'Poimi pelkkä teksti',
+      noTableDetected: 'Tuloksesta ei löytynyt taulukkoa. Yritä uudelleen tai valitse toinen tiedosto',
+      reRunDocument: 'Suorita asiakirja uudelleen',
+      reRunPage: 'Suorita sivu uudelleen {pageNumber}',
+      downloadMarkdown: 'Lataa Markdown',
+      download: 'Lataa',
+      backToResult: 'Takaisin tulokseen',
+      backToFile: 'Takaisin tiedostoon',
+      extractingData: 'Poimitaan tietoja...',
+    },
+    table: {
+      selectTables: 'Valitse taulukot',
+      selectAll: 'Valitse kaikki',
+      deselectAll: 'Poista valinnat',
+      noTablesFound: 'Taulukoita ei löytynyt kohteesta',
+      reRunExtract: 'Suorita uudelleen poiminta',
+      mapToSchema: 'Kartta omaan skeemaan',
+      noTablesExtracted: 'Taulukoita ei poimittu',
+      goToExtractTables: 'Siirry poimimaan taulukoita',
+    },
+    results: {
+      expand: 'Laajenna',
+      compare: 'Vertaa',
+      copy: 'Kopioi',
+      pageOf: 'Sivu {page} / {total}',
+    },
+    extractSettings: {
+      removeFromOutput: 'Poista tuloksesta:',
+      personalIdentifiableInfo: 'Henkilökohtaisesti tunnistettavat tiedot (PII)',
+      pageNumbers: 'Sivunumerot',
+      footnotes: 'Alaviitteet',
+      headersFooters: 'Otsikot ja alatunnisteet',
+      tables: 'Taulukot',
+      chartsFigures: 'Kaaviot ja kuviot',
+    },
   },
   solutionPages: {
     compliance: {
@@ -505,6 +547,8 @@ export const fi = {
   auth: {
     login: 'Kirjaudu sisään',
     logout: 'Kirjaudu ulos',
+    completingAuthentication: 'Viimeistellään tunnistautumista...',
+    completingLogout: 'Viimeistellään uloskirjautumista...',
   },
   blog: {
     noPosts: 'Blogikirjoituksia ei ole vielä saatavilla.',
@@ -560,6 +604,7 @@ export const fi = {
       tablesGenerated: 'Taulukot luotu kohteesta',
       schemaMapGenerated: 'Skeemakartta luotu kohteelle',
       extracted: 'purettu!',
+      tablesGeneratedFrom: 'Luotu taulukko(t) tiedostosta {filename}!',
     },
     error: {
       contactFailed: 'Yhteydenotto epäonnistui. Yritä uudelleen.',
@@ -591,6 +636,11 @@ export const fi = {
       schemaExtractionError: 'Skeeman purkuvirhe. Yritä uudelleen.',
       undefinedMarkdown: 'Saatiin määrittelemätön markdown. Yritä uudelleen.',
       errorMapping: 'Virhe skeeman kartoittamisessa kohteelle. Yritä uudelleen.',
+      jobFailedFile: '{filename}: Tehtävä epäonnistui. Yritä uudelleen.',
+      errorTransforming: 'Virhe muunnettaessa {filename}. Yritä uudelleen.',
+      requestTimeoutFile: 'Muunnospyyntö tiedostolle {filename} aikakatkaistiin. Yritä uudelleen.',
+      errorExtractingFile: 'Virhe tiedoston {filename} purkamisessa. Yritä uudelleen.',
+      quotaExceeded: 'Kiintiö ylitetty. Päivitä suunnitelmasi tai ota yhteyttä saadaksesi lisää käyttöoikeuksia.',
     },
   },
 } as const;

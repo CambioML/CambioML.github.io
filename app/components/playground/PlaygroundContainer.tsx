@@ -49,12 +49,13 @@ const PlaygroundContainer = () => {
             className={`
               bg-white/[0.08]
               border-border
+              pb-4
+              ml-4
               border
               rounded-lg
               transition-all duration-300 ease-in-out
               hover:bg-white/[0.12]
-              hover:border-white/25
-              ${fileCollapsed ? 'p-2 rounded-l-xl' : 'px-2 pl-10 rounded-l-xl'}
+              ${fileCollapsed ? 'p-2 rounded-l-xl' : 'px-2 pl-4 rounded-l-xl'}
               pr-0
             `}
             style={{
@@ -70,7 +71,6 @@ const PlaygroundContainer = () => {
               border-l-0 border-y-2 border-r-2 border-white/20
               transition-all duration-300 ease-in-out
               hover:bg-white/[0.12]
-              hover:border-white/25
               px-6 pr-10 rounded-r-xl
             `}
             style={{

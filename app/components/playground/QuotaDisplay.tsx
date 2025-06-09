@@ -17,7 +17,16 @@ interface QuotaDisplayProps {
 }
 
 const QuotaDisplay = ({ userId, isCollapsed }: QuotaDisplayProps) => {
-  const { totalQuota, remainingQuota, token, setTotalQuota, setRemainingQuota, fileCollapsed } = usePlaygroundStore();
+  const {
+    totalQuota,
+    remainingQuota,
+    token,
+    setTotalQuota,
+    setRemainingQuota,
+    fileCollapsed,
+    loadingQuota,
+    setLoadingQuota,
+  } = usePlaygroundStore();
   const { apiURL } = useProductionContext();
   const [isLoading, setIsLoading] = useState(false);
   const { apiKeys } = useAccountStore();
@@ -26,8 +35,13 @@ const QuotaDisplay = ({ userId, isCollapsed }: QuotaDisplayProps) => {
 
   const handleRefresh = async () => {
     setIsLoading(true);
-    await updateQuota({ api_url: apiURL, userId, token, setTotalQuota, setRemainingQuota, handleError: () => {} });
-    setIsLoading(false);
+    setLoadingQuota(true);
+    try {
+      await updateQuota({ api_url: apiURL, userId, token, setTotalQuota, setRemainingQuota, handleError: () => {} });
+    } finally {
+      setIsLoading(false);
+      setLoadingQuota(false);
+    }
   };
 
   const getBarColor = (quotaPercent: number) => {
@@ -64,6 +78,8 @@ const QuotaDisplay = ({ userId, isCollapsed }: QuotaDisplayProps) => {
         });
       } catch (error) {
         handleError(error instanceof Error ? error : new Error('An unknown error occurred'));
+      } finally {
+        setLoadingQuota(false);
       }
     };
     fetchQuota();
@@ -76,13 +92,13 @@ const QuotaDisplay = ({ userId, isCollapsed }: QuotaDisplayProps) => {
           {t.playground.quota.title}
         </h2>
         <div
-          className="flex items-center text-neutral-600 justify-center bg-white rounded-md w-[30px] h-[30px] hover:bg-neutral-100 hover:text-neutral-800 hover:border-2 shrink-0 cursor-pointer"
+          className="flex items-center text-neutral-600 justify-center bg-white rounded-md w-[30px] h-[30px] hover:bg-neutral-100 hover:text-neutral-800 hover:border shrink-0 cursor-pointer"
           onClick={handleRefresh}
         >
           <ArrowsClockwise size={20} />
         </div>
       </div>
-      {totalQuota === 0 || isLoading ? (
+      {totalQuota === 0 || isLoading || loadingQuota ? (
         <>
           <div className={`w-full bg-neutral-300 rounded-full h-2.5 animate-pulse`}> &nbsp;</div>
           <span className="text-xs mt-1">{`--/-- ${t.playground.quota.pages}`}</span>

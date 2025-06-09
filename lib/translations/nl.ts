@@ -35,6 +35,7 @@ export const nl = {
     learnMore: 'Meer leren',
     contactUs: 'Neem contact op',
     readMore: 'Lees meer',
+    selectOption: 'Selecteer een optie',
   },
   homepage: {
     hero: {
@@ -370,6 +371,47 @@ export const nl = {
       },
     },
     comingSoon: 'Binnenkort beschikbaar',
+    interactivePlayground: 'Interactieve Speelplaats',
+    extraction: {
+      uploading: 'Bezig met uploaden',
+      extracting: 'Bezig met extraheren',
+      generatingHtmlTable: 'HTML-tabel genereren',
+      extractTable: 'Tabel extraheren',
+      extractPlainText: 'Platte tekst extraheren',
+      noTableDetected: 'Geen tabel gedetecteerd in de uitvoer. Probeer opnieuw of selecteer een ander bestand',
+      reRunDocument: 'Document opnieuw uitvoeren',
+      reRunPage: 'Pagina {pageNumber} opnieuw uitvoeren',
+      downloadMarkdown: 'Markdown downloaden',
+      download: 'Downloaden',
+      backToResult: 'Terug naar resultaat',
+      backToFile: 'Terug naar bestand',
+      extractingData: 'Gegevens worden geëxtraheerd...',
+    },
+    table: {
+      selectTables: 'Selecteer tabellen',
+      selectAll: 'Alles selecteren',
+      deselectAll: 'Alles deselecteren',
+      noTablesFound: 'Geen tabellen gevonden in',
+      reRunExtract: 'Extract opnieuw uitvoeren',
+      mapToSchema: 'Koppel aan uw schema',
+      noTablesExtracted: 'Geen tabellen geëxtraheerd',
+      goToExtractTables: 'Ga naar tabellen extraheren',
+    },
+    results: {
+      expand: 'Uitvouwen',
+      compare: 'Vergelijken',
+      copy: 'Kopiëren',
+      pageOf: 'Pagina {page} van {total}',
+    },
+    extractSettings: {
+      removeFromOutput: 'Verwijderen uit uitvoer:',
+      personalIdentifiableInfo: 'Persoonlijk Identificeerbare Informatie (PII)',
+      pageNumbers: 'Paginanummers',
+      footnotes: 'Voetnoten',
+      headersFooters: 'Koppen & Voetteksten',
+      tables: 'Tabellen',
+      chartsFigures: 'Grafieken & Figuren',
+    },
   },
   solutionPages: {
     compliance: {
@@ -504,6 +546,8 @@ export const nl = {
   auth: {
     login: 'Inloggen',
     logout: 'Uitloggen',
+    completingAuthentication: 'Authenticatie voltooien...',
+    completingLogout: 'Afmelden voltooien...',
   },
   blog: {
     noPosts: 'Nog geen blogposts beschikbaar.',
@@ -559,6 +603,7 @@ export const nl = {
       tablesGenerated: 'Tabel(en) gegenereerd uit',
       schemaMapGenerated: 'Schema Map gegenereerd voor',
       extracted: 'geëxtraheerd!',
+      tablesGeneratedFrom: 'Gegenereerde tabel(len) van {filename}!',
     },
     error: {
       contactFailed: 'Contact mislukt. Probeer het opnieuw.',
@@ -590,6 +635,11 @@ export const nl = {
       schemaExtractionError: 'Fout bij schema-extractie. Probeer het opnieuw.',
       undefinedMarkdown: 'Ongedefinieerde markdown ontvangen. Probeer het opnieuw.',
       errorMapping: 'Fout bij het in kaart brengen van schema voor. Probeer het opnieuw.',
+      jobFailedFile: '{filename}: Taak is mislukt. Probeer het opnieuw.',
+      errorTransforming: 'Fout bij het transformeren van {filename}. Probeer het opnieuw.',
+      requestTimeoutFile: 'Transformatieverzoek voor {filename} is verlopen. Probeer het opnieuw.',
+      errorExtractingFile: 'Fout bij het extraheren van {filename}. Probeer het opnieuw.',
+      quotaExceeded: 'Quota overschreden. Upgrade uw plan of neem contact met ons op voor meer tegoeden.',
     },
   },
 } as const;

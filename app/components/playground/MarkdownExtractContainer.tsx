@@ -23,6 +23,8 @@ import { extractPageAsBase64 } from '@/app/helpers';
 import ModelToggleDropdown from './ModelToggleDropdown';
 import JSZip from 'jszip'; // Import JSZip for zipping files
 import { extractImageLinks } from '@/app/helpers';
+import { useTranslation } from '@/lib/use-translation';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const textStyles = 'text-xl font-semibold text-neutral-500';
 
@@ -38,21 +40,23 @@ const MarkdownExtractContainer = () => {
   const {
     selectedFileIndex,
     files,
+    loggedIn,
     addFilesFormData,
     updateFileAtIndex,
-    token,
-    clientId,
-    extractSettings,
     setTotalQuota,
     setRemainingQuota,
     remainingQuota,
-    userId,
-    modelType,
+    setPendingAction,
+    loadingQuota,
+    getState,
+    pendingAction,
   } = usePlaygroundStore();
   const [selectedFile, setSelectedFile] = useState<PlaygroundFile>();
   const [filename, setFilename] = useState<string>('');
   const posthog = usePostHog();
   const resultZoomModal = useResultZoomModal();
+  const { t } = useTranslation();
+  const { loginWithPopup } = useAuth0();
 
   useEffect(() => {
     if (selectedFileIndex !== null && files.length > 0) {
@@ -66,13 +70,13 @@ const MarkdownExtractContainer = () => {
     }
   }, [selectedFileIndex, files]);
 
-  const getFileType = (): string => {
+  const getFileType = useCallback((): string => {
     let fileType = 'text/html';
     if (selectedFile?.file instanceof File) {
       fileType = selectedFile.file.type;
     }
     return fileType;
-  };
+  }, [selectedFile?.file]);
 
   const handleDownload = useCallback(async () => {
     if (selectedFile?.extractResult) {
@@ -145,179 +149,256 @@ const MarkdownExtractContainer = () => {
     }
   }, [selectedFile, filename]);
 
-  const handleSuccess = async (response: AxiosResponse, targetPageNumbers?: number[]) => {
-    let result = response.data.markdown;
-    if (result === undefined) {
-      toast.error(`${filename}: Received undefined result. Please try again.`);
-      updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
-      return;
-    }
-    if (typeof result === 'string') {
-      result = [result];
-    }
-    if (!isProduction) console.log('[MarkdownExtract] result:', result);
-    if (targetPageNumbers) {
-      const currentResult = selectedFile?.extractResult;
-      if (currentResult) {
-        const newResult = currentResult.map((resultItem, index) => {
-          if (targetPageNumbers.includes(index)) {
-            return result.shift();
-          } else {
-            return resultItem;
-          }
+  const handleError = useCallback(
+    (e: AxiosError) => {
+      if (e.response) {
+        if (e.response.status === 400) {
+          toast.error(`${filename}: Parameter is invalid. Please try again.`);
+          updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
+          return;
+        } else if (e.response.status === 404) {
+          toast.error(`${filename}: Job not found. Please try again.`);
+          updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
+          return;
+        } else if (e.response.status === 429) {
+          toast.error(`Extract page limit reached.`);
+          updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.LIMIT_REACHED);
+          return;
+        } else if (e.response.status === 500) {
+          toast.error(`${filename}: Job has failed. Please try again.`);
+          updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
+          return;
+        }
+      }
+      if (isProduction)
+        posthog.capture('playground.plain_text.error', {
+          route: '/playground',
+          module: 'plain_text',
+          file_type: getFileType(),
+          error_status: e.response?.status,
+          error_message: e.response?.data,
         });
-        result = newResult;
-      }
-    }
-    updateFileAtIndex(selectedFileIndex, 'extractResult', result);
+      toast.error(`Error extracting ${filename}. Please try again.`);
+      updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
+    },
+    [filename, updateFileAtIndex, selectedFileIndex, isProduction, posthog, getFileType]
+  );
 
-    if (isProduction)
-      posthog.capture('playground.plain_text.success', {
-        route: '/playground',
-        module: 'plain_text',
-        file_type: getFileType(),
-        num_pages: result.length,
-      });
-    updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.DONE_EXTRACTING);
-    updateQuota({ api_url: apiURL, userId, token, setTotalQuota, setRemainingQuota, handleError });
-    toast.success(`${filename} extracted!`);
-    return;
-  };
+  const handleSuccess = useCallback(
+    async (response: AxiosResponse, targetPageNumbers?: number[]) => {
+      // Get fresh state values to avoid stale closure variables
+      const state = getState();
+      const currentSelectedFile = state.files[state.selectedFileIndex!];
+      const currentUserId = state.userId;
+      const currentToken = state.token;
 
-  const handleError = (e: AxiosError) => {
-    if (e.response) {
-      if (e.response.status === 400) {
-        toast.error(`${filename}: Parameter is invalid. Please try again.`);
-        updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
-        return;
-      } else if (e.response.status === 404) {
-        toast.error(`${filename}: Job not found. Please try again.`);
-        updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
-        return;
-      } else if (e.response.status === 429) {
-        toast.error(`Extract page limit reached.`);
-        updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.LIMIT_REACHED);
-        return;
-      } else if (e.response.status === 500) {
-        toast.error(`${filename}: Job has failed. Please try again.`);
-        updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
+      let result = response.data.markdown;
+      if (result === undefined) {
+        toast.error(`${filename}: Received undefined result. Please try again.`);
+        updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.READY);
         return;
       }
-    }
-    if (isProduction)
-      posthog.capture('playground.plain_text.error', {
-        route: '/playground',
-        module: 'plain_text',
-        file_type: getFileType(),
-        error_status: e.response?.status,
-        error_message: e.response?.data,
-      });
-    toast.error(`Error extracting ${filename}. Please try again.`);
-    updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
-  };
+      if (typeof result === 'string') {
+        result = [result];
+      }
+      if (!isProduction) console.log('[MarkdownExtract] result:', result);
+      if (targetPageNumbers) {
+        const currentResult = currentSelectedFile?.extractResult;
+        if (currentResult) {
+          const newResult = currentResult.map((resultItem, index) => {
+            if (targetPageNumbers.includes(index)) {
+              return result.shift();
+            } else {
+              return resultItem;
+            }
+          });
+          result = newResult;
+        }
+      }
+      updateFileAtIndex(state.selectedFileIndex, 'extractResult', result);
 
-  const handleTimeout = () => {
+      if (isProduction)
+        posthog.capture('playground.plain_text.success', {
+          route: '/playground',
+          module: 'plain_text',
+          file_type: getFileType(),
+          num_pages: result.length,
+        });
+      updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.DONE_EXTRACTING);
+      updateQuota({
+        api_url: apiURL,
+        userId: currentUserId,
+        token: currentToken,
+        setTotalQuota,
+        setRemainingQuota,
+        handleError,
+      });
+      toast.success(`${filename} extracted!`);
+      return;
+    },
+    [
+      getState,
+      filename,
+      isProduction,
+      posthog,
+      getFileType,
+      updateFileAtIndex,
+      apiURL,
+      setTotalQuota,
+      setRemainingQuota,
+      handleError,
+    ]
+  );
+
+  const handleTimeout = useCallback(() => {
     updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
     toast.error(`Extract request for ${filename} timed out. Please try again.`);
-  };
+  }, [updateFileAtIndex, selectedFileIndex, filename]);
 
   const handleExtract = async (targetPageNumbers?: number[]) => {
-    if (isProduction)
-      posthog.capture('playground.plain_text.start_extract', {
-        route: '/playground',
-        module: 'plain_text',
-        file_type: getFileType(),
-      });
-    if (selectedFile?.extractTab === ExtractTab.INITIAL_STATE) {
-      updateFileAtIndex(selectedFileIndex, 'extractTab', ExtractTab.FILE_EXTRACT);
-    }
-    updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.EXTRACTING);
-    if (selectedFile && selectedFileIndex !== null) {
-      const jobParams: JobParams = {
-        targetPageNumbers,
-        maskPiiFlag: extractSettings.removePII,
-        vqaProcessorArgs: {
-          vqaFiguresFlag: extractSettings.includeChartsFigures,
-          vqaChartsFlag: extractSettings.includeChartsFigures,
-          vqaTablesFlag: extractSettings.includeTables,
-          vqaFootnotesFlag: extractSettings.includeFootnotes,
-          vqaHeadersFlag: extractSettings.includeHeadersFooters,
-          vqaFootersFlag: extractSettings.includeHeadersFooters,
-          vqaPageNumsFlag: extractSettings.includePageNumbers,
-        },
-      };
-      let processType: ProcessType;
-      if (modelType === ModelType.BASE) {
-        processType = ProcessType.FILE_EXTRACTION;
-      } else if (modelType === ModelType.PRO) {
-        processType = ProcessType.FILE_EXTRACTION_PRO;
-      } else if (modelType === ModelType.ULTRA) {
-        processType = ProcessType.FILE_EXTRACTION_ULTRA;
-      } else {
-        toast.error('Invalid model type. Please try again.');
-        updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
-        return;
-      }
-      // get presigned url and metadata
-      const uploadResult = await uploadFile({
-        api_url: apiURL,
-        userId,
-        token,
-        file: selectedFile.file as File,
-        extractArgs: jobParams.vqaProcessorArgs || {},
-        maskPiiFlag: jobParams.maskPiiFlag,
-        process_type: processType,
-        addFilesFormData,
-      });
-      if (uploadResult instanceof Error) {
-        toast.error(`Error uploading ${filename}. Please try again.`);
-        updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
-        return;
-      }
-      const fileData = uploadResult.data;
+    const state = getState();
+    console.log({ loggedIn, token: state.token });
 
-      if (!isProduction) console.log('[MarkdownExtract] jobParams:', jobParams);
-      if (isProduction) {
-        runAsyncRequestJob({
-          apiURL: apiURL,
-          jobType: 'info_extraction',
-          userId,
-          clientId,
-          fileId: fileData.fileId,
-          fileData,
-          selectedFile,
-          token,
-          sourceType: 's3',
-          jobParams,
-          selectedFileIndex,
-          filename,
-          handleError,
-          handleSuccess,
-          handleTimeout,
-          updateFileAtIndex,
-        });
-      } else {
-        runPreprodAsyncRequestJob({
-          apiURL: apiURL,
-          jobType: 'info_extraction',
-          userId,
-          clientId,
-          fileId: fileData.fileId,
-          fileData,
-          selectedFile,
-          token,
-          sourceType: 's3',
-          jobParams,
-          selectedFileIndex,
-          filename,
-          handleError,
-          handleSuccess,
-          handleTimeout,
-          updateFileAtIndex,
-        });
-      }
+    if (!loggedIn) {
+      // Save current state so we can resume after login
+      localStorage.setItem('auth_redirect_url', window.location.pathname + window.location.search);
+
+      // Set pending action to continue extraction after login with fresh values
+      setPendingAction(() => handleExtractAfterLogin(targetPageNumbers));
+
+      // Trigger login flow
+      loginWithPopup({
+        authorizationParams: {
+          scope: 'openid profile email',
+        },
+      });
+      return;
     }
+
+    // Execute extraction directly if already logged in
+    await handleExtractAfterLogin(targetPageNumbers);
   };
+
+  const handleExtractAfterLogin = useCallback(
+    async (targetPageNumbers?: number[]) => {
+      // Get fresh state values
+      const state = getState();
+      const currentSelectedFile = state.files[state.selectedFileIndex!];
+      const currentToken = state.token;
+      const currentUserId = state.userId;
+      const currentClientId = state.clientId;
+      const currentExtractSettings = state.extractSettings;
+      const currentModelType = state.modelType;
+
+      if (isProduction)
+        posthog.capture('playground.plain_text.start_extract', {
+          route: '/playground',
+          module: 'plain_text',
+          file_type: getFileType(),
+        });
+      if (currentSelectedFile?.extractTab === ExtractTab.INITIAL_STATE) {
+        updateFileAtIndex(state.selectedFileIndex, 'extractTab', ExtractTab.FILE_EXTRACT);
+      }
+      updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.EXTRACTING);
+      if (currentSelectedFile && state.selectedFileIndex !== null) {
+        const jobParams: JobParams = {
+          targetPageNumbers,
+          maskPiiFlag: currentExtractSettings.removePII,
+          vqaProcessorArgs: {
+            vqaFiguresFlag: currentExtractSettings.includeChartsFigures,
+            vqaChartsFlag: currentExtractSettings.includeChartsFigures,
+            vqaTablesFlag: currentExtractSettings.includeTables,
+            vqaFootnotesFlag: currentExtractSettings.includeFootnotes,
+            vqaHeadersFlag: currentExtractSettings.includeHeadersFooters,
+            vqaFootersFlag: currentExtractSettings.includeHeadersFooters,
+            vqaPageNumsFlag: currentExtractSettings.includePageNumbers,
+          },
+        };
+        let processType: ProcessType;
+        if (currentModelType === ModelType.BASE) {
+          processType = ProcessType.FILE_EXTRACTION;
+        } else if (currentModelType === ModelType.PRO) {
+          processType = ProcessType.FILE_EXTRACTION_PRO;
+        } else if (currentModelType === ModelType.ULTRA) {
+          processType = ProcessType.FILE_EXTRACTION_ULTRA;
+        } else {
+          toast.error('Invalid model type. Please try again.');
+          updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.READY);
+          return;
+        }
+        // get presigned url and metadata
+        const uploadResult = await uploadFile({
+          api_url: apiURL,
+          userId: currentUserId,
+          token: currentToken,
+          file: currentSelectedFile.file as File,
+          extractArgs: jobParams.vqaProcessorArgs || {},
+          maskPiiFlag: jobParams.maskPiiFlag,
+          process_type: processType,
+          addFilesFormData,
+        });
+        if (uploadResult instanceof Error) {
+          toast.error(t.messages.error.uploadError);
+          updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.READY);
+          return;
+        }
+        const fileData = uploadResult.data;
+
+        if (!isProduction) console.log('[MarkdownExtract] jobParams:', jobParams);
+        if (isProduction) {
+          runAsyncRequestJob({
+            apiURL: apiURL,
+            jobType: 'info_extraction',
+            userId: currentUserId,
+            clientId: currentClientId,
+            fileId: fileData.fileId,
+            fileData,
+            selectedFile: currentSelectedFile,
+            token: currentToken,
+            sourceType: 's3',
+            jobParams,
+            selectedFileIndex: state.selectedFileIndex,
+            filename: currentSelectedFile.file instanceof File ? currentSelectedFile.file.name : 'file',
+            handleError,
+            handleSuccess,
+            handleTimeout,
+            updateFileAtIndex,
+          });
+        } else {
+          runPreprodAsyncRequestJob({
+            apiURL: apiURL,
+            jobType: 'info_extraction',
+            userId: currentUserId,
+            clientId: currentClientId,
+            fileId: fileData.fileId,
+            fileData,
+            selectedFile: currentSelectedFile,
+            token: currentToken,
+            sourceType: 's3',
+            jobParams,
+            selectedFileIndex: state.selectedFileIndex,
+            filename: currentSelectedFile.file instanceof File ? currentSelectedFile.file.name : 'file',
+            handleError,
+            handleSuccess,
+            handleTimeout,
+            updateFileAtIndex,
+          });
+        }
+      }
+    },
+    [
+      getState,
+      isProduction,
+      posthog,
+      getFileType,
+      updateFileAtIndex,
+      apiURL,
+      addFilesFormData,
+      handleError,
+      handleSuccess,
+      handleTimeout,
+    ]
+  );
 
   const handleRetry = () => {
     updateFileAtIndex(selectedFileIndex, 'extractResult', []);
@@ -342,12 +423,18 @@ const MarkdownExtractContainer = () => {
         updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.EXTRACTING);
         const pageBase64 = await extractPageAsBase64(selectedFile.file, resultZoomModal.page);
 
+        // Get fresh state values to avoid stale closure variables
+        const state = getState();
+        const currentUserId = state.userId;
+        const currentToken = state.token;
+        const currentExtractSettings = state.extractSettings;
+
         const newMarkdown = await runSyncExtract({
-          token: token,
-          userId: userId,
+          token: currentToken,
+          userId: currentUserId,
           apiUrl: apiURL,
           base64String: pageBase64,
-          maskPii: extractSettings.removePII,
+          maskPii: currentExtractSettings.removePII,
           fileType: selectedFile.file.type,
         });
         const newResult = selectedFile.extractResult.slice();
@@ -357,7 +444,16 @@ const MarkdownExtractContainer = () => {
         console.error('Error during extraction:', error);
       } finally {
         updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.DONE_EXTRACTING);
-        updateQuota({ api_url: apiURL, userId, token, setTotalQuota, setRemainingQuota, handleError });
+        // Get fresh state values again for the final updateQuota call
+        const state = getState();
+        updateQuota({
+          api_url: apiURL,
+          userId: state.userId,
+          token: state.token,
+          setTotalQuota,
+          setRemainingQuota,
+          handleError,
+        });
       }
     } else {
       console.warn('Selected file is not valid or is missing.');
@@ -367,43 +463,47 @@ const MarkdownExtractContainer = () => {
   return (
     <>
       {selectedFile?.extractState === ExtractState.LIMIT_REACHED ||
-      (selectedFile?.extractState !== ExtractState.DONE_EXTRACTING && remainingQuota === 0) ? (
+      (selectedFile?.extractState !== ExtractState.DONE_EXTRACTING &&
+        loggedIn &&
+        remainingQuota <= 0 &&
+        !loadingQuota) ? (
         <QuotaLimitPage />
       ) : (
         <>
           {selectedFile?.extractState === ExtractState.READY && (
-            <div className="flex flex-col h-full justify-start items-center text-lg text-center gap-4 pt-[calc(20vh-120px)] lg:pt-[calc(30vh-120px)]">
+            <div className="flex flex-col h-full justify-center items-center text-lg text-center gap-4">
               <div className="flex flex-col items-center justify-center">
                 <span id="extract-file-name">{filename}</span>
 
-                {/* First row with two buttons side by side */}
-                <div className="flex gap-4 items-center justify-center mt-8">
+                <div className="flex flex-col gap-4 items-center justify-center mt-1">
+                  {/* Extract button below */}
+                  <div className="w-fit">
+                    <Button
+                      label={t.playground.extraction.extractPlainText}
+                      onClick={() => handleExtract()}
+                      small
+                      labelIcon={FileText}
+                      id="extract-plain-text-btn"
+                      disabled={!!pendingAction}
+                    />
+                  </div>
                   <ModelToggleDropdown />
-                  <ExtractSettingsChecklist removePIIOnly={isProduction} />
                 </div>
-
-                {/* Extract button below */}
-                <div className="w-fit mt-8">
-                  <Button
-                    label="Extract Plain Text"
-                    onClick={() => handleExtract()}
-                    small
-                    labelIcon={FileText}
-                    id="extract-plain-text-btn"
-                  />
+                <div className="w-full mt-4">
+                  <ExtractSettingsChecklist removePIIOnly={isProduction} />
                 </div>
               </div>
             </div>
           )}
           {selectedFile?.extractState === ExtractState.UPLOADING && (
             <div className="flex flex-col items-center justify-center h-full gap-2">
-              <div className={textStyles}>Uploading</div>
+              <div className={textStyles}>{t.playground.extraction.uploading}</div>
               <PulsingIcon Icon={CloudArrowUp} size={40} />
             </div>
           )}
           {selectedFile?.extractState === ExtractState.EXTRACTING && (
             <div className="flex flex-col items-center justify-center h-full gap-2">
-              <div className={textStyles}>Extracting</div>
+              <div className={textStyles}>{t.playground.extraction.extracting}</div>
               <PulsingIcon Icon={FileText} size={40} />
             </div>
           )}
@@ -412,7 +512,7 @@ const MarkdownExtractContainer = () => {
               <ResultContainer extractResult={selectedFile.extractResult} />
               <div className="w-full h-fit flex gap-4">
                 <Button
-                  label="Re-run Document"
+                  label={t.playground.extraction.reRunDocument}
                   onClick={handleRetry}
                   small
                   labelIcon={ArrowCounterClockwise}
@@ -422,14 +522,17 @@ const MarkdownExtractContainer = () => {
                   selectedFile.file instanceof File &&
                   selectedFile.file.type === 'application/pdf' && (
                     <Button
-                      label={`Re-run Page ${resultZoomModal.page + 1}`}
+                      label={t.playground.extraction.reRunPage.replace(
+                        '{pageNumber}',
+                        (resultZoomModal.page + 1).toString()
+                      )}
                       onClick={handlePageRetry}
                       small
                       labelIcon={ArrowCounterClockwise}
                     />
                   )}
                 <Button
-                  label="Download Markdown"
+                  label={t.playground.extraction.downloadMarkdown}
                   onClick={handleDownload}
                   small
                   disabled={selectedFile?.extractState !== ExtractState.DONE_EXTRACTING}

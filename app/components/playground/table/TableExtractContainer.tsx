@@ -22,6 +22,8 @@ import { runAsyncRequestJob } from '@/app/actions/runAsyncRequestJob';
 import { extractPageAsBase64 } from '@/app/helpers';
 import { runSyncTableExtract } from '@/app/actions/runSyncTableExtract';
 import * as XLSX from 'xlsx';
+import { useTranslation } from '@/lib/use-translation';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const noPageContent = '<div>No table detected in output.</div>';
 
@@ -31,19 +33,21 @@ const TableExtractContainer = () => {
     selectedFileIndex,
     files,
     updateFileAtIndex,
-    token,
-    clientId,
-    extractSettings,
-    userId,
     setRemainingQuota,
     setTotalQuota,
     remainingQuota,
     addFilesFormData,
+    loggedIn,
+    setPendingAction,
+    loadingQuota,
+    pendingAction,
   } = usePlaygroundStore();
   const [selectedFile, setSelectedFile] = useState<PlaygroundFile>();
   const [filename, setFilename] = useState<string>('');
   const posthog = usePostHog();
   const resultZoomModal = useResultZoomModal();
+  const { t } = useTranslation();
+  const { loginWithPopup } = useAuth0();
 
   useEffect(() => {
     if (selectedFileIndex !== null && files.length > 0) {
@@ -58,15 +62,21 @@ const TableExtractContainer = () => {
   }, [selectedFileIndex, files, updateFileAtIndex]);
 
   const handleSuccess = (response: AxiosResponse, targetPageNumbers?: number[]) => {
+    // Get fresh state values to avoid stale closure variables
+    const state = usePlaygroundStore.getState();
+    const currentSelectedFile = state.files[state.selectedFileIndex!];
+    const currentUserId = state.userId;
+    const currentToken = state.token;
+
     let result = response.data;
     if (result === undefined) {
       toast.error(`${filename}: Received undefined result. Please try again.`);
-      updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.READY);
+      updateFileAtIndex(state.selectedFileIndex, 'instructionExtractState', ExtractState.READY);
       return;
     }
     if (result['markdown'] === undefined) {
       toast.error(`${filename}: Received undefined markdown. Please try again.`);
-      updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.READY);
+      updateFileAtIndex(state.selectedFileIndex, 'instructionExtractState', ExtractState.READY);
       return;
     }
     result = result['markdown'].map((pageContent: string) => {
@@ -84,7 +94,7 @@ const TableExtractContainer = () => {
 
     if (!isProduction) console.log('[TableExtract] result:', result);
     if (targetPageNumbers) {
-      const currentResult = selectedFile?.tableExtractResult;
+      const currentResult = currentSelectedFile?.tableExtractResult;
       if (currentResult) {
         const newResult = currentResult.map((resultItem, index) => {
           if (targetPageNumbers.includes(index)) {
@@ -96,10 +106,17 @@ const TableExtractContainer = () => {
         result = newResult;
       }
     }
-    updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.DONE_EXTRACTING);
-    updateFileAtIndex(selectedFileIndex, 'tableExtractResult', result);
-    updateQuota({ api_url: apiURL, userId: userId, token, setTotalQuota, setRemainingQuota, handleError });
-    toast.success(`Generated table(s) from ${filename}!`);
+    updateFileAtIndex(state.selectedFileIndex, 'instructionExtractState', ExtractState.DONE_EXTRACTING);
+    updateFileAtIndex(state.selectedFileIndex, 'tableExtractResult', result);
+    updateQuota({
+      api_url: apiURL,
+      userId: currentUserId,
+      token: currentToken,
+      setTotalQuota,
+      setRemainingQuota,
+      handleError,
+    });
+    toast.success(t.messages.success.tablesGeneratedFrom.replace('{filename}', filename));
   };
 
   const handleError = (e: AxiosError) => {
@@ -117,7 +134,7 @@ const TableExtractContainer = () => {
         updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.LIMIT_REACHED);
         return;
       } else if (e.response.status === 500) {
-        toast.error(`${filename}: Job has failed. Please try again.`);
+        toast.error(t.messages.error.jobFailedFile.replace('{filename}', filename));
         updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.READY);
         return;
       }
@@ -131,16 +148,45 @@ const TableExtractContainer = () => {
         error_status: e.response?.status,
         error_message: e.response?.data,
       });
-    toast.error(`Error transforming ${filename}. Please try again.`);
+    toast.error(t.messages.error.errorTransforming.replace('{filename}', filename));
     updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.READY);
   };
 
   const handleTimeout = () => {
     updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.READY);
-    toast.error(`Transform request for ${filename} timed out. Please try again.`);
+    toast.error(t.messages.error.requestTimeoutFile.replace('{filename}', filename));
   };
 
   const handleTableExtractTransform = async (targetPageNumbers?: number[]) => {
+    if (!loggedIn) {
+      // Save current state so we can resume after login
+      localStorage.setItem('auth_redirect_url', window.location.pathname + window.location.search);
+
+      // Set pending action to continue extraction after login
+      setPendingAction(() => handleTableExtractTransformAfterLogin(targetPageNumbers));
+
+      // Trigger login flow
+      loginWithPopup({
+        authorizationParams: {
+          scope: 'openid profile email',
+        },
+      });
+      return;
+    }
+
+    // Execute extraction directly if already logged in
+    await handleTableExtractTransformAfterLogin(targetPageNumbers);
+  };
+
+  const handleTableExtractTransformAfterLogin = async (targetPageNumbers?: number[]) => {
+    // Get fresh state values to avoid stale closure variables
+    const state = usePlaygroundStore.getState();
+    const currentSelectedFile = state.files[state.selectedFileIndex!];
+    const currentUserId = state.userId;
+    const currentToken = state.token;
+    const currentClientId = state.clientId;
+    const currentExtractSettings = state.extractSettings;
+
     if (isProduction)
       posthog.capture('playground.table.extract_table.start_extract', {
         route: '/playground',
@@ -148,34 +194,35 @@ const TableExtractContainer = () => {
         submodule: 'extract_table',
         file_type: getFileType(),
       });
-    if (selectedFile?.extractTab === ExtractTab.INITIAL_STATE) {
-      updateFileAtIndex(selectedFileIndex, 'extractTab', ExtractTab.TABLE_EXTRACT);
-    }
-    updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.EXTRACTING);
 
-    if (selectedFileIndex === null || !selectedFile) {
-      toast.error(`Error extracting ${filename}. Please try again.`);
-      updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.READY);
+    if (currentSelectedFile?.extractTab === ExtractTab.INITIAL_STATE) {
+      updateFileAtIndex(state.selectedFileIndex, 'extractTab', ExtractTab.TABLE_EXTRACT);
+    }
+    updateFileAtIndex(state.selectedFileIndex, 'instructionExtractState', ExtractState.EXTRACTING);
+
+    if (state.selectedFileIndex === null || !currentSelectedFile) {
+      toast.error(t.messages.error.errorExtractingFile.replace('{filename}', filename));
+      updateFileAtIndex(state.selectedFileIndex, 'instructionExtractState', ExtractState.READY);
       return;
     }
     const jobParams: JobParams = {
       targetPageNumbers,
-      maskPiiFlag: extractSettings.removePII,
+      maskPiiFlag: currentExtractSettings.removePII,
     };
     // get presigned url and metadata
     const uploadResult = await uploadFile({
       api_url: apiURL,
-      userId,
-      token,
-      file: selectedFile.file as File,
+      userId: currentUserId,
+      token: currentToken,
+      file: currentSelectedFile.file as File,
       extractArgs: jobParams.vqaProcessorArgs || {},
-      maskPiiFlag: extractSettings.removePII,
+      maskPiiFlag: currentExtractSettings.removePII,
       process_type: ProcessType.TABLE_EXTRACTION,
       addFilesFormData,
     });
     if (uploadResult instanceof Error) {
-      toast.error(`Error uploading ${filename}. Please try again.`);
-      updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
+      toast.error(t.messages.error.uploadError);
+      updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.READY);
       return;
     }
     const fileData = uploadResult.data;
@@ -183,15 +230,15 @@ const TableExtractContainer = () => {
       runAsyncRequestJob({
         apiURL: apiURL,
         jobType: 'info_extraction',
-        userId,
-        clientId,
+        userId: currentUserId,
+        clientId: currentClientId,
         fileId: fileData.fileId,
         fileData,
-        selectedFile,
-        token,
+        selectedFile: currentSelectedFile,
+        token: currentToken,
         sourceType: 's3',
         jobParams,
-        selectedFileIndex,
+        selectedFileIndex: state.selectedFileIndex,
         filename,
         handleError,
         handleSuccess,
@@ -203,15 +250,15 @@ const TableExtractContainer = () => {
       runPreprodAsyncRequestJob({
         apiURL: apiURL,
         jobType: 'info_extraction',
-        userId,
-        clientId,
+        userId: currentUserId,
+        clientId: currentClientId,
         fileId: fileData.fileId,
         fileData,
-        selectedFile,
-        token,
+        selectedFile: currentSelectedFile,
+        token: currentToken,
         sourceType: 's3',
         jobParams,
-        selectedFileIndex,
+        selectedFileIndex: state.selectedFileIndex,
         filename,
         handleError,
         handleSuccess,
@@ -262,7 +309,7 @@ const TableExtractContainer = () => {
 
     // Check if we have any tables to process
     if (htmlData.length === 0) {
-      toast.error('No tables found to export to Excel');
+      toast.error(t.messages.error.noTablesFound);
       return;
     }
 
@@ -283,7 +330,7 @@ const TableExtractContainer = () => {
 
     // Only proceed if we have at least one valid table
     if (!hasValidTables) {
-      toast.error('No valid tables found to export to Excel');
+      toast.error(t.messages.error.noValidTables);
       return;
     }
 
@@ -371,12 +418,18 @@ const TableExtractContainer = () => {
         updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.EXTRACTING);
         const pageBase64 = await extractPageAsBase64(selectedFile.file, resultZoomModal.page);
 
+        // Get fresh state values to avoid stale closure variables
+        const state = usePlaygroundStore.getState();
+        const currentUserId = state.userId;
+        const currentToken = state.token;
+        const currentExtractSettings = state.extractSettings;
+
         const table = await runSyncTableExtract({
-          token: token,
-          userId: userId,
+          token: currentToken,
+          userId: currentUserId,
           apiUrl: apiURL,
           base64String: pageBase64,
-          maskPii: extractSettings.removePII,
+          maskPii: currentExtractSettings.removePII,
           fileType: selectedFile.file.type,
         });
         const newResult = selectedFile.tableExtractResult.slice();
@@ -386,7 +439,16 @@ const TableExtractContainer = () => {
         console.error('Error during extraction:', error);
       } finally {
         updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.DONE_EXTRACTING);
-        updateQuota({ api_url: apiURL, userId, token, setTotalQuota, setRemainingQuota, handleError });
+        // Get fresh state values again for the final updateQuota call
+        const state = usePlaygroundStore.getState();
+        updateQuota({
+          api_url: apiURL,
+          userId: state.userId,
+          token: state.token,
+          setTotalQuota,
+          setRemainingQuota,
+          handleError,
+        });
       }
     } else {
       console.warn('Selected file is not valid or is missing.');
@@ -422,30 +484,38 @@ const TableExtractContainer = () => {
   return (
     <>
       {selectedFile?.instructionExtractState === ExtractState.LIMIT_REACHED ||
-      (selectedFile?.instructionExtractState !== ExtractState.DONE_EXTRACTING && remainingQuota === 0) ? (
+      (selectedFile?.instructionExtractState !== ExtractState.DONE_EXTRACTING &&
+        loggedIn &&
+        remainingQuota <= 0 &&
+        !loadingQuota) ? (
         <QuotaLimitPage />
       ) : (
         selectedFile && (
           <>
             {selectedFile?.instructionExtractState === ExtractState.READY && (
-              <div className="flex flex-col justify-start items-center h-full text-lg text-center gap-4 pt-[calc(20vh-120px)] lg:pt-[calc(30vh-120px)]">
+              <div className="flex flex-col justify-center items-center h-full text-lg text-center gap-4">
                 <div className="flex flex-col items-center justify-center">
                   {filename}
                   <div className="w-[200px] mt-2">
                     <Button
-                      label="Extract Table"
+                      label={t.playground.extraction.extractTable}
                       onClick={() => handleTableExtractTransform()}
                       small
                       labelIcon={Table}
+                      disabled={!!pendingAction}
                     />
                   </div>
                 </div>
-                <ExtractSettingsChecklist removePIIOnly />
+                <div className="w-fit">
+                  <ExtractSettingsChecklist removePIIOnly />
+                </div>
               </div>
             )}
             {selectedFile?.instructionExtractState === ExtractState.EXTRACTING && (
               <div className="flex flex-col items-center justify-center h-full">
-                <div className="text-xl font-semibold text-neutral-500">Generating HTML Table</div>
+                <div className="text-xl font-semibold text-neutral-500">
+                  {t.playground.extraction.generatingHtmlTable}
+                </div>
                 <PulsingIcon Icon={Table} size={40} />
               </div>
             )}
@@ -456,15 +526,23 @@ const TableExtractContainer = () => {
                 ) : (
                   <div className="flex flex-col items-center justify-center h-full w-full overflow-auto">
                     <div className="text-xl font-semibold text-neutral-500">
-                      No table detected in output. Retry or select another file
+                      {t.playground.extraction.noTableDetected}
                     </div>
                   </div>
                 )}
                 <div className="w-full h-fit flex gap-4">
-                  <Button label="Re-run Document" onClick={handleRetry} small labelIcon={ArrowCounterClockwise} />
+                  <Button
+                    label={t.playground.extraction.reRunDocument}
+                    onClick={handleRetry}
+                    small
+                    labelIcon={ArrowCounterClockwise}
+                  />
                   {selectedFile.tableExtractResult.length > 1 && (
                     <Button
-                      label={`Re-run Page ${resultZoomModal.page + 1}`}
+                      label={t.playground.extraction.reRunPage.replace(
+                        '{pageNumber}',
+                        String(resultZoomModal.page + 1)
+                      )}
                       onClick={handlePageRetry}
                       small
                       labelIcon={ArrowCounterClockwise}
@@ -472,7 +550,7 @@ const TableExtractContainer = () => {
                   )}
                   <DropdownButton
                     options={filteredDownloadOptions}
-                    optionLabel="Download"
+                    optionLabel={t.playground.extraction.download}
                     icon={DownloadSimple}
                     disabled={
                       selectedFile.instructionExtractState !== ExtractState.DONE_EXTRACTING ||

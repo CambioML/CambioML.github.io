@@ -41,7 +41,7 @@ const ModelToggleDropdown = () => {
         <button
           type="button"
           onClick={toggleDropdown}
-          className="inline-flex justify-between items-center w-full rounded-full border border-gray-300 bg-white px-4 py-2 text-md font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none"
+          className="inline-flex justify-between items-center rounded-full border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none w-fit"
           id="menu-button"
           aria-expanded={isOpen}
           aria-haspopup="true"

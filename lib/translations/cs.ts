@@ -35,6 +35,7 @@ export const cs = {
     learnMore: 'Zjistit více',
     contactUs: 'Kontaktujte nás',
     readMore: 'Číst více',
+    selectOption: 'Vyberte možnost',
   },
   homepage: {
     hero: {
@@ -367,6 +368,47 @@ export const cs = {
       },
     },
     comingSoon: 'Již brzy',
+    interactivePlayground: 'Interaktivní hřiště',
+    extraction: {
+      uploading: 'Nahrávání',
+      extracting: 'Extrahování',
+      generatingHtmlTable: 'Generování HTML tabulky',
+      extractTable: 'Extrahovat tabulku',
+      extractPlainText: 'Extrahovat prostý text',
+      noTableDetected: 'V výstupu nebyla detekována žádná tabulka. Zkuste to znovu nebo vyberte jiný soubor',
+      reRunDocument: 'Znovu spustit dokument',
+      reRunPage: 'Znovu spustit stránku {pageNumber}',
+      downloadMarkdown: 'Stáhnout Markdown',
+      download: 'Stáhnout',
+      backToResult: 'Zpět na výsledek',
+      backToFile: 'Zpět na soubor',
+      extractingData: 'Extrahování dat...',
+    },
+    table: {
+      selectTables: 'Vybrat tabulky',
+      selectAll: 'Vybrat vše',
+      deselectAll: 'Zrušit výběr všeho',
+      noTablesFound: 'Žádné tabulky nebyly nalezeny v',
+      reRunExtract: 'Znovu spustit extrakci',
+      mapToSchema: 'Namapovat na váš schéma',
+      noTablesExtracted: 'Žádné tabulky nebyly extrahovány',
+      goToExtractTables: 'Přejít na extrakci tabulek',
+    },
+    results: {
+      expand: 'Rozšířit',
+      compare: 'Porovnat',
+      copy: 'Kopírovat',
+      pageOf: 'Stránka {page} z {total}',
+    },
+    extractSettings: {
+      removeFromOutput: 'Odstranit z výstupu:',
+      personalIdentifiableInfo: 'Osobní identifikovatelné informace (PII)',
+      pageNumbers: 'Čísla stránek',
+      footnotes: 'Poznámky pod čarou',
+      headersFooters: 'Záhlaví a zápatí',
+      tables: 'Tabulky',
+      chartsFigures: 'Grafy a obrázky',
+    },
   },
   solutionPages: {
     compliance: {
@@ -501,6 +543,8 @@ export const cs = {
   auth: {
     login: 'Přihlásit se',
     logout: 'Odhlásit se',
+    completingAuthentication: 'Dokončování ověřování...',
+    completingLogout: 'Dokončování odhlášení...',
   },
   blog: {
     noPosts: 'Zatím nejsou dostupné žádné blogové příspěvky.',
@@ -556,6 +600,7 @@ export const cs = {
       tablesGenerated: 'Vygenerované tabulky z',
       schemaMapGenerated: 'Vygenerovaná mapa schématu pro',
       extracted: 'extrahováno!',
+      tablesGeneratedFrom: 'Vygenerované tabulky z {filename}!',
     },
     error: {
       contactFailed: 'Kontakt se nezdařil. Zkuste to prosím znovu.',
@@ -587,6 +632,11 @@ export const cs = {
       schemaExtractionError: 'Chyba při extrakci schématu. Zkuste to prosím znovu.',
       undefinedMarkdown: 'Obdržel se nedefinovaný markdown. Zkuste to prosím znovu.',
       errorMapping: 'Chyba při mapování schématu pro. Zkuste to prosím znovu.',
+      jobFailedFile: '{filename}: Úloha selhala. Zkuste to prosím znovu.',
+      errorTransforming: 'Chyba při transformaci {filename}. Zkuste to prosím znovu.',
+      requestTimeoutFile: 'Požadavek na transformaci pro {filename} vypršel. Zkuste to prosím znovu.',
+      errorExtractingFile: 'Chyba při extrahování {filename}. Zkuste to prosím znovu.',
+      quotaExceeded: 'Kvóta byla překročena. Prosím, upgradujte svůj plán nebo nás kontaktujte pro více kreditů.',
     },
   },
 } as const;

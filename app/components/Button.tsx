@@ -40,11 +40,11 @@ const Button = ({
         hover:text-cambio-gray
         transition
         w-full
-        h-full
+        h-fit
         px-4
         ${outline ? 'bg-white' : 'bg-cambio-gray'}
         ${outline ? 'border-cambio-gray' : 'border-none'}
-        ${outline ? 'border-2' : 'border-none'}
+        ${outline ? 'border' : 'border-none'}
         ${outline ? 'text-neutral-800' : 'text-neutral-100'}
         ${small ? 'py-2' : 'py-3'}
         ${small ? 'text-md' : 'text-lg'}

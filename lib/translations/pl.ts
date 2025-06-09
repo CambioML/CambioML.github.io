@@ -35,6 +35,7 @@ export const pl = {
     learnMore: 'Dowiedz się więcej',
     contactUs: 'Skontaktuj się z nami',
     readMore: 'Czytaj więcej',
+    selectOption: 'Wybierz opcję',
   },
   homepage: {
     hero: {
@@ -370,6 +371,47 @@ export const pl = {
       },
     },
     comingSoon: 'Wkrótce dostępne',
+    interactivePlayground: 'Interaktywny Plac Zabaw',
+    extraction: {
+      uploading: 'Przesyłanie',
+      extracting: 'Wyodrębnianie',
+      generatingHtmlTable: 'Generowanie tabeli HTML',
+      extractTable: 'Wyodrębnij tabelę',
+      extractPlainText: 'Wyodrębnij tekst zwykły',
+      noTableDetected: 'Nie wykryto tabeli w wynikach. Spróbuj ponownie lub wybierz inny plik',
+      reRunDocument: 'Ponowne uruchomienie dokumentu',
+      reRunPage: 'Ponowne uruchomienie strony {pageNumber}',
+      downloadMarkdown: 'Pobierz Markdown',
+      download: 'Pobierz',
+      backToResult: 'Powrót do wyników',
+      backToFile: 'Powrót do pliku',
+      extractingData: 'Wyodrębnianie danych...',
+    },
+    table: {
+      selectTables: 'Wybierz tabele',
+      selectAll: 'Zaznacz wszystko',
+      deselectAll: 'Odznacz wszystko',
+      noTablesFound: 'Nie znaleziono tabel w',
+      reRunExtract: 'Ponownie uruchom ekstrakcję',
+      mapToSchema: 'Mapuj do swojego schematu',
+      noTablesExtracted: 'Nie wyodrębniono tabel',
+      goToExtractTables: 'Przejdź do wyodrębniania tabel',
+    },
+    results: {
+      expand: 'Rozwiń',
+      compare: 'Porównaj',
+      copy: 'Kopiuj',
+      pageOf: 'Strona {page} z {total}',
+    },
+    extractSettings: {
+      removeFromOutput: 'Usuń z wyników:',
+      personalIdentifiableInfo: 'Informacje umożliwiające identyfikację (PII)',
+      pageNumbers: 'Numery stron',
+      footnotes: 'Przypisy dolne',
+      headersFooters: 'Nagłówki i stopki',
+      tables: 'Tabele',
+      chartsFigures: 'Wykresy i rysunki',
+    },
   },
   solutionPages: {
     compliance: {
@@ -504,6 +546,8 @@ export const pl = {
   auth: {
     login: 'Zaloguj się',
     logout: 'Wyloguj się',
+    completingAuthentication: 'Kończenie uwierzytelniania...',
+    completingLogout: 'Kończenie wylogowania...',
   },
   blog: {
     noPosts: 'Brak dostępnych postów na blogu.',
@@ -559,6 +603,7 @@ export const pl = {
       tablesGenerated: 'Wygenerowano tabelę(e) z',
       schemaMapGenerated: 'Wygenerowano Mapę Schematów dla',
       extracted: 'wyodrębniono!',
+      tablesGeneratedFrom: 'Wygenerowano tabelę(-e) z {filename}!',
     },
     error: {
       contactFailed: 'Nie udało się nawiązać kontaktu. Proszę spróbować ponownie.',
@@ -590,6 +635,12 @@ export const pl = {
       schemaExtractionError: 'Błąd wyodrębniania schematu. Proszę spróbować ponownie.',
       undefinedMarkdown: 'Otrzymano niezdefiniowany markdown. Proszę spróbować ponownie.',
       errorMapping: 'Błąd mapowania schematu dla. Proszę spróbować ponownie.',
+      jobFailedFile: '{filename}: Zadanie nie powiodło się. Proszę spróbować ponownie.',
+      errorTransforming: 'Błąd podczas przekształcania {filename}. Proszę spróbować ponownie.',
+      requestTimeoutFile: 'Żądanie przekształcenia dla {filename} przekroczyło limit czasu. Proszę spróbować ponownie.',
+      errorExtractingFile: 'Błąd podczas wyodrębniania {filename}. Proszę spróbować ponownie.',
+      quotaExceeded:
+        'Przekroczono limit. Proszę zaktualizować swój plan lub skontaktować się z nami w celu uzyskania dodatkowych kredytów.',
     },
   },
 } as const;

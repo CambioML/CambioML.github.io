@@ -5,10 +5,12 @@ import { useAuth0, Auth0Provider } from '@auth0/auth0-react';
 import { useRouter } from 'next/navigation';
 import PulsingIcon from '@/app/components/PulsingIcon';
 import { UserCircle } from '@phosphor-icons/react';
+import { useTranslation } from '@/lib/use-translation';
 
 const LoginCallbackContent = () => {
   const { isLoading, isAuthenticated, error } = useAuth0();
   const router = useRouter();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!isLoading) {
@@ -38,7 +40,7 @@ const LoginCallbackContent = () => {
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center gap-4 bg-gray-50">
       <PulsingIcon Icon={UserCircle} size={48} />
-      <p className="text-neutral-600 text-lg">Completing authentication...</p>
+      <p className="text-neutral-600 text-lg">{t.auth.completingAuthentication}</p>
     </div>
   );
 };

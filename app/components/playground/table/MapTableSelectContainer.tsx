@@ -10,10 +10,11 @@ import { AxiosResponse } from 'axios';
 import TableSelectItem from './TableSelectItem';
 import PulsingIcon from '../../PulsingIcon';
 import { usePostHog } from 'posthog-js/react';
+import { useTranslation } from '@/lib/use-translation';
 // import { convertExcelToPdf } from '@/app/actions/convertXLSXtoPDF';
 
 const selectButtonStyles =
-  'w-full text-center cursor-pointer border-[1px] text-neutral-600 border-neutral-400 rounded-lg flex gap-2 justify-center items-center hover:bg-neutral-100 hover:border-2 hover:font-semibold';
+  'w-full text-center cursor-pointer border-[1px] text-neutral-600 border-neutral-400 rounded-lg flex gap-2 justify-center items-center hover:bg-neutral-100 hover:border hover:font-semibold';
 
 const MapTableSelectContainer = () => {
   const { selectedFileIndex, files, updateFileAtIndex } = usePlaygroundStore();
@@ -22,6 +23,7 @@ const MapTableSelectContainer = () => {
   const { isProduction } = useProductionContext();
   const [tablePreviewIndex, setTablePreviewIndex] = useState(0);
   const posthog = usePostHog();
+  const { t } = useTranslation();
 
   const selectAllTables = (result: ExtractedMDTable[]) => {
     if (result.length > 0) {
@@ -301,7 +303,7 @@ const MapTableSelectContainer = () => {
           <div className="h-full p-4 gap-2 grid grid-rows-[30px_25px_1fr] border-[1px] border-solid rounded-xl">
             {selectedFile?.tableMdExtractState === ExtractState.DONE_EXTRACTING && (
               <>
-                <div className="row-span-1 text-lg font-semibold">Select Tables</div>
+                <div className="row-span-1 text-lg font-semibold">{t.playground.table.selectTables}</div>
                 {selectedFile.tableMdExtractResult.length > 0 ? (
                   <>
                     <div className="row-span-1 h-full w-full flex gap-2">
@@ -309,11 +311,11 @@ const MapTableSelectContainer = () => {
                         onClick={() => selectAllTables(selectedFile.tableMdExtractResult)}
                         className={`${selectButtonStyles} hover:text-green-500`}
                       >
-                        Select All
+                        {t.playground.table.selectAll}
                         <Check />
                       </div>
                       <div onClick={() => selectAllTables([])} className={`${selectButtonStyles} hover:text-rose-500`}>
-                        Deselect All
+                        {t.playground.table.deselectAll}
                         <X />
                       </div>
                     </div>
@@ -333,7 +335,7 @@ const MapTableSelectContainer = () => {
                   </>
                 ) : (
                   <div className="row-span-2">
-                    No tables found in <span className="font-semibold">{filename}</span>
+                    {t.playground.table.noTablesFound} <span className="font-semibold">{filename}</span>
                   </div>
                 )}
               </>
@@ -370,9 +372,14 @@ const MapTableSelectContainer = () => {
             )}
           </div>
           <div className="col-span-2 flex gap-4">
-            <Button label="Re-run Extract" onClick={handleRetry} small labelIcon={ArrowsCounterClockwise} />
             <Button
-              label="Map to your Schema"
+              label={t.playground.table.reRunExtract}
+              onClick={handleRetry}
+              small
+              labelIcon={ArrowsCounterClockwise}
+            />
+            <Button
+              label={t.playground.table.mapToSchema}
               onClick={handleContinueClick}
               small
               labelIcon={ArrowRight}
@@ -385,10 +392,10 @@ const MapTableSelectContainer = () => {
         </div>
       ) : (
         <div className="h-full w-full flex flex-col items-center justify-center gap-4">
-          <div className="text-xl font-semibold text-neutral-800">No Tables Extracted</div>
+          <div className="text-xl font-semibold text-neutral-800">{t.playground.table.noTablesExtracted}</div>
           <div className="w-[300px] gap-4">
             <Button
-              label="Go to Extract Tables"
+              label={t.playground.table.goToExtractTables}
               onClick={() => updateFileAtIndex(selectedFileIndex, 'tableTab', TableTab.TABLE_EXTRACT)}
               small
               labelIcon={ArrowLeft}

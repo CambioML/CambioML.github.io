@@ -35,6 +35,7 @@ export const fr = {
     learnMore: 'En savoir plus',
     contactUs: 'Nous contacter',
     readMore: 'Lire la suite',
+    selectOption: 'Sélectionnez une option',
   },
   homepage: {
     hero: {
@@ -374,6 +375,47 @@ export const fr = {
       },
     },
     comingSoon: 'Bientôt disponible',
+    interactivePlayground: 'Terrain de jeu interactif',
+    extraction: {
+      uploading: 'Téléchargement',
+      extracting: 'Extraction',
+      generatingHtmlTable: 'Génération du tableau HTML',
+      extractTable: 'Extraire le tableau',
+      extractPlainText: 'Extraire le texte brut',
+      noTableDetected: 'Aucun tableau détecté dans le résultat. Réessayez ou sélectionnez un autre fichier',
+      reRunDocument: 'Relancer le document',
+      reRunPage: 'Relancer la page {pageNumber}',
+      downloadMarkdown: 'Télécharger Markdown',
+      download: 'Télécharger',
+      backToResult: 'Retour au résultat',
+      backToFile: 'Retour au fichier',
+      extractingData: 'Extraction des données...',
+    },
+    table: {
+      selectTables: 'Sélectionner les tables',
+      selectAll: 'Tout sélectionner',
+      deselectAll: 'Tout désélectionner',
+      noTablesFound: 'Aucune table trouvée dans',
+      reRunExtract: "Relancer l'extraction",
+      mapToSchema: 'Mapper à votre schéma',
+      noTablesExtracted: 'Aucune table extraite',
+      goToExtractTables: "Aller à l'extraction des tables",
+    },
+    results: {
+      expand: 'Développer',
+      compare: 'Comparer',
+      copy: 'Copier',
+      pageOf: 'Page {page} sur {total}',
+    },
+    extractSettings: {
+      removeFromOutput: 'Supprimer du résultat :',
+      personalIdentifiableInfo: 'Informations personnelles identifiables (PII)',
+      pageNumbers: 'Numéros de page',
+      footnotes: 'Notes de bas de page',
+      headersFooters: 'En-têtes et pieds de page',
+      tables: 'Tableaux',
+      chartsFigures: 'Graphiques et figures',
+    },
   },
   solutionPages: {
     compliance: {
@@ -508,6 +550,8 @@ export const fr = {
   auth: {
     login: 'Connexion',
     logout: 'Déconnexion',
+    completingAuthentication: "Finalisation de l'authentification...",
+    completingLogout: 'Finalisation de la déconnexion...',
   },
   blog: {
     noPosts: 'Aucun article de blog disponible pour le moment.',
@@ -563,6 +607,7 @@ export const fr = {
       tablesGenerated: 'Table(s) générée(s) à partir de',
       schemaMapGenerated: 'Carte de schéma générée pour',
       extracted: 'extrait !',
+      tablesGeneratedFrom: 'Table(s) généré(s) à partir de {filename}!',
     },
     error: {
       contactFailed: 'Échec du contact. Veuillez réessayer.',
@@ -594,6 +639,12 @@ export const fr = {
       schemaExtractionError: "Erreur d'extraction de schéma. Veuillez réessayer.",
       undefinedMarkdown: 'Markdown indéfini reçu. Veuillez réessayer.',
       errorMapping: 'Erreur de mappage du schéma pour. Veuillez réessayer.',
+      jobFailedFile: '{filename} : La tâche a échoué. Veuillez réessayer.',
+      errorTransforming: 'Erreur lors de la transformation de {filename}. Veuillez réessayer.',
+      requestTimeoutFile: 'La demande de transformation pour {filename} a expiré. Veuillez réessayer.',
+      errorExtractingFile: "Erreur lors de l'extraction de {filename}. Veuillez réessayer.",
+      quotaExceeded:
+        'Quota dépassée. Veuillez mettre à niveau votre plan ou nous contacter pour obtenir plus de crédits.',
     },
   },
 } as const;
