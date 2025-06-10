@@ -12,6 +12,8 @@ import PulsingIcon from '../PulsingIcon';
 import { usePostHog } from 'posthog-js/react';
 import SampleUploadFile from '../playground/SampleUploadFile';
 import { useTranslation } from '@/lib/use-translation';
+import useTheme from '@/app/hooks/useTheme';
+import { cn } from '@/lib/cn';
 
 type SampleUploadFile = {
   fileName: string;
@@ -41,6 +43,8 @@ const UploadModal = () => {
   const uploadModal = useUploadModal();
   const posthog = usePostHog();
   const { t } = useTranslation();
+  const theme = useTheme();
+  const isDark = theme === 'dark';
 
   const { filesToUpload, addFiles, setFilesToUpload, files } = usePlaygroundStore();
 
@@ -143,34 +147,61 @@ const UploadModal = () => {
           className={`translate duration-300 h-full ${showModal ? 'translate-y-0' : 'translate-y-full'} ${showModal ? 'opacity-100' : 'opacity-0'}`}
         >
           <div
-            className="translate h-full md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"
+            className={cn(
+              'translate h-full md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none focus:outline-none',
+              isDark ? 'bg-neutral-800' : 'bg-white'
+            )}
             ref={thisRef}
           >
-            <div className="flex items-center p-6 rounded-t justify-center relative border-b-[1px]">
+            <div
+              className={cn(
+                'flex items-center p-6 rounded-t justify-center relative',
+                isDark ? 'border-b border-neutral-600' : 'border-b-[1px] border-gray-200'
+              )}
+            >
               <button
                 onClick={handleClose}
-                className="p-1 border=0 hover:opacity-70 transition absolute right-7 hover:bg-neutral-200 rounded-full"
+                className={cn(
+                  'p-1 border=0 hover:opacity-70 transition absolute right-7 rounded-full',
+                  isDark ? 'hover:bg-neutral-700 text-neutral-300' : 'hover:bg-neutral-200 text-neutral-800'
+                )}
               >
                 <X size={24} />
               </button>
             </div>
-            <div className="z-50 flex items-center justify-center h-[600px] lg:h-[90vh] w-auto p-10 max-h-[900px]">
+            <div
+              className={cn(
+                'z-50 flex items-center justify-center h-[600px] lg:h-[90vh] w-auto p-10 max-h-[900px]',
+                isDark ? 'text-neutral-100' : 'text-neutral-800'
+              )}
+            >
               {uploadModal.uploadModalState === UploadModalState.ADD_FILES && (
                 <div className="w-full h-full flex flex-col justify-center items-center gap-4 ">
                   <Dropzone />
                   <div className="w-full flex items-center gap-4">
-                    <hr className="flex-1 border-t border-gray-300" />
-                    <span className="text-gray-500">{t.playground.uploadModal.or}</span>
-                    <hr className="flex-1 border-t border-gray-300" />
+                    <hr className={cn('flex-1 border-t', isDark ? 'border-neutral-600' : 'border-gray-300')} />
+                    <span className={cn(isDark ? 'text-neutral-400' : 'text-gray-500')}>
+                      {t.playground.uploadModal.or}
+                    </span>
+                    <hr className={cn('flex-1 border-t', isDark ? 'border-neutral-600' : 'border-gray-300')} />
                   </div>
-                  <div className="w-full h-[30vh] min-h-[50px] border bg-gray-100 border-dashed border-gray-300 hover:border-neutral-500 text-xl flex items-center justify-center gap-4 rounded-md text-gray-600">
-                    <MonitorArrowUp size={32} className="text-gray-600" />
+                  <div
+                    className={cn(
+                      'w-full h-[30vh] min-h-[50px] border border-dashed text-xl flex items-center justify-center gap-4 rounded-md hover:border-neutral-500',
+                      isDark
+                        ? 'bg-neutral-700 border-neutral-500 text-neutral-200'
+                        : 'bg-gray-100 border-gray-300 text-gray-600'
+                    )}
+                  >
+                    <MonitorArrowUp size={32} className={isDark ? 'text-neutral-300' : 'text-gray-600'} />
                     {t.playground.uploadModal.pasteScreenshot}
                   </div>
                   <div className="w-full flex items-center gap-4">
-                    <hr className="flex-1 border-t border-gray-300" />
-                    <span className="text-gray-500">{t.playground.uploadModal.or}</span>
-                    <hr className="flex-1 border-t border-gray-300" />
+                    <hr className={cn('flex-1 border-t', isDark ? 'border-neutral-600' : 'border-gray-300')} />
+                    <span className={cn(isDark ? 'text-neutral-400' : 'text-gray-500')}>
+                      {t.playground.uploadModal.or}
+                    </span>
+                    <hr className={cn('flex-1 border-t', isDark ? 'border-neutral-600' : 'border-gray-300')} />
                   </div>
                   <div className="w-full h-[30vh] min-h-[50px] flex flex-row items-center justify-center gap-8">
                     {sampleUploadFiles.map((file, index) => (

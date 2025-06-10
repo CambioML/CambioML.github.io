@@ -77,7 +77,7 @@ const TableSelectItem = ({ tableName, tableIndex, tablePreviewIndex, setTablePre
       </div>
       <div
         onClick={handleTablePreviewClick}
-        className={`h-fit w-[40px] p-2 bg-white rounded-md flex justify-center align-center cursor-pointer gap-2 ${tablePreviewIndex === tableIndex ? 'text-neutral-800 font-semibold border-[1px] border-neutral-100 border-neutral-400' : 'text-neutral-300'}`}
+        className={`h-fit w-[40px] p-2 bg-white rounded-md flex justify-center align-center cursor-pointer gap-2 ${tablePreviewIndex === tableIndex ? 'text-neutral-800 font-semibold border-[1px] border-neutral-100' : 'text-neutral-300'}`}
       >
         <FileMagnifyingGlass size={20} />
       </div>

@@ -6,11 +6,10 @@ import { useUploadModal, UploadModalState } from '@/app/hooks/useUploadModal';
 import toast from 'react-hot-toast';
 import { useProductionContext } from './ProductionContext';
 import { useTranslation } from '@/lib/use-translation';
+import useTheme from '@/app/hooks/useTheme';
+import { cn } from '@/lib/cn';
 
-const DropzoneContainerClass =
-  'border bg-gray-100 border-dashed border-gray-300 h-[40vh] min-h-[150px] rounded-md text-center cursor-pointer transition duration-300 ease-in-out flex flex-col items-center justify-center hover:border-neutral-500 w-full text-gray-600';
-
-const iconContainerClasses = 'flex items-center justify-center text-3xl mb-4 text-gray-600';
+// Removed static classes - now using dynamic theme-aware styling
 
 type AllowedTypes = {
   [key: string]: { limit: number; name: string };
@@ -30,6 +29,8 @@ const Dropzone = () => {
   const { setFilesToUpload } = usePlaygroundStore();
   const { isProduction } = useProductionContext();
   const { t } = useTranslation();
+  const theme = useTheme();
+  const isDark = theme === 'dark';
 
   if (!isProduction)
     allowedTypes = {
@@ -72,14 +73,36 @@ const Dropzone = () => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <div className={DropzoneContainerClass} {...getRootProps()} id="dropzone-container">
-      <div className={iconContainerClasses}>{<CloudArrowUp size={32} />}</div>
+    <div
+      className={cn(
+        'border border-dashed h-[40vh] min-h-[150px] rounded-md text-center cursor-pointer transition duration-300 ease-in-out flex flex-col items-center justify-center w-full',
+        isDark
+          ? 'bg-neutral-700 border-neutral-500 text-neutral-200 hover:border-neutral-400'
+          : 'bg-gray-100 border-gray-300 text-gray-600 hover:border-neutral-500'
+      )}
+      {...getRootProps()}
+      id="dropzone-container"
+    >
+      <div
+        className={cn('flex items-center justify-center text-3xl mb-4', isDark ? 'text-neutral-300' : 'text-gray-600')}
+      >
+        <CloudArrowUp size={32} />
+      </div>
       <input {...getInputProps()} className="hidden" id="upload-file-input" />
       <p className="mt-2">{isDragActive ? t.playground.upload.dropFiles : t.playground.upload.dragAndDrop}</p>
-      <p className="text-sm text-gray-500">{generateAllowedTypesString(allowedTypes)}</p>
-      <p className="text-sm text-gray-500">{t.playground.upload.noSensitiveInfo}</p>
-      <div className="flex justify-center items-center gap-2 bg-amber-200 rounded-lg p-2">
-        <Info weight="bold" className="text-amber-700" />
+      <p className={cn('text-sm', isDark ? 'text-neutral-400' : 'text-gray-500')}>
+        {generateAllowedTypesString(allowedTypes)}
+      </p>
+      <p className={cn('text-sm', isDark ? 'text-neutral-400' : 'text-gray-500')}>
+        {t.playground.upload.noSensitiveInfo}
+      </p>
+      <div
+        className={cn(
+          'flex justify-center items-center gap-2 rounded-lg p-2',
+          isDark ? 'bg-amber-800/30 text-amber-300' : 'bg-amber-200 text-amber-700'
+        )}
+      >
+        <Info weight="bold" />
         {t.playground.upload.maxSize}
       </div>
     </div>

@@ -119,9 +119,6 @@ const ExtractKeyValuePairContainer = () => {
 
   const onSubmit = async (extractInstruction: Record<string, string>) => {
     if (!loggedIn) {
-      // Save current state so we can resume after login
-      localStorage.setItem('auth_redirect_url', window.location.pathname + window.location.search);
-
       // Set pending action to continue extraction after login with fresh values
       setPendingAction(async () => {
         // Get fresh state when executed
@@ -258,9 +255,15 @@ const ExtractKeyValuePairContainer = () => {
               </div>
             )}
             {!hideResult && selectedFile?.extractKeyValueResult && (
-              <div className="pb-24">
-                <CodeBlock language="json" code={selectedFile?.extractKeyValueResult} aria-label="Extraction Result" />
-                <div className="absolute bottom-4 left-4 flex gap-2 w-fit">
+              <div className="flex flex-col items-start w-full h-full gap-4 p-4">
+                <div className="flex-1 w-full overflow-auto overscroll-contain">
+                  <CodeBlock
+                    language="json"
+                    code={selectedFile?.extractKeyValueResult}
+                    aria-label="Extraction Result"
+                  />
+                </div>
+                <div className="w-full h-fit flex gap-2">
                   <Button
                     label={t.playground.extraction.backToFile}
                     labelIcon={ArrowLeft}

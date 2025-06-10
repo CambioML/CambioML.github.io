@@ -260,9 +260,6 @@ const MarkdownExtractContainer = () => {
     console.log({ loggedIn, token: state.token });
 
     if (!loggedIn) {
-      // Save current state so we can resume after login
-      localStorage.setItem('auth_redirect_url', window.location.pathname + window.location.search);
-
       // Set pending action to continue extraction after login with fresh values
       setPendingAction(() => handleExtractAfterLogin(targetPageNumbers));
 
