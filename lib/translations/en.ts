@@ -258,6 +258,7 @@ export const en = {
   playground: {
     title: 'AnyParser Sandbox',
     description: 'The first LLM to quickly and accurately extract full content from PDFs*, PPTs, and images**.',
+    tryForFree: 'Try for free',
     tabs: {
       plainText: 'Full Content',
       table: 'Table Only',
@@ -364,7 +365,6 @@ export const en = {
       },
     },
     comingSoon: 'Coming soon',
-    interactivePlayground: 'Interactive Playground',
     extraction: {
       uploading: 'Uploading',
       extracting: 'Extracting',

@@ -41,7 +41,7 @@ const PlaygroundContainerForBlog = () => {
         />
 
         <div className="p-4 mb-10 h-[700px]">
-          <h2 className="text-3xl font-bold mb-6 pl-1 bg-gradient">{t.playground.interactivePlayground}</h2>
+          <h2 className="text-3xl font-bold mb-6 pl-1 bg-gradient">{t.playground.tryForFree}</h2>
           <ActionContainer />
         </div>
       </div>
