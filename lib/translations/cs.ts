@@ -368,7 +368,6 @@ export const cs = {
       },
     },
     comingSoon: 'Již brzy',
-    interactivePlayground: 'Interaktivní hřiště',
     extraction: {
       uploading: 'Nahrávání',
       extracting: 'Extrahování',
@@ -409,6 +408,7 @@ export const cs = {
       tables: 'Tabulky',
       chartsFigures: 'Grafy a obrázky',
     },
+    tryForFree: 'Vyzkoušejte zdarma',
   },
   solutionPages: {
     compliance: {

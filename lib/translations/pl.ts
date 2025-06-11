@@ -371,7 +371,6 @@ export const pl = {
       },
     },
     comingSoon: 'Wkrótce dostępne',
-    interactivePlayground: 'Interaktywny Plac Zabaw',
     extraction: {
       uploading: 'Przesyłanie',
       extracting: 'Wyodrębnianie',
@@ -412,6 +411,7 @@ export const pl = {
       tables: 'Tabele',
       chartsFigures: 'Wykresy i rysunki',
     },
+    tryForFree: 'Wypróbuj za darmo',
   },
   solutionPages: {
     compliance: {

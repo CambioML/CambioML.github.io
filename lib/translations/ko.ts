@@ -361,7 +361,6 @@ export const ko = {
       },
     },
     comingSoon: '곧 출시 예정',
-    interactivePlayground: '인터랙티브 놀이터',
     extraction: {
       uploading: '업로드 중',
       extracting: '추출 중',
@@ -402,6 +401,7 @@ export const ko = {
       tables: '테이블',
       chartsFigures: '차트 및 그림',
     },
+    tryForFree: '무료로 사용해보세요',
   },
   solutionPages: {
     compliance: {

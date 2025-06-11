@@ -372,7 +372,6 @@ export const fi = {
       },
     },
     comingSoon: 'Tulossa pian',
-    interactivePlayground: 'Vuorovaikutteinen leikkikenttä',
     extraction: {
       uploading: 'Ladataan',
       extracting: 'Poimitaan',
@@ -413,6 +412,7 @@ export const fi = {
       tables: 'Taulukot',
       chartsFigures: 'Kaaviot ja kuviot',
     },
+    tryForFree: 'Kokeile ilmaiseksi',
   },
   solutionPages: {
     compliance: {

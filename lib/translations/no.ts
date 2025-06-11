@@ -369,7 +369,6 @@ export const no = {
       },
     },
     comingSoon: 'Kommer snart',
-    interactivePlayground: 'Interaktiv lekeplass',
     extraction: {
       uploading: 'Laster opp',
       extracting: 'Ekstraherer',
@@ -410,6 +409,7 @@ export const no = {
       tables: 'Tabeller',
       chartsFigures: 'Diagrammer og figurer',
     },
+    tryForFree: 'Prøv gratis',
   },
   solutionPages: {
     compliance: {

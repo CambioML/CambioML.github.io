@@ -1,17 +1,17 @@
 import toast from 'react-hot-toast';
-import PlaygroundTab from './PlaygroundTab';
 import UploadButton from './UploadButton';
+import useTheme from '@/app/hooks/useTheme';
+import PlaygroundTab from './PlaygroundTab';
 import MapContainer from './table/MapContainer';
 import ExtractContainer from './ExtractContainer';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 import ExtractKeyValuePairContainer from './ExtractKeyValuePairContainer';
+import { cn } from '@/lib/cn';
 import { usePostHog } from 'posthog-js/react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useTranslation } from '@/lib/use-translation';
 import { useCallback, useEffect, useState } from 'react';
 import { PlaygroundFile, PlaygroundTabs, getPlaygroundTabLabel } from '@/app/types/PlaygroundTypes';
-import useTheme from '@/app/hooks/useTheme';
-import { cn } from '@/lib/cn';
 
 const ActionContainer = () => {
   const { selectedFileIndex, files } = usePlaygroundStore();
@@ -24,6 +24,7 @@ const ActionContainer = () => {
     setClientId,
     setToken,
     setUserId,
+    pendingAction,
     executePendingAction,
     loadingQuota,
   } = usePlaygroundStore();
@@ -99,7 +100,7 @@ const ActionContainer = () => {
     } else {
       toast.error(t.messages.error.quotaExceeded);
     }
-  }, [remainingQuota, loadingQuota, executePendingAction]);
+  }, [remainingQuota, loadingQuota, executePendingAction, t.messages.error.quotaExceeded, pendingAction]);
 
   useEffect(() => {
     if (selectedFileIndex !== null && files.length > 0) {
@@ -124,8 +125,8 @@ const ActionContainer = () => {
       ) : (
         <div
           className={cn(
-            isDark ? 'h-[400px]' : 'h-[73vh]',
-            'border-solid border border-t-0 border-neutral-200 rounded-b-xl p-4 pt-0 box-border'
+            isDark ? 'h-full' : 'h-[73vh]',
+            'border border-t-0 rounded-b-xl p-4 pt-0 box-border overflow-hidden'
           )}
         >
           {(selectedFile?.activeTab === PlaygroundTabs.PLAIN_TEXT || selectedFileIndex === null) && (

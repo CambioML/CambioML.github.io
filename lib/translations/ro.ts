@@ -373,7 +373,6 @@ export const ro = {
       },
     },
     comingSoon: 'În curând',
-    interactivePlayground: 'Loc de joacă interactiv',
     extraction: {
       uploading: 'Se încarcă',
       extracting: 'Se extrage',
@@ -414,6 +413,7 @@ export const ro = {
       tables: 'Tabele',
       chartsFigures: 'Grafice și figuri',
     },
+    tryForFree: 'Încearcă gratuit',
   },
   solutionPages: {
     compliance: {

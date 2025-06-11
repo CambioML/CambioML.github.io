@@ -359,7 +359,6 @@ export const ar = {
       },
     },
     comingSoon: 'قريبًا',
-    interactivePlayground: 'ملعب تفاعلي',
     extraction: {
       uploading: 'جارٍ التحميل',
       extracting: 'جارٍ الاستخراج',
@@ -400,6 +399,7 @@ export const ar = {
       tables: 'الجداول',
       chartsFigures: 'الرسوم البيانية والأشكال',
     },
+    tryForFree: 'جرب مجانًا',
   },
   solutionPages: {
     compliance: {

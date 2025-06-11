@@ -369,7 +369,6 @@ export const sv = {
       },
     },
     comingSoon: 'Kommer snart',
-    interactivePlayground: 'Interaktiv lekplats',
     extraction: {
       uploading: 'Laddar upp',
       extracting: 'Extraherar',
@@ -410,6 +409,7 @@ export const sv = {
       tables: 'Tabeller',
       chartsFigures: 'Diagram & figurer',
     },
+    tryForFree: 'Prova gratis',
   },
   solutionPages: {
     compliance: {

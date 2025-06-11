@@ -375,7 +375,6 @@ export const fr = {
       },
     },
     comingSoon: 'Bientôt disponible',
-    interactivePlayground: 'Terrain de jeu interactif',
     extraction: {
       uploading: 'Téléchargement',
       extracting: 'Extraction',
@@ -416,6 +415,7 @@ export const fr = {
       tables: 'Tableaux',
       chartsFigures: 'Graphiques et figures',
     },
+    tryForFree: 'Essayez gratuitement',
   },
   solutionPages: {
     compliance: {

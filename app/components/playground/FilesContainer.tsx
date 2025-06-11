@@ -6,16 +6,20 @@ import LogoutButton from '../auth/LogoutButton';
 import QuotaDisplay from './QuotaDisplay';
 import { CaretRight } from '@phosphor-icons/react/dist/ssr';
 import { useTranslation } from '@/lib/use-translation';
+import useTheme from '@/app/hooks/useTheme';
+import { cn } from '@/lib/cn';
 
 const FilesContainer = () => {
   const { t } = useTranslation();
   const { files, loggedIn, userId, fileCollapsed, setFileCollapsed } = usePlaygroundStore();
+  const theme = useTheme();
+  const isDark = theme === 'dark';
 
   return (
-    <div className={`h-[500px] lg:h-full w-full min-h-[200px] grid lg:grid-cols-[1fr_20px]`}>
-      <div className="cols-span-1 grid grid-rows-[50px_1fr_70px_70px_70px] pr-4">
+    <div className={cn(`h-[500px] lg:h-full w-full min-h-[200px] grid lg:grid-cols-[1fr_20px]`)}>
+      <div className="cols-span-1 grid grid-rows-[50px_1fr_70px_70px_70px] p-2">
         <h2 className="row-span-1 text-2xl font-semibold pt-4">{!fileCollapsed && t.playground.files.title}</h2>
-        <div className="row-span-1 overflow-auto relative box-border">
+        <div className="row-span-1 overflow-auto relative">
           {files.length > 0 ? (
             <div className="w-full h-fit flex flex-col items-start justify-center absolute gap-2">
               {files.map((file, i) => (
@@ -41,22 +45,17 @@ const FilesContainer = () => {
           </>
         )}
       </div>
-      <div
-        className="hidden border-[1px] border-r-0 lg:flex items-center justify-center cursor-pointer hover:bg-neutral-300 rounded-l-xl"
+      <button
+        className={cn(
+          'hidden border lg:flex items-center justify-center cursor-pointer rounded-l-xl',
+          isDark ? 'hover:bg-neutral-700' : 'hover:bg-neutral-300 border-r-0'
+        )}
         onClick={() => {
           setFileCollapsed(!fileCollapsed);
         }}
       >
-        {fileCollapsed ? (
-          <button>
-            <CaretRight size={20} />
-          </button>
-        ) : (
-          <button>
-            <CaretLeft size={20} />
-          </button>
-        )}
-      </div>
+        {fileCollapsed ? <CaretRight size={40} /> : <CaretLeft size={40} />}
+      </button>
     </div>
   );
 };

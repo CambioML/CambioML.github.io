@@ -369,7 +369,6 @@ export const da = {
       },
     },
     comingSoon: 'Kommer snart',
-    interactivePlayground: 'Interaktiv legeplads',
     extraction: {
       uploading: 'Uploader',
       extracting: 'Ekstraherer',
@@ -410,6 +409,7 @@ export const da = {
       tables: 'Tabeller',
       chartsFigures: 'Diagrammer & figurer',
     },
+    tryForFree: 'Prøv gratis',
   },
   solutionPages: {
     compliance: {

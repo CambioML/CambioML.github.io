@@ -373,7 +373,6 @@ export const hu = {
       },
     },
     comingSoon: 'Hamarosan',
-    interactivePlayground: 'Interaktív játszótér',
     extraction: {
       uploading: 'Feltöltés',
       extracting: 'Kinyerés',
@@ -414,6 +413,7 @@ export const hu = {
       tables: 'Táblázatok',
       chartsFigures: 'Diagramok és ábrák',
     },
+    tryForFree: 'Próbáld ki ingyen',
   },
   solutionPages: {
     compliance: {

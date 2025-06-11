@@ -373,7 +373,6 @@ export const it = {
       },
     },
     comingSoon: 'In arrivo',
-    interactivePlayground: 'Parco giochi interattivo',
     extraction: {
       uploading: 'Caricamento',
       extracting: 'Estrazione',
@@ -414,6 +413,7 @@ export const it = {
       tables: 'Tabelle',
       chartsFigures: 'Grafici e figure',
     },
+    tryForFree: 'Prova gratuitamente',
   },
   solutionPages: {
     compliance: {

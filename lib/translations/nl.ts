@@ -371,7 +371,6 @@ export const nl = {
       },
     },
     comingSoon: 'Binnenkort beschikbaar',
-    interactivePlayground: 'Interactieve Speelplaats',
     extraction: {
       uploading: 'Bezig met uploaden',
       extracting: 'Bezig met extraheren',
@@ -412,6 +411,7 @@ export const nl = {
       tables: 'Tabellen',
       chartsFigures: 'Grafieken & Figuren',
     },
+    tryForFree: 'Probeer gratis',
   },
   solutionPages: {
     compliance: {

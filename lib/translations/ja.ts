@@ -362,7 +362,6 @@ export const ja = {
       },
     },
     comingSoon: '近日公開',
-    interactivePlayground: 'インタラクティブプレイグラウンド',
     extraction: {
       uploading: 'アップロード中',
       extracting: '抽出中',
@@ -403,6 +402,7 @@ export const ja = {
       tables: 'テーブル',
       chartsFigures: 'チャートと図',
     },
+    tryForFree: '無料で試す',
   },
   solutionPages: {
     compliance: {

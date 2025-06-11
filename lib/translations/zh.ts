@@ -350,7 +350,6 @@ export const zh = {
       },
     },
     comingSoon: '即将推出',
-    interactivePlayground: '交互式试用',
     extraction: {
       uploading: '正在上传',
       extracting: '正在提取',
@@ -391,6 +390,7 @@ export const zh = {
       tables: '表格',
       chartsFigures: '图表和图形',
     },
+    tryForFree: '免费试用',
   },
   solutionPages: {
     compliance: {

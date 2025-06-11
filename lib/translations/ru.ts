@@ -367,7 +367,6 @@ export const ru = {
       },
     },
     comingSoon: 'Скоро',
-    interactivePlayground: 'Интерактивная площадка',
     extraction: {
       uploading: 'Загрузка',
       extracting: 'Извлечение',
@@ -408,6 +407,7 @@ export const ru = {
       tables: 'Таблицы',
       chartsFigures: 'Диаграммы и рисунки',
     },
+    tryForFree: 'Попробуйте бесплатно',
   },
   solutionPages: {
     compliance: {

@@ -37,7 +37,7 @@ const ModelToggleDropdown = () => {
 
   return (
     <div className="relative inline-block text-left">
-      <div className="w-[150px]">
+      <div className="w-fit">
         <button
           type="button"
           onClick={toggleDropdown}
@@ -53,7 +53,7 @@ const ModelToggleDropdown = () => {
 
       {isOpen && (
         <div
-          className="absolute right-0 mt-2 w-36 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50"
+          className="absolute right-0 mt-2 w-fit rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="menu-button"

@@ -372,7 +372,6 @@ export const de = {
       },
     },
     comingSoon: 'Demnächst verfügbar',
-    interactivePlayground: 'Interaktiver Spielplatz',
     extraction: {
       uploading: 'Hochladen',
       extracting: 'Extrahieren',
@@ -414,6 +413,7 @@ export const de = {
       tables: 'Tabellen',
       chartsFigures: 'Diagramme & Abbildungen',
     },
+    tryForFree: 'Kostenlos ausprobieren',
   },
   solutionPages: {
     compliance: {

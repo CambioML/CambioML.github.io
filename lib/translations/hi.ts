@@ -366,7 +366,6 @@ export const hi = {
       },
     },
     comingSoon: 'जल्द ही आ रहा है',
-    interactivePlayground: 'इंटरएक्टिव प्लेग्राउंड',
     extraction: {
       uploading: 'अपलोड हो रहा है',
       extracting: 'निकाला जा रहा है',
@@ -407,6 +406,7 @@ export const hi = {
       tables: 'तालिकाएँ',
       chartsFigures: 'चार्ट और चित्र',
     },
+    tryForFree: 'मुफ़्त में आज़माएं',
   },
   solutionPages: {
     compliance: {

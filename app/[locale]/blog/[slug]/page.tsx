@@ -99,21 +99,17 @@ export default async function BlogPostPage({ params }: { params: { slug: string;
               <span className="bg-gradient">{post.title}</span>
             </h1>
             <div className="text-gray-400 mb-6">{post.date}</div>
-
-            {/* Display image if available */}
-            {post.image && (
-              <div className="mb-8">
-                <img src={post.image} alt={post.title} className="w-full h-auto rounded-lg" />
-              </div>
-            )}
           </div>
         </div>
 
+        <div className="w-[80vw]">
+          <PlaygroundWithProvider initialValue={true} />
+        </div>
+
         {/* Blog Content */}
-        <div className="py-8 px-4 md:px-8 lg:px-40">
+        <div className="pb-8 px-4 md:px-8 lg:px-40">
           <div className="container mx-auto">
             <article className="max-w-none">
-              <PlaygroundWithProvider initialValue={true} />
               <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} components={MarkdownComponents}>
                 {post.content}
               </ReactMarkdown>

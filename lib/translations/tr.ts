@@ -362,7 +362,6 @@ export const tr = {
       },
     },
     comingSoon: 'Yakında geliyor',
-    interactivePlayground: 'Etkileşimli Oyun Alanı',
     extraction: {
       uploading: 'Yükleniyor',
       extracting: 'Çıkartılıyor',
@@ -403,6 +402,7 @@ export const tr = {
       tables: 'Tablolar',
       chartsFigures: 'Grafikler ve Şekiller',
     },
+    tryForFree: 'Ücretsiz deneyin',
   },
   solutionPages: {
     compliance: {
