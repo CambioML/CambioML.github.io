@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { Marquee } from '../dark/magicui/marquee';
 import { useTranslation } from '@/lib/use-translation';
 
+import { cn } from '@/lib/cn';
+
 const reviewerImages = [
   'richard-song.png',
   'ethan-zheng.png',
@@ -23,13 +25,16 @@ export default function Reviews() {
     (review: { text: string; author: string; position: string }, index: number) => (
       <div
         key={index}
-        className="border border-border-1 bg-card-1 rounded-lg hover:shadow-[0px_0px_2px_0.5px_rgba(112,190,250,0.75)] transition-all duration-300"
+        className={cn(
+          'rounded-lg transition-all duration-300',
+          'border-gray-200 dark:border-border-1 bg-white dark:bg-card-1 border hover:shadow-lg dark:hover:shadow-[0px_0px_2px_0.5px_rgba(112,190,250,0.75)]'
+        )}
       >
         <div className="p-10 flex flex-col gap-3.75 h-[320px]">
-          <div className="border border-border-1 max-w-80 rounded-lg bg-background mb-auto">
-            <p className="text-foreground p-2.5">{review.text}</p>
+          <div className={cn('max-w-80 rounded-lg mb-auto')}>
+            <p className={cn('p-2.5 text-gray-800 dark:text-gray-200')}>{review.text}</p>
           </div>
-          <div className="py flex items-center gap-2.5 border border-border-1 rounded-lg bg-background">
+          <div className={cn('py flex items-center gap-2.5 rounded-lg')}>
             <div className="h-[50px] w-[50px]">
               <Image
                 src={`/images/reviewers/${reviewerImages[index]}`}
@@ -41,9 +46,11 @@ export default function Reviews() {
             </div>
             <div>
               <p>
-                <span className="bg-gradient">{review.author}</span>
+                <span className={cn('text-gray-900 dark:bg-gradient font-semibold dark:font-normal')}>
+                  {review.author}
+                </span>
               </p>
-              <p className="text-foreground">{review.position}</p>
+              <p className={cn('text-gray-600 dark:text-gray-300')}>{review.position}</p>
             </div>
           </div>
         </div>
@@ -54,11 +61,14 @@ export default function Reviews() {
   return (
     <section
       id="reviews"
-      className="theme-dark px-3.75 py-20 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center bg-[radial-gradient(25%_30%_at_50%_50%,rgba(112,190,250,0.1)_0%,rgb(10,10,10)_100%)]"
+      className={cn(
+        'px-3.75 py-20 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center',
+        'bg-gray-50 dark:bg-[radial-gradient(25%_30%_at_50%_50%,rgba(112,190,250,0.1)_0%,rgb(10,10,10)_100%)]'
+      )}
     >
       <div className="container mb-12">
-        <h1 className="text-center">
-          <span className="bg-gradient h-full">{t.reviews.title}</span>
+        <h1 className={cn('text-center font-semibold text-4xl lg:text-5xl text-gray-900 dark:text-inherit')}>
+          <span className={cn('h-full text-gray-900 dark:bg-gradient')}>{t.reviews.title}</span>
         </h1>
       </div>
 

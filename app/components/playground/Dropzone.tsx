@@ -6,7 +6,6 @@ import { useUploadModal, UploadModalState } from '@/app/hooks/useUploadModal';
 import toast from 'react-hot-toast';
 import { useProductionContext } from './ProductionContext';
 import { useTranslation } from '@/lib/use-translation';
-import useTheme from '@/app/hooks/useTheme';
 import { cn } from '@/lib/cn';
 
 // Removed static classes - now using dynamic theme-aware styling
@@ -29,8 +28,6 @@ const Dropzone = () => {
   const { setFilesToUpload } = usePlaygroundStore();
   const { isProduction } = useProductionContext();
   const { t } = useTranslation();
-  const theme = useTheme();
-  const isDark = theme === 'dark';
 
   if (!isProduction)
     allowedTypes = {
@@ -76,30 +73,22 @@ const Dropzone = () => {
     <div
       className={cn(
         'border border-dashed h-[40vh] min-h-[150px] rounded-md text-center cursor-pointer transition duration-300 ease-in-out flex flex-col items-center justify-center w-full',
-        isDark
-          ? 'bg-neutral-700 border-neutral-500 text-neutral-200 hover:border-neutral-400'
-          : 'bg-gray-100 border-gray-300 text-gray-600 hover:border-neutral-500'
+        'bg-gray-100 dark:bg-neutral-700 border-gray-300 dark:border-neutral-500 text-gray-600 dark:text-neutral-200 hover:border-neutral-500 dark:hover:border-neutral-400'
       )}
       {...getRootProps()}
       id="dropzone-container"
     >
-      <div
-        className={cn('flex items-center justify-center text-3xl mb-4', isDark ? 'text-neutral-300' : 'text-gray-600')}
-      >
+      <div className={cn('flex items-center justify-center text-3xl mb-4 text-gray-600 dark:text-neutral-300')}>
         <CloudArrowUp size={32} />
       </div>
       <input {...getInputProps()} className="hidden" id="upload-file-input" />
       <p className="mt-2">{isDragActive ? t.playground.upload.dropFiles : t.playground.upload.dragAndDrop}</p>
-      <p className={cn('text-sm', isDark ? 'text-neutral-400' : 'text-gray-500')}>
-        {generateAllowedTypesString(allowedTypes)}
-      </p>
-      <p className={cn('text-sm', isDark ? 'text-neutral-400' : 'text-gray-500')}>
-        {t.playground.upload.noSensitiveInfo}
-      </p>
+      <p className={cn('text-sm text-gray-500 dark:text-neutral-400')}>{generateAllowedTypesString(allowedTypes)}</p>
+      <p className={cn('text-sm text-gray-500 dark:text-neutral-400')}>{t.playground.upload.noSensitiveInfo}</p>
       <div
         className={cn(
           'flex justify-center items-center gap-2 rounded-lg p-2',
-          isDark ? 'bg-amber-800/30 text-amber-300' : 'bg-amber-200 text-amber-700'
+          'bg-amber-200 dark:bg-amber-800/30 text-amber-700 dark:text-amber-300'
         )}
       >
         <Info weight="bold" />

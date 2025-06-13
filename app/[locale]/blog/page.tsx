@@ -13,7 +13,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
 
   return (
     // Full-width background container
-    <div className="theme-dark min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
       {/* Centered content container */}
       <div className="max-w-screen-lg mx-auto">
         {/* Blog Header */}

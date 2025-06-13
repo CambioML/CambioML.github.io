@@ -5,6 +5,7 @@ import PlaygroundContainer from './PlaygroundContainer';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { useTranslation } from '@/lib/use-translation';
 import { ProductionProvider } from './ProductionContext';
+import { cn } from '@/lib/cn';
 
 interface PlaygroundPageContainerProps {
   production: boolean;
@@ -26,7 +27,7 @@ const PlaygroundPageContainer = ({ production }: PlaygroundPageContainerProps) =
       }}
     >
       <ProductionProvider initialValue={production}>
-        <div className="relative min-h-screen w-full overflow-hidden bg-gray-50">
+        <div className={cn('relative min-h-screen w-full overflow-hidden bg-gray-50 dark:bg-background')}>
           {/* Main content */}
           <div className="py-10 w-full h-fit flex flex-col justify-center items-center">
             <PageHero title={t.playground.title} description={t.playground.description} short />
