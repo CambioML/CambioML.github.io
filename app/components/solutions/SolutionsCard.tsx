@@ -71,7 +71,12 @@ const SolutionsCard = ({ title, subtitle, description, url, image, imageContain 
               <div className="font-semibold text-xl text-neutral-800 dark:text-gray-200">{title.toUpperCase()}</div>
               {subtitle && <div className="text-xl italic text-neutral-700 dark:text-gray-300">{subtitle}</div>}
             </div>
-            {description && <div className="text-lg text-neutral-600 dark:text-gray-300" dangerouslySetInnerHTML={{ __html: description }} />}
+            {description && (
+              <div
+                className="text-lg text-neutral-600 dark:text-gray-300"
+                dangerouslySetInnerHTML={{ __html: description }}
+              />
+            )}
           </div>
         </div>
       </div>

@@ -33,4 +33,4 @@ export default function Card({ children, className, variant = 'no-light' }: Card
 
 export function CardContent({ children, className }: CardContentProps) {
   return <div className={cn('p-6 bg-white dark:bg-card-1', className)}>{children}</div>;
-} 
+}

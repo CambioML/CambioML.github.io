@@ -34,4 +34,4 @@ export function SwitchButtons({ options, activeOption, onChange, className }: Sw
       </div>
     </div>
   );
-} 
+}
