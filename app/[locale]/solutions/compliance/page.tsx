@@ -16,7 +16,7 @@ const ComplianceSolutionsPage = () => {
   const solutionPages = t.solutionPages;
 
   return (
-    <div className="pb-10 w-full h-full">
+    <div className="pb-10 w-full h-full bg-white dark:bg-background">
       <PageHero
         title={solutionPages?.compliance?.title || 'ComplianceAI'}
         description={solutionPages?.compliance?.description || 'Get Auto Compliant with LLMs'}

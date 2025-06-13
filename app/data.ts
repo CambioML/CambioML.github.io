@@ -26,7 +26,7 @@ export const solutions: SolutionType[] = [
     subtitle: 'Accelerate investment analysis',
     description: 'Extract insights from financial statements, research reports, and investment documents',
     url: '/blog/document-parsing-investment',
-    image: '/images/solutions/document-parsing-investment.png',
+    image: '/images/solutions/document-parsing-investment-1.png',
     date: new Date('2024-11-15'),
     industries: ['finance', 'investment'],
     blog: true,

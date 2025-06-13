@@ -1,19 +1,24 @@
-import React from 'react';
+'use client';
 
 const ProductHunt = () => {
   return (
-    <div className="min-w-[100px]">
+    <div className="flex items-center">
       <a
-        href="https://www.producthunt.com/posts/anyparser-pro?embed=true&utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-anyparser&#0045;pro"
+        href="https://www.producthunt.com/posts/any-parser?utm_source=badge-top-post-badge&amp;utm_medium=badge&amp;utm_souce=badge-any&#0045;parser"
         target="_blank"
-        rel="noreferrer"
+        rel="noopener noreferrer"
       >
+        {/* Light theme image - visible in light mode */}
         <img
           src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=716228&theme=light&period=daily"
-          alt="AnyParser&#0032;Pro - Parse&#0032;multi&#0045;language&#0032;images&#0032;and&#0032;documents&#0032;into&#0032;JSON&#0047;markdown | Product Hunt"
-          style={{ width: '250px', height: '54px' }}
-          width="250"
-          height="54"
+          alt="Any Parser - Extract data from any documents | Product Hunt"
+          className="block dark:hidden"
+        />
+        {/* Dark theme image - visible in dark mode */}
+        <img
+          src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=716228&theme=dark&period=daily"
+          alt="Any Parser - Extract data from any documents | Product Hunt"
+          className="hidden dark:block"
         />
       </a>
     </div>

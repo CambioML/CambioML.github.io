@@ -260,12 +260,12 @@ const PricingPage = () => {
             🎉 Special Offer for Startups and Non-profits! 🎉
           </p>
           <p className="text-center text-lg md:text-xl text-sky-900 mt-2">
-            Get <span className="font-bold text-sky-700">3 months FREE</span> for startups (less than 10 people) of
+            Get <span className="font-semibold text-sky-700">3 months FREE</span> for startups (less than 10 people) of
             Non-profit organizations.
             <br />
             <span className="mt-2 inline-block">
               Email{' '}
-              <a href="mailto:info@cambioml.com" className="text-sky-700 hover:underline font-bold">
+              <a href="mailto:info@cambioml.com" className="text-sky-700 hover:underline font-semibold">
                 info@cambioml.com
               </a>{' '}
               to redeem your credit!

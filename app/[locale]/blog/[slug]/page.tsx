@@ -66,8 +66,8 @@ export default async function BlogPostPage({ params }: { params: { slug: string;
   const t = getTranslation(locale);
 
   return (
-    // Full-width background container with dark theme
-    <div className="theme-dark min-h-screen bg-background">
+    // Full-width background container with responsive theme
+    <div className="min-h-screen bg-background">
       {/* Centered content container */}
       <div className="max-w-screen-lg mx-auto">
         {/* Blog Header */}
@@ -76,7 +76,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string;
             <div className="mb-4">
               <Link
                 href={`/${locale}/blog`}
-                className="text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-2"
+                className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors flex items-center gap-2"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -95,10 +95,10 @@ export default async function BlogPostPage({ params }: { params: { slug: string;
               </Link>
             </div>
 
-            <h1 className="text-4xl md:text-6xl font-semibold leading-tight mb-6">
-              <span className="bg-gradient">{post.title}</span>
+            <h1 className="text-4xl md:text-6xl font-medium leading-tight mb-6 text-gray-900 dark:text-white">
+              <span className="text-gray-900 dark:bg-gradient">{post.title}</span>
             </h1>
-            <div className="text-gray-400 mb-6">{post.date}</div>
+            <div className="text-gray-600 dark:text-gray-400 mb-6">{post.date}</div>
           </div>
         </div>
 
@@ -109,7 +109,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string;
         {/* Blog Content */}
         <div className="pb-8 px-4 md:px-8 lg:px-40">
           <div className="container mx-auto">
-            <article className="max-w-none">
+            <article className="max-w-none text-gray-900 dark:text-gray-100">
               <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} components={MarkdownComponents}>
                 {post.content}
               </ReactMarkdown>
@@ -118,11 +118,11 @@ export default async function BlogPostPage({ params }: { params: { slug: string;
         </div>
 
         {/* Navigation back to blog */}
-        <div className="py-8 px-4 md:px-8 lg:px-40 border-t border-gray-700">
+        <div className="py-8 px-4 md:px-8 lg:px-40 border-t border-gray-300 dark:border-gray-700">
           <div className="container mx-auto text-center">
             <Link
               href={`/${locale}/blog`}
-              className="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors"
+              className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

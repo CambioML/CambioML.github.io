@@ -19,7 +19,10 @@ const Hero = () => {
   };
 
   return (
-    <section id="hero" className="theme-dark pt-20 h-fit relative flex items-center justify-center overflow-hidden">
+    <section
+      id="hero"
+      className="pt-20 h-fit relative flex items-center justify-center overflow-hidden bg-white dark:bg-background"
+    >
       <div className="z-10 w-full">
         {/* Main content */}
         <AnimatePresence>
@@ -31,10 +34,10 @@ const Hero = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.7 }}
                 >
-                  <h1 className="text-center">
-                    <span className="bg-gradient">{t.homepage.hero.title}</span>
+                  <h1 className="text-center text-5xl lg:text-6xl">
+                    <span className="text-gray-900 dark:bg-gradient font-semibold">{t.homepage.hero.title}</span>
                   </h1>
-                  <div className="text-lg text-center py-1.5 max-w-4xl mx-auto text-foreground">
+                  <div className="text-lg text-center py-1.5 max-w-4xl mx-auto text-gray-700 dark:text-gray-200">
                     {t.homepage.hero.subtitle}
                   </div>
                 </motion.div>
@@ -49,7 +52,7 @@ const Hero = () => {
                 <div className="w-full h- py-0 lg:h-full lg:col-span-2">
                   <div className="flex items-center justify-center w-full h-full py-0">
                     <div
-                      className="relative w-full max-w-[960px] h-auto border border-border-1 rounded-lg overflow-hidden bg-white"
+                      className="relative w-full max-w-[960px] h-auto border border-gray-200 dark:border-border-1 rounded-lg overflow-hidden bg-white"
                       style={{ aspectRatio: '16/9' }}
                     >
                       {isPlaying ? (
@@ -77,7 +80,7 @@ const Hero = () => {
                 </div>
 
                 <div className="w-full h-full flex flex-col items-center justify-center px-10 lg:col-span-1">
-                  <div className="text-lg text-left py-2 text-foreground">
+                  <div className="text-lg text-left py-2 text-gray-700 dark:text-gray-200">
                     {t.homepage.hero.description}
                     <ul className="list-disc pl-6 py-1">
                       {t.homepage.hero.features.map((feature: string, index: number) => (
@@ -93,7 +96,7 @@ const Hero = () => {
                   <div className="w-full pt-4">
                     <Button label={t.homepage.hero.bookDemo} onClick={() => router.push('/book-demo')} secondaryColor />
                   </div>
-                  <div className="w-full py-1 flex items-center justify-center text-foreground">
+                  <div className="w-full py-1 flex items-center justify-center text-gray-600 dark:text-gray-300">
                     {t.homepage.hero.noCreditCard}
                   </div>
                 </div>
@@ -103,16 +106,9 @@ const Hero = () => {
         </AnimatePresence>
       </div>
 
-      {/* Gradient transition overlay for smooth transition to next section */}
+      {/* Gradient transition overlay for smooth transition to next section - adaptive to theme */}
       <div className="absolute bottom-0 left-0 w-full h-[50px] pointer-events-none z-20">
-        <div
-          className="w-full h-full"
-          style={{
-            background:
-              'linear-gradient(rgba(10, 10, 10, 0) 0%, rgba(10, 10, 10, 0.2) 49.6165%, rgba(10, 10, 10, 0.5) 74.9037%, rgb(10, 10, 10) 100%)',
-            opacity: 1,
-          }}
-        />
+        <div className="w-full h-full bg-gradient-to-b from-transparent via-gray-50/20 to-gray-50 dark:from-transparent dark:via-background/20 dark:to-background" />
       </div>
     </section>
   );

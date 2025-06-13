@@ -1,7 +1,6 @@
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 import CheckBox from '../inputs/CheckBox';
 import { useTranslation } from '@/lib/use-translation';
-import useTheme from '@/app/hooks/useTheme';
 import { cn } from '@/lib/cn';
 
 interface ExtractSettingsChecklistProps {
@@ -11,15 +10,12 @@ interface ExtractSettingsChecklistProps {
 const ExtractSettingsChecklist = ({ removePIIOnly }: ExtractSettingsChecklistProps) => {
   const { extractSettings, toggleExtractSetting } = usePlaygroundStore();
   const { t } = useTranslation();
-  const theme = useTheme();
-
-  const isDark = theme === 'dark';
 
   return (
     <div
       className={`relative flex flex-col items-start justify-center gap-4 border-[1px] border-neutral-200 rounded-lg p-4 w-full shadow-md max-w-[450px] lg:max-w-[400px]`}
     >
-      <div className={cn('font-semibold text-sm', isDark ? 'text-neutral-100' : 'text-neutral-800')}>
+      <div className={cn('font-semibold text-sm text-neutral-800 dark:text-neutral-100')}>
         {t.playground.extractSettings.removeFromOutput}
       </div>
       <div className={`grid ${removePIIOnly ? 'grid-cols-1' : 'grid-cols-2'} lg:grid-cols-1 gap-2`}>

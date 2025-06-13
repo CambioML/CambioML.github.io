@@ -13,6 +13,7 @@ import HtmlAttributes from './components/HtmlAttributes';
 import { Lato } from 'next/font/google';
 import { PHProvider } from './providers';
 import { GoogleTagManager } from '@next/third-parties/google';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 export const metadata = {
   title: 'CambioML - AnyParser API: The first LLM for document parsing with accuracy and speed',
@@ -56,18 +57,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
       <PHProvider>
         <body className={font.className}>
-          <HtmlAttributes />
-          <PostHogPageView />
-          <ToasterProvider />
-          <ConditionalNavbar />
-          <DemoModal />
-          <ImageModal />
-          <PricingContactModal />
-          <PlaygroundFeedbackModal />
-          <InfoModal />
-          <ResultZoomModal />
-          <div className="min-h-screen min-w-[650px]">{children}</div>
-          <Footer />
+          <ThemeProvider>
+            <HtmlAttributes />
+            <PostHogPageView />
+            <ToasterProvider />
+            <ConditionalNavbar />
+            <DemoModal />
+            <ImageModal />
+            <PricingContactModal />
+            <PlaygroundFeedbackModal />
+            <InfoModal />
+            <ResultZoomModal />
+            <div className="min-h-screen min-w-[650px]">{children}</div>
+            <Footer />
+          </ThemeProvider>
         </body>
       </PHProvider>
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID || ''} />

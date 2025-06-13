@@ -7,7 +7,6 @@ import { v4 as uuidv4 } from 'uuid';
 import Button from '../Button';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 import { useTranslation } from '@/lib/use-translation';
-import useTheme from '@/app/hooks/useTheme';
 import { cn } from '@/lib/cn';
 
 interface InputProps {
@@ -67,8 +66,6 @@ const ExpandButton = ({ active, onClick }: { active: boolean; onClick: () => voi
 const Input = ({ id, errors, register, onAdd, onRemove, canRemove = true, onInputChange }: InputProps) => {
   const [descriptionExpanded, setDescriptionExpanded] = useState(false);
   const { t } = useTranslation();
-  const theme = useTheme();
-  const isDark = theme === 'dark';
 
   return (
     <div className="flex min-h-12">
@@ -97,11 +94,9 @@ const Input = ({ id, errors, register, onAdd, onRemove, canRemove = true, onInpu
           aria-label={t.playground.keyValue.keyNamePlaceholder}
           className={cn(
             'w-full p-1 font-light border rounded-md outline-none transition-colors',
-            isDark
-              ? 'bg-neutral-800 text-white placeholder:text-neutral-400'
-              : 'bg-white text-black placeholder:text-neutral-500',
-            errors[`${id}-key`] ? 'border-rose-500 bg-rose-50' : isDark ? 'border-neutral-600' : 'border-neutral-300',
-            errors[`${id}-key`] ? 'focus:border-rose-500' : isDark ? 'focus:border-neutral-400' : 'focus:border-black'
+            'bg-white dark:bg-neutral-800 text-black dark:text-white placeholder:text-neutral-500 dark:placeholder:text-neutral-400',
+            errors[`${id}-key`] ? 'border-rose-500 bg-rose-50' : 'border-neutral-300 dark:border-neutral-600',
+            errors[`${id}-key`] ? 'focus:border-rose-500' : 'focus:border-black dark:focus:border-neutral-400'
           )}
         />
         {errors[`${id}-key`] && (
@@ -122,15 +117,9 @@ const Input = ({ id, errors, register, onAdd, onRemove, canRemove = true, onInpu
             aria-label={t.playground.keyValue.keyDescriptionPlaceholder}
             className={cn(
               'resize-none text-sm break-words w-full p-1 font-light border rounded-md outline-none transition',
-              isDark
-                ? 'bg-neutral-800 text-white placeholder:text-neutral-400'
-                : 'bg-white text-black placeholder:text-neutral-500',
-              errors[`${id}-description`] ? 'border-rose-500' : isDark ? 'border-neutral-600' : 'border-neutral-300',
-              errors[`${id}-description`]
-                ? 'focus:border-rose-500'
-                : isDark
-                  ? 'focus:border-neutral-400'
-                  : 'focus:border-black'
+              'bg-white dark:bg-neutral-800 text-black dark:text-white placeholder:text-neutral-500 dark:placeholder:text-neutral-400',
+              errors[`${id}-description`] ? 'border-rose-500' : 'border-neutral-300 dark:border-neutral-600',
+              errors[`${id}-description`] ? 'focus:border-rose-500' : 'focus:border-black dark:focus:border-neutral-400'
             )}
           />
         </div>

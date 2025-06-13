@@ -16,7 +16,7 @@ const RDSolutionsPage = () => {
   const solutionPages = t.solutionPages;
 
   return (
-    <div className="pb-10 w-full h-full flex flex-col justify-center items-center">
+    <div className="pb-10 w-full h-full flex flex-col justify-center items-center bg-white dark:bg-background">
       <PageHero
         title={
           solutionPages?.researchDevelopment?.title ||
@@ -32,46 +32,22 @@ const RDSolutionsPage = () => {
         button={{ label: t.bookDemo.title, onClick: demoModal.onOpen }}
       />
       <div className="flex flex-col gap-10 items-center justify-center py-20">
-        <Feature
-          title={
-            solutionPages?.researchDevelopment?.features?.[0]?.title || 'Access unknown insights from multi-source data'
-          }
-          center
-        >
+        <Feature title={solutionPages?.researchDevelopment.features[0]?.title} center>
           <DemoFeature
             image="/images/graphics/cambio-flow-rd.png"
             alt="Cambio Flow R&D"
-            text={
-              solutionPages?.researchDevelopment?.features?.[0]?.text ||
-              `• Reduce time spent on data cleaning by up to 90%
-            • Discover the unknowns in R&D with ease
-            • Fully own and control your proprietary AI agent`
-            }
+            text={solutionPages.researchDevelopment.features[0].text}
           />
         </Feature>
-        <Feature
-          title={
-            solutionPages?.researchDevelopment?.features?.[1]?.title ||
-            'Write your research report to prove state-of-the-art'
-          }
-          center
-        >
+        <Feature title={solutionPages.researchDevelopment.features[1].title} center>
           <DemoFeature
             demo="/images/pykoi/pykoi-rag-chatbot-modify.gif"
             alt="Cambio Flow Portfolio"
-            text={
-              solutionPages?.researchDevelopment?.features?.[1]?.text ||
-              `• Back up your research novelty with real data
-            • Compare your research with the SOTA at ease
-            • Fully own and control your proprietary AI agent`
-            }
+            text={solutionPages.researchDevelopment.features[1].text}
           />
         </Feature>
-        <Feature title={solutionPages?.researchDevelopment?.features?.[2]?.title || 'Use Cases'} center>
-          <SolutionsList
-            solutions={solutions.filter((sol) => sol.industries.includes('research-&-development'))}
-            sortNewest
-          />
+        <Feature title={solutionPages.researchDevelopment.features[2].title} center>
+          <SolutionsList solutions={solutions} sortNewest />
         </Feature>
       </div>
     </div>

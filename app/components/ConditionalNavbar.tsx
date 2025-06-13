@@ -1,17 +1,22 @@
 'use client';
 
-import useTheme from '../hooks/useTheme';
-import LightNavbar from './navbar/Navbar';
 import DarkNavbar from './dark/navbar/Navbar';
+import Navbar from './navbar/Navbar';
 
 const ConditionalNavbar = () => {
-  const theme = useTheme();
+  return (
+    <>
+      {/* Light navbar - visible in light mode */}
+      <div className="block dark:hidden">
+        <Navbar />
+      </div>
 
-  if (theme === 'dark') {
-    return <DarkNavbar />;
-  }
-
-  return <LightNavbar />;
+      {/* Dark navbar - visible in dark mode */}
+      <div className="hidden dark:block">
+        <DarkNavbar />
+      </div>
+    </>
+  );
 };
 
 export default ConditionalNavbar;

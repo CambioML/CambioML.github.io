@@ -5,10 +5,10 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from '@/lib/use-translation';
 
-import { Divider } from '@/app/components/dark/divider';
-import { SwitchButtons } from '@/app/components/dark/switch-buttons';
+import { Divider } from '@/app/components/divider';
+import { SwitchButtons } from '@/app/components/switch-buttons';
 import FadeIn from '@/app/components/animations/fade-in';
-import Card, { CardContent } from '@/app/components/dark/card';
+import Card, { CardContent } from '@/app/components/card';
 import usePricingContactModal from '@/app/hooks/usePricingContactModal';
 
 function AnimatedTextBox({ children, className }: { children: React.ReactNode; className?: string }) {
@@ -42,16 +42,14 @@ const Pricing = () => {
   ];
 
   return (
-    <div className="theme-dark min-h-screen bg-background">
+    <div className="min-h-screen bg-white dark:bg-background">
       <section
         id="pricing"
-        className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-6.25 items-center bg-[radial-gradient(25%_30%_at_50%_25.8%,rgba(112,190,250,0.1)_0%,rgb(10,10,10)_100%)]"
+        className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-6.25 items-center bg-gray-50 dark:bg-background"
       >
         <div className="container flex flex-col gap-6.25 text-center">
-          <h1>
-            <span className="bg-gradient">{t.pricing.realTimeApi.title}</span>
-          </h1>
-          <p className="text-foreground">{t.pricing.realTimeApi.description}</p>
+          <h1 className="text-6xl dark:bg-gradient">{t.pricing.realTimeApi.title}</h1>
+          <p className="text-gray-700 dark:text-foreground">{t.pricing.realTimeApi.description}</p>
         </div>
 
         <div className="container flex flex-col items-center gap-12.5">
@@ -72,22 +70,20 @@ const Pricing = () => {
                   <CardContent className="h-full">
                     <div className="flex flex-col h-full gap-6.25">
                       <div className="flex flex-col gap-6.25">
-                        <h3>
-                          <span className="bg-gradient">{t.pricing.plans.starter.name}</span>
-                        </h3>
+                        <h3 className="text-3xl bg-gradient">{t.pricing.plans.starter.name}</h3>
                         <div className="flex items-center gap-1.25">
-                          <p className="text-[40px] font-medium">
+                          <p className="text-[40px] font-medium dark:text-white">
                             <span className="bg-gradient">
                               ${isMonthly ? t.pricing.plans.starter.monthlyPrice : t.pricing.plans.starter.annualPrice}
                             </span>
                           </p>
                           <AnimatedTextBox>
-                            <span className="text-white">
+                            <span className="text-gray-700 dark:text-white">
                               {isMonthly ? t.pricing.billing.perMonth : t.pricing.billing.perYear}
                             </span>
                           </AnimatedTextBox>
                         </div>
-                        <p className="text-foreground">{t.pricing.plans.starter.description}</p>
+                        <p className="text-gray-700 dark:text-foreground">{t.pricing.plans.starter.description}</p>
                       </div>
 
                       <Divider />
@@ -102,7 +98,7 @@ const Pricing = () => {
                               width={15}
                               height={11.25}
                             />
-                            <p className="text-foreground">{feature}</p>
+                            <p className="text-gray-700 dark:text-foreground">{feature}</p>
                           </div>
                         ))}
                       </div>
@@ -119,22 +115,20 @@ const Pricing = () => {
                   <CardContent className="h-full">
                     <div className="flex flex-col h-full gap-6.25">
                       <div className="flex flex-col gap-6.25">
-                        <h3>
-                          <span className="bg-gradient">{t.pricing.plans.silver.name}</span>
-                        </h3>
+                        <h3 className="text-3xl bg-gradient">{t.pricing.plans.silver.name}</h3>
                         <div className="flex items-center gap-1.25">
-                          <p className="text-[40px] font-medium">
+                          <p className="text-[40px] font-medium dark:text-white">
                             <span className="bg-gradient">
                               ${isMonthly ? t.pricing.plans.silver.monthlyPrice : t.pricing.plans.silver.annualPrice}
                             </span>
                           </p>
                           <AnimatedTextBox>
-                            <span className="text-white">
+                            <span className="text-gray-700 dark:text-white">
                               {isMonthly ? t.pricing.billing.perMonth : t.pricing.billing.perYear}
                             </span>
                           </AnimatedTextBox>
                         </div>
-                        <p className="text-foreground">{t.pricing.plans.silver.description}</p>
+                        <p className="text-gray-700 dark:text-foreground">{t.pricing.plans.silver.description}</p>
                       </div>
 
                       <Divider />
@@ -149,7 +143,7 @@ const Pricing = () => {
                               width={15}
                               height={11.25}
                             />
-                            <p className="text-foreground">{feature}</p>
+                            <p className="text-gray-700 dark:text-foreground">{feature}</p>
                           </div>
                         ))}
                       </div>
@@ -166,22 +160,20 @@ const Pricing = () => {
                   <CardContent className="h-full">
                     <div className="flex flex-col h-full gap-6.25">
                       <div className="flex flex-col gap-6.25">
-                        <h3>
-                          <span className="bg-gradient">{t.pricing.plans.gold.name}</span>
-                        </h3>
+                        <h3 className="text-3xl bg-gradient">{t.pricing.plans.gold.name}</h3>
                         <div className="flex items-center gap-1.25">
-                          <p className="text-[40px] font-medium">
+                          <p className="text-[40px] font-medium dark:text-white">
                             <span className="bg-gradient">
                               ${isMonthly ? t.pricing.plans.gold.monthlyPrice : t.pricing.plans.gold.annualPrice}
                             </span>
                           </p>
                           <AnimatedTextBox>
-                            <span className="text-white">
+                            <span className="text-gray-700 dark:text-white">
                               {isMonthly ? t.pricing.billing.perMonth : t.pricing.billing.perYear}
                             </span>
                           </AnimatedTextBox>
                         </div>
-                        <p className="text-foreground">{t.pricing.plans.gold.description}</p>
+                        <p className="text-gray-700 dark:text-foreground">{t.pricing.plans.gold.description}</p>
                       </div>
 
                       <Divider />
@@ -196,7 +188,7 @@ const Pricing = () => {
                               width={15}
                               height={11.25}
                             />
-                            <p className="text-foreground">{feature}</p>
+                            <p className="text-gray-700 dark:text-foreground">{feature}</p>
                           </div>
                         ))}
                       </div>
@@ -213,26 +205,20 @@ const Pricing = () => {
                   <CardContent className="h-full">
                     <div className="flex flex-col h-full gap-6.25">
                       <div className="flex flex-col gap-6.25">
-                        <h3>
-                          <span className="bg-gradient">{t.pricing.plans.enterprise.name}</span>
-                        </h3>
+                        <h3 className="text-3xl bg-gradient">{t.pricing.plans.enterprise.name}</h3>
                         <div className="flex items-center gap-1.25">
-                          <p className="text-[40px] font-medium">
+                          <p className="text-[40px] font-medium dark:text-white">
                             <span className="bg-gradient">{t.pricing.plans.enterprise.price}</span>
                           </p>
                         </div>
-                        <p className="text-foreground">{t.pricing.plans.enterprise.description}</p>
+                        <p className="text-gray-700 dark:text-foreground">{t.pricing.plans.enterprise.description}</p>
                       </div>
 
                       <button
                         onClick={contactModal.onOpen}
-                        className="relative px-4 py-2 rounded-md text-sm font-medium text-white transition-all duration-200"
-                        style={{
-                          background: 'rgba(22, 22, 22)',
-                          border: '1px solid rgb(34, 34, 34)',
-                        }}
+                        className="relative px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 bg-black hover:bg-gray-800 dark:bg-gray-800 dark:hover:bg-gray-700 text-white border border-black dark:border-gray-600"
                       >
-                        <span className="bg-gradient">{t.common.contactUs}</span>
+                        <span className="text-white dark:bg-gradient">{t.common.contactUs}</span>
                       </button>
 
                       <Divider />
@@ -247,7 +233,7 @@ const Pricing = () => {
                               width={15}
                               height={11.25}
                             />
-                            <p className="text-foreground">{feature}</p>
+                            <p className="text-gray-700 dark:text-foreground">{feature}</p>
                           </div>
                         ))}
                       </div>
@@ -260,22 +246,22 @@ const Pricing = () => {
 
           {/* Additional information */}
           <div className="w-full max-w-4xl mx-auto px-4">
-            <div className="bg-card-1 border border-border-1 rounded-lg p-6">
+            <div className="bg-white dark:bg-card-1 border border-gray-300 dark:border-border-1 rounded-lg p-6 shadow-sm">
               <div className="text-center space-y-4">
-                <p className="text-foreground">
+                <p className="text-gray-700 dark:text-foreground">
                   <strong>{t.pricing.specialOffer.title}</strong>
                 </p>
-                <p className="text-foreground">
+                <p className="text-gray-700 dark:text-foreground">
                   {t.pricing.specialOffer.getStart}{' '}
-                  <span className="bg-gradient font-bold">{t.pricing.specialOffer.highlight}</span>{' '}
+                  <span className="bg-gradient font-semibold">{t.pricing.specialOffer.highlight}</span>{' '}
                   {t.pricing.specialOffer.forText} {t.pricing.specialOffer.startupDetails}{' '}
                   {t.pricing.specialOffer.orText} {t.pricing.specialOffer.nonprofitText}
                 </p>
-                <p className="text-foreground">
+                <p className="text-gray-700 dark:text-foreground">
                   {t.pricing.specialOffer.emailText}{' '}
                   <a
                     href={`mailto:${t.pricing.specialOffer.emailLink}`}
-                    className="text-blue-400 hover:text-blue-300 underline font-bold"
+                    className="hover:text-gray-700 dark:text-blue-400 dark:hover:text-blue-300 underline font-semibold"
                   >
                     {t.pricing.specialOffer.emailLink}
                   </a>{' '}
@@ -287,8 +273,8 @@ const Pricing = () => {
 
           {/* Footer notes */}
           <div className="w-full max-w-4xl mx-auto px-4 text-center space-y-2">
-            <p className="text-gray-400 text-sm">{t.pricing.disclaimers.noHiddenFees}</p>
-            <p className="text-gray-400 text-sm">{t.pricing.disclaimers.tokenExplanation}</p>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">{t.pricing.disclaimers.noHiddenFees}</p>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">{t.pricing.disclaimers.tokenExplanation}</p>
           </div>
         </div>
       </section>

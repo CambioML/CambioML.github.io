@@ -4,8 +4,8 @@ import '@/app/theme.css';
 import { motion } from 'framer-motion';
 import { useTranslation } from '@/lib/use-translation';
 import Container from '../Container';
-import ProductHunt from '../dark/navbar/ProductHunt';
-import AiTools from '../dark/navbar/AiTools';
+import ProductHunt from '../navbar/ProductHunt';
+import AiTools from '../navbar/AiTools';
 
 interface CapabilityCardProps {
   description: string;
@@ -15,13 +15,13 @@ interface CapabilityCardProps {
 const CapabilityCard = ({ description, index }: CapabilityCardProps) => {
   return (
     <motion.div
-      className="flex flex-col items-center justify-start w-full p-6 border border-border-1 rounded-lg bg-card-1 hover:shadow-[0px_0px_2px_0.5px_rgba(112,190,250,0.75)] transition-all duration-300 h-full"
+      className="flex flex-col items-center justify-start w-full p-6 border border-gray-200 dark:border-border-1 rounded-lg bg-white dark:bg-card-1 hover:shadow-lg dark:hover:shadow-[0px_0px_2px_0.5px_rgba(112,190,250,0.75)] transition-all duration-300 h-full"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.6 }}
       viewport={{ once: true, margin: '-50px' }}
     >
-      <div className="text-lg text-center w-full text-foreground">{description}</div>
+      <div className="text-lg text-center w-full text-gray-900 dark:text-foreground">{description}</div>
     </motion.div>
   );
 };
@@ -30,7 +30,7 @@ const Capabilities = () => {
   const { t } = useTranslation();
 
   return (
-    <section className="theme-dark h-fit w-full pt-20">
+    <section className="h-fit w-full pt-20 bg-white dark:bg-background">
       <Container styles="h-fit lg:h-[600px]">
         <div className="w-full h-full flex flex-col items-center justify-start px-10">
           <motion.div
@@ -40,7 +40,7 @@ const Capabilities = () => {
             viewport={{ once: true }}
           >
             <h1 className="text-center">
-              <span className="bg-gradient">{t.homepage.capabilities.title}</span>
+              <span className="text-gray-900 dark:bg-gradient">{t.homepage.capabilities.title}</span>
             </h1>
           </motion.div>
 

@@ -1,17 +1,18 @@
 'use client';
 
 import '@/app/theme.css';
-import Container from '../../Container';
 import Logo from './Logo';
+import Button from '../../Button';
 import NavMenu from './NavMenu';
 import NavMenuFull from './NavMenuFull';
-import { useRouter, usePathname } from 'next/navigation';
-import { useWindowScroll } from '@/app/hooks/useWindowScroll';
-import { useTranslation } from '@/lib/use-translation';
+import ProductHunt from '../../navbar/ProductHunt';
+import Container from '../../Container';
+import { ThemeToggle } from '../../ThemeToggle';
 import { getLocaleFromPathname } from '@/lib/i18n';
-import ProductHunt from './ProductHunt';
-import Button from '../../Button';
+import { useTranslation } from '@/lib/use-translation';
+import { useRouter, usePathname } from 'next/navigation';
 import { LanguageSwitcher } from '../../LanguageSwitcher';
+import { useWindowScroll } from '@/app/hooks/useWindowScroll';
 
 const Navbar = () => {
   const router = useRouter();
@@ -73,10 +74,12 @@ const Navbar = () => {
                 <Button label={t.nav.getApiKey} onClick={() => router.push(`/${currentLocale}/account`)} />
               </div>
               <LanguageSwitcher className="ml-2" theme="dark" />
+              <ThemeToggle variant="dark" />
             </div>
             <div className="lg:hidden">
               <div className="flex items-center gap-3">
                 <LanguageSwitcher theme="dark" />
+                <ThemeToggle variant="dark" />
                 <NavMenuFull menuItems={menuItems} />
               </div>
             </div>

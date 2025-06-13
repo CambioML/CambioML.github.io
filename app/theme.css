@@ -1,29 +1,30 @@
 @import url('../public/font/stylesheet.css');
 
 :root {
-  --background: rgb(10, 10, 10);
-  --foreground: #d1d5db; /* gray-300 equivalent */
-  --line: #232323;
-  --light: rgba(112, 190, 250, 0.75);
-  --border-1: rgb(34, 34, 34);
-  --card-1: rgb(10, 10, 10);
+  /* Light theme variables (default) */
+  --background: rgb(255, 255, 255);
+  --foreground: #374151; /* gray-700 equivalent */
+  --line: #e5e7eb; /* gray-200 */
+  --light: rgba(59, 130, 246, 0.75); /* blue-500 with opacity */
+  --border-1: rgb(229, 231, 235); /* gray-200 */
+  --card-1: rgb(249, 250, 251); /* gray-50 */
 
-  /* Table-specific color variables */
-  --table-border: rgba(156, 163, 175, 0.8); /* gray-400 with higher opacity for better visibility */
-  --table-header-bg: #1f2937; /* solid gray-800 for dark header */
-  --table-header-text: #ffffff; /* pure white for maximum contrast */
-  --table-cell-bg: #111827; /* solid gray-900 for dark background */
-  --table-cell-bg-alt: #1f2937; /* solid gray-800 for alternating rows */
-  --table-cell-text: #f9fafb; /* gray-50 for better readability */
-  --table-hover-bg: #374151; /* solid gray-700 for darker hover state */
-  --table-accent: rgba(112, 190, 250, 0.4); /* stronger accent visibility */
+  /* Light theme table variables */
+  --table-border: rgba(156, 163, 175, 0.6); /* gray-400 with opacity */
+  --table-header-bg: #f3f4f6; /* gray-100 for light header */
+  --table-header-text: #111827; /* gray-900 for dark text */
+  --table-cell-bg: #ffffff; /* white background */
+  --table-cell-bg-alt: #f9fafb; /* gray-50 for alternating rows */
+  --table-cell-text: #374151; /* gray-700 for readable text */
+  --table-hover-bg: #f3f4f6; /* gray-100 for light hover state */
+  --table-accent: rgba(59, 130, 246, 0.4); /* blue accent */
 
   --scroll-duration: 10;
   --scroll-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-/* Theme-scoped styles - only apply to elements with .theme-dark class */
-.theme-dark {
+/* Light mode default styles */
+body {
   background: var(--background);
   color: var(--foreground);
   font-size: 15px;
@@ -31,38 +32,33 @@
   font-family: 'Inter Tight', sans-serif;
 }
 
-.theme-dark section,
-.theme-dark footer {
+section,
+footer {
   background: radial-gradient(
     35% 25% at 50% 56.10000000000001%,
-    rgba(80, 176, 250, 0.1) 0%,
-    rgba(64, 140, 199, 0.1) 36.486486486486484%,
-    rgb(10, 10, 10) 100%
+    rgba(59, 130, 246, 0.1) 0%,
+    rgba(59, 130, 246, 0.05) 36.486486486486484%,
+    rgb(255, 255, 255) 100%
   );
 }
 
-.theme-dark h1 {
+h1 {
   font-weight: 500;
   font-size: 55px;
   font-family: 'Inter Tight', sans-serif;
 }
 
-.theme-dark p {
+p {
   font-family: 'Inter Tight', sans-serif;
 }
 
-.theme-dark button {
+button {
   cursor: pointer;
   font-family: 'Inter Tight', sans-serif;
 }
 
-/* Override text-neutral-500 to text-gray-100 in dark theme for better readability */
-.theme-dark .text-neutral-500 {
-  color: rgb(243 244 246); /* text-gray-100 equivalent */
-}
-
-/* Table styling for dark theme */
-.theme-dark table {
+/* Light theme table styling */
+table {
   border-collapse: collapse;
   background-color: var(--table-cell-bg);
   border: 1px solid var(--table-border);
@@ -71,7 +67,7 @@
   margin: 1rem 0;
 }
 
-.theme-dark th {
+th {
   background-color: var(--table-header-bg);
   color: var(--table-header-text);
   font-weight: 600;
@@ -81,7 +77,7 @@
   position: relative;
 }
 
-.theme-dark th::after {
+th::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -91,7 +87,7 @@
   background: linear-gradient(90deg, transparent, var(--light), transparent);
 }
 
-.theme-dark td {
+td {
   color: var(--table-cell-text);
   padding: 10px 16px;
   border: 1px solid var(--table-border);
@@ -99,16 +95,119 @@
   transition: background-color 0.15s ease;
 }
 
-.theme-dark tr:nth-child(even) td {
+tr:nth-child(even) td {
   background-color: var(--table-cell-bg-alt);
 }
 
-.theme-dark tr:hover td {
+tr:hover td {
+  background-color: var(--table-hover-bg);
+}
+
+/* Dark mode scoped styles - only apply to elements with .dark class */
+.dark {
+  /* Dark theme variable overrides */
+  --background: rgb(10, 10, 10);
+  --foreground: #d1d5db; /* gray-300 equivalent */
+  --line: #232323;
+  --light: rgba(112, 190, 250, 0.75);
+  --border-1: rgb(34, 34, 34);
+  --card-1: rgb(10, 10, 10);
+
+  /* Dark theme table variables */
+  --table-border: rgba(156, 163, 175, 0.8); /* gray-400 with higher opacity for better visibility */
+  --table-header-bg: #1f2937; /* solid gray-800 for dark header */
+  --table-header-text: #ffffff; /* pure white for maximum contrast */
+  --table-cell-bg: #111827; /* solid gray-900 for dark background */
+  --table-cell-bg-alt: #1f2937; /* solid gray-800 for alternating rows */
+  --table-cell-text: #f9fafb; /* gray-50 for better readability */
+  --table-hover-bg: #374151; /* solid gray-700 for darker hover state */
+  --table-accent: rgba(112, 190, 250, 0.4); /* stronger accent visibility */
+
+  background: var(--background);
+  color: var(--foreground);
+  font-size: 15px;
+  scroll-behavior: smooth;
+  font-family: 'Inter Tight', sans-serif;
+}
+
+.dark section,
+.dark footer {
+  background: radial-gradient(
+    35% 25% at 50% 56.10000000000001%,
+    rgba(80, 176, 250, 0.1) 0%,
+    rgba(64, 140, 199, 0.1) 36.486486486486484%,
+    rgb(10, 10, 10) 100%
+  );
+}
+
+.dark h1 {
+  font-weight: 500;
+  font-size: 55px;
+  font-family: 'Inter Tight', sans-serif;
+}
+
+.dark p {
+  font-family: 'Inter Tight', sans-serif;
+}
+
+.dark button {
+  cursor: pointer;
+  font-family: 'Inter Tight', sans-serif;
+}
+
+/* Override text-neutral-500 to text-gray-100 in dark theme for better readability */
+.dark .text-neutral-500 {
+  color: rgb(243 244 246); /* text-gray-100 equivalent */
+}
+
+/* Table styling for dark theme */
+.dark table {
+  border-collapse: collapse;
+  background-color: var(--table-cell-bg);
+  border: 1px solid var(--table-border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
+.dark th {
+  background-color: var(--table-header-bg);
+  color: var(--table-header-text);
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 16px;
+  border: 1px solid var(--table-border);
+  position: relative;
+}
+
+.dark th::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--light), transparent);
+}
+
+.dark td {
+  color: var(--table-cell-text);
+  padding: 10px 16px;
+  border: 1px solid var(--table-border);
+  background-color: var(--table-cell-bg);
+  transition: background-color 0.15s ease;
+}
+
+.dark tr:nth-child(even) td {
+  background-color: var(--table-cell-bg-alt);
+}
+
+.dark tr:hover td {
   background-color: var(--table-hover-bg);
 }
 
 /* Enhanced markdown table styling in dark theme */
-.theme-dark .markdown table {
+.dark .markdown table {
   border-collapse: collapse;
   background-color: var(--table-cell-bg);
   border: 2px solid var(--table-border);
@@ -119,7 +218,7 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
 }
 
-.theme-dark .markdown th {
+.dark .markdown th {
   background: var(--table-header-bg);
   color: var(--table-header-text);
   font-weight: 600;
@@ -130,7 +229,7 @@
   font-size: 0.95rem;
 }
 
-.theme-dark .markdown th::before {
+.dark .markdown th::before {
   content: '';
   position: absolute;
   top: 0;
@@ -140,7 +239,7 @@
   background: linear-gradient(90deg, transparent, var(--light), transparent);
 }
 
-.theme-dark .markdown td {
+.dark .markdown td {
   color: var(--table-cell-text);
   padding: 12px 18px;
   border: 1px solid var(--table-border);
@@ -150,22 +249,22 @@
   line-height: 1.5;
 }
 
-.theme-dark .markdown tr:nth-child(even) td {
+.dark .markdown tr:nth-child(even) td {
   background-color: var(--table-cell-bg-alt);
 }
 
-.theme-dark .markdown tr:hover td {
+.dark .markdown tr:hover td {
   background-color: var(--table-hover-bg);
   transform: translateY(-1px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.theme-dark .markdown tbody tr:first-child td {
+.dark .markdown tbody tr:first-child td {
   border-top: 2px solid var(--table-accent);
 }
 
 /* Table containers and wrappers */
-.theme-dark .table-container {
+.dark .table-container {
   overflow-x: auto;
   border-radius: 8px;
   background-color: var(--table-cell-bg);
@@ -173,8 +272,8 @@
 }
 
 /* Direct HTML table styling for rendered content */
-.theme-dark div[dangerouslySetInnerHTML] table,
-.theme-dark #result-container table {
+.dark div[dangerouslySetInnerHTML] table,
+.dark #result-container table {
   border-collapse: collapse !important;
   background-color: var(--table-cell-bg) !important;
   border: 2px solid var(--table-border) !important;
@@ -185,8 +284,8 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4) !important;
 }
 
-.theme-dark div[dangerouslySetInnerHTML] th,
-.theme-dark #result-container th {
+.dark div[dangerouslySetInnerHTML] th,
+.dark #result-container th {
   background: var(--table-header-bg) !important;
   color: var(--table-header-text) !important;
   font-weight: 600 !important;
@@ -197,8 +296,8 @@
   font-size: 0.95rem !important;
 }
 
-.theme-dark div[dangerouslySetInnerHTML] td,
-.theme-dark #result-container td {
+.dark div[dangerouslySetInnerHTML] td,
+.dark #result-container td {
   color: var(--table-cell-text) !important;
   padding: 12px 18px !important;
   border: 1px solid var(--table-border) !important;
@@ -208,30 +307,23 @@
   line-height: 1.5 !important;
 }
 
-.theme-dark div[dangerouslySetInnerHTML] tr:nth-child(even) td,
-.theme-dark #result-container tr:nth-child(even) td {
+.dark div[dangerouslySetInnerHTML] tr:nth-child(even) td,
+.dark #result-container tr:nth-child(even) td {
   background-color: var(--table-cell-bg-alt) !important;
 }
 
-.theme-dark div[dangerouslySetInnerHTML] tr:hover td,
-.theme-dark #result-container tr:hover td {
+.dark div[dangerouslySetInnerHTML] tr:hover td,
+.dark #result-container tr:hover td {
   background-color: var(--table-hover-bg) !important;
 }
 
-.theme-dark * {
+.dark * {
   border-color: var(--border-1);
 }
 
-/* Custom gradient utility class */
-.bg-gradient {
-  display: inline-block;
-  line-height: 1.5;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-image: linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(112, 190, 250) 100%);
-}
+/* Custom gradient utility class is now handled by Tailwind plugin */
 
+/* Theme-aware utility classes - work for both light and dark themes */
 .bg-card-1 {
   background-color: var(--card-1);
 }
@@ -244,7 +336,15 @@
   color: var(--foreground);
 }
 
-/* Table-specific utility classes */
+.border-theme {
+  border-color: var(--border-1);
+}
+
+.bg-line {
+  background-color: var(--line);
+}
+
+/* Table-specific utility classes - theme-aware */
 .border-table {
   border-color: var(--table-border);
 }
@@ -257,12 +357,20 @@
   background-color: var(--table-cell-bg);
 }
 
+.bg-table-cell-alt {
+  background-color: var(--table-cell-bg-alt);
+}
+
 .text-table-header {
   color: var(--table-header-text);
 }
 
 .text-table-cell {
   color: var(--table-cell-text);
+}
+
+.hover-table-row:hover {
+  background-color: var(--table-hover-bg);
 }
 
 /* Marquee animations - Forward */

@@ -6,6 +6,7 @@ import PlaygroundInfoBar from './PlaygroundInfoBar';
 import PreviewModal from '../modals/PreviewModal';
 import CompareModal from '../modals/CompareModal';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
+import { cn } from '@/lib/cn';
 
 const PlaygroundContainer = () => {
   const { fileCollapsed } = usePlaygroundStore();
@@ -46,18 +47,11 @@ const PlaygroundContainer = () => {
           `}
         >
           <div
-            className={`
-              bg-white/[0.08]
-              border-border
-              pb-4
-              ml-4
-              border
-              rounded-lg
-              transition-all duration-300 ease-in-out
-              hover:bg-white/[0.12]
-              ${fileCollapsed ? 'p-2 rounded-l-xl' : 'px-2 pl-4 rounded-l-xl'}
-              pr-0
-            `}
+            className={cn(
+              'pb-4 ml-4 border rounded-lg transition-all duration-300 ease-in-out pr-0',
+              fileCollapsed ? 'p-2 rounded-l-xl' : 'px-2 pl-4 rounded-l-xl',
+              'bg-white/[0.08] dark:bg-neutral-800/[0.08] border-border dark:border-neutral-700 hover:bg-white/[0.12] dark:hover:bg-neutral-800/[0.12]'
+            )}
             style={{
               backdropFilter: 'blur(20px) saturate(180%)',
               WebkitBackdropFilter: 'blur(20px) saturate(180%)',
@@ -66,13 +60,10 @@ const PlaygroundContainer = () => {
             <FilesContainer />
           </div>
           <div
-            className={`
-              bg-white/[0.08]
-              border-l-0 border-y-2 border-r-2 border-white/20
-              transition-all duration-300 ease-in-out
-              hover:bg-white/[0.12]
-              px-6 pr-10 rounded-r-xl
-            `}
+            className={cn(
+              'border-l-0 border-y-2 border-r-2 transition-all duration-300 ease-in-out px-6 pr-10 rounded-r-xl',
+              'bg-white/[0.08] dark:bg-neutral-800/[0.08] border-white/20 dark:border-neutral-700/20 hover:bg-white/[0.12] dark:hover:bg-neutral-800/[0.12]'
+            )}
             style={{
               backdropFilter: 'blur(20px) saturate(180%)',
               WebkitBackdropFilter: 'blur(20px) saturate(180%)',

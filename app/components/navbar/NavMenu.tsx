@@ -45,11 +45,12 @@ const NavMenu = ({ label, links, url }: NavMenuProps) => {
       <div
         onClick={handleLabelClick}
         className="
-                    text-lg
+                    text-xl
                     font-semibold
                     py-3
                     px-4
                     rounded-full
+                    text-neutral-800
                     hover:text-cambio-red
                     transition
                     cursor-pointer

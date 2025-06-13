@@ -1,6 +1,5 @@
 import toast from 'react-hot-toast';
 import UploadButton from './UploadButton';
-import useTheme from '@/app/hooks/useTheme';
 import PlaygroundTab from './PlaygroundTab';
 import MapContainer from './table/MapContainer';
 import ExtractContainer from './ExtractContainer';
@@ -30,8 +29,6 @@ const ActionContainer = () => {
   } = usePlaygroundStore();
   const posthog = usePostHog();
   const { t } = useTranslation();
-  const theme = useTheme();
-  const isDark = theme === 'dark';
 
   const handleLogout = useCallback(() => {
     console.log('logging out');
@@ -124,10 +121,7 @@ const ActionContainer = () => {
         </div>
       ) : (
         <div
-          className={cn(
-            isDark ? 'h-full' : 'h-[73vh]',
-            'border border-t-0 rounded-b-xl p-4 pt-0 box-border overflow-hidden'
-          )}
+          className={cn('h-[73vh] dark:h-full', 'border border-t-0 rounded-b-xl p-4 pt-0 box-border overflow-hidden')}
         >
           {(selectedFile?.activeTab === PlaygroundTabs.PLAIN_TEXT || selectedFileIndex === null) && (
             <ExtractContainer />

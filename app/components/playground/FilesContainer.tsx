@@ -6,14 +6,11 @@ import LogoutButton from '../auth/LogoutButton';
 import QuotaDisplay from './QuotaDisplay';
 import { CaretRight } from '@phosphor-icons/react/dist/ssr';
 import { useTranslation } from '@/lib/use-translation';
-import useTheme from '@/app/hooks/useTheme';
 import { cn } from '@/lib/cn';
 
 const FilesContainer = () => {
   const { t } = useTranslation();
   const { files, loggedIn, userId, fileCollapsed, setFileCollapsed } = usePlaygroundStore();
-  const theme = useTheme();
-  const isDark = theme === 'dark';
 
   return (
     <div className={cn(`h-[500px] lg:h-full w-full min-h-[200px] grid lg:grid-cols-[1fr_20px]`)}>
@@ -48,7 +45,7 @@ const FilesContainer = () => {
       <button
         className={cn(
           'hidden border lg:flex items-center justify-center cursor-pointer rounded-l-xl',
-          isDark ? 'hover:bg-neutral-700' : 'hover:bg-neutral-300 border-r-0'
+          'hover:bg-neutral-300 dark:hover:bg-neutral-700 border-r-0 dark:border-r-0'
         )}
         onClick={() => {
           setFileCollapsed(!fileCollapsed);

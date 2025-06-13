@@ -17,7 +17,7 @@ export function BlogCard({ post, index, locale }: BlogCardProps) {
     <FadeIn delay={0.02 * index}>
       <Link href={`/${locale}/blog/${post.slug}`} className="block h-full">
         <motion.div
-          className="bg-card-1 border border-border-1 rounded-lg overflow-hidden h-full flex flex-col"
+          className="bg-white dark:bg-card-1 border border-gray-300 dark:border-border-1 rounded-lg overflow-hidden h-full flex flex-col shadow-md dark:shadow-none"
           whileHover={{ y: -5 }}
           transition={{ duration: 0.2 }}
         >
@@ -42,17 +42,17 @@ export function BlogCard({ post, index, locale }: BlogCardProps) {
           )}
 
           <div className="p-5 flex-grow flex flex-col">
-            <div className="text-sm text-gray-400 mb-2">
+            <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">
               {new Date(post.date).toLocaleDateString(undefined, {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric',
               })}
             </div>
-            <h3 className="text-xl font-semibold mb-3 text-white">{post.title}</h3>
+            <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">{post.title}</h3>
 
             <div className="flex-grow">
-              <div className="text-gray-300 text-sm line-clamp-2">{post.excerpt}</div>
+              <div className="text-gray-600 dark:text-gray-300 text-sm line-clamp-2">{post.excerpt}</div>
             </div>
           </div>
         </motion.div>

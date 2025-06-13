@@ -8,7 +8,7 @@ const AutoRaterSolutionsPage = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="pb-10 w-full h-full">
+    <div className="pb-10 w-full h-full bg-white dark:bg-background">
       <PageHero
         title={t.solutionPages.compliance.autorater.title}
         description={t.solutionPages.compliance.autorater.description}

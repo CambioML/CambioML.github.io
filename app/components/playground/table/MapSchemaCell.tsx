@@ -30,7 +30,7 @@ const MapSchemaCell = forwardRef<HTMLDivElement, MapSchemaCellProps>(
               {Icon && (
                 <button
                   onClick={handleIconClick}
-                  className="ml-2 w-[25px] h-[25px] hidden group-hover:block hover:text-neutral-900 hover:bg-neutral-200 rounded-full text-neutral-700 p-1 font-bold transition duration-300"
+                  className="ml-2 w-[25px] h-[25px] hidden group-hover:block hover:text-neutral-900 hover:bg-neutral-200 rounded-full text-neutral-700 p-1 font-semibold transition duration-300"
                 >
                   <Icon size={18} weight="bold" />
                 </button>
@@ -38,7 +38,7 @@ const MapSchemaCell = forwardRef<HTMLDivElement, MapSchemaCellProps>(
               {SecondIcon && (
                 <button
                   onClick={handleSecondIconClick}
-                  className="ml-2 w-[25px] h-[25px] hidden group-hover:block hover:text-neutral-900 hover:bg-neutral-200 rounded-full text-neutral-700 p-1 font-bold transition duration-300"
+                  className="ml-2 w-[25px] h-[25px] hidden group-hover:block hover:text-neutral-900 hover:bg-neutral-200 rounded-full text-neutral-700 p-1 font-semibold transition duration-300"
                 >
                   <SecondIcon size={18} weight="bold" />
                 </button>
