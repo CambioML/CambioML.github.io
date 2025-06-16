@@ -59,7 +59,12 @@ const NavMenu = ({ label, links, url }: NavMenuProps) => {
           <div className="flex flex-col cursor-pointer">
             <>
               {links.map((linkObj, i) => (
-                <MenuItem key={i + linkObj.label} onClick={handleMenuItemClick} label={linkObj.label} url={linkObj.url} />
+                <MenuItem
+                  key={i + linkObj.label}
+                  onClick={handleMenuItemClick}
+                  label={linkObj.label}
+                  url={linkObj.url}
+                />
               ))}
             </>
           </div>

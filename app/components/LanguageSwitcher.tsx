@@ -72,9 +72,7 @@ export function LanguageSwitcher({ className = '', theme = 'light' }: LanguageSw
             transition={{ duration: 0.15 }}
             className={cn(
               'absolute top-full right-0 mt-2 w-48 rounded-lg shadow-xl z-40 max-h-[400px] overflow-y-auto overscroll-contain',
-              isDarkTheme
-                ? 'bg-black/90 backdrop-blur-lg border border-white/10'
-                : 'bg-white border border-gray-200'
+              isDarkTheme ? 'bg-black/90 backdrop-blur-lg border border-white/10' : 'bg-white border border-gray-200'
             )}
           >
             <div className="py-2">
@@ -97,9 +95,7 @@ export function LanguageSwitcher({ className = '', theme = 'light' }: LanguageSw
                   <span className="text-base">{languageFlags[locale]}</span>
                   <span className="text-sm">{languageNames[locale]}</span>
                   {currentLocale === locale && (
-                    <span className={cn('ml-auto text-xs', isDarkTheme ? 'text-blue-400' : 'text-blue-600')}>
-                      ✓
-                    </span>
+                    <span className={cn('ml-auto text-xs', isDarkTheme ? 'text-blue-400' : 'text-blue-600')}>✓</span>
                   )}
                 </button>
               ))}

@@ -52,8 +52,8 @@ export const ThemeToggle = ({ variant = 'light', className }: ThemeToggleProps) 
       <div
         className={cn(
           'absolute -bottom-8 left-1/2 transform -translate-x-1/2 px-2 py-1 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap',
-          variant === 'dark' || resolvedTheme === 'dark' 
-            ? 'bg-white/10 text-white border border-white/20' 
+          variant === 'dark' || resolvedTheme === 'dark'
+            ? 'bg-white/10 text-white border border-white/20'
             : 'bg-gray-800 text-white'
         )}
       >
