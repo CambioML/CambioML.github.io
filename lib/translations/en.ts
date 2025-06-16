@@ -158,7 +158,7 @@ export const en = {
       title: 'Founding Team',
     },
     investors: {
-      title: 'Our investors',
+      title: 'Our Investors',
     },
     getStarted: {
       title: 'Ready to get started?',

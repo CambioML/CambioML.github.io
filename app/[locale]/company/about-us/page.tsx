@@ -45,13 +45,13 @@ function WhoWeAre() {
   return (
     <section
       id="who-we-are"
-      className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center"
+      className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center bg-white dark:bg-background"
     >
       <div className="container flex flex-col gap-6.25 text-center">
         <h2 className="text-5xl font-medium">
-          <span className="bg-gradient">{t.company.whoWeAre.title}</span>
+          <span className="text-gray-900 dark:bg-gradient">{t.company.whoWeAre.title}</span>
         </h2>
-        <div className="text-lg leading-relaxed max-w-5xl mx-auto space-y-4 text-white">
+        <div className="text-lg leading-relaxed max-w-5xl mx-auto space-y-4 text-gray-700 dark:text-gray-200">
           {t.company.whoWeAre.description.map((paragraph: string, index: number) => (
             <p key={index}>{paragraph}</p>
           ))}
@@ -68,11 +68,11 @@ function FoundingTeam() {
   return (
     <section
       id="founding-team"
-      className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center"
+      className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center bg-white dark:bg-background"
     >
       <div className="container flex flex-col gap-6.25 text-center">
         <h2 className="text-5xl font-medium">
-          <span className="bg-gradient">{t.company.foundingTeam.title}</span>
+          <span className="text-gray-900 dark:bg-gradient">{t.company.foundingTeam.title}</span>
         </h2>
         <div className="pt-5 grid gap-3 grid-cols-1 md:grid-cols-2 w-full max-w-4xl">
           <TeamMember
@@ -125,14 +125,14 @@ function WhatWeOffer() {
   return (
     <section
       id="what-we-offer"
-      className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center"
+      className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center bg-white dark:bg-background"
     >
       <div className="container flex flex-col gap-6.25 text-center">
         <h2 className="text-5xl font-medium">
-          <span className="bg-gradient">{t.company.whatWeOffer.title}</span>
+          <span className="text-gray-900 dark:bg-gradient">{t.company.whatWeOffer.title}</span>
         </h2>
         {t.company.whatWeOffer.description.map((paragraph: string, index: number) => (
-          <p key={index} className="text-lg leading-relaxed max-w-5xl mx-auto text-white">
+          <p key={index} className="text-lg leading-relaxed max-w-5xl mx-auto text-gray-700 dark:text-gray-200">
             {paragraph}
           </p>
         ))}
@@ -148,11 +148,11 @@ function Investors() {
   return (
     <section
       id="investors"
-      className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center"
+      className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center bg-white dark:bg-background"
     >
       <div className="flex flex-col items-center gap-12.5">
         <h2 className="text-5xl font-medium text-center">
-          <span className="bg-gradient">{t.company.investors.title}</span>
+          <span className="text-gray-900 dark:bg-gradient">{t.company.investors.title}</span>
         </h2>
 
         <div className="container">
@@ -197,33 +197,27 @@ function GetStarted() {
   return (
     <section
       id="get-started"
-      className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center"
+      className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center bg-white dark:bg-background"
     >
       <div className="container flex flex-col gap-8 text-center items-center">
         <h2 className="text-5xl font-medium leading-relaxed pb-2">
-          <span className="bg-gradient">{t.company.getStarted.title}</span>
+          <span className="text-gray-900 dark:bg-gradient">{t.company.getStarted.title}</span>
         </h2>
-        <p className="text-lg leading-relaxed max-w-2xl mx-auto mb-8 text-white">{t.company.getStarted.description}</p>
+        <p className="text-lg leading-relaxed max-w-2xl mx-auto mb-8 text-gray-700 dark:text-gray-200">
+          {t.company.getStarted.description}
+        </p>
         <div className="flex items-center gap-5">
           <button
             onClick={() => router.push(`/${locale}/anyparser`)}
-            className="relative px-4 py-2 rounded-md text-sm font-medium text-white transition-all duration-200"
-            style={{
-              background: 'rgba(22, 22, 22)',
-              border: '1px solid rgb(34, 34, 34)',
-            }}
+            className="relative px-4 py-2 rounded-md text-sm font-medium bg-gray-900 hover:bg-gray-800 dark:bg-gray-800 dark:hover:bg-gray-700 text-white transition-all duration-200 border border-gray-300 dark:border-gray-600"
           >
-            <span className="bg-gradient">{t.company.getStarted.buttonText}</span>
+            <span className="text-white dark:bg-gradient">{t.company.getStarted.buttonText}</span>
           </button>
           <button
             onClick={() => window.open('https://docs.cambioml.com/introduction', '_blank')}
-            className="relative px-4 py-2 rounded-md text-sm font-medium text-white transition-all duration-200"
-            style={{
-              background: 'rgba(22, 22, 22)',
-              border: '1px solid rgb(34, 34, 34)',
-            }}
+            className="relative px-4 py-2 rounded-md text-sm font-medium bg-gray-900 hover:bg-gray-800 dark:bg-gray-800 dark:hover:bg-gray-700 text-white transition-all duration-200 border border-gray-300 dark:border-gray-600"
           >
-            <span className="bg-gradient">{t.company.getStarted.docsButtonText}</span>
+            <span className="text-white dark:bg-gradient">{t.company.getStarted.docsButtonText}</span>
           </button>
         </div>
       </div>
@@ -233,7 +227,7 @@ function GetStarted() {
 
 const AboutPage = () => {
   return (
-    <div className="theme-dark w-full h-full flex flex-col justify-center items-center">
+    <div className="w-full h-full flex flex-col justify-center items-center bg-white dark:bg-background">
       <Container styles="h-max pt-24" centerX center-y>
         <WhoWeAre />
         <FoundingTeam />

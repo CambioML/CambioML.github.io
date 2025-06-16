@@ -11,6 +11,7 @@ import { getLocaleFromPathname } from '@/lib/i18n';
 import ProductHunt from './ProductHunt';
 import Button from '../Button';
 import { LanguageSwitcher } from '../LanguageSwitcher';
+import { ThemeToggle } from '../ThemeToggle';
 
 const Navbar = () => {
   const router = useRouter();
@@ -82,10 +83,12 @@ const Navbar = () => {
                 <Button label={t.nav.getApiKey} onClick={() => router.push(`/${currentLocale}/account`)} />
               </div>
               <LanguageSwitcher className="ml-2" theme="light" />
+              <ThemeToggle variant="light" />
             </div>
             <div className="lg:hidden">
               <div className="flex items-center gap-3">
                 <LanguageSwitcher theme="light" />
+                <ThemeToggle variant="light" />
                 <NavMenuFull menuItems={menuItems} />
               </div>
             </div>

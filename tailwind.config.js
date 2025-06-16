@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}', './app/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class',
   theme: {
     extend: {
       spacing: {
@@ -34,5 +35,23 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const gradientUtilities = {
+        '.bg-gradient': {
+          display: 'inline-block',
+          'line-height': '1.5',
+          color: 'rgb(0, 0, 0)',
+        },
+        '.dark .bg-gradient': {
+          'background-clip': 'text',
+          '-webkit-background-clip': 'text',
+          '-webkit-text-fill-color': 'transparent',
+          'background-image': 'linear-gradient(90deg, rgb(255, 255, 255) 0%, rgb(112, 190, 250) 100%)',
+          color: 'transparent',
+        },
+      };
+      addUtilities(gradientUtilities, ['responsive', 'hover', 'dark']);
+    },
+  ],
 };

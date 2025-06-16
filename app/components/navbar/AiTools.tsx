@@ -1,20 +1,20 @@
-import React from 'react';
+'use client';
 
 const AiTools = () => {
   return (
-    <div className="min-w-[100px]">
-      <a
-        href="https://aitools.inc/tools/any-parser?utm_source=embed-badge-any-parser&utm_medium=embed&utm_campaign=embed-badge-featured"
-        target="_blank"
-        rel="noreferrer"
-        className="inline-block w-[175px] h-[54px]"
-      >
+    <div className="flex items-center">
+      <a href="https://aitools.inc/tools/any-parser" target="_blank" rel="noopener noreferrer">
+        {/* Light theme image - visible in light mode */}
         <img
           src="https://aitools.inc/tools/any-parser/embeds/v1/featured-badge.svg?theme=light"
-          alt="AnyParser | AI Tools"
-          className="w-[175px] h-[54px]"
-          width="175"
-          height="54"
+          alt="Any Parser - Featured on AiTools.inc"
+          className="block dark:hidden"
+        />
+        {/* Dark theme image - visible in dark mode */}
+        <img
+          src="https://aitools.inc/tools/any-parser/embeds/v1/featured-badge.svg?theme=dark"
+          alt="Any Parser - Featured on AiTools.inc"
+          className="hidden dark:block"
         />
       </a>
     </div>

@@ -20,8 +20,9 @@ const PlaygroundContainerForBlog = () => {
       <CompareModal />
       <div
         className={cn(
-          'relative w-full min-w-[800px] gap-0 h-fit grid grid-cols-[20%_1fr] -translate-x-[15%] border p-2 rounded-lg',
-          fileCollapsed && 'grid-cols-[auto_1fr]'
+          'relative w-full min-w-[800px] gap-0 h-fit grid grid-cols-[20%_1fr] -translate-x-[15%] p-2 rounded-lg',
+          fileCollapsed && 'grid-cols-[auto_1fr]',
+          'border dark:border-neutral-700'
         )}
       >
         <FilesContainer />
@@ -41,7 +42,9 @@ const PlaygroundContainerForBlog = () => {
         />
 
         <div className="p-4 mb-10 h-[700px]">
-          <h2 className="text-3xl font-bold mb-6 pl-1 bg-gradient">{t.playground.tryForFree}</h2>
+          <h2 className={cn('text-3xl font-semibold mb-6 pl-1 bg-gradient dark:text-neutral-100')}>
+            {t.playground.tryForFree}
+          </h2>
           <ActionContainer />
         </div>
       </div>
