@@ -8,7 +8,6 @@
     "start": "next start",
     "lint": "next lint",
     "postbuild": "next-sitemap",
-    "generate:sitemap": "bun run scripts/generate-sitemap.ts",
     "translate:blog": "bun run scripts/i18n-ai-translator.ts blog",
     "translate:resources": "bun run scripts/i18n-ai-translator.ts resources",
     "translate:translations": "bun run scripts/i18n-ai-translator.ts translations",

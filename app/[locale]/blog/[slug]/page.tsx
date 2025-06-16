@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: { slug: string; loc
   const post = await getBlogPostBySlug(params.slug, locale);
 
   return {
-    title: `${post.title} | Energent.ai Blog`,
+    title: `${post.title} | CambioML Blog`,
     description: post.excerpt,
     keywords: post.keywords,
     metadataBase: new URL('https://www.cambioml.com'),
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: { slug: string; loc
       type: 'article',
       publishedTime: post.date,
       images: post.image ? [post.image] : [],
-      siteName: 'Energent.ai',
+      siteName: 'CambioML',
     },
     twitter: {
       card: 'summary_large_image',
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: { params: { slug: string; loc
       images: post.image ? [post.image] : [],
     },
     alternates: {
-      canonical: `https://www.energent.ai/${locale}/blog/${post.slug}`,
+      canonical: `https://www.cambioml.com/${locale}/blog/${post.slug}`,
     },
   };
 }
