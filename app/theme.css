@@ -1,5 +1,3 @@
-@import url('../public/font/stylesheet.css');
-
 :root {
   /* Light theme variables (default) */
   --background: rgb(255, 255, 255);
@@ -29,7 +27,6 @@ body {
   color: var(--foreground);
   font-size: 15px;
   scroll-behavior: smooth;
-  font-family: 'Inter Tight', sans-serif;
 }
 
 section,
@@ -45,16 +42,6 @@ footer {
 h1 {
   font-weight: 500;
   font-size: 55px;
-  font-family: 'Inter Tight', sans-serif;
-}
-
-p {
-  font-family: 'Inter Tight', sans-serif;
-}
-
-button {
-  cursor: pointer;
-  font-family: 'Inter Tight', sans-serif;
 }
 
 /* Light theme table styling */
@@ -127,7 +114,6 @@ tr:hover td {
   color: var(--foreground);
   font-size: 15px;
   scroll-behavior: smooth;
-  font-family: 'Inter Tight', sans-serif;
 }
 
 .dark section,
@@ -143,16 +129,10 @@ tr:hover td {
 .dark h1 {
   font-weight: 500;
   font-size: 55px;
-  font-family: 'Inter Tight', sans-serif;
-}
-
-.dark p {
-  font-family: 'Inter Tight', sans-serif;
 }
 
 .dark button {
   cursor: pointer;
-  font-family: 'Inter Tight', sans-serif;
 }
 
 /* Override text-neutral-500 to text-gray-100 in dark theme for better readability */

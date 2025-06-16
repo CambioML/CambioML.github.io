@@ -1,20 +1,19 @@
 'use client';
 
-import Container from '../Container';
+import '@/app/theme.css';
 import Logo from './Logo';
 import NavMenu from './NavMenu';
 import NavMenuFull from './NavMenuFull';
-import { useRouter, usePathname } from 'next/navigation';
-import { useWindowScroll } from '@/app/hooks/useWindowScroll';
-import { useTranslation } from '@/lib/use-translation';
-import { getLocaleFromPathname } from '@/lib/i18n';
 import ProductHunt from './ProductHunt';
-import Button from '../Button';
-import { LanguageSwitcher } from '../LanguageSwitcher';
+import Container from '../Container';
 import { ThemeToggle } from '../ThemeToggle';
+import { getLocaleFromPathname } from '@/lib/i18n';
+import { useTranslation } from '@/lib/use-translation';
+import { usePathname } from 'next/navigation';
+import { LanguageSwitcher } from '../LanguageSwitcher';
+import { useWindowScroll } from '@/app/hooks/useWindowScroll';
 
 const Navbar = () => {
-  const router = useRouter();
   const pathname = usePathname();
   const currentLocale = getLocaleFromPathname(pathname);
   const { t, locale } = useTranslation();
@@ -39,6 +38,7 @@ const Navbar = () => {
           url: `/${locale}/company/about-us`,
         },
       ],
+      url: `/${locale}/company/about-us`,
     },
     {
       label: t.nav.docs,
@@ -49,25 +49,14 @@ const Navbar = () => {
 
   return (
     <div
-      className={`fixed w-full z-40 flex flex-col justify-center ${isScrolled ? 'bg-white shadow-sm border-b-[1px] h-[75px]' : 'bg-transparent h-[100px]'} transition-all duration-300 ease-in-out`}
+      className={`fixed w-full z-40 flex flex-col justify-center transition-all duration-300 ease-in-out ${
+        isScrolled ? 'bg-background/80 backdrop-blur-lg border-b border-border-1 h-[75px]' : 'bg-transparent h-[100px]'
+      }`}
     >
-      <div
-        className="
-        py-4
-        "
-      >
+      <div className="py-4">
         <Container>
           <h2 className="sr-only">Navigation Bar</h2>
-          <div
-            className="
-                    flex
-                    flex-row
-                    items-center
-                    justify-between
-                    gap-3
-                    md:gap-0
-                    "
-          >
+          <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
             <div className="flex items-center gap-3">
               <Logo />
               <ProductHunt />
@@ -77,18 +66,28 @@ const Navbar = () => {
                 <NavMenu key={item.label + i} label={item.label} links={item.links} url={item.url} />
               ))}
               <div className="w-[150px]">
-                <Button label={t.nav.trySandbox} onClick={() => router.push(`/${currentLocale}/anyparser`)} outline />
+                <a
+                  href={`/${currentLocale}/anyparser`}
+                  className="relative disabled:opacity-70 disabled:cursor-not-allowed rounded-xl whitespace-nowrap hover:bg-neutral-200 dark:hover:bg-neutral-700 hover:text-cambio-gray dark:hover:text-neutral-200 transition w-full h-fit px-4 bg-white dark:bg-transparent border-cambio-gray dark:border-border-1 border text-neutral-800 dark:text-foreground py-3 text-lg inline-block text-center"
+                >
+                  {t.nav.trySandbox}
+                </a>
               </div>
               <div className="w-[150px]">
-                <Button label={t.nav.getApiKey} onClick={() => router.push(`/${currentLocale}/account`)} />
+                <a
+                  href={`/${currentLocale}/account`}
+                  className="relative disabled:opacity-70 disabled:cursor-not-allowed rounded-xl whitespace-nowrap hover:bg-neutral-200 dark:hover:bg-primary/90 hover:text-cambio-gray dark:hover:text-primary-foreground transition w-full h-fit px-4 bg-cambio-gray dark:bg-primary border-none text-neutral-100 dark:text-primary-foreground py-3 text-lg inline-block text-center"
+                >
+                  {t.nav.getApiKey}
+                </a>
               </div>
-              <LanguageSwitcher className="ml-2" theme="light" />
-              <ThemeToggle variant="light" />
+              <LanguageSwitcher className="ml-2" />
+              <ThemeToggle />
             </div>
             <div className="lg:hidden">
               <div className="flex items-center gap-3">
-                <LanguageSwitcher theme="light" />
-                <ThemeToggle variant="light" />
+                <LanguageSwitcher />
+                <ThemeToggle />
                 <NavMenuFull menuItems={menuItems} />
               </div>
             </div>

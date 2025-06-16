@@ -39,6 +39,7 @@ module.exports = {
     function ({ addUtilities }) {
       const gradientUtilities = {
         '.bg-gradient': {
+          'font-weight': 'bold',
           display: 'inline-block',
           'line-height': '1.5',
           color: 'rgb(0, 0, 0)',

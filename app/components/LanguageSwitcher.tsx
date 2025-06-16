@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { type Locale, getTranslation } from '@/lib/translations';
 import { getLocaleFromPathname, replaceLocaleInPath, locales, languageNames, languageFlags } from '@/lib/i18n';
 import { cn } from '@/lib/cn';
+import { useThemeContext } from '@/app/contexts/ThemeContext';
 
 interface LanguageSwitcherProps {
   className?: string;
@@ -18,6 +19,7 @@ export function LanguageSwitcher({ className = '', theme = 'light' }: LanguageSw
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const pathname = usePathname();
+  const { resolvedTheme } = useThemeContext();
 
   const currentLocale = getLocaleFromPathname(pathname);
   const t = getTranslation(currentLocale);
@@ -40,13 +42,16 @@ export function LanguageSwitcher({ className = '', theme = 'light' }: LanguageSw
     setIsOpen(false);
   };
 
+  // Use actual theme for styling
+  const isDarkTheme = theme === 'dark' || resolvedTheme === 'dark';
+
   return (
     <div className={cn('relative', className)} ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
           'flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200',
-          theme === 'dark'
+          isDarkTheme
             ? 'bg-white/5 border border-white/10 hover:bg-white/10 text-white'
             : 'border border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-700'
         )}
@@ -67,7 +72,7 @@ export function LanguageSwitcher({ className = '', theme = 'light' }: LanguageSw
             transition={{ duration: 0.15 }}
             className={cn(
               'absolute top-full right-0 mt-2 w-48 rounded-lg shadow-xl z-40 max-h-[400px] overflow-y-auto overscroll-contain',
-              theme === 'dark'
+              isDarkTheme
                 ? 'bg-black/90 backdrop-blur-lg border border-white/10'
                 : 'bg-white border border-gray-200'
             )}
@@ -79,12 +84,12 @@ export function LanguageSwitcher({ className = '', theme = 'light' }: LanguageSw
                   onClick={() => handleLanguageChange(locale)}
                   className={cn(
                     'w-full px-4 py-2 text-left transition-colors duration-150 flex items-center gap-3',
-                    theme === 'dark' ? 'hover:bg-white/10' : 'hover:bg-gray-50',
+                    isDarkTheme ? 'hover:bg-white/10' : 'hover:bg-gray-50',
                     currentLocale === locale
-                      ? theme === 'dark'
+                      ? isDarkTheme
                         ? 'text-blue-400 bg-blue-500/10'
                         : 'text-blue-600 bg-blue-50'
-                      : theme === 'dark'
+                      : isDarkTheme
                         ? 'text-white'
                         : 'text-gray-700'
                   )}
@@ -92,7 +97,7 @@ export function LanguageSwitcher({ className = '', theme = 'light' }: LanguageSw
                   <span className="text-base">{languageFlags[locale]}</span>
                   <span className="text-sm">{languageNames[locale]}</span>
                   {currentLocale === locale && (
-                    <span className={cn('ml-auto text-xs', theme === 'dark' ? 'text-blue-400' : 'text-blue-600')}>
+                    <span className={cn('ml-auto text-xs', isDarkTheme ? 'text-blue-400' : 'text-blue-600')}>
                       ✓
                     </span>
                   )}
