@@ -1,6 +1,6 @@
 import './globals.css';
 import dynamic from 'next/dynamic';
-import ConditionalNavbar from './components/ConditionalNavbar';
+import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 import InfoModal from './components/modals/InfoModal';
 import DemoModal from './components/modals/DemoModal';
@@ -61,7 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <HtmlAttributes />
             <PostHogPageView />
             <ToasterProvider />
-            <ConditionalNavbar />
+            <Navbar />
             <DemoModal />
             <ImageModal />
             <PricingContactModal />

@@ -29,7 +29,7 @@ export const ThemeToggle = ({ variant = 'light', className }: ThemeToggleProps) 
       onClick={toggleTheme}
       className={cn(
         'relative flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-200 group',
-        variant === 'dark'
+        variant === 'dark' || resolvedTheme === 'dark'
           ? 'bg-white/5 border border-white/10 hover:bg-white/10 text-white hover:border-white/20'
           : 'border border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-700',
         className
@@ -52,7 +52,9 @@ export const ThemeToggle = ({ variant = 'light', className }: ThemeToggleProps) 
       <div
         className={cn(
           'absolute -bottom-8 left-1/2 transform -translate-x-1/2 px-2 py-1 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap',
-          variant === 'dark' ? 'bg-white/10 text-white border border-white/20' : 'bg-gray-800 text-white'
+          variant === 'dark' || resolvedTheme === 'dark'
+            ? 'bg-white/10 text-white border border-white/20'
+            : 'bg-gray-800 text-white'
         )}
       >
         {getTooltipText()}

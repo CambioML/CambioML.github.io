@@ -1,22 +1,25 @@
 'use client';
 
+import React from 'react';
 import { List, X } from '@phosphor-icons/react';
-import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import { useTranslation } from '@/lib/use-translation';
-import Button from '../Button';
+import { usePathname } from 'next/navigation';
+import { getLocaleFromPathname } from '@/lib/i18n';
 
 interface NavMenuProps {
   menuItems: {
     label: string;
     links: { label: string; url: string }[];
+    url?: string;
   }[];
 }
 
 const NavMenu = ({ menuItems }: NavMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const router = useRouter();
-  const { t, locale } = useTranslation();
+  const pathname = usePathname();
+  const currentLocale = getLocaleFromPathname(pathname);
+  const { t } = useTranslation();
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -32,14 +35,16 @@ const NavMenu = ({ menuItems }: NavMenuProps) => {
             className="
                     p-4
                     border-[1px]
-                    border-neutral-200
+                    border-border-1
+                    text-foreground
                     flex
                     flex-row
                     items-center
                     gap-3
                     rounded-full
                     cursor-pointer
-                    cover:shadow-md
+                    hover:bg-border-1
+                    hover:shadow-[0px_0px_2px_0.5px_rgba(112,190,250,0.75)]
                     transition
                     "
           >
@@ -51,11 +56,14 @@ const NavMenu = ({ menuItems }: NavMenuProps) => {
         <div
           className="
                 absolute
-                shadow-md
+                shadow-[0px_4px_12px_rgba(0,0,0,0.4)]
                 w-[100vw]
                 h-[50vh]
                 lg:hidden
-                bg-cambio-blue
+                bg-background/95
+                backdrop-blur-lg
+                border-b
+                border-border-1
                 left-0
                 top-[83px]
                 z-10
@@ -64,53 +72,52 @@ const NavMenu = ({ menuItems }: NavMenuProps) => {
         >
           <div className="w-full flex flex-col justify-center">
             {menuItems.map((item) => (
-              <>
-                <div
-                  className={`w-full h-max flex justify-center text-4xl py-5 font-semibold ${item.links.length === 0 && 'cursor-pointer'}`}
-                  onClick={() => {
-                    if (item.links.length === 0) {
-                      router.push(`/${item.label.toLowerCase()}`);
-                      toggleOpen();
-                    }
-                  }}
-                >
-                  {item.label}
-                </div>
-                <div className="flex flex-col align-center justify-center gap-4">
+              <React.Fragment key={item.label}>
+                {item.links.length === 0 ? (
+                  <a
+                    href={item.url || `/${item.label.toLowerCase()}`}
+                    className="w-full h-max flex justify-center text-4xl py-5 font-semibold text-foreground cursor-pointer hover:text-light transition"
+                    onClick={toggleOpen}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <div className="w-full h-max flex justify-center text-4xl py-5 font-semibold text-foreground">
+                    {item.label}
+                  </div>
+                )}
+                <div className="flex flex-col items-center justify-center gap-4">
                   {item.links.map((linkObj, i) => (
-                    <div
+                    <a
                       key={linkObj.label + i}
-                      onClick={() => {
-                        router.push(linkObj.url);
-                        toggleOpen();
-                      }}
-                      className="w-full h-[20px] flex justify-center text-2xl cursor-pointer hover:text-cambio-blue-0"
+                      href={linkObj.url}
+                      onClick={toggleOpen}
+                      className="w-full h-[20px] flex justify-center text-2xl text-foreground cursor-pointer hover:text-light transition"
                     >
                       {linkObj.label}
-                    </div>
+                    </a>
                   ))}
                 </div>
-              </>
+              </React.Fragment>
             ))}
             <div className="w-full flex flex-col gap-4 px-20 ">
               <div className="w-full pt-20">
-                <Button
-                  label={t.nav.trySandbox}
-                  onClick={() => {
-                    router.push(`/${locale}/anyparser`);
-                    toggleOpen();
-                  }}
-                  outline
-                />
+                <a
+                  href={`/${currentLocale}/anyparser`}
+                  onClick={toggleOpen}
+                  className="relative disabled:opacity-70 disabled:cursor-not-allowed rounded-xl whitespace-nowrap hover:bg-neutral-200 dark:hover:bg-neutral-700 hover:text-cambio-gray dark:hover:text-neutral-200 transition w-full h-fit px-4 bg-white dark:bg-transparent border-cambio-gray dark:border-border-1 border text-neutral-800 dark:text-foreground py-3 text-lg inline-block text-center"
+                >
+                  {t.nav.trySandbox}
+                </a>
               </div>
               <div className="w-full">
-                <Button
-                  label={t.nav.getApiKey}
-                  onClick={() => {
-                    router.push(`/${locale}/account`);
-                    toggleOpen();
-                  }}
-                />
+                <a
+                  href={`/${currentLocale}/account`}
+                  onClick={toggleOpen}
+                  className="relative disabled:opacity-70 disabled:cursor-not-allowed rounded-xl whitespace-nowrap hover:bg-neutral-200 dark:hover:bg-primary/90 hover:text-cambio-gray dark:hover:text-primary-foreground transition w-full h-fit px-4 bg-cambio-gray dark:bg-primary border-none text-neutral-100 dark:text-primary-foreground py-3 text-lg inline-block text-center"
+                >
+                  {t.nav.getApiKey}
+                </a>
               </div>
             </div>
           </div>
