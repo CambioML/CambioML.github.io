@@ -89,7 +89,7 @@ Abychom zjednodušili hodnocení, vytvořili jsme hodnotící pipeline, která p
 
 A tady je ta nejlepší část: tento hodnotící rámec jsme zveřejnili jako open-source na GitHubu! Ať už jste vývojář nebo obchodní uživatel, naše pipeline vám umožňuje hodnotit a porovnávat kvalitu analýzy různých modelů na vašem vlastním datasetu.
 
-Najděte rychlý průvodce v [Github repo](https://github.com/CambioML/cambio-evaluation) a zjistěte, jak si různé modely analýzy vedou navzájem. Věříme, že tím, že ukážeme sílu našeho modelu na veřejnosti, můžeme přilákat více uživatelů, kteří chtějí spolehlivé, rychlé a přesné schopnosti analýzy.
+Najděte rychlý průvodce v Github repo a zjistěte, jak si různé modely analýzy vedou navzájem. Věříme, že tím, že ukážeme sílu našeho modelu na veřejnosti, můžeme přilákat více uživatelů, kteří chtějí spolehlivé, rychlé a přesné schopnosti analýzy.
 
 ---
 

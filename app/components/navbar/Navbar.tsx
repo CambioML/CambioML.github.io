@@ -42,7 +42,7 @@ const Navbar = () => {
     },
     {
       label: t.nav.docs,
-      url: 'https://docs.cambioml.com',
+      url: 'https://docs.cambioml.com/introduction',
       links: [],
     },
   ];

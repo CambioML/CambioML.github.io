@@ -89,7 +89,7 @@ Değerlendirmeleri kolaylaştırmak için, ayrıştırma modellerini karşılaş
 
 Ve en iyi kısım: Bu değerlendirme çerçevesini GitHub'da açık kaynak olarak paylaştık! İster bir geliştirici, ister bir iş kullanıcısı olun, pipeline'ımız farklı modellerin ayrıştırma kalitesini kendi veri setiniz üzerinde değerlendirip karşılaştırmanıza olanak tanır.
 
-Hızlı başlangıç kılavuzunu [Github repo](https://github.com/CambioML/cambio-evaluation) adresinde bulabilir ve farklı ayrıştırma modellerinin birbirleriyle nasıl karşılaştırıldığını görebilirsiniz. Modelimizin gücünü açık bir şekilde sergileyerek, güvenilir, hızlı ve doğru ayrıştırma yeteneklerine sahip kullanıcıları çekebileceğimize inanıyoruz.
+Hızlı başlangıç kılavuzunu Github repo adresinde bulabilir ve farklı ayrıştırma modellerinin birbirleriyle nasıl karşılaştırıldığını görebilirsiniz. Modelimizin gücünü açık bir şekilde sergileyerek, güvenilir, hızlı ve doğru ayrıştırma yeteneklerine sahip kullanıcıları çekebileceğimize inanıyoruz.
 
 ---
 

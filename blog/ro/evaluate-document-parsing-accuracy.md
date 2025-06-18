@@ -89,7 +89,7 @@ Pentru a simplifica evaluările, am creat un pipeline de evaluare care oferă o 
 
 Și iată partea cea mai bună: am open-sourced acest cadru de evaluare pe GitHub! Indiferent dacă sunteți dezvoltator sau utilizator de afaceri, pipeline-ul nostru vă permite să evaluați și să comparați calitatea analizei diferitelor modele pe propriul set de date.
 
-Găsiți ghidul de început rapid în [repo-ul GitHub](https://github.com/CambioML/cambio-evaluation) și vedeți cum se compară diferitele modele de analiză între ele. Credem că, prin evidențierea puterii modelului nostru în mod deschis, putem atrage mai mulți utilizatori care doresc capacități de analiză fiabile, rapide și precise.
+Găsiți ghidul de început rapid în repo-ul GitHub și vedeți cum se compară diferitele modele de analiză între ele. Credem că, prin evidențierea puterii modelului nostru în mod deschis, putem atrage mai mulți utilizatori care doresc capacități de analiză fiabile, rapide și precise.
 
 ---
 

@@ -40,4 +40,4 @@ Významná část Rachelina tutoriálu byla věnována praktickým laboratořím
 
 Tutoriál byl zakončen souborem osvědčených postupů pro implementaci RAG a jemného ladění v reálných aplikacích. Důraz byl kladen na důležitost porozumění kompromisům mezi flexibilitou RAG a přesností jemného ladění, účastníci byli vyzváni k neustálému experimentování a benchmarkingu. Tento přístup zajišťuje, že jsou splněny kritéria výkonu a nákladové efektivnosti, což umožňuje vývojářům efektivně optimalizovat svou architekturu LLM pro doma-specifické úkoly.
 
-Pro podrobnější přehled obsahu tutoriálu a praktických laboratoří se prosím podívejte na [tento dokument](https://dl.acm.org/doi/pdf/10.1145/3637528.3671445) a [tuto prezentaci](https://docs.google.com/presentation/d/18PJctnI-KbABE1El_AifjN_7eoHatuaoN8-2q57xpSw/edit#slide=id.g2f5cc21ff85_5_1096).
+Pro podrobnější přehled obsahu tutoriálu a praktických laboratoří se prosím podívejte na [tento dokument](https://dl.acm.org/doi/abs/10.1145/3637528.3671445) a [tuto prezentaci](https://docs.google.com/presentation/d/18PJctnI-KbABE1El_AifjN_7eoHatuaoN8-2q57xpSw/edit#slide=id.g2f5cc21ff85_5_1096).

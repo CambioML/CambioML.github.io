@@ -89,7 +89,7 @@ Aby uprościć oceny, stworzyliśmy system oceny, który zapewnia standardową m
 
 A oto najlepsza część: udostępniliśmy ten framework oceny na GitHubie! Niezależnie od tego, czy jesteś deweloperem, czy użytkownikiem biznesowym, nasz system umożliwia ocenę i porównanie jakości analizy różnych modeli na własnym zbiorze danych.
 
-Znajdź przewodnik szybkiego startu w [repozytorium Github](https://github.com/CambioML/cambio-evaluation) i zobacz, jak różne modele analizy wypadają w porównaniu do siebie. Wierzymy, że pokazując siłę naszego modelu w otwartym dostępie, możemy przyciągnąć więcej użytkowników, którzy chcą niezawodnych, szybkich i dokładnych możliwości analizy.
+Znajdź przewodnik szybkiego startu w repozytorium Github i zobacz, jak różne modele analizy wypadają w porównaniu do siebie. Wierzymy, że pokazując siłę naszego modelu w otwartym dostępie, możemy przyciągnąć więcej użytkowników, którzy chcą niezawodnych, szybkich i dokładnych możliwości analizy.
 
 ---
 

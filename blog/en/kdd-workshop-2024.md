@@ -40,4 +40,4 @@ A significant part of Rachel's tutorial was dedicated to hands-on labs, where pa
 
 The tutorial concluded with a set of best practices for implementing RAG and Fine-Tuning in real-world applications. Emphasizing the importance of understanding the trade-offs between RAG's flexibility and Fine-Tuning's precision, participants were encouraged to engage in continuous experimentation and benchmarking. This approach ensures that performance and cost-effectiveness criteria are met, allowing developers to optimize their LLM architecture for domain-specific tasks effectively.
 
-For a more detailed overview of the tutorial's content and hands-on labs, please refer to [this paper](https://dl.acm.org/doi/pdf/10.1145/3637528.3671445) and [this presentation](https://docs.google.com/presentation/d/18PJctnI-KbABE1El_AifjN_7eoHatuaoN8-2q57xpSw/edit#slide=id.g2f5cc21ff85_5_1096).
+For a more detailed overview of the tutorial's content and hands-on labs, please refer to [this paper](https://dl.acm.org/doi/abs/10.1145/3637528.3671445) and [this presentation](https://docs.google.com/presentation/d/18PJctnI-KbABE1El_AifjN_7eoHatuaoN8-2q57xpSw/edit#slide=id.g2f5cc21ff85_5_1096).

@@ -268,7 +268,7 @@ const AccountPageContainer = () => {
               )}
               <Button
                 label={t.account.documentation}
-                onClick={() => window.open('https://docs.cambioml.com', '_blank')}
+                onClick={() => window.open('https://docs.cambioml.com/introduction', '_blank')}
                 small
                 labelIcon={BookOpenText}
               />

@@ -17,7 +17,7 @@ const socialLinks = [
   },
   {
     image: '/images/social/slack.png',
-    url: 'https://join.slack.com/t/cambiomlworkspace/shared_invite/zt-1zes33rmt-20Rag043uvExUaUdvt5_xQ',
+    url: 'https://cambiomlworkspace.slack.com/join/shared_invite/zt-37o1hwuvm-No4BFbIyd3~GPONJs9RXHA#/shared-invite/email',
   },
   {
     image: '/images/social/twitter.png',
@@ -51,7 +51,7 @@ const Footer = () => {
               links={[
                 {
                   title: t.footer.libraries.anyParser,
-                  url: 'https://docs.cambioml.com',
+                  url: 'https://docs.cambioml.com/introduction',
                 },
               ]}
             />
@@ -95,7 +95,7 @@ const Footer = () => {
               links={[
                 {
                   title: t.footer.resources.anyParserDocs,
-                  url: 'https://docs.cambioml.com',
+                  url: 'https://docs.cambioml.com/introduction',
                 },
                 {
                   title: t.footer.resources.privacyPolicy,

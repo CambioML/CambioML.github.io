@@ -89,7 +89,7 @@ Az értékelések egyszerűsítése érdekében létrehoztunk egy értékelési 
 
 És itt a legjobb rész: ezt az értékelési keretrendszert nyílt forráskódúvá tettük a GitHub-on! Akár fejlesztő, akár üzleti felhasználó vagy, pipeline-unk lehetővé teszi, hogy saját adatbázisán értékelje és összehasonlítsa a különböző modellek parsing minőségét.
 
-Találja meg a gyorsindító útmutatót a [Github repo](https://github.com/CambioML/cambio-evaluation) oldalon, és nézze meg, hogyan állnak össze a különböző parsing modellek egymással. Hisszük, hogy azáltal, hogy bemutatjuk modellünk erejét nyilvánosan, több felhasználót vonzhatunk, akik megbízható, gyors és pontos parsing képességeket keresnek.
+Találja meg a gyorsindító útmutatót a Github repo oldalon, és nézze meg, hogyan állnak össze a különböző parsing modellek egymással. Hisszük, hogy azáltal, hogy bemutatjuk modellünk erejét nyilvánosan, több felhasználót vonzhatunk, akik megbízható, gyors és pontos parsing képességeket keresnek.
 
 ---
 
