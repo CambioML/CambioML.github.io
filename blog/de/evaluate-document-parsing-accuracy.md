@@ -89,7 +89,7 @@ Um die Bewertungen zu optimieren, haben wir eine Bewertungspipeline erstellt, di
 
 Und das Beste daran: Wir haben dieses Bewertungsframework auf GitHub als Open Source veröffentlicht! Egal, ob Sie Entwickler oder Geschäftsanwender sind, unsere Pipeline ermöglicht es Ihnen, die Parsing-Qualität verschiedener Modelle mit Ihrem eigenen Datensatz zu bewerten und zu vergleichen.
 
-Finden Sie die Schnellstartanleitung im [Github-Repo](https://github.com/CambioML/cambio-evaluation) und sehen Sie, wie verschiedene Parsing-Modelle im Vergleich zueinander abschneiden. Wir glauben, dass wir durch die Präsentation der Stärken unseres Modells im offenen Raum mehr Benutzer anziehen können, die zuverlässige, schnelle und genaue Parsing-Funktionen wünschen.
+Finden Sie die Schnellstartanleitung im Github-Repo und sehen Sie, wie verschiedene Parsing-Modelle im Vergleich zueinander abschneiden. Wir glauben, dass wir durch die Präsentation der Stärken unseres Modells im offenen Raum mehr Benutzer anziehen können, die zuverlässige, schnelle und genaue Parsing-Funktionen wünschen.
 
 ---
 

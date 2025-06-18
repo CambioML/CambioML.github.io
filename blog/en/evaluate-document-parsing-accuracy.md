@@ -89,7 +89,7 @@ To streamline evaluations, we've created an evaluation pipeline that provides an
 
 And here's the best part: we've open-sourced this evaluation framework on GitHub! Whether you are a developer or a business user, our pipeline enables you to evaluate and compare the parsing quality of different models on your own dataset.
 
-Find the quickstart guide in the [Github repo](https://github.com/CambioML/cambio-evaluation) and see how different parsing models stack up against each other. We believe that by showcasing our model's strength in the open, we can attract more users who want reliable, fast, and accurate parsing capabilities.
+Find the quickstart guide in the Github repo and see how different parsing models stack up against each other. We believe that by showcasing our model's strength in the open, we can attract more users who want reliable, fast, and accurate parsing capabilities.
 
 ---
 

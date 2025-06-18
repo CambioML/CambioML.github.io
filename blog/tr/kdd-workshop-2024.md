@@ -40,4 +40,4 @@ Rachel'ın eğitiminde önemli bir bölüm, katılımcıların RAG ve İnce Ayar
 
 Eğitim, RAG ve İnce Ayar'ı gerçek dünya uygulamalarında uygulamak için en iyi uygulamalar seti ile sona erdi. RAG'ın esnekliği ile İnce Ayar'ın hassasiyeti arasındaki ticaretin önemini vurgulayarak, katılımcıların sürekli deney yapmaları ve karşılaştırmalar yapmaları teşvik edildi. Bu yaklaşım, performans ve maliyet etkinliği kriterlerinin karşılanmasını sağlar ve geliştiricilerin alan spesifik görevler için LLM mimarilerini etkili bir şekilde optimize etmelerine olanak tanır.
 
-Eğitimin içeriği ve uygulamalı laboratuvarlar hakkında daha ayrıntılı bir genel bakış için lütfen [bu makaleye](https://dl.acm.org/doi/pdf/10.1145/3637528.3671445) ve [bu sunuma](https://docs.google.com/presentation/d/18PJctnI-KbABE1El_AifjN_7eoHatuaoN8-2q57xpSw/edit#slide=id.g2f5cc21ff85_5_1096) başvurun.
+Eğitimin içeriği ve uygulamalı laboratuvarlar hakkında daha ayrıntılı bir genel bakış için lütfen [bu makaleye](https://dl.acm.org/doi/abs/10.1145/3637528.3671445) ve [bu sunuma](https://docs.google.com/presentation/d/18PJctnI-KbABE1El_AifjN_7eoHatuaoN8-2q57xpSw/edit#slide=id.g2f5cc21ff85_5_1096) başvurun.

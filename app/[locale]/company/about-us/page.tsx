@@ -89,7 +89,7 @@ function FoundingTeam() {
               {
                 image: '/images/team/berkeley.png',
                 alt: 'University of California, Berkeley',
-                url: 'https://www.berkeley.edu//',
+                url: 'https://www.berkeley.edu',
               },
             ]}
           />

@@ -89,7 +89,7 @@ För att effektivisera utvärderingar har vi skapat en utvärderingspipeline som
 
 Och här är den bästa delen: vi har open-sourcat detta utvärderingsramverk på GitHub! Oavsett om du är utvecklare eller affärsanvändare, gör vår pipeline det möjligt för dig att utvärdera och jämföra parserkvaliteten hos olika modeller på din egen dataset.
 
-Hitta snabbstartguiden i [Github-repo](https://github.com/CambioML/cambio-evaluation) och se hur olika parsermodeller står sig mot varandra. Vi tror att genom att visa styrkan hos vår modell öppet kan vi attrahera fler användare som vill ha pålitliga, snabba och noggranna parseringsmöjligheter.
+Hitta snabbstartguiden i Github-repo och se hur olika parsermodeller står sig mot varandra. Vi tror att genom att visa styrkan hos vår modell öppet kan vi attrahera fler användare som vill ha pålitliga, snabba och noggranna parseringsmöjligheter.
 
 ---
 

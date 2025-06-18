@@ -89,7 +89,7 @@ Arviointien sujuvoittamiseksi olemme luoneet arviointiputkiston, joka tarjoaa al
 
 Ja tässä on paras osa: olemme avanneet tämän arviointikehyksen GitHubissa! Olitpa kehittäjä tai liiketoimintakäyttäjä, putkistomme mahdollistaa sinun arvioida ja vertailla eri mallien parsintalaatua omassa tietojoukossasi.
 
-Löydä pikaopas [Github-reposta](https://github.com/CambioML/cambio-evaluation) ja katso, miten eri parsintamallit vertautuvat toisiinsa. Uskomme, että esittelemällä mallimme vahvuudet avoimesti voimme houkutella lisää käyttäjiä, jotka haluavat luotettavia, nopeita ja tarkkoja parsintakykyjä.
+Löydä pikaopas Github-reposta ja katso, miten eri parsintamallit vertautuvat toisiinsa. Uskomme, että esittelemällä mallimme vahvuudet avoimesti voimme houkutella lisää käyttäjiä, jotka haluavat luotettavia, nopeita ja tarkkoja parsintakykyjä.
 
 ---
 

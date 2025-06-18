@@ -89,7 +89,7 @@ Om evaluaties te stroomlijnen, hebben we een evaluatiepijplijn gecreëerd die ee
 
 En hier is het beste deel: we hebben dit evaluatiekader open-source gemaakt op GitHub! Of u nu een ontwikkelaar of een zakelijke gebruiker bent, onze pijplijn stelt u in staat om de parsingkwaliteit van verschillende modellen op uw eigen dataset te evalueren en te vergelijken.
 
-Vind de quickstart-gids in de [Github repo](https://github.com/CambioML/cambio-evaluation) en zie hoe verschillende parsingmodellen zich tegen elkaar verhouden. We geloven dat we door de kracht van ons model openlijk te tonen, meer gebruikers kunnen aantrekken die betrouwbare, snelle en nauwkeurige parsingcapaciteiten willen.
+Vind de quickstart-gids in de Github repo en zie hoe verschillende parsingmodellen zich tegen elkaar verhouden. We geloven dat we door de kracht van ons model openlijk te tonen, meer gebruikers kunnen aantrekken die betrouwbare, snelle en nauwkeurige parsingcapaciteiten willen.
 
 ---
 

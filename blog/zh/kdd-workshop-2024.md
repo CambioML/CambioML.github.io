@@ -40,4 +40,4 @@ LLM微调涉及使用领域特定数据调整模型的权重，使模型能够�
 
 教程最后总结了一套在实际应用中实施RAG和微调的最佳实践。强调理解RAG的灵活性与微调的精确性之间的权衡的重要性，鼓励参与者进行持续的实验和基准测试。这种方法确保满足性能和成本效益标准，使开发人员能够有效地优化其LLM架构以适应领域特定任务。
 
-有关教程内容和实践实验室的更详细概述，请参阅[这篇论文](https://dl.acm.org/doi/pdf/10.1145/3637528.3671445)和[这份演示文稿](https://docs.google.com/presentation/d/18PJctnI-KbABE1El_AifjN_7eoHatuaoN8-2q57xpSw/edit#slide=id.g2f5cc21ff85_5_1096)。
+有关教程内容和实践实验室的更详细概述，请参阅[这篇论文](https://dl.acm.org/doi/abs/10.1145/3637528.3671445)和[这份演示文稿](https://docs.google.com/presentation/d/18PJctnI-KbABE1El_AifjN_7eoHatuaoN8-2q57xpSw/edit#slide=id.g2f5cc21ff85_5_1096)。

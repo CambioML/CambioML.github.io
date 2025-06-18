@@ -40,4 +40,4 @@ Merkittävä osa Rachel'in oppitunnista oli omistettu käytännön laboratorioil
 
 Oppitunti päättyi joukkoon parhaita käytäntöjä RAG:n ja hienosäädön toteuttamiseksi todellisissa sovelluksissa. Korostaen RAG:n joustavuuden ja hienosäädön tarkkuuden välisten kauppojen ymmärtämisen tärkeyttä, osallistujia kannustettiin jatkuvaan kokeiluun ja vertailuun. Tämä lähestymistapa varmistaa, että suorituskyky- ja kustannustehokkuuskriteerit täyttyvät, mikä mahdollistaa kehittäjille LLM-arkkitehtuurin optimoinnin aluekohtaisille tehtäville tehokkaasti.
 
-Lisätietoja oppitunnin sisällöstä ja käytännön laboratorioista löytyy [tästä paperista](https://dl.acm.org/doi/pdf/10.1145/3637528.3671445) ja [tästä esityksestä](https://docs.google.com/presentation/d/18PJctnI-KbABE1El_AifjN_7eoHatuaoN8-2q57xpSw/edit#slide=id.g2f5cc21ff85_5_1096).
+Lisätietoja oppitunnin sisällöstä ja käytännön laboratorioista löytyy [tästä paperista](https://dl.acm.org/doi/abs/10.1145/3637528.3671445) ja [tästä esityksestä](https://docs.google.com/presentation/d/18PJctnI-KbABE1El_AifjN_7eoHatuaoN8-2q57xpSw/edit#slide=id.g2f5cc21ff85_5_1096).

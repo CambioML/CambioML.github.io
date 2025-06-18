@@ -89,7 +89,7 @@ Per semplificare le valutazioni, abbiamo creato un pipeline di valutazione che f
 
 Ecco la parte migliore: abbiamo open-sourced questo framework di valutazione su GitHub! Che tu sia uno sviluppatore o un utente aziendale, il nostro pipeline ti consente di valutare e confrontare la qualità del parsing di diversi modelli sul tuo dataset.
 
-Trova la guida rapida nel [repo di Github](https://github.com/CambioML/cambio-evaluation) e scopri come i diversi modelli di parsing si confrontano tra loro. Crediamo che mostrando la forza del nostro modello in modo aperto, possiamo attrarre più utenti che desiderano capacità di parsing affidabili, veloci e accurate.
+Trova la guida rapida nel repo di Github e scopri come i diversi modelli di parsing si confrontano tra loro. Crediamo che mostrando la forza del nostro modello in modo aperto, possiamo attrarre più utenti che desiderano capacità di parsing affidabili, veloci e accurate.
 
 ---
 

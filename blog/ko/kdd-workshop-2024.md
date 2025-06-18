@@ -40,4 +40,4 @@ LLM 미세 조정은 도메인 특화 데이터를 사용하여 모델의 가중
 
 이 튜토리얼은 실제 애플리케이션에서 RAG와 미세 조정을 구현하기 위한 모범 사례 세트로 마무리되었습니다. RAG의 유연성과 미세 조정의 정밀성 간의 균형을 이해하는 것의 중요성을 강조하며, 참가자들은 지속적인 실험과 벤치마킹에 참여하도록 권장받았습니다. 이러한 접근 방식은 성능과 비용 효율성 기준이 충족되도록 보장하며, 개발자들이 도메인 특화 작업을 효과적으로 최적화할 수 있도록 합니다.
 
-튜토리얼의 내용 및 실습에 대한 보다 자세한 개요는 [이 논문](https://dl.acm.org/doi/pdf/10.1145/3637528.3671445)과 [이 프레젠테이션](https://docs.google.com/presentation/d/18PJctnI-KbABE1El_AifjN_7eoHatuaoN8-2q57xpSw/edit#slide=id.g2f5cc21ff85_5_1096)을 참조하시기 바랍니다.
+튜토리얼의 내용 및 실습에 대한 보다 자세한 개요는 [이 논문](https://dl.acm.org/doi/abs/10.1145/3637528.3671445)과 [이 프레젠테이션](https://docs.google.com/presentation/d/18PJctnI-KbABE1El_AifjN_7eoHatuaoN8-2q57xpSw/edit#slide=id.g2f5cc21ff85_5_1096)을 참조하시기 바랍니다.

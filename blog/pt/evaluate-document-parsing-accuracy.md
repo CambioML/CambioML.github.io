@@ -89,7 +89,7 @@ Para simplificar as avaliações, criamos um pipeline de avaliação que fornece
 
 E aqui está a melhor parte: tornamos esse framework de avaliação de código aberto no GitHub! Seja você um desenvolvedor ou um usuário empresarial, nosso pipeline permite que você avalie e compare a qualidade da análise de diferentes modelos em seu próprio conjunto de dados.
 
-Encontre o guia de início rápido no [repositório do Github](https://github.com/CambioML/cambio-evaluation) e veja como diferentes modelos de análise se comparam entre si. Acreditamos que, ao mostrar a força do nosso modelo de forma aberta, podemos atrair mais usuários que desejam capacidades de análise confiáveis, rápidas e precisas.
+Encontre o guia de início rápido no repositório do Github e veja como diferentes modelos de análise se comparam entre si. Acreditamos que, ao mostrar a força do nosso modelo de forma aberta, podemos atrair mais usuários que desejam capacidades de análise confiáveis, rápidas e precisas.
 
 ---
 
