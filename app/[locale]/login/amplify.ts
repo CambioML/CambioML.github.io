@@ -1,20 +1,41 @@
 import { Amplify } from 'aws-amplify';
 
-// Check if we're in development mode
 const localEnv = process.env.NODE_ENV === 'development';
+
+// Check if we're in development mode
+const oauthDomain = process.env.NEXT_PUBLIC_OAUTH_DOMAIN;
 const hostDomain = process.env.NEXT_PUBLIC_HOST_DOMAIN;
+const userPoolId = process.env.NEXT_PUBLIC_COGNITO_USERPOOL_ID;
+const userPoolClientId = process.env.NEXT_PUBLIC_COGNITO_APPCLIENT_ID;
+
+// Validate all required environment variables
+if (!oauthDomain) {
+  throw new Error('NEXT_PUBLIC_OAUTH_DOMAIN environment variable is required');
+}
+
+if (!hostDomain) {
+  throw new Error('NEXT_PUBLIC_HOST_DOMAIN environment variable is required');
+}
+
+if (!userPoolId) {
+  throw new Error('NEXT_PUBLIC_COGNITO_USERPOOL_ID environment variable is required');
+}
+
+if (!userPoolClientId) {
+  throw new Error('NEXT_PUBLIC_COGNITO_APPCLIENT_ID environment variable is required');
+}
 
 Amplify.configure({
   Auth: {
     Cognito: {
-      userPoolId: process.env.NEXT_PUBLIC_COGNITO_USERPOOL_ID,
-      userPoolClientId: process.env.NEXT_PUBLIC_COGNITO_APPCLIENT_ID,
+      userPoolId: userPoolId,
+      userPoolClientId: userPoolClientId,
       loginWith: {
         oauth: {
-          domain: 'us-west-2aphyqjunu.auth.us-west-2.amazoncognito.com',
+          domain: oauthDomain,
           scopes: ['email', 'profile', 'openid'],
-          redirectSignIn: [localEnv ? 'http://localhost:5173' : hostDomain],
-          redirectSignOut: [localEnv ? 'http://localhost:5173' : hostDomain],
+          redirectSignIn: [localEnv ? 'http://localhost:3000' : hostDomain],
+          redirectSignOut: [localEnv ? 'http://localhost:3000' : hostDomain],
           responseType: 'token',
         },
         email: true,

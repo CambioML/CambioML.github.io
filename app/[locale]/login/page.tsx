@@ -28,7 +28,7 @@ export default function LoginPage() {
   const [i18nReady, setI18nReady] = useState(false);
 
   const { user } = useAuthenticator((context) => [context.user]);
-  const { t } = useTranslation() as { t: typeof import('@/lib/translations/en').en };
+  const { t } = useTranslation();
 
   // Get locale from params
   const locale = (params?.locale as Locale) || 'en';
