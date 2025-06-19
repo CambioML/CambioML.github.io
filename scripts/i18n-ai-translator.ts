@@ -3,7 +3,7 @@
 import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 import { AzureOpenAI } from 'openai';
-import { analyzeTranslationChanges } from './i18n-diff-checker.js';
+import { analyzeTranslationChanges } from './i18n-diff-checker.ts';
 
 // Configuration
 const AZURE_OPENAI_API_KEY = process.env.AZURE_OPENAI_API_KEY;
