@@ -158,7 +158,7 @@ export const ja = {
       title: '創設チーム',
     },
     investors: {
-      title: '投資家',
+      title: 'Energent.aiの投資家',
     },
     getStarted: {
       title: '始める準備はできていますか？',
@@ -632,6 +632,49 @@ export const ja = {
       errorExtractingFile: '{filename} の抽出中にエラーが発生しました。もう一度お試しください。',
       quotaExceeded:
         'クォータを超えました。プランをアップグレードするか、追加のクレジットについてお問い合わせください。',
+    },
+  },
+  login: {
+    title: 'CambioMLへようこそ',
+    subtitle: 'アカウントにサインイン',
+    description: 'AnyParser APIとドキュメント処理ツールにアクセス',
+    mobileDescription: 'サインインしてAnyParserにアクセス',
+    brandName: 'CambioML',
+    form: {
+      email: {
+        label: 'メールアドレス',
+        placeholder: 'メールアドレスを入力してください',
+      },
+      password: {
+        label: 'パスワード',
+        placeholder: 'パスワードを入力してください',
+      },
+      confirmPassword: {
+        label: 'パスワードの確認',
+        placeholder: 'パスワードを確認してください',
+      },
+    },
+    termsAgreement: '私は同意します',
+    termsAndConditions: '利用規約',
+    andRead: 'および読了しました',
+    privacyPolicy: 'プライバシーポリシー',
+    signingIn: 'サインイン中',
+    authenticating: '認証中...',
+    checkboxLabel: {
+      agreeToThe: '私は同意します',
+      termsAndConditions: '利用規約',
+      andHaveRead: 'および読了しました',
+      privacyPolicy: 'プライバシーポリシー',
+    },
+    socialProviders: {
+      google: 'Googleで登録',
+    },
+    passwordStrength: {
+      title: 'パスワード要件',
+      minLength: '少なくとも8文字',
+      uppercase: '少なくとも1つの大文字',
+      lowercase: '少なくとも1つの小文字',
+      symbol: '少なくとも1つの特殊文字',
     },
   },
 } as const;

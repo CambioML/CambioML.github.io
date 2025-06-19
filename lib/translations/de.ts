@@ -162,7 +162,7 @@ export const de = {
       title: 'Gründungsteam',
     },
     investors: {
-      title: 'Unsere Investoren',
+      title: 'Investoren von Energent.ai',
     },
     getStarted: {
       title: 'Bereit, loszulegen?',
@@ -643,6 +643,49 @@ export const de = {
       errorExtractingFile: 'Fehler beim Extrahieren von {filename}. Bitte versuchen Sie es erneut.',
       quotaExceeded:
         'Kontingent überschritten. Bitte aktualisieren Sie Ihren Plan oder kontaktieren Sie uns für weitere Credits.',
+    },
+  },
+  login: {
+    title: 'Willkommen bei CambioML',
+    subtitle: 'Melden Sie sich bei Ihrem Konto an',
+    description: 'Greifen Sie auf Ihre AnyParser-API und Dokumentenverarbeitungstools zu',
+    mobileDescription: 'Melden Sie sich an, um auf AnyParser zuzugreifen',
+    brandName: 'CambioML',
+    form: {
+      email: {
+        label: 'E-Mail',
+        placeholder: 'Geben Sie Ihre E-Mail-Adresse ein',
+      },
+      password: {
+        label: 'Passwort',
+        placeholder: 'Geben Sie Ihr Passwort ein',
+      },
+      confirmPassword: {
+        label: 'Passwort bestätigen',
+        placeholder: 'Bestätigen Sie Ihr Passwort',
+      },
+    },
+    termsAgreement: 'Ich stimme den',
+    termsAndConditions: 'Allgemeinen Geschäftsbedingungen zu',
+    andRead: 'und habe die',
+    privacyPolicy: 'Datenschutzrichtlinie gelesen',
+    signingIn: 'Anmeldung läuft',
+    authenticating: 'Authentifizierung...',
+    checkboxLabel: {
+      agreeToThe: 'Ich stimme den',
+      termsAndConditions: 'Allgemeinen Geschäftsbedingungen zu',
+      andHaveRead: 'und habe die',
+      privacyPolicy: 'Datenschutzrichtlinie gelesen',
+    },
+    socialProviders: {
+      google: 'Registrieren mit Google',
+    },
+    passwordStrength: {
+      title: 'Passwortanforderungen',
+      minLength: 'Mindestens 8 Zeichen',
+      uppercase: 'Mindestens ein Großbuchstabe',
+      lowercase: 'Mindestens ein Kleinbuchstabe',
+      symbol: 'Mindestens ein Sonderzeichen',
     },
   },
 } as const;

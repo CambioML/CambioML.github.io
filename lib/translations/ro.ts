@@ -162,7 +162,7 @@ export const ro = {
       title: 'Echipa fondatoare',
     },
     investors: {
-      title: 'Investitorii noștri',
+      title: 'Investitorii Energent.ai',
     },
     getStarted: {
       title: 'Pregătit să începi?',
@@ -643,6 +643,49 @@ export const ro = {
       errorExtractingFile: 'Eroare la extragerea {filename}. Vă rugăm să încercați din nou.',
       quotaExceeded:
         'Cota depășită. Vă rugăm să faceți upgrade planului dvs. sau să ne contactați pentru mai multe credite.',
+    },
+  },
+  login: {
+    title: 'Bun venit la CambioML',
+    subtitle: 'Autentificați-vă în contul dvs.',
+    description: 'Accesați API-ul AnyParser și instrumentele de procesare a documentelor',
+    mobileDescription: 'Autentificați-vă pentru a accesa AnyParser',
+    brandName: 'CambioML',
+    form: {
+      email: {
+        label: 'Email',
+        placeholder: 'Introduceți emailul dvs.',
+      },
+      password: {
+        label: 'Parolă',
+        placeholder: 'Introduceți parola dvs.',
+      },
+      confirmPassword: {
+        label: 'Confirmați parola',
+        placeholder: 'Confirmați parola dvs.',
+      },
+    },
+    termsAgreement: 'Sunt de acord cu',
+    termsAndConditions: 'Termenii și condițiile',
+    andRead: 'și am citit',
+    privacyPolicy: 'Politica de confidențialitate',
+    signingIn: 'Autentificare în curs',
+    authenticating: 'Se autentifică...',
+    checkboxLabel: {
+      agreeToThe: 'Sunt de acord cu',
+      termsAndConditions: 'Termenii și condițiile',
+      andHaveRead: 'și am citit',
+      privacyPolicy: 'Politica de confidențialitate',
+    },
+    socialProviders: {
+      google: 'Înscrieți-vă cu Google',
+    },
+    passwordStrength: {
+      title: 'Cerințe pentru parolă',
+      minLength: 'Cel puțin 8 caractere',
+      uppercase: 'Cel puțin o literă mare',
+      lowercase: 'Cel puțin o literă mică',
+      symbol: 'Cel puțin un caracter special',
     },
   },
 } as const;

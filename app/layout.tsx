@@ -14,6 +14,7 @@ import { Lato } from 'next/font/google';
 import { PHProvider } from './providers';
 import { GoogleTagManager } from '@next/third-parties/google';
 import { ThemeProvider } from './contexts/ThemeContext';
+import AmplifyAuthProvider from './components/providers/AmplifyAuthProvider';
 
 export const metadata = {
   title: 'CambioML - AnyParser API: The first LLM for document parsing with accuracy and speed',
@@ -58,18 +59,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <PHProvider>
         <body className={font.className}>
           <ThemeProvider>
-            <HtmlAttributes />
-            <PostHogPageView />
-            <ToasterProvider />
-            <Navbar />
-            <DemoModal />
-            <ImageModal />
-            <PricingContactModal />
-            <PlaygroundFeedbackModal />
-            <InfoModal />
-            <ResultZoomModal />
-            <div className="min-h-screen min-w-[650px]">{children}</div>
-            <Footer />
+            <AmplifyAuthProvider>
+              <HtmlAttributes />
+              <PostHogPageView />
+              <ToasterProvider />
+              <Navbar />
+              <DemoModal />
+              <ImageModal />
+              <PricingContactModal />
+              <PlaygroundFeedbackModal />
+              <InfoModal />
+              <ResultZoomModal />
+              <div className="min-h-screen min-w-[650px]">{children}</div>
+              <Footer />
+            </AmplifyAuthProvider>
           </ThemeProvider>
         </body>
       </PHProvider>

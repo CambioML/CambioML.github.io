@@ -162,7 +162,7 @@ export const pt = {
       title: 'Equipe Fundadora',
     },
     investors: {
-      title: 'Nossos investidores',
+      title: 'Investidores da Energent.ai',
     },
     getStarted: {
       title: 'Pronto para começar?',
@@ -642,6 +642,49 @@ export const pt = {
       requestTimeoutFile: 'A solicitação de transformação para {filename} expirou. Por favor, tente novamente.',
       errorExtractingFile: 'Erro ao extrair {filename}. Por favor, tente novamente.',
       quotaExceeded: 'Cota excedida. Por favor, atualize seu plano ou entre em contato conosco para mais créditos.',
+    },
+  },
+  login: {
+    title: 'Bem-vindo ao CambioML',
+    subtitle: 'Faça login na sua conta',
+    description: 'Acesse sua API AnyParser e ferramentas de processamento de documentos',
+    mobileDescription: 'Faça login para acessar o AnyParser',
+    brandName: 'CambioML',
+    form: {
+      email: {
+        label: 'Email',
+        placeholder: 'Digite seu email',
+      },
+      password: {
+        label: 'Senha',
+        placeholder: 'Digite sua senha',
+      },
+      confirmPassword: {
+        label: 'Confirmar Senha',
+        placeholder: 'Confirme sua senha',
+      },
+    },
+    termsAgreement: 'Eu concordo com os',
+    termsAndConditions: 'Termos e Condições',
+    andRead: 'e li a',
+    privacyPolicy: 'Política de Privacidade',
+    signingIn: 'Entrando',
+    authenticating: 'Autenticando...',
+    checkboxLabel: {
+      agreeToThe: 'Eu concordo com os',
+      termsAndConditions: 'Termos e Condições',
+      andHaveRead: 'e li a',
+      privacyPolicy: 'Política de Privacidade',
+    },
+    socialProviders: {
+      google: 'Inscreva-se com o Google',
+    },
+    passwordStrength: {
+      title: 'Requisitos de Senha',
+      minLength: 'Pelo menos 8 caracteres',
+      uppercase: 'Pelo menos uma letra maiúscula',
+      lowercase: 'Pelo menos uma letra minúscula',
+      symbol: 'Pelo menos um caractere especial',
     },
   },
 } as const;

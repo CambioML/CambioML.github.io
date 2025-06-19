@@ -28,12 +28,6 @@ const updateQuota = async ({ api_url, userId, setRemainingQuota, setTotalQuota }
     return await fetchUserData();
   } catch (error) {
     if (axios.isAxiosError(error) && error.response?.status === 404) {
-      // Create new user when not found
-      toast('Welcome to AnyParser!', {
-        duration: 5000,
-        icon: '🎉',
-      });
-
       const createUserResult = await createUser({ userId, apiURL: api_url });
       console.log('createUserResult', createUserResult);
       if (createUserResult) {

@@ -158,7 +158,7 @@ export const ko = {
       title: '창립 팀',
     },
     investors: {
-      title: '우리의 투자자들',
+      title: 'Energent.ai의 투자자들',
     },
     getStarted: {
       title: '시작할 준비가 되었나요?',
@@ -630,6 +630,49 @@ export const ko = {
       requestTimeoutFile: '{filename}에 대한 변환 요청이 시간 초과되었습니다. 다시 시도해 주세요.',
       errorExtractingFile: '{filename} 추출 중 오류가 발생했습니다. 다시 시도해 주세요.',
       quotaExceeded: '할당량을 초과했습니다. 플랜을 업그레이드하거나 추가 크레딧을 위해 저희에게 문의하세요.',
+    },
+  },
+  login: {
+    title: 'CambioML에 오신 것을 환영합니다',
+    subtitle: '계정에 로그인하세요',
+    description: 'AnyParser API 및 문서 처리 도구에 액세스하세요',
+    mobileDescription: 'AnyParser에 액세스하려면 로그인하세요',
+    brandName: 'CambioML',
+    form: {
+      email: {
+        label: '이메일',
+        placeholder: '이메일을 입력하세요',
+      },
+      password: {
+        label: '비밀번호',
+        placeholder: '비밀번호를 입력하세요',
+      },
+      confirmPassword: {
+        label: '비밀번호 확인',
+        placeholder: '비밀번호를 확인하세요',
+      },
+    },
+    termsAgreement: '동의합니다',
+    termsAndConditions: '이용 약관',
+    andRead: '그리고 읽었습니다',
+    privacyPolicy: '개인정보 보호정책',
+    signingIn: '로그인 중',
+    authenticating: '인증 중...',
+    checkboxLabel: {
+      agreeToThe: '동의합니다',
+      termsAndConditions: '이용 약관',
+      andHaveRead: '그리고 읽었습니다',
+      privacyPolicy: '개인정보 보호정책',
+    },
+    socialProviders: {
+      google: 'Google로 가입하기',
+    },
+    passwordStrength: {
+      title: '비밀번호 요구사항',
+      minLength: '최소 8자 이상',
+      uppercase: '최소 하나의 대문자 포함',
+      lowercase: '최소 하나의 소문자 포함',
+      symbol: '최소 하나의 특수 문자 포함',
     },
   },
 } as const;

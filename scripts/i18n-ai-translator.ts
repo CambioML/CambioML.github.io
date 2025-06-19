@@ -528,13 +528,31 @@ function parseTypescriptObject(content: string): Record<string, unknown> {
 }
 
 /**
+ * Properly escape a string for TypeScript/JavaScript
+ */
+function escapeString(str: string): string {
+  return str
+    .replace(/\\/g, '\\\\') // Escape backslashes first
+    .replace(/'/g, "\\'") // Escape single quotes
+    .replace(/"/g, '\\"') // Escape double quotes
+    .replace(/\n/g, '\\n') // Escape newlines
+    .replace(/\r/g, '\\r') // Escape carriage returns
+    .replace(/\t/g, '\\t') // Escape tabs
+    .replace(/\f/g, '\\f') // Escape form feeds
+    .replace(/\v/g, '\\v') // Escape vertical tabs
+    .replace(/\0/g, '\\0') // Escape null characters
+    .replace(/\u2028/g, '\\u2028') // Escape line separator
+    .replace(/\u2029/g, '\\u2029'); // Escape paragraph separator
+}
+
+/**
  * Convert a JavaScript object back to TypeScript format
  */
 function objectToTypescript(obj: unknown, locale: string, indent: number = 0): string {
   const spaces = '  '.repeat(indent);
 
   if (typeof obj === 'string') {
-    return `'${obj.replace(/'/g, "\\'")}'`;
+    return `'${escapeString(obj)}'`;
   }
 
   if (Array.isArray(obj)) {
@@ -628,6 +646,85 @@ function applyPropertyChanges(
 }
 
 /**
+ * Validate and fix AI response to ensure proper string escaping
+ */
+function validateAndFixAiResponse(response: string): string {
+  // Check for common issues and fix them
+  let fixed = response.trim();
+
+  // Remove markdown code blocks if present
+  fixed = fixed
+    .replace(/```json\s*/, '')
+    .replace(/```\s*$/, '')
+    .replace(/^[^{]*{/, '{')
+    .replace(/}[^}]*$/, '}');
+
+  console.log(`🔍 Validating AI response...`);
+
+  try {
+    // Parse to validate JSON structure
+    const parsed = JSON.parse(fixed);
+
+    // Check for unescaped newlines in string values
+    const hasUnescapedNewlines = checkForUnescapedNewlines(parsed);
+    if (hasUnescapedNewlines) {
+      console.log(`⚠️  Found unescaped newlines, fixing...`);
+      const fixedParsed = fixUnescapedNewlines(parsed);
+      fixed = JSON.stringify(fixedParsed, null, 2);
+    }
+
+    console.log(`✅ AI response validation passed`);
+    return fixed;
+  } catch (error) {
+    console.error(`❌ AI response validation failed:`, error);
+    console.error(`Response content:`, fixed.substring(0, 500) + '...');
+    throw new Error(`Invalid AI response: ${error}`);
+  }
+}
+
+/**
+ * Recursively check for unescaped newlines in object values
+ */
+function checkForUnescapedNewlines(obj: unknown): boolean {
+  if (typeof obj === 'string') {
+    return obj.includes('\n') || obj.includes('\r');
+  }
+
+  if (Array.isArray(obj)) {
+    return obj.some((item) => checkForUnescapedNewlines(item));
+  }
+
+  if (typeof obj === 'object' && obj !== null) {
+    return Object.values(obj).some((value) => checkForUnescapedNewlines(value));
+  }
+
+  return false;
+}
+
+/**
+ * Recursively fix unescaped newlines in object values
+ */
+function fixUnescapedNewlines(obj: unknown): unknown {
+  if (typeof obj === 'string') {
+    return obj.replace(/\n/g, '\\n').replace(/\r/g, '\\r').replace(/\t/g, '\\t');
+  }
+
+  if (Array.isArray(obj)) {
+    return obj.map((item) => fixUnescapedNewlines(item));
+  }
+
+  if (typeof obj === 'object' && obj !== null) {
+    const result: Record<string, unknown> = {};
+    for (const [key, value] of Object.entries(obj)) {
+      result[key] = fixUnescapedNewlines(value);
+    }
+    return result;
+  }
+
+  return obj;
+}
+
+/**
  * Translate object values using JSON prompt
  */
 async function translateObjectValues(
@@ -677,17 +774,12 @@ async function translateObjectValues(
     console.log(`"${translatedContent}"`);
     console.log('=' + '='.repeat(50));
 
+    // Validate and fix AI response
+    const validatedContent = validateAndFixAiResponse(translatedContent);
+
     // Parse JSON response
     try {
-      // Clean up common JSON formatting issues
-      const cleanedContent = translatedContent.trim();
-      const jsonContent = cleanedContent
-        .replace(/```json\s*/, '') // Remove markdown json code blocks
-        .replace(/```\s*$/, '') // Remove closing markdown code blocks
-        .replace(/^[^{]*{/, '{') // Remove any text before the first {
-        .replace(/}[^}]*$/, '}'); // Remove any text after the last }
-
-      const translatedObj = JSON.parse(jsonContent);
+      const translatedObj = JSON.parse(validatedContent);
 
       console.log(`\n📊 ANALYSIS:`);
       console.log(`Input object keys:`, Object.keys(obj));
@@ -697,7 +789,7 @@ async function translateObjectValues(
       return translatedObj;
     } catch (jsonError) {
       console.error(`❌ Failed to parse JSON response:`, jsonError);
-      console.error(`Cleaned content:`, translatedContent.trim());
+      console.error(`Validated content:`, validatedContent);
       throw jsonError;
     }
   } catch (error) {

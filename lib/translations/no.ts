@@ -162,7 +162,7 @@ export const no = {
       title: 'Grunnleggerteam',
     },
     investors: {
-      title: 'Våre investorer',
+      title: 'Investorer i Energent.ai',
     },
     getStarted: {
       title: 'Klar til å komme i gang?',
@@ -638,6 +638,49 @@ export const no = {
       requestTimeoutFile: 'Transformasjonsforespørselen for {filename} utløp. Vennligst prøv igjen.',
       errorExtractingFile: 'Feil ved utpakking av {filename}. Vennligst prøv igjen.',
       quotaExceeded: 'Kvote overskredet. Vennligst oppgrader planen din eller kontakt oss for flere kreditter.',
+    },
+  },
+  login: {
+    title: 'Velkommen til CambioML',
+    subtitle: 'Logg inn på kontoen din',
+    description: 'Få tilgang til din AnyParser API og dokumentbehandlingsverktøy',
+    mobileDescription: 'Logg inn for å få tilgang til AnyParser',
+    brandName: 'CambioML',
+    form: {
+      email: {
+        label: 'E-post',
+        placeholder: 'Skriv inn din e-post',
+      },
+      password: {
+        label: 'Passord',
+        placeholder: 'Skriv inn ditt passord',
+      },
+      confirmPassword: {
+        label: 'Bekreft passord',
+        placeholder: 'Bekreft ditt passord',
+      },
+    },
+    termsAgreement: 'Jeg godtar',
+    termsAndConditions: 'Vilkår og betingelser',
+    andRead: 'og har lest',
+    privacyPolicy: 'Personvernerklæringen',
+    signingIn: 'Logger inn',
+    authenticating: 'Autentiserer...',
+    checkboxLabel: {
+      agreeToThe: 'Jeg godtar',
+      termsAndConditions: 'Vilkår og betingelser',
+      andHaveRead: 'og har lest',
+      privacyPolicy: 'Personvernerklæringen',
+    },
+    socialProviders: {
+      google: 'Registrer deg med Google',
+    },
+    passwordStrength: {
+      title: 'Passordkrav',
+      minLength: 'Minst 8 tegn',
+      uppercase: 'Minst én stor bokstav',
+      lowercase: 'Minst én liten bokstav',
+      symbol: 'Minst ett spesialtegn',
     },
   },
 } as const;

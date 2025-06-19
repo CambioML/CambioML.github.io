@@ -162,7 +162,7 @@ export const cs = {
       title: 'Zakládající tým',
     },
     investors: {
-      title: 'Naši investoři',
+      title: 'Investoři Energent.ai',
     },
     getStarted: {
       title: 'Připraveni začít?',
@@ -637,6 +637,49 @@ export const cs = {
       requestTimeoutFile: 'Požadavek na transformaci pro {filename} vypršel. Zkuste to prosím znovu.',
       errorExtractingFile: 'Chyba při extrahování {filename}. Zkuste to prosím znovu.',
       quotaExceeded: 'Kvóta byla překročena. Prosím, upgradujte svůj plán nebo nás kontaktujte pro více kreditů.',
+    },
+  },
+  login: {
+    title: 'Vítejte v CambioML',
+    subtitle: 'Přihlaste se ke svému účtu',
+    description: 'Přístup k API AnyParser a nástrojům pro zpracování dokumentů',
+    mobileDescription: 'Přihlaste se pro přístup k AnyParser',
+    brandName: 'CambioML',
+    form: {
+      email: {
+        label: 'E-mail',
+        placeholder: 'Zadejte svůj e-mail',
+      },
+      password: {
+        label: 'Heslo',
+        placeholder: 'Zadejte své heslo',
+      },
+      confirmPassword: {
+        label: 'Potvrďte heslo',
+        placeholder: 'Potvrďte své heslo',
+      },
+    },
+    termsAgreement: 'Souhlasím s',
+    termsAndConditions: 'Podmínkami a pravidly',
+    andRead: 'a přečetl jsem si',
+    privacyPolicy: 'Zásady ochrany osobních údajů',
+    signingIn: 'Přihlašování',
+    authenticating: 'Ověřování...',
+    checkboxLabel: {
+      agreeToThe: 'Souhlasím s',
+      termsAndConditions: 'Podmínkami a pravidly',
+      andHaveRead: 'a přečetl jsem si',
+      privacyPolicy: 'Zásady ochrany osobních údajů',
+    },
+    socialProviders: {
+      google: 'Zaregistrovat se přes Google',
+    },
+    passwordStrength: {
+      title: 'Požadavky na heslo',
+      minLength: 'Minimálně 8 znaků',
+      uppercase: 'Minimálně jedno velké písmeno',
+      lowercase: 'Minimálně jedno malé písmeno',
+      symbol: 'Minimálně jeden speciální znak',
     },
   },
 } as const;
