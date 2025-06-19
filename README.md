@@ -128,6 +128,7 @@ NEXT_PUBLIC_PRODUCT_AUTH0_REDIRECT_URI
 ### Variable Descriptions
 
 #### **NEXT_PUBLIC_AUTH0_DOMAIN & NEXT_PUBLIC_AUTH0_CLIENT_ID**
+
 Auth0 domain and client ID for user authentication and management. Used throughout the application for secure user login, registration, and session management.
 
 ```typescript
@@ -141,6 +142,7 @@ loginWithPopup({
 ```
 
 #### **NEXT_PUBLIC_POSTHOG_KEY & NEXT_PUBLIC_POSTHOG_HOST**
+
 PostHog project API key and instance URL for product analytics, user behavior tracking, and feature flags. Enables comprehensive user journey tracking and A/B testing capabilities.
 
 ```typescript
@@ -153,6 +155,7 @@ posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
 ```
 
 #### **NEXT_PUBLIC_PLAYGROUND_API_URL**
+
 Main API endpoint for the CambioML AnyParser playground and document processing features. Different environments use different API endpoints for development and production.
 
 ```typescript
@@ -193,6 +196,7 @@ Authentication is configured throughout the application using the `@auth0/auth0-
 ### Usage
 
 Authentication state is managed through:
+
 - **`app/components/auth/LoginButton.tsx`** - Login interface with Auth0 integration
 - **`app/components/auth/LogoutButton.tsx`** - Logout functionality
 - **`app/hooks/useUserProfile.ts`** - User profile and session state management
@@ -236,9 +240,9 @@ PostHog tracking is available throughout the application:
 import { usePostHog } from 'posthog-js/react';
 
 const posthog = usePostHog();
-posthog.capture('user_action', { 
+posthog.capture('user_action', {
   feature: 'playground',
-  action: 'file_upload'
+  action: 'file_upload',
 });
 ```
 
@@ -251,83 +255,110 @@ The application supports 22 languages with automated translation workflows and c
 - **[How to Add a Blog Post](https://github.com/CambioML/www.energent.ai/blob/main/doc/add-blog-post.md)** - Complete guide for adding new blog posts
 - **[How to Modify Page Content](https://github.com/CambioML/www.energent.ai/blob/main/doc/modify-page-content.md)** - Guide for updating existing page content
 
-### Supported Languages
-
-English (en), Spanish (es), French (fr), Chinese (zh), German (de), Japanese (ja), Portuguese (pt), Russian (ru), Italian (it), Arabic (ar), Korean (ko), Dutch (nl), Hindi (hi), Turkish (tr), Swedish (sv), Polish (pl), Norwegian (no), Danish (da), Finnish (fi), Czech (cs), Hungarian (hu), Romanian (ro)
-
-### Configuration
-
-Internationalization is configured in `lib/i18n.ts`:
-
-```typescript
-export const locales: Locale[] = [
-  'en', 'es', 'fr', 'zh', 'de', 'ja', 'pt', 'ru', 'it', 'ar', 'ko', 'nl',
-  'hi', 'tr', 'sv', 'pl', 'no', 'da', 'fi', 'cs', 'hu', 'ro'
-];
-
-export const defaultLocale: Locale = 'en';
-```
-
-### Translation Files
-
-Translations are managed through TypeScript files in `lib/translations/`:
-- Each language has its own file (e.g., `en.ts`, `es.ts`, `fr.ts`)
-- Structured translation keys for consistent usage
-- Type-safe translation access
-
-### Manual Translation
-
-The project includes AI-powered translation scripts for manual translation:
-
-```bash
-# Translate blog posts
-bun run translate:blog
-
-# Translate resources
-bun run translate:resources
-
-# Translate all translation files
-bun run translate:translations
-
-# Translate everything
-bun run translate:all
-```
-
 ### Automated CI/CD Translation
 
 The project features **automatic translation workflows** that trigger when content is updated:
 
-#### **Blog Post Auto-Translation**
+#### Blog Post Auto-Translation
+
 - **Trigger**: When English blog posts are added or modified in `blog/en/`
 - **Workflow**: `.github/workflows/translate-blog.yml`
-- **Process**: 
+- **Process**:
   1. Detects changes to English blog posts in pull requests
   2. Automatically translates content to all 21 supported languages using Azure OpenAI
   3. Commits translated files back to the same pull request
   4. Adds a comment to the PR confirming completion
 
-#### **Resource Auto-Translation**
+#### Resource Auto-Translation
+
 - **Trigger**: When English resources are updated in `resources/en/`
 - **Workflow**: `.github/workflows/translate-resources.yml`
 - **Process**: Similar to blog translation but for resource files
 
-#### **Benefits of Auto-Translation**
-- ✅ **Zero manual work** - Translations happen automatically on content changes
-- ✅ **Consistent timing** - New content is immediately available in all languages
-- ✅ **PR integration** - Translations are included in the same pull request
-- ✅ **Quality assurance** - Uses advanced AI models (Azure OpenAI GPT-4) for accurate translations
-- ✅ **Version control** - All translations are properly tracked in git history
+#### Translation Property Change Detection
 
-#### Example: When you add a new blog post in English
+- **Trigger**: When `lib/translations/en.ts` is modified in pull requests
+- **Workflow**: `.github/workflows/check-translations.yml`
+- **Script**: `scripts/i18n-diff-checker.ts`
+- **Process**:
+  1. Analyzes changes in the English translation properties using git diff
+  2. Identifies which specific translation keys were added, modified, or deleted
+  3. Reports property changes in GitHub status checks and PR comments
+  4. Validates that all corresponding language files are complete and up-to-date
+  5. Blocks deployment if translations are incomplete
 
-1. Create: blog/en/my-new-post.md
+#### **Translation Completeness Validation**
+
+The enhanced translation check workflow ensures comprehensive multilingual support:
+
+- **File Coverage**: Verifies all TypeScript translation files exist (`lib/translations/{lang}.ts`)
+- **Content Coverage**: Checks blog posts and resources in all supported languages
+- **Property Tracking**: Uses intelligent diff analysis to detect translation property changes
+- **Automated Reporting**: Provides detailed feedback on missing translations and property changes
+
+### Translation Management Scripts
+
+#### **Available Commands**
+
+```bash
+# Translate TypeScript interface files
+bun run translate
+
+# Check for translation property changes
+bun run translate:diff
+
+# Translate blog posts to all languages
+bun run translate:blog
+
+# Translate resource files to all languages
+bun run translate:resources
+```
+
+#### **Property Change Analysis**
+
+The `i18n-diff-checker.ts` script provides intelligent analysis of translation changes:
+
+```typescript
+// Detects property changes in en.ts
+import { analyzeTranslationChanges } from './scripts/i18n-diff-checker.ts';
+
+const result = analyzeTranslationChanges();
+console.log(`Modified properties: ${result.modifiedProperties.length}`);
+result.changes.forEach((change) => {
+  console.log(`${change.action}: ${change.path}`);
+});
+```
+
+**Features:**
+
+- **Git Integration**: Compares current changes with previous commits
+- **Property Flattening**: Converts nested objects to dot notation for precise tracking
+- **Change Detection**: Identifies additions, modifications, and deletions
+- **JSON Output**: Machine-readable output for CI/CD integration
+
+#### Example Workflows
+
+**When you add a new blog post in English:**
+
+1. Create: `blog/en/my-new-post.md`
 2. Open a pull request
 3. GitHub Actions automatically creates:
-   - blog/es/my-new-post.md (Spanish)
-   - blog/fr/my-new-post.md (French)
-   - blog/de/my-new-post.md (German)
+   - `blog/es/my-new-post.md` (Spanish)
+   - `blog/fr/my-new-post.md` (French)
+   - `blog/de/my-new-post.md` (German)
    - ... and 18 more languages
 4. All translations are committed to your PR automatically
+
+**When you modify translation properties:**
+
+1. Update: `lib/translations/en.ts`
+2. Open a pull request
+3. GitHub Actions automatically:
+   - Analyzes which properties changed using `i18n-diff-checker.ts`
+   - Reports specific properties modified (e.g., `nav.pricing`, `auth.login`)
+   - Validates all language files have corresponding translations
+   - Blocks deployment if any translations are missing
+   - Provides detailed feedback in PR comments and status checks
 
 ## Building For Production
 
@@ -395,25 +426,29 @@ The application uses Next.js 14 App Router with internationalized routing:
 
 ### Component Architecture
 
-#### **Core Components**
+#### Core Components
+
 - `app/components/Button.tsx` - Reusable button component with variants
 - `app/components/Card.tsx` - Card component for content display
 - `app/components/CodeBlock.tsx` - Syntax-highlighted code display
 - `app/components/DocumentViewer.tsx` - PDF and document preview
 
-#### **Feature Components**
+#### Feature Components
+
 - `app/components/playground/` - Interactive document processing interface
 - `app/components/pricing/` - Pricing cards and Stripe integration
 - `app/components/blog/` - Blog post rendering and navigation
 - `app/components/navbar/` - Navigation with language switching
 - `app/components/footer/` - Site footer with links and information
 
-#### **Authentication Components**
+#### Authentication Components
+
 - `app/components/auth/LoginButton.tsx` - Auth0 login integration
 - `app/components/auth/LogoutButton.tsx` - Logout functionality
 - `app/components/account/` - Account management interface
 
-#### **Utility Components**
+#### Utility Components
+
 - `app/components/animations/` - Framer Motion animation components
 - `app/components/modals/` - Modal dialogs for various features
 - `app/components/inputs/` - Form input components with validation
@@ -422,7 +457,8 @@ The application uses Next.js 14 App Router with internationalized routing:
 
 The application uses Zustand for state management with multiple specialized stores:
 
-#### **Store Architecture**
+#### Store Architecture
+
 - `app/hooks/useAccountStore.ts` - User account and profile state
 - `app/hooks/useCompareModal.ts` - Comparison modal state
 - `app/hooks/useAccessToken.ts` - Auth0 token management
@@ -430,13 +466,15 @@ The application uses Zustand for state management with multiple specialized stor
 
 ### API Integration
 
-#### **Actions Layer**
+#### Actions Layer
+
 - `app/actions/` - Server actions for data fetching and mutations
 - `app/actions/account/` - Account-related API calls
 - `app/actions/preprod/` - Pre-production API endpoints
 - Secure API key management and user authentication
 
-#### **External Integrations**
+#### External Integrations
+
 - **EmailJS**: Contact form and notification emails
 - **Stripe**: Payment processing and subscription management
 - **OpenAI**: AI-powered content generation and translation
@@ -445,13 +483,15 @@ The application uses Zustand for state management with multiple specialized stor
 
 ### Styling & Design
 
-#### **Tailwind CSS Configuration**
+#### Tailwind CSS Configuration
+
 - Custom color palette for CambioML branding
 - Extended spacing and typography scales
 - Dark mode support with theme switching
 - Responsive design utilities
 
-#### **Design System**
+#### Design System
+
 - Consistent component styling with Tailwind classes
 - Custom gradient utilities for brand elements
 - Accessible color contrast ratios
@@ -459,13 +499,15 @@ The application uses Zustand for state management with multiple specialized stor
 
 ### Content Management
 
-#### **Blog System**
+#### Blog System
+
 - Markdown-based blog posts with frontmatter
 - Multi-language blog support with automated translation
 - Dynamic routing for blog posts
 - LaTeX support for mathematical content
 
-#### **Static Content**
+#### Static Content
+
 - Solutions and case studies
 - Company information and team profiles
 - Pricing information and feature comparisons

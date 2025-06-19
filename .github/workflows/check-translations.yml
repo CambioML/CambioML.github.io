@@ -20,6 +20,61 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Check for en.ts changes and analyze property changes
+        id: check_en_changes
+        run: |
+          echo "🔍 Checking for changes in lib/translations/en.ts..."
+          
+          # Get the list of changed files in this PR
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+          
+          echo "Changed files in PR:"
+          echo "$CHANGED_FILES"
+          
+          # Check if en.ts was changed
+          EN_TS_CHANGED=$(echo "$CHANGED_FILES" | grep "^lib/translations/en.ts$" || true)
+          
+          if [ -n "$EN_TS_CHANGED" ]; then
+            echo "✅ English translation file changed, analyzing property changes..."
+            echo "en_ts_changed=true" >> $GITHUB_OUTPUT
+            
+            # Run the diff checker to analyze what properties changed
+            echo "🔍 Running translation diff checker..."
+            DIFF_OUTPUT=$(bun run translate:diff --json 2>/dev/null || echo '{"modifiedProperties":[],"changes":[]}')
+            
+            echo "Raw diff output:"
+            echo "$DIFF_OUTPUT"
+            
+            # Extract modified properties count and details
+            MODIFIED_COUNT=$(echo "$DIFF_OUTPUT" | jq -r '.modifiedProperties | length' 2>/dev/null || echo "0")
+            MODIFIED_PROPERTIES=$(echo "$DIFF_OUTPUT" | jq -r '.modifiedProperties[]?' 2>/dev/null | tr '\n' ',' | sed 's/,$//' || echo "")
+            
+            echo "Modified properties count: $MODIFIED_COUNT"
+            echo "Modified properties: $MODIFIED_PROPERTIES"
+            
+            echo "modified_properties_count=$MODIFIED_COUNT" >> $GITHUB_OUTPUT
+            echo "modified_properties<<EOF" >> $GITHUB_OUTPUT
+            echo "$MODIFIED_PROPERTIES" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            
+            # Store the full diff output for detailed reporting
+            echo "property_changes<<EOF" >> $GITHUB_OUTPUT
+            echo "$DIFF_OUTPUT" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "ℹ️ No changes to lib/translations/en.ts detected"
+            echo "en_ts_changed=false" >> $GITHUB_OUTPUT
+            echo "modified_properties_count=0" >> $GITHUB_OUTPUT
+          fi
+
       - name: Check translation completeness
         id: check_completeness
         run: |
@@ -97,6 +152,36 @@ jobs:
             const missingTranslations = String.raw`${{ steps.check_completeness.outputs.missing_translations }}`.replace(/\\n/g, '\n');
             const incompleteAreas = '${{ steps.check_completeness.outputs.incomplete_areas }}';
             
+            // Get property change information
+            const enTsChanged = '${{ steps.check_en_changes.outputs.en_ts_changed }}' === 'true';
+            const modifiedCount = parseInt('${{ steps.check_en_changes.outputs.modified_properties_count }}' || '0');
+            const modifiedProperties = '${{ steps.check_en_changes.outputs.modified_properties }}';
+            
+            let title = '';
+            let summary = '';
+            let text = '';
+            
+            if (isComplete) {
+              title = '✅ All translations complete';
+              summary = 'All required translations are present and up to date.';
+              text = 'Ready for deployment! All blog posts, resources, and TypeScript translation files have been translated to all supported languages.';
+              
+              if (enTsChanged && modifiedCount > 0) {
+                title = '✅ All translations complete';
+                summary += `\n\n📝 Property changes detected: ${modifiedCount} properties modified in en.ts`;
+                text += `\n\n**Property Changes Detected:**\n${modifiedCount} properties were modified in lib/translations/en.ts:\n${modifiedProperties.split(',').map(p => `- ${p}`).join('\n')}`;
+              }
+            } else {
+              title = '❌ Missing translations detected';
+              summary = `Missing translations detected in: ${incompleteAreas}\n\nThis PR cannot be merged until all translations are complete.`;
+              text = `The following translations are missing:\n${missingTranslations}\n\nPlease wait for the auto-translation workflows to complete, or add the missing translations manually.`;
+              
+              if (enTsChanged && modifiedCount > 0) {
+                summary += `\n\n📝 Additionally, ${modifiedCount} properties were modified in en.ts and may need translation updates.`;
+                text += `\n\n**Property Changes Detected:**\n${modifiedCount} properties were modified in lib/translations/en.ts:\n${modifiedProperties.split(',').map(p => `- ${p}`).join('\n')}`;
+              }
+            }
+            
             // Create a check run
             const checkRun = await github.rest.checks.create({
               owner: context.repo.owner,
@@ -106,29 +191,29 @@ jobs:
               status: 'completed',
               conclusion: isComplete ? 'success' : 'failure',
               output: {
-                title: isComplete ? '✅ All translations complete' : '❌ Missing translations detected',
-                summary: isComplete 
-                  ? 'All required translations are present and up to date.'
-                  : `Missing translations detected in: ${incompleteAreas}\n\nThis PR cannot be merged until all translations are complete.`,
-                text: isComplete 
-                  ? 'Ready for deployment! All blog posts, resources, and TypeScript translation files have been translated to all supported languages.'
-                  : `The following translations are missing:\n${missingTranslations}\n\nPlease wait for the auto-translation workflows to complete, or add the missing translations manually.`
+                title: title,
+                summary: summary,
+                text: text
               }
             });
 
-      - name: Comment on PR if translations incomplete
-        if: steps.check_completeness.outputs.translations_complete == 'false'
+      - name: Comment on PR with translation status
         uses: actions/github-script@v7
         with:
           script: |
+            const isComplete = '${{ steps.check_completeness.outputs.translations_complete }}' === 'true';
             const missingTranslations = String.raw`${{ steps.check_completeness.outputs.missing_translations }}`.replace(/\\n/g, '\n');
             const incompleteAreas = '${{ steps.check_completeness.outputs.incomplete_areas }}';
             
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `🚫 **Translation check failed!**
+            // Get property change information
+            const enTsChanged = '${{ steps.check_en_changes.outputs.en_ts_changed }}' === 'true';
+            const modifiedCount = parseInt('${{ steps.check_en_changes.outputs.modified_properties_count }}' || '0');
+            const modifiedProperties = '${{ steps.check_en_changes.outputs.modified_properties }}';
+            
+            let commentBody = '';
+            
+            if (!isComplete) {
+              commentBody = `🚫 **Translation check failed!**
 
             This PR cannot be merged until all translations are complete.
 
@@ -142,8 +227,40 @@ jobs:
             - Or add the missing translations manually
             - Re-run this check once translations are added
 
-            The deployment will be blocked until all translations are present.`
-            })
+            The deployment will be blocked until all translations are present.`;
+            }
+            
+            if (enTsChanged && modifiedCount > 0) {
+              const propertyChangeInfo = `
+
+            📝 **Property Changes Detected in en.ts**
+
+            ${modifiedCount} translation properties were modified:
+            ${modifiedProperties.split(',').map(p => `- \`${p}\``).join('\n')}
+
+            ${isComplete ? '✅ All corresponding translations appear to be up to date.' : '⚠️ These changes may require updates to other language files.'}`;
+              
+              if (commentBody) {
+                commentBody += propertyChangeInfo;
+              } else if (!isComplete) {
+                // Only comment if there are issues or if we want to highlight property changes
+                commentBody = `📝 **Translation Property Changes Detected**
+
+            ${modifiedCount} properties were modified in \`lib/translations/en.ts\`:
+            ${modifiedProperties.split(',').map(p => `- \`${p}\``).join('\n')}
+
+            ✅ All translations appear to be complete and up to date.`;
+              }
+            }
+            
+            if (commentBody) {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: commentBody
+              });
+            }
 
       - name: Fail if translations incomplete
         if: steps.check_completeness.outputs.translations_complete == 'false'
