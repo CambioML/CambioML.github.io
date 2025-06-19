@@ -3,6 +3,7 @@
 import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 import { AzureOpenAI } from 'openai';
+import { analyzeTranslationChanges } from './i18n-diff-checker';
 
 // Configuration
 const AZURE_OPENAI_API_KEY = process.env.AZURE_OPENAI_API_KEY;
@@ -121,8 +122,6 @@ STRICT REQUIREMENTS:
 4. Return the same JSON structure with translated string values
 5. Do NOT add explanations, markdown, or extra text outside the JSON
 6. If a value is not a string (numbers, booleans), keep it unchanged
-7. PRESERVE ALL ESCAPE SEQUENCES: Keep \\n, \\t, \\r, and other escape sequences exactly as they appear - do NOT convert them to actual newlines or tabs
-8. For multiline content with \\n, translate the text but keep the \\n escape sequences in the output
 
 FORMAT:
 Input: JSON object with string values to translate
@@ -138,9 +137,6 @@ Input:
   "pricing": {
     "title": "Pricing",
     "monthly": "Monthly"
-  },
-  "steps": {
-    "step1Description": "First, you need to extract.\\n\\nOnce extracted, you can download."
   }
 }
 
@@ -153,13 +149,9 @@ Output:
   "pricing": {
     "title": "定价",
     "monthly": "每月"
-  },
-  "steps": {
-    "step1Description": "首先，您需要提取。\\n\\n提取后，您可以下载。"
   }
 }
 
-CRITICAL: Preserve \\n escape sequences exactly - do NOT convert to actual line breaks.
 Remember: Output ONLY valid JSON. Preserve structure exactly. Translate only string values.`;
 
 /**
@@ -500,7 +492,6 @@ async function translateResources(sourceLocale: Locale = 'en'): Promise<void> {
 
 /**
  * Parse a TypeScript object string into a JavaScript object
- * Preserves escape sequences like \n, \r, \t by keeping them as literal strings
  */
 function parseTypescriptObject(content: string): Record<string, unknown> {
   try {
@@ -518,11 +509,7 @@ function parseTypescriptObject(content: string): Record<string, unknown> {
     try {
       // Create a safe evaluation context
       const evalFunction = new Function('return ' + objectString);
-      const result = evalFunction();
-
-      // Post-process the result to convert any actual newlines back to \n escape sequences
-      // This handles cases where eval converted escape sequences to actual characters
-      return preserveEscapeSequences(result) as Record<string, unknown>;
+      return evalFunction();
     } catch {
       // Fallback to JSON parsing approach if eval fails
       console.warn('⚠️  Eval approach failed, trying JSON parsing fallback');
@@ -531,8 +518,7 @@ function parseTypescriptObject(content: string): Record<string, unknown> {
         .replace(/,(\s*[}\]])/g, '$1') // Remove trailing commas
         .replace(/(\w+):/g, '"$1":'); // Quote object keys
 
-      const result = JSON.parse(jsonString);
-      return preserveEscapeSequences(result) as Record<string, unknown>;
+      return JSON.parse(jsonString);
     }
   } catch (error) {
     console.error('❌ Failed to parse TypeScript object:', error);
@@ -542,40 +528,13 @@ function parseTypescriptObject(content: string): Record<string, unknown> {
 }
 
 /**
- * Recursively process an object to convert actual newlines back to escape sequences
- * This ensures that when we parse TypeScript objects, escape sequences are preserved
- */
-function preserveEscapeSequences(obj: unknown): unknown {
-  if (typeof obj === 'string') {
-    // Convert actual newlines back to escape sequences
-    return obj.replace(/\n/g, '\\n').replace(/\r/g, '\\r').replace(/\t/g, '\\t');
-  }
-
-  if (Array.isArray(obj)) {
-    return obj.map((item) => preserveEscapeSequences(item));
-  }
-
-  if (typeof obj === 'object' && obj !== null) {
-    const preserved: Record<string, unknown> = {};
-    for (const [key, value] of Object.entries(obj)) {
-      preserved[key] = preserveEscapeSequences(value);
-    }
-    return preserved;
-  }
-
-  return obj;
-}
-
-/**
  * Convert a JavaScript object back to TypeScript format
  */
 function objectToTypescript(obj: unknown, locale: string, indent: number = 0): string {
   const spaces = '  '.repeat(indent);
 
   if (typeof obj === 'string') {
-    // Escape single quotes, but preserve escape sequences that are already properly formatted
-    const escaped = obj.replace(/'/g, "\\'");
-    return `'${escaped}'`;
+    return `'${obj.replace(/'/g, "\\'")}'`;
   }
 
   if (Array.isArray(obj)) {
@@ -595,46 +554,77 @@ function objectToTypescript(obj: unknown, locale: string, indent: number = 0): s
 }
 
 /**
- * Find missing translations by comparing source and target objects
+ * Extract specific properties from an object based on dot notation paths
  */
-function findMissingTranslations(sourceObj: unknown, targetObj: unknown): Record<string, unknown> {
-  // Create a deep copy of the source object
-  const missingObj = JSON.parse(JSON.stringify(sourceObj));
+function extractPropertiesByPaths(obj: Record<string, unknown>, paths: string[]): Record<string, unknown> {
+  const result: Record<string, unknown> = {};
 
-  // Remove properties that already exist in the target
-  function removeExistingPaths(missing: Record<string, unknown>, existing: Record<string, unknown>) {
-    if (typeof missing !== 'object' || missing === null) return;
-    if (typeof existing !== 'object' || existing === null) return;
+  for (const path of paths) {
+    const keys = path.split('.');
+    let sourceValue: unknown = obj;
+    let targetRef: Record<string, unknown> = result;
 
-    for (const key in missing) {
-      if (Object.prototype.hasOwnProperty.call(existing, key)) {
-        if (
-          typeof missing[key] === 'object' &&
-          missing[key] !== null &&
-          typeof existing[key] === 'object' &&
-          existing[key] !== null
-        ) {
-          removeExistingPaths(missing[key] as Record<string, unknown>, existing[key] as Record<string, unknown>);
-          // If the nested object is now empty, remove it
-          if (
-            typeof missing[key] === 'object' &&
-            missing[key] !== null &&
-            Object.keys(missing[key] as Record<string, unknown>).length === 0
-          ) {
-            delete missing[key];
+    // Navigate to the value in the source object
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+
+      if (i === keys.length - 1) {
+        // Last key - set the value
+        if (sourceValue && typeof sourceValue === 'object' && key in sourceValue) {
+          targetRef[key] = (sourceValue as Record<string, unknown>)[key];
+        }
+      } else {
+        // Intermediate key - ensure path exists in both source and target
+        if (sourceValue && typeof sourceValue === 'object' && key in sourceValue) {
+          sourceValue = (sourceValue as Record<string, unknown>)[key];
+
+          if (!targetRef[key] || typeof targetRef[key] !== 'object') {
+            targetRef[key] = {};
           }
+          targetRef = targetRef[key] as Record<string, unknown>;
         } else {
-          // Property exists in both, so remove from missing
-          delete missing[key];
+          // Path doesn't exist in source
+          break;
         }
       }
     }
   }
 
-  if (typeof missingObj === 'object' && missingObj !== null && typeof targetObj === 'object' && targetObj !== null) {
-    removeExistingPaths(missingObj as Record<string, unknown>, targetObj as Record<string, unknown>);
+  return result;
+}
+
+/**
+ * Apply property changes to a target object based on diff analysis
+ */
+function applyPropertyChanges(
+  targetObj: Record<string, unknown>,
+  changes: Array<{ path: string; action: 'added' | 'modified' | 'deleted'; newValue?: unknown }>
+): Record<string, unknown> {
+  const result = JSON.parse(JSON.stringify(targetObj));
+
+  for (const change of changes) {
+    const keys = change.path.split('.');
+    let currentRef: Record<string, unknown> = result;
+
+    // Navigate to parent object
+    for (let i = 0; i < keys.length - 1; i++) {
+      const key = keys[i];
+      if (!currentRef[key] || typeof currentRef[key] !== 'object') {
+        currentRef[key] = {};
+      }
+      currentRef = currentRef[key] as Record<string, unknown>;
+    }
+
+    const finalKey = keys[keys.length - 1];
+
+    if (change.action === 'deleted') {
+      delete currentRef[finalKey];
+    } else if (change.action === 'added' || change.action === 'modified') {
+      currentRef[finalKey] = change.newValue;
+    }
   }
-  return missingObj;
+
+  return result;
 }
 
 /**
@@ -717,88 +707,9 @@ async function translateObjectValues(
 }
 
 /**
- * Remove extra properties from target object that don't exist in source object
+ * Translate translation files using diff-based approach
  */
-function removeExtraProperties(
-  sourceObj: Record<string, unknown>,
-  targetObj: Record<string, unknown>
-): Record<string, unknown> {
-  const cleanedObj: Record<string, unknown> = {};
-
-  function cleanRecursively(
-    source: Record<string, unknown>,
-    target: Record<string, unknown>,
-    cleaned: Record<string, unknown>
-  ) {
-    // Only iterate through keys that exist in the source
-    for (const key in source) {
-      if (Object.prototype.hasOwnProperty.call(target, key)) {
-        if (
-          typeof source[key] === 'object' &&
-          source[key] !== null &&
-          !Array.isArray(source[key]) &&
-          typeof target[key] === 'object' &&
-          target[key] !== null &&
-          !Array.isArray(target[key])
-        ) {
-          // Both are objects, recurse
-          const nestedCleaned: Record<string, unknown> = {};
-          cleanRecursively(
-            source[key] as Record<string, unknown>,
-            target[key] as Record<string, unknown>,
-            nestedCleaned
-          );
-          // Only add the nested object if it has properties
-          if (Object.keys(nestedCleaned).length > 0) {
-            cleaned[key] = nestedCleaned;
-          }
-        } else {
-          // Keep the property as it exists in source
-          cleaned[key] = target[key];
-        }
-      }
-      // If key doesn't exist in target, it's already missing (nothing to clean)
-    }
-  }
-
-  cleanRecursively(sourceObj, targetObj, cleanedObj);
-  return cleanedObj;
-}
-
-/**
- * Count properties recursively for better logging
- */
-function countPropertiesRecursively(obj: Record<string, unknown>): number {
-  let count = 0;
-  for (const key in obj) {
-    count++;
-    if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
-      count += countPropertiesRecursively(obj[key] as Record<string, unknown>);
-    }
-  }
-  return count;
-}
-
-/**
- * Deep merge two objects
- */
-function deepMerge(target: Record<string, unknown>, source: Record<string, unknown>) {
-  for (const key in source) {
-    if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
-      if (!target[key] || typeof target[key] !== 'object') {
-        target[key] = {};
-      }
-      deepMerge(target[key] as Record<string, unknown>, source[key] as Record<string, unknown>);
-    } else {
-      target[key] = source[key];
-    }
-  }
-}
-
-/**
- * Translate TypeScript translation files
- */
-async function translateTranslationFiles(sourceLocale: Locale = 'en'): Promise<void> {
+async function translateTranslationFilesDiffBased(sourceLocale: Locale = 'en'): Promise<void> {
   const translationsDir = join(process.cwd(), 'lib', 'translations');
   const sourceFile = join(translationsDir, `${sourceLocale}.ts`);
 
@@ -807,100 +718,116 @@ async function translateTranslationFiles(sourceLocale: Locale = 'en'): Promise<v
     return;
   }
 
-  console.log(`🔤 Translating TypeScript translation files from ${sourceLocale}...`);
+  console.log(`🔍 Analyzing translation changes using diff checker...`);
 
-  // Read and parse source file
-  const sourceContent = readFileSync(sourceFile, 'utf-8');
-  const sourceObj = parseTypescriptObject(sourceContent);
+  try {
+    // Use diff checker to identify changes
+    const diffResult = analyzeTranslationChanges('compare', 'HEAD~1');
 
-  for (const locale of SUPPORTED_LOCALES) {
-    if (locale === sourceLocale) continue;
+    if (diffResult.modifiedProperties.length === 0) {
+      console.log(`ℹ️  No changes detected in translation files. All target files are up to date.`);
+      return;
+    }
 
-    const targetFile = join(translationsDir, `${locale}.ts`);
-    let targetObj = {};
-    let originalKeyCount = 0;
-    let cleanedKeyCount = 0;
+    console.log(`📝 Found ${diffResult.modifiedProperties.length} changed properties:`);
+    diffResult.modifiedProperties.forEach((prop) => console.log(`   - ${prop}`));
 
-    // Read existing target file if it exists
-    if (existsSync(targetFile)) {
-      try {
-        const targetContent = readFileSync(targetFile, 'utf-8');
-        targetObj = parseTypescriptObject(targetContent);
-        console.log(`📖 Loaded existing translations for ${locale}`);
+    // Read and parse source file
+    const sourceContent = readFileSync(sourceFile, 'utf-8');
+    const sourceObj = parseTypescriptObject(sourceContent);
 
-        // Clean up target object by removing extra properties that don't exist in source
-        const originalTargetObj = JSON.parse(JSON.stringify(targetObj));
-        targetObj = removeExtraProperties(sourceObj as Record<string, unknown>, targetObj as Record<string, unknown>);
+    // Extract only the changed properties from source
+    const changedProperties = extractPropertiesByPaths(
+      sourceObj as Record<string, unknown>,
+      diffResult.modifiedProperties
+    );
 
-        // Count properties recursively for better logging
+    if (Object.keys(changedProperties).length === 0) {
+      console.log(`ℹ️  No translatable properties found in changes.`);
+      return;
+    }
 
-        originalKeyCount = countPropertiesRecursively(originalTargetObj);
-        cleanedKeyCount = countPropertiesRecursively(targetObj);
+    // Translate to each target locale
+    for (const locale of SUPPORTED_LOCALES) {
+      if (locale === sourceLocale) continue;
 
-        if (originalKeyCount !== cleanedKeyCount) {
-          console.log(`🧹 Cleaned up ${originalKeyCount - cleanedKeyCount} extra properties from ${locale}.ts`);
+      const targetFile = join(translationsDir, `${locale}.ts`);
+      let targetObj: Record<string, unknown> = {};
+
+      // Read existing target file if it exists
+      if (existsSync(targetFile)) {
+        try {
+          const targetContent = readFileSync(targetFile, 'utf-8');
+          targetObj = parseTypescriptObject(targetContent) as Record<string, unknown>;
+          console.log(`📖 Loaded existing translations for ${locale}`);
+        } catch (error) {
+          console.warn(`⚠️  Failed to parse existing ${locale}.ts, will recreate:`, error);
+          targetObj = {};
         }
-      } catch (error) {
-        console.warn(`⚠️  Failed to parse existing ${locale}.ts, will recreate:`, error);
-        targetObj = {};
       }
-    }
 
-    // Find missing translations
-    const missingTranslations = findMissingTranslations(sourceObj, targetObj);
-
-    // Check if we need to write the file (either missing translations or cleanup was performed)
-    const needsUpdate =
-      Object.keys(missingTranslations).length > 0 || (existsSync(targetFile) && originalKeyCount !== cleanedKeyCount);
-
-    if (!needsUpdate) {
-      console.log(`✅ ${locale}.ts is already up to date`);
-      continue;
-    }
-
-    const finalObj = JSON.parse(JSON.stringify(targetObj));
-
-    if (Object.keys(missingTranslations).length > 0) {
-      console.log(`📝 Found missing translations for ${locale}`);
-      console.log(`Missing keys:`, Object.keys(missingTranslations));
+      console.log(`🔄 Translating changes to ${LANGUAGE_NAMES[locale]} (${locale})...`);
 
       try {
-        // Translate the entire missing object structure
-        console.log(`🔄 Translating missing translations for ${locale}...`);
-
-        const translatedMissing = await translateObjectValues(
-          missingTranslations,
+        // Translate only the changed properties
+        const translatedChanges = await translateObjectValues(
+          changedProperties,
           LANGUAGE_NAMES[sourceLocale],
           LANGUAGE_NAMES[locale]
         );
 
-        // Deep merge the translated missing parts with the existing target object
+        // Apply the translated changes to the target object
+        const updatedChanges = diffResult.changes.map((change) => ({
+          path: change.path,
+          action: change.action,
+          newValue: change.action === 'deleted' ? undefined : getNestedValue(translatedChanges, change.path),
+        }));
 
-        deepMerge(finalObj, translatedMissing);
+        const finalObj = applyPropertyChanges(targetObj, updatedChanges);
+
+        // Convert back to TypeScript format and write
+        const typescriptContent = `export const ${locale} = ${objectToTypescript(finalObj, locale)} as const;\n`;
+
+        writeFileSync(targetFile, typescriptContent, 'utf-8');
+        console.log(`✅ Updated: ${targetFile} (${diffResult.changes.length} changes applied)`);
 
         // Add a small delay to respect API rate limits
         await new Promise((resolve) => setTimeout(resolve, 1000));
       } catch (error) {
-        console.error(`❌ Failed to translate ${locale}.ts:`, error);
+        console.error(`❌ Failed to translate changes for ${locale}:`, error);
         continue;
       }
     }
-
-    // Convert back to TypeScript format and write
-    const typescriptContent = `export const ${locale} = ${objectToTypescript(finalObj, locale)} as const;\n`;
-
-    writeFileSync(targetFile, typescriptContent, 'utf-8');
-
-    const actions = [];
-    if (Object.keys(missingTranslations).length > 0) {
-      actions.push(`added ${Object.keys(missingTranslations).length} translations`);
-    }
-    if (originalKeyCount !== cleanedKeyCount) {
-      actions.push(`removed ${originalKeyCount - cleanedKeyCount} extra properties`);
-    }
-
-    console.log(`✅ Updated: ${targetFile} (${actions.join(', ')})`);
+  } catch (error) {
+    console.error(`❌ Failed to analyze translation changes:`, error);
+    throw error;
   }
+}
+
+/**
+ * Get nested value from object using dot notation path
+ */
+function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
+  const keys = path.split('.');
+  let current: unknown = obj;
+
+  for (const key of keys) {
+    if (current && typeof current === 'object' && key in current) {
+      current = (current as Record<string, unknown>)[key];
+    } else {
+      return undefined;
+    }
+  }
+
+  return current;
+}
+
+/**
+ * Translate TypeScript translation files (legacy approach - kept for fallback)
+ */
+async function translateTranslationFiles(sourceLocale: Locale = 'en'): Promise<void> {
+  // Use the new diff-based approach by default
+  return translateTranslationFilesDiffBased(sourceLocale);
 }
 
 /**
