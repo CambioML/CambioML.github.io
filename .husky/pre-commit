@@ -1,9 +1,15 @@
 #!/bin/bash
 
-# Check if any files in the playground or sandbox directories are staged for commit
-if git diff --cached --name-only | grep -q "^app/\(components/playground\|sandbox\)/"; then
-  echo "🎮 Playground/Sandbox files changed. Running playground tests..."
-  npm run test:playground
-else
-  echo "No playground or sandbox files changed, skipping playground tests."
+# Get list of staged files
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(js|jsx|ts|tsx|json|css|scss|md)$' || true)
+
+# Run prettier on staged files if any exist
+if [ -n "$STAGED_FILES" ]; then
+  echo "🎨 Running prettier on changed files..."
+  echo "$STAGED_FILES" | xargs bunx prettier --write
+  
+  # Add the formatted files back to staging
+  echo "$STAGED_FILES" | xargs git add
+  
+  echo "✅ Prettier formatting complete."
 fi
