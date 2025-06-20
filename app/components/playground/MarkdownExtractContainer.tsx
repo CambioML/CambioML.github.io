@@ -27,6 +27,7 @@ import { DownloadSimple, CloudArrowUp, ArrowCounterClockwise, FileText } from '@
 import { PlaygroundFile, ExtractState, ExtractTab, ProcessType, ModelType } from '@/app/types/PlaygroundTypes';
 import { runAsyncRequestJob as runPreprodAsyncRequestJob } from '@/app/actions/preprod/runAsyncRequestJob';
 import { useAmplifyAuth } from '@/app/hooks/useAmplifyAuth';
+import { fetchAuthSession, fetchUserAttributes } from 'aws-amplify/auth';
 
 export const extractMarkdownTables = (input: string): string[] => {
   const tableRegex = /\|(.*\|.+\|[\s\S]*\|.+\|)/gm;
@@ -64,7 +65,7 @@ const MarkdownExtractContainer = () => {
   const router = useRouter();
 
   // Get Amplify auth state and tokens
-  const { tokens, userAttributes } = useAmplifyAuth();
+  const { tokens, userAttributes, refreshTokens, refreshAttributes } = useAmplifyAuth();
 
   // Add popup auth hook
   const { openAuthPopup, isLoading: authLoading } = usePopupAuth({
@@ -73,31 +74,44 @@ const MarkdownExtractContainer = () => {
         // Wait a moment for the auth state to propagate
         await new Promise((resolve) => setTimeout(resolve, 500));
 
+        // Manually refresh tokens and attributes from the parent window context
+        // This is necessary because the popup authentication happens in a separate window
+        await refreshTokens();
+        await refreshAttributes();
+
+        // Wait a bit more for the refresh to complete
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        // Get fresh tokens directly from Amplify after refresh
+        const { tokens: freshTokens } = await fetchAuthSession();
+        const freshUserAttributes = await fetchUserAttributes();
+
+        // Log the complete JWT token for debugging
+        if (freshTokens?.idToken) {
+          console.log('Complete JWT ID Token:', freshTokens.idToken.toString());
+        }
+        if (freshTokens?.accessToken) {
+          console.log('Complete JWT Access Token:', freshTokens.accessToken.toString());
+        }
+
         // Get the fresh tokens after successful authentication
-        if (tokens?.idToken) {
-          console.log('Login token (ID Token):', tokens.idToken);
-
-          // TODO: Implement authentication with resource server using the token
-          console.log('TODO: Authenticate with resource server using token:', tokens.idToken);
-
-          // Sync authentication state with playground store
-          setToken(tokens.idToken);
+        if (freshTokens?.idToken) {
+          setToken(freshTokens.idToken.toString());
           setLoggedIn(true);
 
           // Set user ID from user attributes if available
-          if (userAttributes?.email) {
-            setUserId(userAttributes.email);
+          if (freshUserAttributes?.email) {
+            setUserId(freshUserAttributes.email);
           }
 
           // Set client ID (this would be the Cognito client ID for Amplify)
           setClientId(process.env.NEXT_PUBLIC_COGNITO_APPCLIENT_ID || '');
-
           toast.success('Authentication successful');
 
           // Execute pending action after syncing auth state
           executePendingAction();
         } else {
-          console.warn('No ID token available after authentication');
+          console.error('Authentication failed: No ID token available');
           toast.error('Authentication succeeded but token not available. Please try again.');
         }
       } catch (error) {

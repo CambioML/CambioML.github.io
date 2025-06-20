@@ -33,6 +33,20 @@ export default function LoginPage() {
   // Get locale from params
   const locale = (params?.locale as Locale) || 'en';
 
+  // Preserve redirect URL from query parameters on page load
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectParam = urlParams.get('redirect');
+
+    if (redirectParam) {
+      // Save the redirect URL from query parameter to localStorage
+      // This handles OAuth flows where localStorage might be cleared
+      const decodedRedirect = decodeURIComponent(redirectParam);
+      localStorage.setItem('auth_redirect_url', decodedRedirect);
+      console.log('Preserved redirect URL from query parameter:', decodedRedirect);
+    }
+  }, []);
+
   // Setup Amplify UI i18n
   React.useEffect(() => {
     setI18nReady(false);
@@ -94,7 +108,6 @@ export default function LoginPage() {
         if (tokens?.idToken) {
           try {
             const payload = JSON.parse(atob(tokens.idToken.toString().split('.')[1]));
-            console.log('ID Token payload:', payload);
 
             if (payload.identities?.[0]?.providerName === 'Google') {
               if (payload.email) {
@@ -127,8 +140,7 @@ export default function LoginPage() {
 
       if (tokens?.idToken) {
         try {
-          // TODO: Implement authentication with resource server
-          console.log('TODO: Authenticate with resource server using token:', tokens.idToken.toString());
+          console.log('ID Token:', tokens.idToken.toString());
 
           // Check if we're in popup mode
           const urlParams = new URLSearchParams(window.location.search);
@@ -141,11 +153,20 @@ export default function LoginPage() {
             return;
           }
 
-          // Get saved redirect URL or default to playground
-          const savedUrl = localStorage.getItem('auth_redirect_url') || urlParams.get('redirect');
+          // Get saved redirect URL - prioritize localStorage over URL params
+          const savedUrl = localStorage.getItem('auth_redirect_url');
+          const urlRedirect = urlParams.get('redirect');
           localStorage.removeItem('auth_redirect_url');
 
-          const redirectTo = savedUrl || `/${locale}/anyparser`;
+          // Determine redirect destination
+          let redirectTo: string;
+          if (savedUrl) {
+            redirectTo = savedUrl;
+          } else if (urlRedirect) {
+            redirectTo = decodeURIComponent(urlRedirect);
+          } else {
+            redirectTo = `/${locale}/anyparser`;
+          }
 
           setTimeout(() => {
             router.push(redirectTo);

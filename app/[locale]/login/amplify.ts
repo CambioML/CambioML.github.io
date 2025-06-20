@@ -34,9 +34,9 @@ Amplify.configure({
         oauth: {
           domain: oauthDomain,
           scopes: ['email', 'profile', 'openid'],
-          redirectSignIn: [localEnv ? 'http://localhost:3000' : hostDomain],
-          redirectSignOut: [localEnv ? 'http://localhost:3000' : hostDomain],
-          responseType: 'token',
+          redirectSignIn: [localEnv ? 'http://localhost:3000/en/login' : `${hostDomain}/en/login`],
+          redirectSignOut: [localEnv ? 'http://localhost:3000/en/login' : `${hostDomain}/en/login`],
+          responseType: 'code',
         },
         email: true,
       },
