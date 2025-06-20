@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAmplifyAuth } from './useAmplifyAuth';
-import { getUserData } from '../actions/getUserData';
+import { ApiKey } from './useAccountStore';
 
 interface UserProfile {
   name: string;
@@ -9,6 +9,7 @@ interface UserProfile {
   sub: string;
   picture: string;
   cdkProfile: CdkProfile;
+  apiKey: string;
 }
 
 export type CdkProfile = {
@@ -56,33 +57,9 @@ const useUserProfile = () => {
           email_verified: userAttributes?.email_verified === 'true' || userAttributes?.email_verified === true,
           sub: cognitoUserId,
           picture: userAttributes?.picture || '/images/default-profile.png',
-          cdkProfile: {} as CdkProfile, // Will be populated below
+          cdkProfile: {} as CdkProfile,
+          apiKey: '',
         };
-
-        // Fetch CDK profile data using the user ID
-        try {
-          const cdkProfileData = await getUserData({
-            userId: cognitoUserId,
-            api_url: process.env.NEXT_PUBLIC_PLAYGROUND_API_URL || '',
-          });
-          profileData.cdkProfile = cdkProfileData['user_data'];
-        } catch (cdkError) {
-          console.warn('Failed to fetch CDK profile data:', cdkError);
-          // Set default CDK profile if fetch fails
-          profileData.cdkProfile = {
-            apiKey: '',
-            pageLimit: 0,
-            remainingPages: 0,
-            subscriptionId: '',
-            stripeCustomerId: '',
-            updatedAt: '',
-            createdAt: '',
-            userId: cognitoUserId,
-            userType: 'free',
-            cancelAtPeriodEnd: false,
-            currentPeriodEnd: '',
-          };
-        }
 
         setProfile(profileData);
         setError(null);

@@ -5,23 +5,25 @@ import axios from 'axios';
 import { loadStripe } from '@stripe/stripe-js';
 import Button from '../Button';
 import { CreditCard } from '@phosphor-icons/react';
+import { useAmplifyAuth } from '../../hooks/useAmplifyAuth';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
 
-// Test user ID for development purposes
-const TEST_USER_ID = '88b1f350-f001-7025-9432-734180d10e48';
-
-interface BuyCreditsButtonProps {
+interface BuyPagesButtonProps {
   className?: string;
 }
 
-export default function BuyCreditsButton({ className }: BuyCreditsButtonProps) {
+export default function BuyPagesButton({ className }: BuyPagesButtonProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [amount, setAmount] = useState<number>(1);
 
-  // Use test user ID for testing purposes
-  const effectiveUserId = TEST_USER_ID;
+  // Get user data from auth hook
+  const { userAttributes, isAuthenticated } = useAmplifyAuth();
+
+  // Use authenticated user ID or fallback to test ID
+  const effectiveUserId = userAttributes.userId;
+  const isUsingTestUserId = !userAttributes.userId;
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
@@ -37,6 +39,11 @@ export default function BuyCreditsButton({ className }: BuyCreditsButtonProps) {
       return;
     }
 
+    if (!isAuthenticated) {
+      setError('Please log in to purchase pages');
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
@@ -47,7 +54,7 @@ export default function BuyCreditsButton({ className }: BuyCreditsButtonProps) {
         { qty: amount } // matches Subscription model in FastAPI
       );
 
-      // Backend can return either {checkout_url} or {sessionId, url}. Tolerate both.
+      // Backend can return either {checkout_url} or {url, sessionId}. Tolerate both.
       const { checkout_url, url, sessionId } = resp.data;
 
       // Redirect the user
@@ -88,22 +95,30 @@ export default function BuyCreditsButton({ className }: BuyCreditsButtonProps) {
             className="w-20 px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             disabled={loading}
           />
-          <span className="text-sm text-gray-500">= {amount * 10} credits</span>
+          <span className="text-sm text-gray-500">= {amount * 30} pages</span>
         </div>
       </div>
 
       <Button
         onClick={handleClick}
-        disabled={loading || amount < 1}
-        label={loading ? 'Redirecting...' : `Purchase ${amount * 10} credits ($${amount})`}
+        disabled={loading || amount < 1 || !isAuthenticated}
+        label={loading ? 'Redirecting...' : `Purchase ${amount * 30} pages ($${amount})`}
         labelIcon={CreditCard}
         small
       />
 
       {error && <p className="text-sm text-red-600">{error}</p>}
 
-      {/* Show test user ID for development */}
-      <p className="text-xs text-gray-500">Test User ID: {effectiveUserId}</p>
+      {/* Show user info for development */}
+      {isAuthenticated ? (
+        <div className="text-xs text-gray-500 space-y-1">
+          <p>User: {userAttributes.email}</p>
+          <p>User ID: {effectiveUserId}</p>
+          {isUsingTestUserId && <p className="text-amber-600">⚠️ Using fallback test ID</p>}
+        </div>
+      ) : (
+        <p className="text-xs text-red-500">Please log in to purchase pages</p>
+      )}
     </div>
   );
 }

@@ -5,22 +5,19 @@ import Heading from '../Heading';
 import LoginButton from '../auth/LoginButton';
 import LogoutButton, { LogoutButtonProps } from '../auth/LogoutButton';
 import PageHero from '../hero/PageHero';
-import useUserProfile from '@/app/hooks/useUserProfile';
 import Image from 'next/image';
 import { imgPrefix } from '@/app/hooks/useImgPrefix';
 import Button from '../Button';
 import useAccountStore from '@/app/hooks/useAccountStore';
 import getNewApiKey from '@/app/actions/account/getNewApiKey';
-import getApiKeysForUser from '@/app/actions/account/getApiKeysForUser';
 import { useEffect, useState } from 'react';
 import ApiKeyRow from './ApiKeyRow';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { useProductionContext } from '../playground/ProductionContext';
-import { resendVerificationEmail } from '../../actions/account/resendVerificationEmail';
-import PortalButton from '../pricing/PortalButton';
 import { useTranslation } from '@/lib/use-translation';
-import BuyCreditsButton from './BuyCreditsButton';
+import BuyPagesButton from './BuyCreditsButton';
+import { useAmplifyAuth } from '../../hooks/useAmplifyAuth';
 
 const MAX_API_KEYS = 1;
 
@@ -74,66 +71,52 @@ const ProfileContainer = ({
 const sectionHeadingStyle = `text-xl font-semibold pb-4`;
 
 const AccountPageContainer = () => {
-  const { profile, error, loading, token } = useUserProfile();
+  const { userAttributes, tokens, isAuthenticated, loading } = useAmplifyAuth();
+  const { apiKeys, setApiKeys, addApiKey } = useAccountStore();
   const { apiURL } = useProductionContext();
-  const { apiKeys, setApiKeys } = useAccountStore();
   const [isLoading, setIsLoading] = useState(false);
-  const [sendingVerification, setSendingVerification] = useState(false);
+  const [isFetchingApiKeys] = useState(false);
   const { isProduction } = useProductionContext();
   const router = useRouter();
-  const [emailVerified, setEmailVerified] = useState(false);
   const { t } = useTranslation();
 
   const handleGenerateAPIKey = async () => {
+    if (!isAuthenticated || !tokens.idToken) {
+      toast.error('Please log in to generate API key');
+      return;
+    }
+
     setIsLoading(true);
     try {
-      if (!profile?.sub || !token) return;
-      await getNewApiKey({ userId: profile?.sub, token: token, apiURL });
-      fetchApiKeys();
-    } catch {
-      // Do nothing
+      const newApiKey = await getNewApiKey({
+        token: tokens.idToken,
+        apiURL,
+        email: userAttributes.email,
+      });
+      addApiKey(newApiKey);
+      toast.success('API key generated successfully!');
+    } catch (error) {
+      console.error('Error generating API key:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
   const fetchApiKeys = async () => {
-    if (!profile?.sub || !token) return;
-    try {
-      const apiKeys = await getApiKeysForUser({ userId: profile?.sub, token: token, apiURL });
-      setApiKeys(apiKeys);
-    } catch (error) {
-      toast.error(`Error fetching API keys: ${error}`);
+    if (loading || !isAuthenticated || !tokens.idToken || !userAttributes.userId) {
+      return;
     }
   };
   useEffect(() => {
+    console.log('AccountPageContainer: Auth state changed', {
+      loading,
+      isAuthenticated,
+      hasToken: !!tokens.idToken,
+      hasUserId: !!userAttributes.userId,
+      apiKeysCount: apiKeys.length,
+    });
     fetchApiKeys();
-  }, [profile?.sub, token]); // Add dependencies here
-
-  useEffect(() => {
-    if (profile) {
-      setEmailVerified(profile.email_verified);
-    }
-  }, [profile]);
-
-  const handleResendVerificationEmail = async () => {
-    if (!profile) return;
-    setSendingVerification(true);
-    setIsLoading(true);
-
-    try {
-      await resendVerificationEmail({
-        userId: profile.sub,
-      });
-      toast.success('Verification email resent!');
-    } catch (error) {
-      console.error(error);
-      toast.error('Error resending verification email');
-    } finally {
-      setSendingVerification(false);
-      setIsLoading(false);
-    }
-  };
+  }, [loading, isAuthenticated, tokens.idToken, userAttributes.userId, apiURL]);
 
   return (
     <div className="pb-10 w-full h-full flex flex-col justify-center items-center">
@@ -143,26 +126,18 @@ const AccountPageContainer = () => {
           <div>
             <Heading title={t.account.profile.title} />
             <div className="w-full h-[275px] flex flex-col items-center justify-center">
-              {loading && <LoadingComponent icon={UserCircle} />}
-              {!loading && error && (
-                <ProfileContainer
-                  loginButton={LoginButton}
-                  profilePic={imgPrefix + '/images/default-profile.png'}
-                  phrase={`${t.account.profile.errorLoading}: ${error}`}
-                />
-              )}
-              {!loading && !error && !profile && (
+              {!isAuthenticated && (
                 <ProfileContainer
                   loginButton={LoginButton}
                   profilePic={imgPrefix + '/images/default-profile.png'}
                   phrase={t.account.profile.pleaseLogin}
                 />
               )}
-              {!loading && !error && profile && (
+              {isAuthenticated && userAttributes.email && (
                 <ProfileContainer
                   logoutButton={LogoutButton}
-                  profilePic={profile.picture}
-                  phrase={`${t.account.profile.welcome}, ${profile.name}`}
+                  profilePic={imgPrefix + '/images/default-profile.png'}
+                  phrase={`${t.account.profile.welcome}, ${userAttributes.name || userAttributes.email}`}
                   disabled={isLoading}
                 />
               )}
@@ -184,34 +159,13 @@ const AccountPageContainer = () => {
               </div>
             </div>
             <div className="w-full h-fit min-h-[300px] flex flex-col items-center gap-8">
-              {loading && <LoadingComponent icon={Key} />}
-              {!loading && error && (
-                <>
-                  <div>
-                    {t.account.profile.errorLoading}: {error}
-                  </div>
-                </>
-              )}
-              {!loading && !error && !profile && (
+              {!isAuthenticated && !loading && (
                 <div className="w-full h-full min-h-[300px] bg-neutral-100 rounded-xl flex items-center justify-center">
                   <Key size={48} />
                 </div>
               )}
-              {!loading && !error && profile && !emailVerified && (
-                <>
-                  <p className="text-md">{t.account.apiKey.verifyEmail} </p>
-                  <Button
-                    label={`${sendingVerification ? t.account.apiKey.sendingVerification : t.account.apiKey.resendVerification}`}
-                    onClick={handleResendVerificationEmail}
-                    disabled={isLoading}
-                    small
-                  />
-                  <div className="w-full h-full min-h-[300px] bg-neutral-100 rounded-xl flex items-center justify-center">
-                    <Key size={48} />
-                  </div>
-                </>
-              )}
-              {!loading && !error && profile && emailVerified && (
+              {(loading || isFetchingApiKeys) && <LoadingComponent icon={Key} />}
+              {isAuthenticated && !loading && !isFetchingApiKeys && (
                 <div className="w-full h-full flex flex-col items-start justify-start gap-8">
                   {apiKeys.length >= MAX_API_KEYS ? (
                     <div className="w-full h-[50px] flex items-center justify-center gap-4 text-lg bg-neutral-100 border border-neutral-300 p-4 rounded-xl text-neutral-700">
@@ -250,47 +204,24 @@ const AccountPageContainer = () => {
                   </div>
                 </div>
               )}
-              {!isProduction && (
-                <div className="w-full">
-                  <h3 className={sectionHeadingStyle}>{t.account.subscriptions.title}</h3>
-                  <p className="pb-4">{t.account.subscriptions.description}</p>
-                  {loading ? (
-                    <LoadingComponent icon={UserCircle} />
-                  ) : profile?.cdkProfile && profile?.cdkProfile.subscriptionId ? (
-                    <PortalButton />
-                  ) : (
-                    <div className="flex flex-col gap-4">
-                      <Button
-                        label={t.account.subscriptions.viewProducts}
-                        onClick={() => router.push('/products-fdce3eb9-aa2b-4abf-8842-4bde6dc987c4')}
-                        small
-                      />
-                    </div>
-                  )}
-                </div>
-              )}
-              {/* Payment section - always visible for testing */}
-              <div className="w-full">
-                <div className="border-t pt-4">
-                  <h4 className="text-lg font-medium mb-2">Buy Credits (Test Mode)</h4>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Purchase credits to use with the AnyParser API. Each $1 gives you 10 credits.
-                    <br />
-                    <span className="text-orange-600 font-medium">
-                      Note: Using test user ID for payment testing regardless of login status.
-                    </span>
-                  </p>
-                  <BuyCreditsButton />
-                </div>
-              </div>
-              <Button
-                label={t.account.documentation}
-                onClick={() => window.open('https://docs.cambioml.com/introduction', '_blank')}
-                small
-                labelIcon={BookOpenText}
-              />
             </div>
           </div>
+
+          {/* Subscriptions section - visible when authenticated */}
+          {isAuthenticated && (
+            <div>
+              <h3 className={sectionHeadingStyle}>{t.account.subscriptions.title}</h3>
+              <p className="pb-4">{t.account.subscriptions.description}</p>
+              <div className="flex flex-col gap-4">
+                <Button
+                  label={t.account.subscriptions.viewProducts}
+                  onClick={() => router.push('/products-fdce3eb9-aa2b-4abf-8842-4bde6dc987c4')}
+                  small
+                />
+                <BuyPagesButton />
+              </div>
+            </div>
+          )}
         </div>
       </Container>
     </div>
