@@ -1,11 +1,6 @@
 #!/usr/bin/env bun
 
 import { execSync } from 'child_process';
-import { readFileSync } from 'fs';
-import { join } from 'path';
-
-// We'll implement a basic diff parser since we need to install parse-git-diff
-// For now, let's create a working version without external dependencies
 
 interface TranslationChange {
   path: string;
@@ -14,103 +9,54 @@ interface TranslationChange {
   action: 'added' | 'modified' | 'deleted';
 }
 
+interface BlogPostChange {
+  file: string;
+  lineNumber: number;
+  content: string;
+  action: 'added' | 'deleted';
+}
+
 interface DiffAnalysisResult {
   modifiedProperties: string[];
   changes: TranslationChange[];
 }
 
-/**
- * Parse TypeScript object from file content
- */
-function parseTypescriptObject(content: string): Record<string, unknown> {
-  try {
-    // Remove the export and const declaration
-    const cleanContent = content
-      .replace(/^.*export\s+const\s+\w+\s*=\s*/, '')
-      .replace(/\s*as\s+const\s*;?\s*$/, '')
-      .trim();
-
-    // Use eval in a safer way - this is acceptable for internal scripts
-    const obj = eval(`(${cleanContent})`);
-    return obj;
-  } catch (error) {
-    console.error('❌ Failed to parse TypeScript object:', error);
-    throw error;
-  }
+interface BlogDiffAnalysisResult {
+  modifiedFiles: string[];
+  changes: BlogPostChange[];
 }
 
 /**
- * Flatten nested object to dot notation paths
+ * Extract property path and value from a TypeScript line
  */
-function flattenObject(obj: Record<string, unknown>, prefix: string = ''): Record<string, unknown> {
-  const flattened: Record<string, unknown> = {};
-
-  Object.keys(obj).forEach((key) => {
-    const value = obj[key];
-    const newKey = prefix ? `${prefix}.${key}` : key;
-
-    if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
-      Object.assign(flattened, flattenObject(value as Record<string, unknown>, newKey));
-    } else {
-      // Convert arrays and objects to JSON string for comparison
-      flattened[newKey] =
-        Array.isArray(value) || (typeof value === 'object' && value !== null) ? JSON.stringify(value) : value;
-    }
-  });
-
-  return flattened;
-}
-
-/**
- * Extract line content from git diff line
- */
-function extractLineContent(line: string): string {
-  // Remove the +/- prefix and any leading whitespace
-  return line.substring(1).trimStart();
-}
-
-/**
- * Extract property path from a TypeScript line
- */
-function extractPropertyPath(line: string, currentPath: string[] = []): { path: string; value: string } | null {
+function extractPropertyFromLine(line: string): { path: string; value: string } | null {
   const trimmedLine = line.trim();
 
-  // Handle object property definitions like "nav: {" or "title: 'something',"
-  const propertyMatch = trimmedLine.match(/^(\w+):\s*(.*)$/);
-  if (propertyMatch) {
-    const [, key, rest] = propertyMatch;
-    const fullPath = [...currentPath, key].join('.');
-
-    // If it's an object start, return without value
-    if (rest.trim() === '{') {
-      return { path: fullPath, value: '' };
-    }
-
-    // Extract string value
-    const valueMatch = rest.match(/^['"`]([^'"`]*)['"`]/);
-    if (valueMatch) {
-      return { path: fullPath, value: valueMatch[1] };
-    }
+  // Match property definitions like: "title: 'Hello World'," or "nav: {"
+  const match = trimmedLine.match(/^(\w+(?:\.\w+)*)\s*:\s*['"`]([^'"`]*)['"`]/);
+  if (match) {
+    return {
+      path: match[1],
+      value: match[2],
+    };
   }
 
   return null;
 }
 
 /**
- * Parse git diff output manually
+ * Parse git diff output to extract translation changes
  */
 function parseGitDiff(diffOutput: string): DiffAnalysisResult {
   const lines = diffOutput.split('\n');
   const changes: TranslationChange[] = [];
   const modifiedProperties = new Set<string>();
 
-  const currentPath: string[] = [];
   let inTranslationFile = false;
+  const pathStack: string[] = [];
 
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-
-    // Check if we're in the translation file
+  for (const line of lines) {
+    // Check if we're in the translation file section
     if (line.startsWith('diff --git') && line.includes('lib/translations/en.ts')) {
       inTranslationFile = true;
       continue;
@@ -128,83 +74,86 @@ function parseGitDiff(diffOutput: string): DiffAnalysisResult {
       continue;
     }
 
-    // Handle added lines
+    // Handle added lines (new translations)
     if (line.startsWith('+') && !line.startsWith('+++')) {
-      const content = extractLineContent(line);
-      const property = extractPropertyPath(content, currentPath);
+      const content = line.substring(1).trim();
+      const property = extractPropertyFromLine(content);
 
-      if (property && property.value) {
+      if (property) {
+        const fullPath = pathStack.length > 0 ? `${pathStack.join('.')}.${property.path}` : property.path;
         changes.push({
-          path: property.path,
+          path: fullPath,
           newValue: property.value,
           action: 'added',
         });
-        modifiedProperties.add(property.path);
+        modifiedProperties.add(fullPath);
+      }
+
+      // Track object nesting
+      if (content.includes(': {')) {
+        const objName = content.split(':')[0].trim();
+        pathStack.push(objName);
+      } else if (content === '},') {
+        pathStack.pop();
       }
     }
 
-    // Handle deleted lines
+    // Handle deleted lines (removed translations)
     if (line.startsWith('-') && !line.startsWith('---')) {
-      const content = extractLineContent(line);
-      const property = extractPropertyPath(content, currentPath);
+      const content = line.substring(1).trim();
+      const property = extractPropertyFromLine(content);
 
-      if (property && property.value) {
+      if (property) {
+        const fullPath = pathStack.length > 0 ? `${pathStack.join('.')}.${property.path}` : property.path;
         changes.push({
-          path: property.path,
+          path: fullPath,
           oldValue: property.value,
           action: 'deleted',
         });
-        modifiedProperties.add(property.path);
+        modifiedProperties.add(fullPath);
       }
-    }
 
-    // Update current path based on object structure
-    const trimmedLine = line.trim();
-    if (trimmedLine.endsWith(': {')) {
-      const key = trimmedLine.substring(0, trimmedLine.length - 3).trim();
-      currentPath.push(key);
-    } else if (trimmedLine === '},') {
-      currentPath.pop();
+      // Track object nesting for deleted lines too
+      if (content.includes(': {')) {
+        const objName = content.split(':')[0].trim();
+        pathStack.push(objName);
+      } else if (content === '},') {
+        pathStack.pop();
+      }
     }
   }
 
-  // Detect modifications (when a property is both deleted and added)
-  const pathCounts = new Map<string, { added: number; deleted: number }>();
+  // Merge add/delete pairs into modifications
+  const finalChanges: TranslationChange[] = [];
+  const pathCounts = new Map<string, { added: TranslationChange[]; deleted: TranslationChange[] }>();
 
+  // Group changes by path
   changes.forEach((change) => {
     if (!pathCounts.has(change.path)) {
-      pathCounts.set(change.path, { added: 0, deleted: 0 });
+      pathCounts.set(change.path, { added: [], deleted: [] });
     }
-    const count = pathCounts.get(change.path)!;
-    if (change.action === 'added') count.added++;
-    if (change.action === 'deleted') count.deleted++;
+    const group = pathCounts.get(change.path)!;
+    if (change.action === 'added') group.added.push(change);
+    if (change.action === 'deleted') group.deleted.push(change);
   });
 
-  // Convert add+delete pairs to modifications
-  const finalChanges: TranslationChange[] = [];
-  const processedPaths = new Set<string>();
-
-  changes.forEach((change) => {
-    if (processedPaths.has(change.path)) return;
-
-    const counts = pathCounts.get(change.path)!;
-    if (counts.added > 0 && counts.deleted > 0) {
+  // Convert to final changes
+  pathCounts.forEach((group, path) => {
+    if (group.added.length > 0 && group.deleted.length > 0) {
       // This is a modification
-      const deletedChange = changes.find((c) => c.path === change.path && c.action === 'deleted');
-      const addedChange = changes.find((c) => c.path === change.path && c.action === 'added');
-
       finalChanges.push({
-        path: change.path,
-        oldValue: deletedChange?.oldValue,
-        newValue: addedChange?.newValue,
+        path,
+        oldValue: group.deleted[0].oldValue,
+        newValue: group.added[0].newValue,
         action: 'modified',
       });
-    } else {
-      // This is a pure add or delete
-      finalChanges.push(change);
+    } else if (group.added.length > 0) {
+      // Pure addition
+      finalChanges.push(...group.added);
+    } else if (group.deleted.length > 0) {
+      // Pure deletion
+      finalChanges.push(...group.deleted);
     }
-
-    processedPaths.add(change.path);
   });
 
   return {
@@ -214,11 +163,89 @@ function parseGitDiff(diffOutput: string): DiffAnalysisResult {
 }
 
 /**
- * Get git diff for the translation file
+ * Parse git diff output to extract blog post changes
  */
-function getTranslationDiff(commitRange: string = 'HEAD~1..HEAD'): string {
+function parseBlogDiff(diffOutput: string): BlogDiffAnalysisResult {
+  const lines = diffOutput.split('\n');
+  const changes: BlogPostChange[] = [];
+  const modifiedFiles = new Set<string>();
+
+  let currentFile = '';
+  let oldLineNumber = 0;
+  let newLineNumber = 0;
+
+  for (const line of lines) {
+    // Track current file being processed
+    if (line.startsWith('diff --git') && line.includes('blog/')) {
+      const match = line.match(/diff --git a\/(blog\/[^\s]+) b\/(blog\/[^\s]+)/);
+      if (match) {
+        currentFile = match[1];
+        modifiedFiles.add(currentFile);
+        oldLineNumber = 0;
+        newLineNumber = 0;
+      }
+      continue;
+    }
+
+    // Skip if not in a blog file
+    if (!currentFile) continue;
+
+    // Skip file headers
+    if (line.startsWith('---') || line.startsWith('+++')) {
+      continue;
+    }
+
+    // Track line numbers from diff context
+    if (line.startsWith('@@')) {
+      const match = line.match(/@@ -(\d+),?\d* \+(\d+),?\d* @@/);
+      if (match) {
+        oldLineNumber = parseInt(match[1]);
+        newLineNumber = parseInt(match[2]);
+      }
+      continue;
+    }
+
+    // Handle added lines
+    if (line.startsWith('+') && !line.startsWith('+++')) {
+      const content = line.substring(1);
+      changes.push({
+        file: currentFile,
+        lineNumber: newLineNumber,
+        content: content,
+        action: 'added',
+      });
+      newLineNumber++;
+    }
+    // Handle deleted lines
+    else if (line.startsWith('-') && !line.startsWith('---')) {
+      const content = line.substring(1);
+      changes.push({
+        file: currentFile,
+        lineNumber: oldLineNumber,
+        content: content,
+        action: 'deleted',
+      });
+      oldLineNumber++;
+    }
+    // Handle unchanged lines (context)
+    else if (line.startsWith(' ')) {
+      oldLineNumber++;
+      newLineNumber++;
+    }
+  }
+
+  return {
+    modifiedFiles: Array.from(modifiedFiles),
+    changes,
+  };
+}
+
+/**
+ * Get current git diff for the translation file
+ */
+function getCurrentTranslationDiff(): string {
   try {
-    const diffCommand = `git diff ${commitRange} -- lib/translations/en.ts`;
+    const diffCommand = 'git diff -- lib/translations/en.ts';
     const diffOutput = execSync(diffCommand, { encoding: 'utf-8' });
     return diffOutput;
   } catch (error) {
@@ -228,78 +255,30 @@ function getTranslationDiff(commitRange: string = 'HEAD~1..HEAD'): string {
 }
 
 /**
- * Alternative method: Compare current en.ts with git show version
+ * Get current git diff for blog posts
  */
-function compareWithPreviousVersion(commitRef: string = 'HEAD~1'): DiffAnalysisResult {
+function getCurrentBlogDiff(): string {
   try {
-    // Get previous version
-    const previousContent = execSync(`git show ${commitRef}:lib/translations/en.ts`, {
-      encoding: 'utf-8',
-    });
-
-    // Get current version
-    const currentContent = readFileSync(join(process.cwd(), 'lib/translations/en.ts'), 'utf-8');
-
-    // Parse both versions
-    const previousObj = parseTypescriptObject(previousContent);
-    const currentObj = parseTypescriptObject(currentContent);
-
-    // Flatten both objects
-    const previousFlat = flattenObject(previousObj);
-    const currentFlat = flattenObject(currentObj);
-
-    // Find differences
-    const changes: TranslationChange[] = [];
-    const modifiedProperties = new Set<string>();
-
-    // Check for added and modified properties
-    Object.keys(currentFlat).forEach((key) => {
-      if (!(key in previousFlat)) {
-        changes.push({
-          path: key,
-          newValue: String(currentFlat[key]),
-          action: 'added',
-        });
-        modifiedProperties.add(key);
-      } else if (currentFlat[key] !== previousFlat[key]) {
-        changes.push({
-          path: key,
-          oldValue: String(previousFlat[key]),
-          newValue: String(currentFlat[key]),
-          action: 'modified',
-        });
-        modifiedProperties.add(key);
-      }
-    });
-
-    // Check for deleted properties
-    Object.keys(previousFlat).forEach((key) => {
-      if (!(key in currentFlat)) {
-        changes.push({
-          path: key,
-          oldValue: String(previousFlat[key]),
-          action: 'deleted',
-        });
-        modifiedProperties.add(key);
-      }
-    });
-
-    return {
-      modifiedProperties: Array.from(modifiedProperties),
-      changes,
-    };
+    const diffCommand = 'git diff -- blog/';
+    const diffOutput = execSync(diffCommand, { encoding: 'utf-8' });
+    return diffOutput;
   } catch (error) {
-    console.error('❌ Failed to compare with previous version:', error);
+    console.error('❌ Failed to get blog diff:', error);
     throw error;
   }
 }
 
 /**
- * Simple function to get just the modified property paths
+ * Get just the modified property paths
  */
-export function getModifiedTranslationProperties(commitRange: string = 'HEAD~1'): string[] {
+export function getModifiedTranslationProperties(): string[] {
   try {
-    const result = compareWithPreviousVersion(commitRange);
+    const diffOutput = getCurrentTranslationDiff();
+    if (!diffOutput.trim()) {
+      return [];
+    }
+
+    const result = parseGitDiff(diffOutput);
     return result.modifiedProperties;
   } catch (error) {
     console.error('❌ Error getting modified properties:', error);
@@ -308,27 +287,38 @@ export function getModifiedTranslationProperties(commitRange: string = 'HEAD~1')
 }
 
 /**
- * Main function to analyze translation changes
+ * Get just the modified blog files
  */
-export function analyzeTranslationChanges(
-  method: 'diff' | 'compare' = 'compare',
-  commitRange: string = 'HEAD~1'
-): DiffAnalysisResult {
-  console.log(`🔍 Analyzing translation changes using ${method} method...`);
+export function getModifiedBlogFiles(): string[] {
+  try {
+    const diffOutput = getCurrentBlogDiff();
+    if (!diffOutput.trim()) {
+      return [];
+    }
+
+    const result = parseBlogDiff(diffOutput);
+    return result.modifiedFiles;
+  } catch (error) {
+    console.error('❌ Error getting modified blog files:', error);
+    return [];
+  }
+}
+
+/**
+ * Analyze current translation changes
+ */
+export function analyzeTranslationChanges(): DiffAnalysisResult {
+  console.log('🔍 Analyzing current translation changes...');
 
   try {
-    let result: DiffAnalysisResult;
+    const diffOutput = getCurrentTranslationDiff();
 
-    if (method === 'diff') {
-      const diffOutput = getTranslationDiff(commitRange);
-      if (!diffOutput.trim()) {
-        console.log('ℹ️  No changes detected in lib/translations/en.ts');
-        return { modifiedProperties: [], changes: [] };
-      }
-      result = parseGitDiff(diffOutput);
-    } else {
-      result = compareWithPreviousVersion(commitRange);
+    if (!diffOutput.trim()) {
+      console.log('ℹ️  No uncommitted changes detected in lib/translations/en.ts');
+      return { modifiedProperties: [], changes: [] };
     }
+
+    const result = parseGitDiff(diffOutput);
 
     console.log(`✅ Found ${result.modifiedProperties.length} modified properties:`);
     result.modifiedProperties.forEach((prop) => {
@@ -360,22 +350,87 @@ export function analyzeTranslationChanges(
 }
 
 /**
+ * Analyze current blog post changes
+ */
+export function analyzeBlogChanges(): BlogDiffAnalysisResult {
+  console.log('📝 Analyzing current blog post changes...');
+
+  try {
+    const diffOutput = getCurrentBlogDiff();
+
+    if (!diffOutput.trim()) {
+      console.log('ℹ️  No uncommitted changes detected in blog posts');
+      return { modifiedFiles: [], changes: [] };
+    }
+
+    const result = parseBlogDiff(diffOutput);
+
+    console.log(`✅ Found ${result.modifiedFiles.length} modified blog files:`);
+    result.modifiedFiles.forEach((file) => {
+      console.log(`   - ${file}`);
+    });
+
+    if (result.changes.length > 0) {
+      console.log('\n📝 Detailed changes:');
+
+      // Group changes by file
+      const changesByFile = new Map<string, BlogPostChange[]>();
+      result.changes.forEach((change) => {
+        if (!changesByFile.has(change.file)) {
+          changesByFile.set(change.file, []);
+        }
+        changesByFile.get(change.file)!.push(change);
+      });
+
+      changesByFile.forEach((changes, file) => {
+        console.log(`\n   📄 ${file}:`);
+        changes.forEach((change) => {
+          const actionIcon = change.action === 'added' ? '+' : '-';
+          const actionColor = change.action === 'added' ? '🟢' : '🔴';
+          console.log(
+            `     ${actionColor} ${actionIcon} Line ${change.lineNumber}: ${change.content.substring(0, 80)}${change.content.length > 80 ? '...' : ''}`
+          );
+        });
+      });
+    }
+
+    return result;
+  } catch (error) {
+    console.error('❌ Error analyzing blog changes:', error);
+    throw error;
+  }
+}
+
+/**
  * CLI interface
  */
 async function main() {
   const args = process.argv.slice(2);
-  const method = (args[0] as 'diff' | 'compare') || 'compare';
-  const commitRange = args[1] || 'HEAD~1';
+  const mode = args[0] || 'both'; // 'translations', 'blog', or 'both'
 
-  console.log('🌍 Translation Diff Checker');
-  console.log('============================\n');
+  console.log('🌍 Translation & Blog Diff Checker');
+  console.log('===================================\n');
 
   try {
-    const result = analyzeTranslationChanges(method, commitRange);
+    let translationResult: DiffAnalysisResult | null = null;
+    let blogResult: BlogDiffAnalysisResult | null = null;
+
+    if (mode === 'translations' || mode === 'both') {
+      translationResult = analyzeTranslationChanges();
+    }
+
+    if (mode === 'blog' || mode === 'both') {
+      if (mode === 'both') console.log('\n' + '='.repeat(50) + '\n');
+      blogResult = analyzeBlogChanges();
+    }
 
     // Output as JSON for programmatic use
     if (args.includes('--json')) {
-      console.log('\n' + JSON.stringify(result, null, 2));
+      const jsonOutput = {
+        translations: translationResult,
+        blog: blogResult,
+      };
+      console.log('\n' + JSON.stringify(jsonOutput, null, 2));
     }
 
     process.exit(0);

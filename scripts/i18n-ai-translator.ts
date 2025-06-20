@@ -3,7 +3,7 @@
 import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 import { AzureOpenAI } from 'openai';
-import { analyzeTranslationChanges } from './i18n-diff-checker';
+import { analyzeTranslationChanges, analyzeBlogChanges } from './i18n-diff-checker';
 
 // Configuration
 const AZURE_OPENAI_API_KEY = process.env.AZURE_OPENAI_API_KEY;
@@ -367,9 +367,334 @@ function ensureLocaleDirectory(basePath: string, locale: Locale): void {
 }
 
 /**
- * Translate blog posts
+ * Remove lines exactly using line numbers and exact content matching
  */
-async function translateBlogPosts(sourceLocale: Locale = 'en'): Promise<void> {
+function removeMatchingLines(
+  targetContent: string,
+  deletedChanges: Array<{ lineNumber: number; content: string; action: 'deleted' }>
+): string {
+  if (deletedChanges.length === 0) return targetContent;
+
+  const lines = targetContent.split('\n');
+  const linesToRemove = new Set<number>();
+
+  console.log(`🗑️  Removing ${deletedChanges.length} deleted lines from target content...`);
+
+  // Sort deletions by line number to process in order
+  const sortedDeletions = [...deletedChanges].sort((a, b) => a.lineNumber - b.lineNumber);
+
+  for (const deletion of sortedDeletions) {
+    const deletedContent = deletion.content;
+    const deletedLineNumber = deletion.lineNumber;
+
+    console.log(`   🔍 Removing line ${deletedLineNumber}: "${deletedContent.substring(0, 60)}..."`);
+
+    // Strategy 1: Try exact line number match first (if line exists and not already marked for deletion)
+    const targetLineIndex = deletedLineNumber - 1; // Convert to 0-based index
+    if (targetLineIndex >= 0 && targetLineIndex < lines.length && !linesToRemove.has(targetLineIndex)) {
+      linesToRemove.add(targetLineIndex);
+      console.log(
+        `   ✅ Line ${deletedLineNumber} marked for removal: "${lines[targetLineIndex].substring(0, 50)}..."`
+      );
+      continue;
+    }
+
+    // Strategy 2: Find first exact content match (for cases where line numbers don't align)
+    let found = false;
+    const trimmedDeletedContent = deletedContent.trim();
+
+    for (let i = 0; i < lines.length; i++) {
+      if (linesToRemove.has(i)) continue;
+
+      const targetLine = lines[i].trim();
+      if (targetLine === trimmedDeletedContent) {
+        linesToRemove.add(i);
+        console.log(`   ✅ Found exact content match at line ${i + 1}: "${targetLine.substring(0, 50)}..."`);
+        found = true;
+        break;
+      }
+    }
+
+    // Strategy 3: For empty lines, find first empty line
+    if (!found && trimmedDeletedContent === '') {
+      for (let i = 0; i < lines.length; i++) {
+        if (!linesToRemove.has(i) && lines[i].trim() === '') {
+          linesToRemove.add(i);
+          console.log(`   ✅ Found empty line at line ${i + 1}`);
+          found = true;
+          break;
+        }
+      }
+    }
+
+    if (!found) {
+      console.warn(`   ⚠️  Could not find line to delete: "${trimmedDeletedContent.substring(0, 50)}..."`);
+    }
+  }
+
+  console.log(`🗑️  Removing ${linesToRemove.size} lines total`);
+
+  // Remove lines in reverse order to avoid index shifting
+  const sortedIndices = Array.from(linesToRemove).sort((a, b) => b - a);
+  for (const index of sortedIndices) {
+    console.log(`   🗑️  Removing line ${index + 1}: "${lines[index].substring(0, 50)}..."`);
+    lines.splice(index, 1);
+  }
+
+  return lines.join('\n');
+}
+
+/**
+ * Apply line-level changes to a target file using exact line operations
+ */
+function applyLinesToFile(
+  targetContent: string,
+  changes: Array<{ lineNumber: number; content: string; action: 'added' | 'deleted' }>
+): string {
+  // Separate additions and deletions
+  const additions = changes.filter((c) => c.action === 'added');
+  const deletions = changes.filter((c) => c.action === 'deleted') as Array<{
+    lineNumber: number;
+    content: string;
+    action: 'deleted';
+  }>;
+
+  // First, handle deletions using exact line matching
+  let updatedContent = removeMatchingLines(targetContent, deletions);
+
+  // Then handle additions by exact line number
+  if (additions.length > 0) {
+    const updatedLines = updatedContent.split('\n');
+
+    // Sort additions by line number in descending order to avoid index shifting
+    const sortedAdditions = [...additions].sort((a, b) => b.lineNumber - a.lineNumber);
+
+    console.log(`➕ Adding ${additions.length} new lines...`);
+
+    for (const addition of sortedAdditions) {
+      const lineIndex = Math.max(0, Math.min(addition.lineNumber - 1, updatedLines.length));
+      updatedLines.splice(lineIndex, 0, addition.content);
+      console.log(`   ➕ Added line ${addition.lineNumber}: "${addition.content.substring(0, 50)}..."`);
+    }
+
+    updatedContent = updatedLines.join('\n');
+  }
+
+  return updatedContent;
+}
+
+/**
+ * Apply translated changes to a target blog file
+ */
+async function applyChangesToTargetFile(
+  sourceFile: string,
+  targetLocale: Locale,
+  filename: string,
+  addedChanges: Array<{ lineNumber: number; content: string; action: 'added' }>,
+  deletedChanges: Array<{ lineNumber: number; content: string; action: 'deleted' }>,
+  translatedLines: string[]
+): Promise<void> {
+  const targetFilePath = join(process.cwd(), 'blog', targetLocale, filename);
+
+  // Ensure target directory exists
+  const targetDir = join(process.cwd(), 'blog', targetLocale);
+  if (!existsSync(targetDir)) {
+    mkdirSync(targetDir, { recursive: true });
+    console.log(`📁 Created directory: ${targetDir}`);
+  }
+
+  let targetContent = '';
+
+  // Read existing target file or create from source as template
+  if (existsSync(targetFilePath)) {
+    targetContent = readFileSync(targetFilePath, 'utf-8');
+    console.log(`   📖 Updating existing ${targetLocale}/${filename}`);
+  } else {
+    // If target doesn't exist, translate the entire source file first
+    console.log(`   📄 Creating new ${targetLocale}/${filename} from source`);
+    const sourceFilePath = join(process.cwd(), sourceFile);
+    const sourceContent = readFileSync(sourceFilePath, 'utf-8');
+
+    try {
+      const sourceFileLocale = sourceFile.split('/')[1] as Locale;
+      targetContent = await translateContent(
+        sourceContent,
+        LANGUAGE_NAMES[sourceFileLocale],
+        LANGUAGE_NAMES[targetLocale],
+        true
+      );
+    } catch (error) {
+      console.error(`❌ Failed to create base translation for ${targetLocale}/${filename}:`, error);
+      return;
+    }
+  }
+
+  // Apply all changes together (deletions and additions)
+  const allChangesToApply: Array<{
+    lineNumber: number;
+    content: string;
+    action: 'added' | 'deleted';
+  }> = [];
+
+  // Add deletions
+  deletedChanges.forEach((change) => {
+    allChangesToApply.push({
+      lineNumber: change.lineNumber,
+      content: change.content,
+      action: 'deleted',
+    });
+  });
+
+  // Add additions with translated content
+  addedChanges.forEach((change, index) => {
+    allChangesToApply.push({
+      lineNumber: change.lineNumber,
+      content: index < translatedLines.length ? translatedLines[index] : change.content,
+      action: 'added',
+    });
+  });
+
+  if (allChangesToApply.length > 0) {
+    targetContent = applyLinesToFile(targetContent, allChangesToApply);
+    console.log(
+      `   🔄 Applied ${deletedChanges.length} deletions and ${addedChanges.length} additions to ${targetLocale}/${filename}`
+    );
+  }
+
+  // Write the updated content
+  writeFileSync(targetFilePath, targetContent, 'utf-8');
+  console.log(`   💾 Saved ${targetFilePath}`);
+}
+
+/**
+ * Translate blog posts using diff-based approach
+ */
+async function translateBlogPostsDiffBased(): Promise<void> {
+  console.log('🔍 Analyzing blog post changes using diff checker...');
+
+  try {
+    // Use diff checker to identify blog changes
+    const blogDiffResult = analyzeBlogChanges();
+
+    if (blogDiffResult.modifiedFiles.length === 0) {
+      console.log('ℹ️  No changes detected in blog posts. All target files are up to date.');
+      return;
+    }
+
+    console.log(`📝 Found changes in ${blogDiffResult.modifiedFiles.length} blog files:`);
+    blogDiffResult.modifiedFiles.forEach((file) => console.log(`   - ${file}`));
+
+    // Group changes by file
+    const changesByFile = new Map<
+      string,
+      Array<{ lineNumber: number; content: string; action: 'added' | 'deleted' }>
+    >();
+
+    blogDiffResult.changes.forEach((change) => {
+      if (!changesByFile.has(change.file)) {
+        changesByFile.set(change.file, []);
+      }
+      changesByFile.get(change.file)!.push(change);
+    });
+
+    // Process each modified file
+    for (const [sourceFile, changes] of changesByFile) {
+      console.log(`\n📄 Processing ${sourceFile}...`);
+
+      // Extract locale and filename from path (e.g., "blog/en/file.md" -> locale="en", filename="file.md")
+      const pathParts = sourceFile.split('/');
+      if (pathParts.length < 3 || pathParts[0] !== 'blog') {
+        console.warn(`⚠️  Skipping invalid blog path: ${sourceFile}`);
+        continue;
+      }
+
+      const sourceLocale = pathParts[1] as Locale;
+      const filename = pathParts.slice(2).join('/');
+
+      if (!SUPPORTED_LOCALES.includes(sourceLocale)) {
+        console.warn(`⚠️  Skipping unsupported locale: ${sourceLocale}`);
+        continue;
+      }
+
+      // Verify source file exists
+      const sourceFilePath = join(process.cwd(), sourceFile);
+      if (!existsSync(sourceFilePath)) {
+        console.warn(`⚠️  Source file not found: ${sourceFilePath}`);
+        continue;
+      }
+
+      // Separate added and deleted changes
+      const addedChanges = changes.filter((c) => c.action === 'added') as Array<{
+        lineNumber: number;
+        content: string;
+        action: 'added';
+      }>;
+      const deletedChanges = changes.filter((c) => c.action === 'deleted') as Array<{
+        lineNumber: number;
+        content: string;
+        action: 'deleted';
+      }>;
+
+      console.log(`   📊 Changes: ${addedChanges.length} additions, ${deletedChanges.length} deletions`);
+
+      // Translate only the added lines if there are any
+      if (addedChanges.length > 0) {
+        const linesToTranslate = addedChanges.map((c) => c.content).join('\n');
+
+        console.log(`   🔄 Translating ${addedChanges.length} added lines...`);
+
+        // Translate to each target locale
+        for (const targetLocale of SUPPORTED_LOCALES) {
+          if (targetLocale === sourceLocale) continue;
+
+          try {
+            const translatedContent = await translateContent(
+              linesToTranslate,
+              LANGUAGE_NAMES[sourceLocale],
+              LANGUAGE_NAMES[targetLocale],
+              true
+            );
+
+            const translatedLinesArray = translatedContent.split('\n');
+
+            // Apply changes to target file
+            await applyChangesToTargetFile(
+              sourceFile,
+              targetLocale,
+              filename,
+              addedChanges,
+              deletedChanges,
+              translatedLinesArray
+            );
+
+            // Add delay between locales to respect API rate limits
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+          } catch (error) {
+            console.error(`❌ Failed to translate changes for ${targetLocale}:`, error);
+            continue;
+          }
+        }
+      } else {
+        // Only deletions, apply to all target locales
+        for (const targetLocale of SUPPORTED_LOCALES) {
+          if (targetLocale === sourceLocale) continue;
+
+          await applyChangesToTargetFile(sourceFile, targetLocale, filename, [], deletedChanges, []);
+        }
+      }
+    }
+
+    console.log('\n✅ Diff-based blog translation completed!');
+  } catch (error) {
+    console.error('❌ Failed to analyze blog changes:', error);
+    throw error;
+  }
+}
+
+/**
+ * Translate blog posts (legacy full-file approach - kept for fallback)
+ */
+async function translateBlogPostsLegacy(sourceLocale: Locale = 'en'): Promise<void> {
   const blogBasePath = join(process.cwd(), 'blog');
   const sourceDir = join(blogBasePath, sourceLocale);
 
@@ -425,6 +750,19 @@ async function translateBlogPosts(sourceLocale: Locale = 'en'): Promise<void> {
         console.error(`❌ Failed to translate ${filename} to ${locale}:`, error);
       }
     }
+  }
+}
+
+/**
+ * Translate blog posts using diff-based approach by default
+ */
+async function translateBlogPosts(sourceLocale: Locale = 'en'): Promise<void> {
+  try {
+    // Try diff-based translation first
+    await translateBlogPostsDiffBased();
+  } catch (error) {
+    console.warn('⚠️  Diff-based translation failed, falling back to legacy method:', error);
+    await translateBlogPostsLegacy(sourceLocale);
   }
 }
 
@@ -722,7 +1060,7 @@ async function translateTranslationFilesDiffBased(sourceLocale: Locale = 'en'): 
 
   try {
     // Use diff checker to identify changes
-    const diffResult = analyzeTranslationChanges('compare', 'HEAD~1');
+    const diffResult = analyzeTranslationChanges();
 
     if (diffResult.modifiedProperties.length === 0) {
       console.log(`ℹ️  No changes detected in translation files. All target files are up to date.`);
