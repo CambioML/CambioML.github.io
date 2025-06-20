@@ -20,6 +20,7 @@ import { useProductionContext } from '../playground/ProductionContext';
 import { resendVerificationEmail } from '../../actions/account/resendVerificationEmail';
 import PortalButton from '../pricing/PortalButton';
 import { useTranslation } from '@/lib/use-translation';
+import BuyCreditsButton from './BuyCreditsButton';
 
 const MAX_API_KEYS = 1;
 
@@ -258,14 +259,30 @@ const AccountPageContainer = () => {
                   ) : profile?.cdkProfile && profile?.cdkProfile.subscriptionId ? (
                     <PortalButton />
                   ) : (
-                    <Button
-                      label={t.account.subscriptions.viewProducts}
-                      onClick={() => router.push('/products-fdce3eb9-aa2b-4abf-8842-4bde6dc987c4')}
-                      small
-                    />
+                    <div className="flex flex-col gap-4">
+                      <Button
+                        label={t.account.subscriptions.viewProducts}
+                        onClick={() => router.push('/products-fdce3eb9-aa2b-4abf-8842-4bde6dc987c4')}
+                        small
+                      />
+                    </div>
                   )}
                 </div>
               )}
+              {/* Payment section - always visible for testing */}
+              <div className="w-full">
+                <div className="border-t pt-4">
+                  <h4 className="text-lg font-medium mb-2">Buy Credits (Test Mode)</h4>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Purchase credits to use with the AnyParser API. Each $1 gives you 10 credits.
+                    <br />
+                    <span className="text-orange-600 font-medium">
+                      Note: Using test user ID for payment testing regardless of login status.
+                    </span>
+                  </p>
+                  <BuyCreditsButton />
+                </div>
+              </div>
               <Button
                 label={t.account.documentation}
                 onClick={() => window.open('https://docs.cambioml.com/introduction', '_blank')}
