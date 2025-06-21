@@ -158,7 +158,7 @@ export const tr = {
       title: 'Kurucu Ekip',
     },
     investors: {
-      title: 'Energent.ai Yatırımcıları',
+      title: 'Yatırımcılarımız',
     },
     getStarted: {
       title: 'Başlamaya hazır mısınız?',
@@ -631,49 +631,6 @@ export const tr = {
       requestTimeoutFile: '{filename} için dönüştürme isteği zaman aşımına uğradı. Lütfen tekrar deneyin.',
       errorExtractingFile: '{filename} çıkarılırken hata oluştu. Lütfen tekrar deneyin.',
       quotaExceeded: 'Kotayı aştınız. Lütfen planınızı yükseltin veya daha fazla kredi için bizimle iletişime geçin.',
-    },
-  },
-  login: {
-    title: "CambioML'ye Hoş Geldiniz",
-    subtitle: 'Hesabınıza giriş yapın',
-    description: "AnyParser API'nize ve belge işleme araçlarınıza erişin",
-    mobileDescription: "AnyParser'a erişmek için giriş yapın",
-    brandName: 'CambioML',
-    form: {
-      email: {
-        label: 'E-posta',
-        placeholder: 'E-postanızı girin',
-      },
-      password: {
-        label: 'Şifre',
-        placeholder: 'Şifrenizi girin',
-      },
-      confirmPassword: {
-        label: 'Şifreyi Onayla',
-        placeholder: 'Şifrenizi onaylayın',
-      },
-    },
-    termsAgreement: 'Kabul ediyorum',
-    termsAndConditions: 'Şartlar ve Koşullar',
-    andRead: 've okudum',
-    privacyPolicy: 'Gizlilik Politikası',
-    signingIn: 'Giriş yapılıyor',
-    authenticating: 'Kimlik doğrulanıyor...',
-    checkboxLabel: {
-      agreeToThe: 'Kabul ediyorum',
-      termsAndConditions: 'Şartlar ve Koşullar',
-      andHaveRead: 've okudum',
-      privacyPolicy: 'Gizlilik Politikası',
-    },
-    socialProviders: {
-      google: 'Google ile Kaydol',
-    },
-    passwordStrength: {
-      title: 'Şifre Gereksinimleri',
-      minLength: 'En az 8 karakter',
-      uppercase: 'En az bir büyük harf',
-      lowercase: 'En az bir küçük harf',
-      symbol: 'En az bir özel karakter',
     },
   },
 } as const;

@@ -155,7 +155,7 @@ export const zh = {
       title: '创始团队',
     },
     investors: {
-      title: 'Energent.ai 的投资者',
+      title: '我们的投资者',
     },
     getStarted: {
       title: '准备好开始了吗？',
@@ -614,49 +614,6 @@ export const zh = {
       requestTimeoutFile: '转换请求 {filename} 超时。请重试。',
       errorExtractingFile: '提取 {filename} 时出错。请重试。',
       quotaExceeded: '超出配额。请升级您的计划或联系我们以获取更多额度。',
-    },
-  },
-  login: {
-    title: '欢迎来到 CambioML',
-    subtitle: '登录到您的账户',
-    description: '访问您的 AnyParser API 和文档处理工具',
-    mobileDescription: '登录以访问 AnyParser',
-    brandName: 'CambioML',
-    form: {
-      email: {
-        label: '电子邮件',
-        placeholder: '输入您的电子邮件',
-      },
-      password: {
-        label: '密码',
-        placeholder: '输入您的密码',
-      },
-      confirmPassword: {
-        label: '确认密码',
-        placeholder: '确认您的密码',
-      },
-    },
-    termsAgreement: '我同意',
-    termsAndConditions: '条款和条件',
-    andRead: '并已阅读',
-    privacyPolicy: '隐私政策',
-    signingIn: '正在登录',
-    authenticating: '正在验证...',
-    checkboxLabel: {
-      agreeToThe: '我同意',
-      termsAndConditions: '条款和条件',
-      andHaveRead: '并已阅读',
-      privacyPolicy: '隐私政策',
-    },
-    socialProviders: {
-      google: '使用 Google 注册',
-    },
-    passwordStrength: {
-      title: '密码要求',
-      minLength: '至少 8 个字符',
-      uppercase: '至少一个大写字母',
-      lowercase: '至少一个小写字母',
-      symbol: '至少一个特殊字符',
     },
   },
 } as const;

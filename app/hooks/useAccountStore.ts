@@ -1,13 +1,7 @@
 import { create } from 'zustand';
 
 export interface ApiKey {
-  api_key: string;
-  email: string;
-  quota: number;
-  plan: string;
-  status: string;
-  created_at: string;
-  user_id: string;
+  key: string;
 }
 
 interface AccountStore {

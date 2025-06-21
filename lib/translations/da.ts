@@ -162,7 +162,7 @@ export const da = {
       title: 'Grundlæggerteam',
     },
     investors: {
-      title: 'Investorer i Energent.ai',
+      title: 'Vores investorer',
     },
     getStarted: {
       title: 'Klar til at komme i gang?',
@@ -638,49 +638,6 @@ export const da = {
       requestTimeoutFile: 'Transformeringsanmodning for {filename} overskred tidsgrænsen. Prøv venligst igen.',
       errorExtractingFile: 'Fejl ved udtrækning af {filename}. Prøv venligst igen.',
       quotaExceeded: 'Kvote overskredet. Opgrader venligst din plan eller kontakt os for flere kreditter.',
-    },
-  },
-  login: {
-    title: 'Velkommen til CambioML',
-    subtitle: 'Log ind på din konto',
-    description: 'Få adgang til din AnyParser API og dokumentbehandlingsværktøjer',
-    mobileDescription: 'Log ind for at få adgang til AnyParser',
-    brandName: 'CambioML',
-    form: {
-      email: {
-        label: 'Email',
-        placeholder: 'Indtast din email',
-      },
-      password: {
-        label: 'Adgangskode',
-        placeholder: 'Indtast din adgangskode',
-      },
-      confirmPassword: {
-        label: 'Bekræft adgangskode',
-        placeholder: 'Bekræft din adgangskode',
-      },
-    },
-    termsAgreement: 'Jeg accepterer',
-    termsAndConditions: 'Vilkår og betingelser',
-    andRead: 'og har læst',
-    privacyPolicy: 'Fortrolighedspolitikken',
-    signingIn: 'Logger ind',
-    authenticating: 'Godkender...',
-    checkboxLabel: {
-      agreeToThe: 'Jeg accepterer',
-      termsAndConditions: 'Vilkår og betingelser',
-      andHaveRead: 'og har læst',
-      privacyPolicy: 'Fortrolighedspolitikken',
-    },
-    socialProviders: {
-      google: 'Tilmeld dig med Google',
-    },
-    passwordStrength: {
-      title: 'Adgangskodekrav',
-      minLength: 'Mindst 8 tegn',
-      uppercase: 'Mindst ét stort bogstav',
-      lowercase: 'Mindst ét lille bogstav',
-      symbol: 'Mindst ét specialtegn',
     },
   },
 } as const;

@@ -1,20 +1,26 @@
 'use client';
 
 import AccountPageContainer from '@/app/components/account/AccountPageContainer';
-import { AmplifyAuthProvider } from '@/app/components/providers/AmplifyAuthProvider';
+import { Auth0Provider } from '@auth0/auth0-react';
 import { ProductionProvider } from '@/app/components/playground/ProductionContext';
 
-// Import Amplify configuration
-import '../login/amplify';
-
 const AccountPage = () => {
+  const redirectUri = `${typeof window !== 'undefined' ? window.location.origin : ''}/login/callback`;
   return (
     <div>
-      <AmplifyAuthProvider>
+      <Auth0Provider
+        domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN || ''}
+        clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || ''}
+        authorizationParams={{
+          redirect_uri: redirectUri,
+          audience: `https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/api/v2/`,
+          scope: 'read:current_user update:current_user_metadata',
+        }}
+      >
         <ProductionProvider initialValue={true}>
           <AccountPageContainer />
         </ProductionProvider>
-      </AmplifyAuthProvider>
+      </Auth0Provider>
     </div>
   );
 };

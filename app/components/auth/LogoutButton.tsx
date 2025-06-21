@@ -1,8 +1,7 @@
-import { useAmplifyAuth } from '@/app/hooks/useAmplifyAuth';
+import { useAuth0 } from '@auth0/auth0-react';
 import Button from '../Button';
 import { SignOut } from '@phosphor-icons/react';
 import { useTranslation } from '@/lib/use-translation';
-import { useRouter } from 'next/navigation';
 
 export interface LogoutButtonProps {
   disabled?: boolean;
@@ -10,33 +9,16 @@ export interface LogoutButtonProps {
 }
 
 const LogoutButton = ({ disabled, collapsed }: LogoutButtonProps) => {
-  const { signOut } = useAmplifyAuth();
+  const { logout } = useAuth0();
   const { t } = useTranslation();
-  const router = useRouter();
 
-  const handleLogout = async () => {
-    try {
-      // Get current locale for redirect
-      const currentPath = window.location.pathname;
-      const localeMatch = currentPath.match(/^\/([a-z]{2})\//);
-      const locale = localeMatch ? localeMatch[1] : 'en';
+  const handleLogout = () => {
+    // Save current URL to localStorage before redirecting to Auth0
+    localStorage.setItem('auth_redirect_url', window.location.pathname + window.location.search);
 
-      // Save current URL to localStorage before logging out
-      localStorage.setItem('auth_redirect_url', window.location.pathname + window.location.search);
-
-      // Sign out using Amplify
-      await signOut();
-
-      // Redirect to home page after logout
-      router.push(`/${locale}`);
-    } catch (error) {
-      console.error('Error signing out:', error);
-      // Still redirect even if there's an error
-      const currentPath = window.location.pathname;
-      const localeMatch = currentPath.match(/^\/([a-z]{2})\//);
-      const locale = localeMatch ? localeMatch[1] : 'en';
-      router.push(`/${locale}`);
-    }
+    logout({
+      logoutParams: { returnTo: `${typeof window !== 'undefined' ? window.location.origin : ''}/logout/callback` },
+    });
   };
 
   return (

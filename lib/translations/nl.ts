@@ -162,7 +162,7 @@ export const nl = {
       title: 'Oprichters',
     },
     investors: {
-      title: 'Investeerders van Energent.ai',
+      title: 'Onze investeerders',
     },
     getStarted: {
       title: 'Klaar om te beginnen?',
@@ -640,49 +640,6 @@ export const nl = {
       requestTimeoutFile: 'Transformatieverzoek voor {filename} is verlopen. Probeer het opnieuw.',
       errorExtractingFile: 'Fout bij het extraheren van {filename}. Probeer het opnieuw.',
       quotaExceeded: 'Quota overschreden. Upgrade uw plan of neem contact met ons op voor meer tegoeden.',
-    },
-  },
-  login: {
-    title: 'Welkom bij CambioML',
-    subtitle: 'Meld u aan bij uw account',
-    description: 'Toegang tot uw AnyParser API en documentverwerkingstools',
-    mobileDescription: 'Meld u aan om toegang te krijgen tot AnyParser',
-    brandName: 'CambioML',
-    form: {
-      email: {
-        label: 'E-mail',
-        placeholder: 'Voer uw e-mail in',
-      },
-      password: {
-        label: 'Wachtwoord',
-        placeholder: 'Voer uw wachtwoord in',
-      },
-      confirmPassword: {
-        label: 'Bevestig wachtwoord',
-        placeholder: 'Bevestig uw wachtwoord',
-      },
-    },
-    termsAgreement: 'Ik ga akkoord met de',
-    termsAndConditions: 'Algemene Voorwaarden',
-    andRead: 'en heb de',
-    privacyPolicy: 'Privacyverklaring gelezen',
-    signingIn: 'Aanmelden',
-    authenticating: 'Authenticatie...',
-    checkboxLabel: {
-      agreeToThe: 'Ik ga akkoord met de',
-      termsAndConditions: 'Algemene Voorwaarden',
-      andHaveRead: 'en heb de',
-      privacyPolicy: 'Privacyverklaring gelezen',
-    },
-    socialProviders: {
-      google: 'Aanmelden met Google',
-    },
-    passwordStrength: {
-      title: 'Wachtwoordvereisten',
-      minLength: 'Minimaal 8 tekens',
-      uppercase: 'Minimaal één hoofdletter',
-      lowercase: 'Minimaal één kleine letter',
-      symbol: 'Minimaal één speciaal teken',
     },
   },
 } as const;
