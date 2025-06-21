@@ -1,19 +1,19 @@
-import useUserProfile from '@/app/hooks/useUserProfile';
+import { useAmplifyAuth } from '@/app/hooks/useAmplifyAuth';
 import { useState } from 'react';
 import Button from '../Button';
 import toast from 'react-hot-toast';
 
 const PortalButton = () => {
-  const { profile } = useUserProfile();
+  const { userAttributes, isAuthenticated } = useAmplifyAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (!profile) {
+    if (!isAuthenticated || !userAttributes.userId) {
       toast.error('Please sign in to manage your subscription');
       return;
     }
 
-    const userId = profile.sub;
+    const userId = userAttributes.userId;
     event.preventDefault();
     setIsLoading(true);
     try {
@@ -36,9 +36,12 @@ const PortalButton = () => {
       window.location.href = result.url;
     } catch (error) {
       console.error('Error:', error);
+      toast.error('Failed to open subscription portal. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
-  return <Button label="Manage Subscription" small disabled={isLoading} onClick={handleSubmit} />;
+  return <Button label="Manage Subscription" small disabled={isLoading || !isAuthenticated} onClick={handleSubmit} />;
 };
 
 export default PortalButton;

@@ -158,7 +158,7 @@ export const en = {
       title: 'Founding Team',
     },
     investors: {
-      title: 'Our Investors',
+      title: 'Investors of Energent.ai',
     },
     getStarted: {
       title: 'Ready to get started?',
@@ -541,6 +541,49 @@ export const en = {
     logout: 'Logout',
     completingAuthentication: 'Completing authentication...',
     completingLogout: 'Completing logout...',
+  },
+  login: {
+    title: 'Welcome to CambioML',
+    subtitle: 'Sign in to your account',
+    description: 'Access your AnyParser API and document processing tools',
+    mobileDescription: 'Sign in to access AnyParser',
+    brandName: 'CambioML',
+    form: {
+      email: {
+        label: 'Email',
+        placeholder: 'Enter your email',
+      },
+      password: {
+        label: 'Password',
+        placeholder: 'Enter your password',
+      },
+      confirmPassword: {
+        label: 'Confirm Password',
+        placeholder: 'Confirm your password',
+      },
+    },
+    termsAgreement: 'I agree to the',
+    termsAndConditions: 'Terms and Conditions',
+    andRead: 'and have read the',
+    privacyPolicy: 'Privacy Policy',
+    checkboxLabel: {
+      agreeToThe: 'I agree to the',
+      termsAndConditions: 'Terms and Conditions',
+      andHaveRead: 'and have read the',
+      privacyPolicy: 'Privacy Policy',
+    },
+    signingIn: 'Signing in',
+    authenticating: 'Authenticating...',
+    socialProviders: {
+      google: 'Sign Up with Google',
+    },
+    passwordStrength: {
+      title: 'Password Requirements',
+      minLength: 'At least 8 characters',
+      uppercase: 'At least one uppercase letter',
+      lowercase: 'At least one lowercase letter',
+      symbol: 'At least one special character',
+    },
   },
   blog: {
     noPosts: 'No blog posts available yet.',

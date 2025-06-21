@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
+    "@aws-amplify/ui-react": "^6.11.2",
     "@aws-sdk/client-lambda": "^3.600.0",
     "@cyntler/react-doc-viewer": "^1.16.6",
     "@emailjs/browser": "^3.12.1",
@@ -33,6 +34,7 @@
     "@types/react-syntax-highlighter": "^15.5.11",
     "@types/stripe": "^8.0.417",
     "autoprefixer": "10.4.16",
+    "aws-amplify": "^6.15.1",
     "axios": "^1.6.7",
     "clsx": "^2.1.1",
     "cookies-next": "^4.1.1",

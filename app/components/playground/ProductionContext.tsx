@@ -23,9 +23,9 @@ interface ProductionProviderProps {
 
 export const ProductionProvider: React.FC<ProductionProviderProps> = ({ children, initialValue }) => {
   const [isProduction, setIsProduction] = useState(initialValue);
-  const apiURL = isProduction
-    ? process.env.NEXT_PUBLIC_PLAYGROUND_API_URL || ''
-    : process.env.NEXT_PUBLIC_PRE_PROD_PLAYGROUND_API_URL || '';
+
+  // Use the new anyparser API URL for both production and development
+  const apiURL = process.env.NEXT_PUBLIC_ANYPARSER_API_URL || 'https://anyparser.cambioml.com';
 
   return (
     <ProductionContext.Provider value={{ isProduction, apiURL, setIsProduction }}>

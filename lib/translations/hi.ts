@@ -157,7 +157,7 @@ export const hi = {
       title: 'संस्थापक टीम',
     },
     investors: {
-      title: 'हमारे निवेशक',
+      title: 'Energent.ai के निवेशक',
     },
     getStarted: {
       title: 'शुरू करने के लिए तैयार हैं?',
@@ -635,6 +635,49 @@ export const hi = {
       requestTimeoutFile: '{filename} के लिए रूपांतरण अनुरोध समय समाप्त हो गया। कृपया पुनः प्रयास करें।',
       errorExtractingFile: '{filename} को निकालने में त्रुटि। कृपया पुनः प्रयास करें।',
       quotaExceeded: 'कोटा समाप्त हो गया है। कृपया अपनी योजना को अपग्रेड करें या अधिक क्रेडिट के लिए हमसे संपर्क करें।',
+    },
+  },
+  login: {
+    title: 'CambioML में आपका स्वागत है',
+    subtitle: 'अपने खाते में साइन इन करें',
+    description: 'अपने AnyParser API और दस्तावेज़ प्रसंस्करण उपकरण तक पहुँचें',
+    mobileDescription: 'AnyParser तक पहुँचने के लिए साइन इन करें',
+    brandName: 'CambioML',
+    form: {
+      email: {
+        label: 'ईमेल',
+        placeholder: 'अपना ईमेल दर्ज करें',
+      },
+      password: {
+        label: 'पासवर्ड',
+        placeholder: 'अपना पासवर्ड दर्ज करें',
+      },
+      confirmPassword: {
+        label: 'पासवर्ड की पुष्टि करें',
+        placeholder: 'अपना पासवर्ड पुष्टि करें',
+      },
+    },
+    termsAgreement: 'मैं सहमत हूँ',
+    termsAndConditions: 'नियम और शर्तें',
+    andRead: 'और पढ़ा है',
+    privacyPolicy: 'गोपनीयता नीति',
+    signingIn: 'साइन इन कर रहे हैं',
+    authenticating: 'प्रमाणित कर रहे हैं...',
+    checkboxLabel: {
+      agreeToThe: 'मैं सहमत हूँ',
+      termsAndConditions: 'नियम और शर्तें',
+      andHaveRead: 'और पढ़ा है',
+      privacyPolicy: 'गोपनीयता नीति',
+    },
+    socialProviders: {
+      google: 'Google के साथ साइन अप करें',
+    },
+    passwordStrength: {
+      title: 'पासवर्ड आवश्यकताएँ',
+      minLength: 'कम से कम 8 अक्षर',
+      uppercase: 'कम से कम एक बड़े अक्षर',
+      lowercase: 'कम से कम एक छोटे अक्षर',
+      symbol: 'कम से कम एक विशेष वर्ण',
     },
   },
 } as const;

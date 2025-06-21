@@ -162,7 +162,7 @@ export const fi = {
       title: 'Perustajatiimi',
     },
     investors: {
-      title: 'Sijoittajamme',
+      title: 'Energent.ai:n sijoittajat',
     },
     getStarted: {
       title: 'Valmis aloittamaan?',
@@ -641,6 +641,49 @@ export const fi = {
       requestTimeoutFile: 'Muunnospyyntö tiedostolle {filename} aikakatkaistiin. Yritä uudelleen.',
       errorExtractingFile: 'Virhe tiedoston {filename} purkamisessa. Yritä uudelleen.',
       quotaExceeded: 'Kiintiö ylitetty. Päivitä suunnitelmasi tai ota yhteyttä saadaksesi lisää käyttöoikeuksia.',
+    },
+  },
+  login: {
+    title: 'Tervetuloa CambioML:ään',
+    subtitle: 'Kirjaudu sisään tilillesi',
+    description: 'Pääsy AnyParser API:iin ja asiakirjojen käsittelytyökaluihin',
+    mobileDescription: 'Kirjaudu sisään käyttääksesi AnyParseria',
+    brandName: 'CambioML',
+    form: {
+      email: {
+        label: 'Sähköposti',
+        placeholder: 'Syötä sähköpostiosoitteesi',
+      },
+      password: {
+        label: 'Salasana',
+        placeholder: 'Syötä salasanasi',
+      },
+      confirmPassword: {
+        label: 'Vahvista salasana',
+        placeholder: 'Vahvista salasanasi',
+      },
+    },
+    termsAgreement: 'Hyväksyn',
+    termsAndConditions: 'käyttöehdot',
+    andRead: 'ja olen lukenut',
+    privacyPolicy: 'tietosuojakäytännön',
+    signingIn: 'Kirjaudutaan sisään',
+    authenticating: 'Tunnistetaan...',
+    checkboxLabel: {
+      agreeToThe: 'Hyväksyn',
+      termsAndConditions: 'käyttöehdot',
+      andHaveRead: 'ja olen lukenut',
+      privacyPolicy: 'tietosuojakäytännön',
+    },
+    socialProviders: {
+      google: 'Rekisteröidy Googlella',
+    },
+    passwordStrength: {
+      title: 'Salasanavaatimukset',
+      minLength: 'Vähintään 8 merkkiä',
+      uppercase: 'Vähintään yksi iso kirjain',
+      lowercase: 'Vähintään yksi pieni kirjain',
+      symbol: 'Vähintään yksi erikoismerkki',
     },
   },
 } as const;
