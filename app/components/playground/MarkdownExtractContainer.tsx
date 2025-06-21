@@ -1,33 +1,32 @@
-import Button from '../Button';
-import toast from 'react-hot-toast';
-import PulsingIcon from '../PulsingIcon';
-import ResultContainer from './ResultContainer';
-import QuotaLimitPage from './QuotaLimitPage';
-import updateQuota from '@/app/actions/updateQuota';
-import ModelToggleDropdown from './ModelToggleDropdown';
-import ExtractSettingsChecklist from './ExtractSettingsChecklist';
-import useResultZoomModal from '@/app/hooks/useResultZoomModal';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
-import JSZip from 'jszip'; // Import JSZip for zipping files
-import axios, { AxiosError, AxiosResponse } from 'axios';
 import { useCallback, useEffect, useState } from 'react';
+import Button from '../Button';
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import toast from 'react-hot-toast';
+import { PlaygroundFile, ExtractState, ExtractTab, ProcessType, ModelType } from '@/app/types/PlaygroundTypes';
+import { DownloadSimple, CloudArrowUp, ArrowCounterClockwise, FileText } from '@phosphor-icons/react';
+import PulsingIcon from '../PulsingIcon';
 import { downloadFile } from '@/app/actions/downloadFile';
 import { runAsyncRequestJob } from '@/app/actions/runAsyncRequestJob';
 import { JobParams } from '@/app/actions/apiInterface';
+import { runAsyncRequestJob as runPreprodAsyncRequestJob } from '@/app/actions/preprod/runAsyncRequestJob';
+import ResultContainer from './ResultContainer';
 import { useProductionContext } from './ProductionContext';
 import { usePostHog } from 'posthog-js/react';
+import ExtractSettingsChecklist from './ExtractSettingsChecklist';
+import useResultZoomModal from '@/app/hooks/useResultZoomModal';
+import QuotaLimitPage from './QuotaLimitPage';
+import updateQuota from '@/app/actions/updateQuota';
 import { uploadFile } from '@/app/actions/uploadFile';
 import { runSyncExtract } from '@/app/actions/runSyncExtract';
 import { extractPageAsBase64 } from '@/app/helpers';
+import ModelToggleDropdown from './ModelToggleDropdown';
+import JSZip from 'jszip'; // Import JSZip for zipping files
 import { extractImageLinks } from '@/app/helpers';
 import { useTranslation } from '@/lib/use-translation';
-import { useRouter } from 'next/navigation';
-import { usePopupAuth } from '@/app/hooks/usePopupAuth';
-import { DownloadSimple, CloudArrowUp, ArrowCounterClockwise, FileText } from '@phosphor-icons/react';
-import { PlaygroundFile, ExtractState, ExtractTab, ProcessType, ModelType } from '@/app/types/PlaygroundTypes';
-import { runAsyncRequestJob as runPreprodAsyncRequestJob } from '@/app/actions/preprod/runAsyncRequestJob';
-import { useAmplifyAuth } from '@/app/hooks/useAmplifyAuth';
-import { fetchAuthSession, fetchUserAttributes } from 'aws-amplify/auth';
+import { useAuth0 } from '@auth0/auth0-react';
+
+const textStyles = 'text-xl font-semibold text-neutral-500';
 
 export const extractMarkdownTables = (input: string): string[] => {
   const tableRegex = /\|(.*\|.+\|[\s\S]*\|.+\|)/gm;
@@ -51,79 +50,13 @@ const MarkdownExtractContainer = () => {
     loadingQuota,
     getState,
     pendingAction,
-    setToken,
-    setLoggedIn,
-    setUserId,
-    setClientId,
-    executePendingAction,
   } = usePlaygroundStore();
   const [selectedFile, setSelectedFile] = useState<PlaygroundFile>();
   const [filename, setFilename] = useState<string>('');
   const posthog = usePostHog();
   const resultZoomModal = useResultZoomModal();
-  const { t, locale } = useTranslation();
-  const router = useRouter();
-
-  // Get Amplify auth state and tokens
-  const { tokens, userAttributes, refreshTokens, refreshAttributes } = useAmplifyAuth();
-
-  // Add popup auth hook
-  const { openAuthPopup, isLoading: authLoading } = usePopupAuth({
-    onSuccess: async () => {
-      try {
-        // Wait a moment for the auth state to propagate
-        await new Promise((resolve) => setTimeout(resolve, 500));
-
-        // Manually refresh tokens and attributes from the parent window context
-        // This is necessary because the popup authentication happens in a separate window
-        await refreshTokens();
-        await refreshAttributes();
-
-        // Wait a bit more for the refresh to complete
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-
-        // Get fresh tokens directly from Amplify after refresh
-        const { tokens: freshTokens } = await fetchAuthSession();
-        const freshUserAttributes = await fetchUserAttributes();
-
-        // Log the complete JWT token for debugging
-        if (freshTokens?.idToken) {
-          console.log('Complete JWT ID Token:', freshTokens.idToken.toString());
-        }
-        if (freshTokens?.accessToken) {
-          console.log('Complete JWT Access Token:', freshTokens.accessToken.toString());
-        }
-
-        // Get the fresh tokens after successful authentication
-        if (freshTokens?.idToken) {
-          setToken(freshTokens.idToken.toString());
-          setLoggedIn(true);
-
-          // Set user ID from user attributes if available
-          if (freshUserAttributes?.email) {
-            setUserId(freshUserAttributes.email);
-          }
-
-          // Set client ID (this would be the Cognito client ID for Amplify)
-          setClientId(process.env.NEXT_PUBLIC_COGNITO_APPCLIENT_ID || '');
-          toast.success('Authentication successful');
-
-          // Execute pending action after syncing auth state
-          executePendingAction();
-        } else {
-          console.error('Authentication failed: No ID token available');
-          toast.error('Authentication succeeded but token not available. Please try again.');
-        }
-      } catch (error) {
-        console.error('Error processing authentication success:', error);
-        toast.error('Authentication succeeded but failed to sync state. Please try again.');
-      }
-    },
-    onError: (error) => {
-      console.error('Authentication failed:', error);
-      toast.error('Authentication failed. Please try again.');
-    },
-  });
+  const { t } = useTranslation();
+  const { loginWithPopup } = useAuth0();
 
   useEffect(() => {
     if (selectedFileIndex !== null && files.length > 0) {
@@ -330,16 +263,12 @@ const MarkdownExtractContainer = () => {
       // Set pending action to continue extraction after login with fresh values
       setPendingAction(() => handleExtractAfterLogin(targetPageNumbers));
 
-      // Use popup authentication instead of redirecting
-      // This preserves the component state including uploaded files
-      try {
-        await openAuthPopup();
-      } catch (error) {
-        console.error('Failed to open auth popup:', error);
-        // Fallback to redirect if popup fails
-        localStorage.setItem('auth_redirect_url', window.location.pathname);
-        router.push(`/${locale}/login`);
-      }
+      // Trigger login flow
+      loginWithPopup({
+        authorizationParams: {
+          scope: 'openid profile email',
+        },
+      });
       return;
     }
 
@@ -462,7 +391,6 @@ const MarkdownExtractContainer = () => {
       updateFileAtIndex,
       apiURL,
       addFilesFormData,
-      t.messages.error.uploadError,
       handleError,
       handleSuccess,
       handleTimeout,
@@ -553,7 +481,7 @@ const MarkdownExtractContainer = () => {
                       small
                       labelIcon={FileText}
                       id="extract-plain-text-btn"
-                      disabled={!!pendingAction || authLoading}
+                      disabled={!!pendingAction}
                     />
                   </div>
                   <ModelToggleDropdown />
@@ -566,13 +494,13 @@ const MarkdownExtractContainer = () => {
           )}
           {selectedFile?.extractState === ExtractState.UPLOADING && (
             <div className="flex flex-col items-center justify-center h-full gap-2">
-              <div className="text-xl font-semibold text-neutral-500">{t.playground.extraction.uploading}</div>
+              <div className={textStyles}>{t.playground.extraction.uploading}</div>
               <PulsingIcon Icon={CloudArrowUp} size={40} />
             </div>
           )}
           {selectedFile?.extractState === ExtractState.EXTRACTING && (
             <div className="flex flex-col items-center justify-center h-full gap-2">
-              <div className="text-xl font-semibold text-neutral-500">{t.playground.extraction.extracting}</div>
+              <div className={textStyles}>{t.playground.extraction.extracting}</div>
               <PulsingIcon Icon={FileText} size={40} />
             </div>
           )}

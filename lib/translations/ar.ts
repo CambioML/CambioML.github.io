@@ -156,7 +156,7 @@ export const ar = {
       title: 'فريق التأسيس',
     },
     investors: {
-      title: 'المستثمرون في Energent.ai',
+      title: 'مستثمرونا',
     },
     getStarted: {
       title: 'جاهز للبدء؟',
@@ -628,49 +628,6 @@ export const ar = {
       requestTimeoutFile: 'انتهت مهلة طلب التحويل لـ {filename}. يرجى المحاولة مرة أخرى.',
       errorExtractingFile: 'حدث خطأ أثناء استخراج {filename}. يرجى المحاولة مرة أخرى.',
       quotaExceeded: 'تم تجاوز الحصة. يرجى ترقية خطتك أو الاتصال بنا للحصول على المزيد من الاعتمادات.',
-    },
-  },
-  login: {
-    title: 'مرحبًا بك في CambioML',
-    subtitle: 'قم بتسجيل الدخول إلى حسابك',
-    description: 'الوصول إلى واجهة برمجة التطبيقات AnyParser وأدوات معالجة المستندات',
-    mobileDescription: 'قم بتسجيل الدخول للوصول إلى AnyParser',
-    brandName: 'CambioML',
-    form: {
-      email: {
-        label: 'البريد الإلكتروني',
-        placeholder: 'أدخل بريدك الإلكتروني',
-      },
-      password: {
-        label: 'كلمة المرور',
-        placeholder: 'أدخل كلمة المرور الخاصة بك',
-      },
-      confirmPassword: {
-        label: 'تأكيد كلمة المرور',
-        placeholder: 'أكد كلمة المرور الخاصة بك',
-      },
-    },
-    termsAgreement: 'أوافق على',
-    termsAndConditions: 'الشروط والأحكام',
-    andRead: 'وقد قرأت',
-    privacyPolicy: 'سياسة الخصوصية',
-    signingIn: 'جارٍ تسجيل الدخول',
-    authenticating: 'جارٍ التحقق...',
-    checkboxLabel: {
-      agreeToThe: 'أوافق على',
-      termsAndConditions: 'الشروط والأحكام',
-      andHaveRead: 'وقد قرأت',
-      privacyPolicy: 'سياسة الخصوصية',
-    },
-    socialProviders: {
-      google: 'التسجيل باستخدام Google',
-    },
-    passwordStrength: {
-      title: 'متطلبات كلمة المرور',
-      minLength: 'ثمانية أحرف على الأقل',
-      uppercase: 'حرف كبير واحد على الأقل',
-      lowercase: 'حرف صغير واحد على الأقل',
-      symbol: 'رمز خاص واحد على الأقل',
     },
   },
 } as const;

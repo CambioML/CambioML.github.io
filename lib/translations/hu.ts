@@ -162,7 +162,7 @@ export const hu = {
       title: 'Alapító csapat',
     },
     investors: {
-      title: 'Az Energent.ai befektetői',
+      title: 'Befektetőink',
     },
     getStarted: {
       title: 'Készen állsz az indulásra?',
@@ -643,49 +643,6 @@ export const hu = {
       errorExtractingFile: 'Hiba történt a(z) {filename} kinyerésekor. Kérjük, próbálja újra.',
       quotaExceeded:
         'A kvóta túllépve. Kérjük, frissítse a tervét, vagy lépjen kapcsolatba velünk további kreditekért.',
-    },
-  },
-  login: {
-    title: 'Üdvözöljük a CambioML-ben',
-    subtitle: 'Jelentkezzen be fiókjába',
-    description: 'Hozzáférés az AnyParser API-hoz és dokumentumfeldolgozó eszközökhöz',
-    mobileDescription: 'Jelentkezzen be az AnyParser eléréséhez',
-    brandName: 'CambioML',
-    form: {
-      email: {
-        label: 'E-mail',
-        placeholder: 'Adja meg az e-mail címét',
-      },
-      password: {
-        label: 'Jelszó',
-        placeholder: 'Adja meg a jelszavát',
-      },
-      confirmPassword: {
-        label: 'Jelszó megerősítése',
-        placeholder: 'Erősítse meg a jelszavát',
-      },
-    },
-    termsAgreement: 'Egyetértek a',
-    termsAndConditions: 'Felhasználási feltételekkel',
-    andRead: 'és elolvastam a',
-    privacyPolicy: 'Adatvédelmi irányelveket',
-    signingIn: 'Bejelentkezés folyamatban',
-    authenticating: 'Hitelesítés...',
-    checkboxLabel: {
-      agreeToThe: 'Egyetértek a',
-      termsAndConditions: 'Felhasználási feltételekkel',
-      andHaveRead: 'és elolvastam a',
-      privacyPolicy: 'Adatvédelmi irányelveket',
-    },
-    socialProviders: {
-      google: 'Regisztráció Google-lel',
-    },
-    passwordStrength: {
-      title: 'Jelszó követelmények',
-      minLength: 'Legalább 8 karakter',
-      uppercase: 'Legalább egy nagybetű',
-      lowercase: 'Legalább egy kisbetű',
-      symbol: 'Legalább egy speciális karakter',
     },
   },
 } as const;

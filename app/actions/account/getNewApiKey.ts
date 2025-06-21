@@ -3,50 +3,45 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 
 interface IParams {
+  userId: string;
   token: string;
   apiURL: string;
-  email?: string; // Optional email payload
 }
 
-export default async function getApiKey({ token, apiURL, email }: IParams): Promise<ApiKey> {
-  const payload = email ? { email } : {};
+export default async function getApiKey({ userId, token, apiURL }: IParams): Promise<ApiKey> {
+  const params = {
+    userId,
+  };
 
   try {
-    const response = await axios.post(`${apiURL}/anyparser/create_api_key`, payload, {
+    const response = await axios.post(`${apiURL}/makekey`, params, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: token,
+        'x-api-key': '-',
       },
     });
-
     if (response.status === 200) {
-      const data = response.data;
-      return {
-        api_key: data.api_key,
-        email: data.email,
-        quota: data.quota,
-        plan: data.plan,
-        status: data.status,
-        created_at: data.created_at,
-        user_id: data.user_id,
-      };
+      return { key: response.data.apiKey };
     } else {
-      throw new Error('Failed to create API key');
+      // Fallback error handling if not caught by Axios error
+      throw new Error('Failed to get API key');
     }
   } catch (error) {
     let errorMessage = '';
     if (axios.isAxiosError(error) && error.response) {
       if (error.response.status === 429) {
         errorMessage = 'Maximum number of API keys reached.';
-      } else if (error.response.status === 400) {
-        errorMessage = 'Invalid request. Please check your authentication.';
       } else {
-        errorMessage = error.response.data?.detail || error.message;
+        // default error message for other status codes
+        errorMessage = error.message;
       }
     } else {
+      // Handle any other errors
       errorMessage = error instanceof Error ? error.message : String(error);
     }
     toast.error(errorMessage);
+    // Re-throw the original error to keep the stack trace
     throw error;
   }
 }

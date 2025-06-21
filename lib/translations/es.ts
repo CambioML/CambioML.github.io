@@ -162,7 +162,7 @@ export const es = {
       title: 'Equipo Fundador',
     },
     investors: {
-      title: 'Inversores de Energent.ai',
+      title: 'Nuestros inversores',
     },
     getStarted: {
       title: '¿Listo para comenzar?',
@@ -642,49 +642,6 @@ export const es = {
       requestTimeoutFile: 'La solicitud de transformación para {filename} se agotó. Por favor, inténtelo de nuevo.',
       errorExtractingFile: 'Error al extraer {filename}. Por favor, inténtelo de nuevo.',
       quotaExceeded: 'Cuota excedida. Por favor, actualice su plan o contáctenos para obtener más créditos.',
-    },
-  },
-  login: {
-    title: 'Bienvenido a CambioML',
-    subtitle: 'Inicia sesión en tu cuenta',
-    description: 'Accede a tu API de AnyParser y herramientas de procesamiento de documentos',
-    mobileDescription: 'Inicia sesión para acceder a AnyParser',
-    brandName: 'CambioML',
-    form: {
-      email: {
-        label: 'Correo electrónico',
-        placeholder: 'Introduce tu correo electrónico',
-      },
-      password: {
-        label: 'Contraseña',
-        placeholder: 'Introduce tu contraseña',
-      },
-      confirmPassword: {
-        label: 'Confirmar contraseña',
-        placeholder: 'Confirma tu contraseña',
-      },
-    },
-    termsAgreement: 'Estoy de acuerdo con los',
-    termsAndConditions: 'Términos y Condiciones',
-    andRead: 'y he leído la',
-    privacyPolicy: 'Política de Privacidad',
-    signingIn: 'Iniciando sesión',
-    authenticating: 'Autenticando...',
-    checkboxLabel: {
-      agreeToThe: 'Estoy de acuerdo con los',
-      termsAndConditions: 'Términos y Condiciones',
-      andHaveRead: 'y he leído la',
-      privacyPolicy: 'Política de Privacidad',
-    },
-    socialProviders: {
-      google: 'Regístrate con Google',
-    },
-    passwordStrength: {
-      title: 'Requisitos de la contraseña',
-      minLength: 'Al menos 8 caracteres',
-      uppercase: 'Al menos una letra mayúscula',
-      lowercase: 'Al menos una letra minúscula',
-      symbol: 'Al menos un carácter especial',
     },
   },
 } as const;

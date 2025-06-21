@@ -158,7 +158,7 @@ export const ru = {
       title: 'Основатели',
     },
     investors: {
-      title: 'Инвесторы Energent.ai',
+      title: 'Наши инвесторы',
     },
     getStarted: {
       title: 'Готовы начать?',
@@ -638,49 +638,6 @@ export const ru = {
       errorExtractingFile: 'Ошибка извлечения {filename}. Пожалуйста, попробуйте снова.',
       quotaExceeded:
         'Квота превышена. Пожалуйста, обновите свой план или свяжитесь с нами для получения дополнительных кредитов.',
-    },
-  },
-  login: {
-    title: 'Добро пожаловать в CambioML',
-    subtitle: 'Войдите в свой аккаунт',
-    description: 'Получите доступ к API AnyParser и инструментам обработки документов',
-    mobileDescription: 'Войдите, чтобы получить доступ к AnyParser',
-    brandName: 'CambioML',
-    form: {
-      email: {
-        label: 'Электронная почта',
-        placeholder: 'Введите вашу электронную почту',
-      },
-      password: {
-        label: 'Пароль',
-        placeholder: 'Введите ваш пароль',
-      },
-      confirmPassword: {
-        label: 'Подтвердите пароль',
-        placeholder: 'Подтвердите ваш пароль',
-      },
-    },
-    termsAgreement: 'Я согласен с',
-    termsAndConditions: 'Условиями и положениями',
-    andRead: 'и ознакомился с',
-    privacyPolicy: 'Политикой конфиденциальности',
-    signingIn: 'Вход в систему',
-    authenticating: 'Аутентификация...',
-    checkboxLabel: {
-      agreeToThe: 'Я согласен с',
-      termsAndConditions: 'Условиями и положениями',
-      andHaveRead: 'и ознакомился с',
-      privacyPolicy: 'Политикой конфиденциальности',
-    },
-    socialProviders: {
-      google: 'Регистрация через Google',
-    },
-    passwordStrength: {
-      title: 'Требования к паролю',
-      minLength: 'Не менее 8 символов',
-      uppercase: 'Хотя бы одна заглавная буква',
-      lowercase: 'Хотя бы одна строчная буква',
-      symbol: 'Хотя бы один специальный символ',
     },
   },
 } as const;
