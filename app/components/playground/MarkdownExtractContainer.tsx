@@ -11,11 +11,9 @@ import JSZip from 'jszip'; // Import JSZip for zipping files
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { downloadFile } from '@/app/actions/downloadFile';
-import { runAsyncRequestJob } from '@/app/actions/runAsyncRequestJob';
-import { JobParams } from '@/app/actions/apiInterface';
 import { useProductionContext } from './ProductionContext';
 import { usePostHog } from 'posthog-js/react';
-import { uploadFile, asyncAnyparser, asyncAnyparserPro, pollJobStatus } from '@/app/actions/async_processor';
+import { asyncAnyparser, asyncAnyparserPro, pollJobStatus } from '@/app/actions/async_processor';
 import { runSyncExtract } from '@/app/actions/runSyncExtract';
 import { extractPageAsBase64 } from '@/app/helpers';
 import { extractImageLinks } from '@/app/helpers';
@@ -23,8 +21,7 @@ import { useTranslation } from '@/lib/use-translation';
 import { useRouter } from 'next/navigation';
 import { usePopupAuth } from '@/app/hooks/usePopupAuth';
 import { DownloadSimple, CloudArrowUp, ArrowCounterClockwise, FileText } from '@phosphor-icons/react';
-import { PlaygroundFile, ExtractState, ExtractTab, ProcessType, ModelType } from '@/app/types/PlaygroundTypes';
-import { runAsyncRequestJob as runPreprodAsyncRequestJob } from '@/app/actions/preprod/runAsyncRequestJob';
+import { PlaygroundFile, ExtractState, ModelType } from '@/app/types/PlaygroundTypes';
 import { useAmplifyAuth } from '@/app/hooks/useAmplifyAuth';
 import { fetchAuthSession, fetchUserAttributes } from 'aws-amplify/auth';
 import useAccountStore from '@/app/hooks/useAccountStore';
@@ -406,7 +403,7 @@ const MarkdownExtractContainer = () => {
         parseResponse.job_id,
         apiKey,
         30, // max attempts
-        2000 // poll interval (2 seconds)
+        1000 // poll interval (1 second)
       );
 
       if (jobResult.status === 'completed') {
