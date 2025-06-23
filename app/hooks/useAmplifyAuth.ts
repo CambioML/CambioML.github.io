@@ -90,11 +90,6 @@ export const useAmplifyAuth = () => {
         };
 
         setUserAttributes(attributes);
-
-        // Console log the user ID and key user info
-        console.log('Email:', payload.email);
-        console.log('Name:', attributes.name);
-        console.log('User ID:', userId);
       }
 
       lastUserRef.current = user;

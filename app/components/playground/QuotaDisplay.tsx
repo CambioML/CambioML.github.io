@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 import { ArrowsClockwise } from '@phosphor-icons/react';
 import { useProductionContext } from './ProductionContext';
-import updateQuota from '@/app/actions/updateQuota';
-import { AxiosError } from 'axios';
 import useAccountStore from '@/app/hooks/useAccountStore';
 import { useTranslation } from '@/lib/use-translation';
+import { checkQuota } from '@/app/actions/account/ApiKey';
 
 const QUOTA_YELLOW_THRESHOLD = 50;
 const QUOTA_ORANGE_THRESHOLD = 25;
@@ -14,6 +13,12 @@ const QUOTA_RED_THRESHOLD = 15;
 interface QuotaDisplayProps {
   userId: string;
   isCollapsed?: boolean;
+}
+
+// Define the quota data type based on checkQuota return type
+interface CheckQuotaRequest {
+  remaining_quota: number;
+  total_used: number;
 }
 
 const QuotaDisplay = ({ userId, isCollapsed }: QuotaDisplayProps) => {
@@ -28,21 +33,63 @@ const QuotaDisplay = ({ userId, isCollapsed }: QuotaDisplayProps) => {
     setLoadingQuota,
   } = usePlaygroundStore();
   const { apiURL } = useProductionContext();
-  const [isLoading, setIsLoading] = useState(false);
-  const { apiKeys } = useAccountStore();
   const { t } = useTranslation();
-  const quotaPercent = (remainingQuota / totalQuota) * 100;
+  const { apiKeys } = useAccountStore();
+  const [quotaData, setQuotaData] = useState<CheckQuotaRequest | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleRefresh = async () => {
+  // Get the first available API key
+  const apiKey = apiKeys && apiKeys.length > 0 ? apiKeys[0].api_key : null;
+
+  const fetchQuotaData = async () => {
+    // Don't fetch if we don't have an API key yet
+    if (!apiKey || !apiURL) {
+      console.log('No API key or API URL available yet, skipping quota fetch');
+      return;
+    }
+
     setIsLoading(true);
-    setLoadingQuota(true);
+    setError(null);
+
     try {
-      await updateQuota({ api_url: apiURL, userId, token, setTotalQuota, setRemainingQuota, handleError: () => {} });
+      const result = await checkQuota({ apiKey, apiURL });
+      setQuotaData(result);
+      // Update the playground store with the new quota data
+      const totalQuotaValue = result.remaining_quota + result.total_used;
+      setTotalQuota(totalQuotaValue);
+      setRemainingQuota(result.remaining_quota);
+      setLoadingQuota(false); // Clear the playground store loading state
+    } catch (err) {
+      console.error('Error fetching quota data:', err);
+      setError(err instanceof Error ? err.message : 'Failed to fetch quota data');
+      setLoadingQuota(false); // Clear loading state even on error
     } finally {
       setIsLoading(false);
-      setLoadingQuota(false);
     }
   };
+
+  const handleRefresh = () => {
+    fetchQuotaData();
+  };
+
+  const handleError = () => {
+    setError(null);
+  };
+
+  useEffect(() => {
+    // Only fetch quota data when we have an API key and API URL
+    if (apiKey && apiURL) {
+      fetchQuotaData();
+    }
+  }, [apiKey, apiURL]); // Depend on apiKey and apiURL
+
+  // Use local quotaData as fallback if playground store values aren't ready
+  const displayTotalQuota =
+    totalQuota > 0 ? totalQuota : quotaData ? quotaData.remaining_quota + quotaData.total_used : 0;
+  const displayRemainingQuota = totalQuota > 0 ? remainingQuota : quotaData ? quotaData.remaining_quota : 0;
+
+  const quotaPercent = displayTotalQuota > 0 ? (displayRemainingQuota / displayTotalQuota) * 100 : 0;
 
   const getBarColor = (quotaPercent: number) => {
     if (quotaPercent > QUOTA_YELLOW_THRESHOLD) return 'bg-green-500';
@@ -51,39 +98,14 @@ const QuotaDisplay = ({ userId, isCollapsed }: QuotaDisplayProps) => {
     return 'bg-red-500';
   };
 
-  const handleError = async (e: AxiosError | Error) => {
-    console.error(e);
-    if (apiKeys.length === 0) {
-      if (!userId || !token) {
-        console.log('No profile or token', userId, token);
-        return;
-      }
-      return;
-    }
-  };
-
-  useEffect(() => {
-    const fetchQuota = async () => {
-      if (!userId || !apiURL || !token) {
-        return;
-      }
-      try {
-        await updateQuota({
-          api_url: apiURL,
-          userId,
-          token,
-          setTotalQuota,
-          setRemainingQuota,
-          handleError,
-        });
-      } catch (error) {
-        handleError(error instanceof Error ? error : new Error('An unknown error occurred'));
-      } finally {
-        setLoadingQuota(false);
-      }
-    };
-    fetchQuota();
-  }, [userId, apiURL, token, totalQuota]); // Empty dependency array ensures this runs only once when component mounts
+  // Don't render anything if we don't have an API key yet
+  if (!apiKey) {
+    return (
+      <div className="row-span-1 h-full border-t-2 py-2 w-full flex flex-col gap-2 items-center justify-center">
+        {!isCollapsed && <div className="text-sm text-neutral-500">Loading quota...</div>}
+      </div>
+    );
+  }
 
   return (
     <div className="w-full flex flex-col items-center pt-2">
@@ -98,7 +120,7 @@ const QuotaDisplay = ({ userId, isCollapsed }: QuotaDisplayProps) => {
           <ArrowsClockwise size={20} />
         </div>
       </div>
-      {totalQuota === 0 || isLoading || loadingQuota ? (
+      {displayTotalQuota === 0 || isLoading || loadingQuota ? (
         <>
           <div className={`w-full bg-neutral-300 rounded-full h-2.5 animate-pulse`}> &nbsp;</div>
           <span className="text-xs mt-1">{`--/-- ${t.playground.quota.pages}`}</span>
@@ -106,7 +128,7 @@ const QuotaDisplay = ({ userId, isCollapsed }: QuotaDisplayProps) => {
       ) : (
         <>
           <div
-            className={`w-full ${remainingQuota === 0 ? 'bg-red-300' : 'bg-neutral-300'} rounded-full h-2.5 flex justify-end`}
+            className={`w-full ${displayRemainingQuota === 0 ? 'bg-red-300' : 'bg-neutral-300'} rounded-full h-2.5 flex justify-start`}
           >
             <div
               className={`${getBarColor(quotaPercent)} ${isLoading && 'animate-pulse'} h-2.5 rounded-full`}
@@ -114,7 +136,7 @@ const QuotaDisplay = ({ userId, isCollapsed }: QuotaDisplayProps) => {
             ></div>
           </div>
           <span className="text-xs mt-1">
-            {`${remainingQuota}/${totalQuota}`} {!isCollapsed && ` ${t.playground.quota.pages}`}
+            {`${displayRemainingQuota}/${displayTotalQuota}`} {!isCollapsed && ` ${t.playground.quota.pages}`}
           </span>
         </>
       )}

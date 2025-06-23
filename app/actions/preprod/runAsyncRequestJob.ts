@@ -3,8 +3,8 @@ import { PlaygroundFile, ExtractState, TransformState } from '@/app/types/Playgr
 import pollJobStatus from './pollJobStatus';
 import toast from 'react-hot-toast';
 import { JobParams, QueryParams, PresignedResponse } from './apiInterface';
-import getApiKeysForUser from '@/app/actions/account/getApiKeysForUser';
 import { ApiKey } from '@/app/hooks/useAccountStore';
+import getApiKey from '../account/ApiKey';
 
 interface IParams {
   apiURL: string;
@@ -89,10 +89,10 @@ export const runAsyncRequestJob = async ({
   //   ...(jobParams && { jobParams }),
   //   customSchema,
   // };
-  let apiKey: ApiKey[];
+  let apiKey: ApiKey;
   try {
-    apiKey = await getApiKeysForUser({ userId, token, apiURL: apiURL });
-    if (apiKey.length === 0) {
+    apiKey = await getApiKey({ userId, token, apiURL: apiURL });
+    if (!apiKey) {
       throw new Error('API key not found');
     }
   } catch (e) {
@@ -124,7 +124,7 @@ export const runAsyncRequestJob = async ({
         setTimeout(() => {
           pollJobStatus({
             api_url: apiURL,
-            apiKey: apiKey[0].key || '-',
+            apiKey: apiKey.api_key || '-',
             postParams,
             token,
             handleSuccess,

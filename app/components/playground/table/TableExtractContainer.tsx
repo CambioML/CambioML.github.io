@@ -16,14 +16,14 @@ import { JobParams } from '@/app/actions/apiInterface';
 import useResultZoomModal from '@/app/hooks/useResultZoomModal';
 import DropdownButton from '../../inputs/DropdownButton';
 import QuotaLimitPage from '../QuotaLimitPage';
-import updateQuota from '@/app/actions/updateQuota';
-import { uploadFile } from '@/app/actions/uploadFile';
+import { uploadFile, asyncExtractTables, pollJobStatus } from '@/app/actions/uploadFile';
 import { runAsyncRequestJob } from '@/app/actions/runAsyncRequestJob';
 import { extractPageAsBase64 } from '@/app/helpers';
 import { runSyncTableExtract } from '@/app/actions/runSyncTableExtract';
 import * as XLSX from 'xlsx';
 import { useTranslation } from '@/lib/use-translation';
 import { useAuth0 } from '@auth0/auth0-react';
+import useAccountStore from '@/app/hooks/useAccountStore';
 
 const noPageContent = '<div>No table detected in output.</div>';
 
@@ -61,102 +61,6 @@ const TableExtractContainer = () => {
     }
   }, [selectedFileIndex, files, updateFileAtIndex]);
 
-  const handleSuccess = (response: AxiosResponse, targetPageNumbers?: number[]) => {
-    // Get fresh state values to avoid stale closure variables
-    const state = usePlaygroundStore.getState();
-    const currentSelectedFile = state.files[state.selectedFileIndex!];
-    const currentUserId = state.userId;
-    const currentToken = state.token;
-
-    let result = response.data;
-    if (result === undefined) {
-      toast.error(`${filename}: Received undefined result. Please try again.`);
-      updateFileAtIndex(state.selectedFileIndex, 'instructionExtractState', ExtractState.READY);
-      return;
-    }
-    if (result['markdown'] === undefined) {
-      toast.error(`${filename}: Received undefined markdown. Please try again.`);
-      updateFileAtIndex(state.selectedFileIndex, 'instructionExtractState', ExtractState.READY);
-      return;
-    }
-    result = result['markdown'].map((pageContent: string) => {
-      if (pageContent.length === 0) return noPageContent;
-      return pageContent;
-    });
-    if (isProduction)
-      posthog.capture('playground.table.extract_table.success', {
-        route: '/playground',
-        module: 'table',
-        submodule: 'extract_table',
-        file_type: getFileType(),
-        num_pages: result.length,
-      });
-
-    if (!isProduction) console.log('[TableExtract] result:', result);
-    if (targetPageNumbers) {
-      const currentResult = currentSelectedFile?.tableExtractResult;
-      if (currentResult) {
-        const newResult = currentResult.map((resultItem, index) => {
-          if (targetPageNumbers.includes(index)) {
-            return result.shift();
-          } else {
-            return resultItem;
-          }
-        });
-        result = newResult;
-      }
-    }
-    updateFileAtIndex(state.selectedFileIndex, 'instructionExtractState', ExtractState.DONE_EXTRACTING);
-    updateFileAtIndex(state.selectedFileIndex, 'tableExtractResult', result);
-    updateQuota({
-      api_url: apiURL,
-      userId: currentUserId,
-      token: currentToken,
-      setTotalQuota,
-      setRemainingQuota,
-      handleError,
-    });
-    toast.success(t.messages.success.tablesGeneratedFrom.replace('{filename}', filename));
-  };
-
-  const handleError = (e: AxiosError) => {
-    if (e.response) {
-      if (e.response.status === 400) {
-        toast.error(`${filename}: Parameter is invalid. Please try again.`);
-        updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.READY);
-        return;
-      } else if (e.response.status === 404) {
-        toast.error(`${filename}: Job not found. Please try again.`);
-        updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.READY);
-        return;
-      } else if (e.response.status === 429) {
-        toast.error(`Extract page limit reached.`);
-        updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.LIMIT_REACHED);
-        return;
-      } else if (e.response.status === 500) {
-        toast.error(t.messages.error.jobFailedFile.replace('{filename}', filename));
-        updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.READY);
-        return;
-      }
-    }
-    if (isProduction)
-      posthog.capture('playground.table.extract_table.error', {
-        route: '/playground',
-        module: 'table',
-        submodule: 'extract_table',
-        file_type: getFileType(),
-        error_status: e.response?.status,
-        error_message: e.response?.data,
-      });
-    toast.error(t.messages.error.errorTransforming.replace('{filename}', filename));
-    updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.READY);
-  };
-
-  const handleTimeout = () => {
-    updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.READY);
-    toast.error(t.messages.error.requestTimeoutFile.replace('{filename}', filename));
-  };
-
   const handleTableExtractTransform = async (targetPageNumbers?: number[]) => {
     if (!loggedIn) {
       // Set pending action to continue extraction after login
@@ -179,10 +83,7 @@ const TableExtractContainer = () => {
     // Get fresh state values to avoid stale closure variables
     const state = usePlaygroundStore.getState();
     const currentSelectedFile = state.files[state.selectedFileIndex!];
-    const currentUserId = state.userId;
-    const currentToken = state.token;
-    const currentClientId = state.clientId;
-    const currentExtractSettings = state.extractSettings;
+    const { apiKeys } = useAccountStore.getState();
 
     if (isProduction)
       posthog.capture('playground.table.extract_table.start_extract', {
@@ -202,66 +103,116 @@ const TableExtractContainer = () => {
       updateFileAtIndex(state.selectedFileIndex, 'instructionExtractState', ExtractState.READY);
       return;
     }
-    const jobParams: JobParams = {
-      targetPageNumbers,
-      maskPiiFlag: currentExtractSettings.removePII,
-    };
-    // get presigned url and metadata
-    const uploadResult = await uploadFile({
-      api_url: apiURL,
-      userId: currentUserId,
-      token: currentToken,
-      file: currentSelectedFile.file as File,
-      extractArgs: jobParams.vqaProcessorArgs || {},
-      maskPiiFlag: currentExtractSettings.removePII,
-      process_type: ProcessType.TABLE_EXTRACTION,
-      addFilesFormData,
-    });
-    if (uploadResult instanceof Error) {
-      toast.error(t.messages.error.uploadError);
-      updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.READY);
+
+    const apiKey = apiKeys && apiKeys.length > 0 ? apiKeys[0].api_key : null;
+    if (!apiKey) {
+      toast.error('No API key found. Please generate an API key in your account settings.');
+      updateFileAtIndex(state.selectedFileIndex, 'instructionExtractState', ExtractState.READY);
       return;
     }
-    const fileData = uploadResult.data;
-    if (isProduction) {
-      runAsyncRequestJob({
-        apiURL: apiURL,
-        jobType: 'info_extraction',
-        userId: currentUserId,
-        clientId: currentClientId,
-        fileId: fileData.fileId,
-        fileData,
-        selectedFile: currentSelectedFile,
-        token: currentToken,
-        sourceType: 's3',
-        jobParams,
-        selectedFileIndex: state.selectedFileIndex,
-        filename,
-        handleError,
-        handleSuccess,
-        handleTimeout,
-        updateFileAtIndex,
+
+    try {
+      const file = currentSelectedFile.file as File;
+
+      // Submit the async job
+      const jobResponse = await asyncExtractTables({
+        api_url: apiURL,
+        file,
+        apiKey,
       });
-    } else {
-      console.log('[TableExtractContainer] handleTableExtractTransform', jobParams);
-      runPreprodAsyncRequestJob({
-        apiURL: apiURL,
-        jobType: 'info_extraction',
-        userId: currentUserId,
-        clientId: currentClientId,
-        fileId: fileData.fileId,
-        fileData,
-        selectedFile: currentSelectedFile,
-        token: currentToken,
-        sourceType: 's3',
-        jobParams,
-        selectedFileIndex: state.selectedFileIndex,
-        filename,
-        handleError,
-        handleSuccess,
-        handleTimeout,
-        updateFileAtIndex,
-      });
+
+      // Poll for results
+      const result = await pollJobStatus(apiURL, jobResponse.job_id, apiKey);
+
+      if (result.status === 'completed') {
+        if (result.result) {
+          // Handle the result based on the expected format
+          let extractResult;
+          if (result.result.markdown) {
+            extractResult = result.result.markdown.map((pageContent: string) => {
+              if (pageContent.length === 0) return noPageContent;
+              return pageContent;
+            });
+          } else if (Array.isArray(result.result)) {
+            extractResult = result.result.map((pageContent: string) => {
+              if (pageContent.length === 0) return noPageContent;
+              return pageContent;
+            });
+          } else {
+            extractResult = [result.result];
+          }
+
+          updateFileAtIndex(state.selectedFileIndex, 'instructionExtractState', ExtractState.DONE_EXTRACTING);
+          updateFileAtIndex(state.selectedFileIndex, 'tableExtractResult', extractResult);
+          toast.success(t.messages.success.tablesGeneratedFrom.replace('{filename}', filename));
+
+          if (isProduction)
+            posthog.capture('playground.table.extract_table.success', {
+              route: '/playground',
+              module: 'table',
+              submodule: 'extract_table',
+              file_type: getFileType(),
+              num_pages: extractResult.length,
+            });
+        } else if (result.result_url) {
+          // Handle case where result is provided via URL
+          try {
+            const resultResponse = await fetch(result.result_url);
+            const resultData = await resultResponse.json();
+
+            let extractResult;
+            if (resultData.markdown) {
+              extractResult = resultData.markdown.map((pageContent: string) => {
+                if (pageContent.length === 0) return noPageContent;
+                return pageContent;
+              });
+            } else if (Array.isArray(resultData)) {
+              extractResult = resultData.map((pageContent: string) => {
+                if (pageContent.length === 0) return noPageContent;
+                return pageContent;
+              });
+            } else {
+              extractResult = [resultData];
+            }
+
+            updateFileAtIndex(state.selectedFileIndex, 'instructionExtractState', ExtractState.DONE_EXTRACTING);
+            updateFileAtIndex(state.selectedFileIndex, 'tableExtractResult', extractResult);
+            toast.success(t.messages.success.tablesGeneratedFrom.replace('{filename}', filename));
+          } catch (error) {
+            console.error('Error fetching result from URL:', error);
+            toast.error('Error retrieving table extraction results. Please try again.');
+            updateFileAtIndex(state.selectedFileIndex, 'instructionExtractState', ExtractState.READY);
+          }
+        } else {
+          toast.error('No table extraction result found. Please try again.');
+          updateFileAtIndex(state.selectedFileIndex, 'instructionExtractState', ExtractState.READY);
+        }
+      } else if (result.status === 'failed') {
+        toast.error(result.error_message || 'Table extraction failed. Please try again.');
+        updateFileAtIndex(state.selectedFileIndex, 'instructionExtractState', ExtractState.READY);
+
+        if (isProduction)
+          posthog.capture('playground.table.extract_table.error', {
+            route: '/playground',
+            module: 'table',
+            submodule: 'extract_table',
+            file_type: getFileType(),
+            error_message: result.error_message,
+          });
+      }
+    } catch (error) {
+      console.error('Table extraction error:', error);
+      toast.error(t.messages.error.errorTransforming.replace('{filename}', filename));
+      updateFileAtIndex(state.selectedFileIndex, 'instructionExtractState', ExtractState.READY);
+
+      if (isProduction)
+        posthog.capture('playground.table.extract_table.error', {
+          route: '/playground',
+          module: 'table',
+          submodule: 'extract_table',
+          file_type: getFileType(),
+          error_message: error instanceof Error ? error.message : 'Unknown error',
+        });
     }
   };
 
@@ -436,16 +387,7 @@ const TableExtractContainer = () => {
         console.error('Error during extraction:', error);
       } finally {
         updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.DONE_EXTRACTING);
-        // Get fresh state values again for the final updateQuota call
         const state = usePlaygroundStore.getState();
-        updateQuota({
-          api_url: apiURL,
-          userId: state.userId,
-          token: state.token,
-          setTotalQuota,
-          setRemainingQuota,
-          handleError,
-        });
       }
     } else {
       console.warn('Selected file is not valid or is missing.');

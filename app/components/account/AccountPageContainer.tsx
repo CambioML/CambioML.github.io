@@ -1,5 +1,5 @@
 'use client';
-import { BookOpenText, Confetti, Icon, Key, UserCircle } from '@phosphor-icons/react';
+import { Confetti, Icon, Key } from '@phosphor-icons/react';
 import Container from '../Container';
 import Heading from '../Heading';
 import LoginButton from '../auth/LoginButton';
@@ -9,7 +9,7 @@ import Image from 'next/image';
 import { imgPrefix } from '@/app/hooks/useImgPrefix';
 import Button from '../Button';
 import useAccountStore from '@/app/hooks/useAccountStore';
-import getNewApiKey from '@/app/actions/account/getNewApiKey';
+import getApiKey, { checkApiKey } from '@/app/actions/account/ApiKey';
 import { useEffect, useState } from 'react';
 import ApiKeyRow from './ApiKeyRow';
 import toast from 'react-hot-toast';
@@ -75,8 +75,7 @@ const AccountPageContainer = () => {
   const { apiKeys, setApiKeys, addApiKey } = useAccountStore();
   const { apiURL } = useProductionContext();
   const [isLoading, setIsLoading] = useState(false);
-  const [isFetchingApiKeys] = useState(false);
-  const { isProduction } = useProductionContext();
+  const [isFetchingApiKeys, setIsFetchingApiKeys] = useState(false);
   const router = useRouter();
   const { t } = useTranslation();
 
@@ -88,7 +87,7 @@ const AccountPageContainer = () => {
 
     setIsLoading(true);
     try {
-      const newApiKey = await getNewApiKey({
+      const newApiKey = await getApiKey({
         token: tokens.idToken,
         apiURL,
         email: userAttributes.email,
@@ -102,21 +101,54 @@ const AccountPageContainer = () => {
     }
   };
 
-  const fetchApiKeys = async () => {
-    if (loading || !isAuthenticated || !tokens.idToken || !userAttributes.userId) {
-      return;
-    }
-  };
+  // Check for existing API keys after authentication
   useEffect(() => {
-    console.log('AccountPageContainer: Auth state changed', {
-      loading,
-      isAuthenticated,
-      hasToken: !!tokens.idToken,
-      hasUserId: !!userAttributes.userId,
-      apiKeysCount: apiKeys.length,
-    });
-    fetchApiKeys();
-  }, [loading, isAuthenticated, tokens.idToken, userAttributes.userId, apiURL]);
+    const checkAndFetchApiKeys = async () => {
+      if (!isAuthenticated || !tokens.idToken || !userAttributes.userId || apiKeys.length > 0) {
+        return;
+      }
+
+      setIsFetchingApiKeys(true);
+
+      try {
+        // First check if API key exists using JWT token
+        const checkResult = await checkApiKey({
+          token: tokens.idToken,
+          apiURL,
+        });
+
+        // Only fetch API key if checkResult indicates an API key exists
+        if (checkResult) {
+          // Now fetch the actual API key details
+          const existingApiKey = await getApiKey({
+            token: tokens.idToken,
+            apiURL,
+            email: userAttributes.email,
+          });
+
+          setApiKeys([existingApiKey]);
+        } else {
+          // Don't call getApiKey, just leave apiKeys empty to show the generate button
+        }
+      } catch (error) {
+        console.log('No existing API key found or error checking:', error);
+        // If checkApiKey fails, it means no API key exists or there was an error
+        // Keep the existing behavior - show the generate button
+      } finally {
+        setIsFetchingApiKeys(false);
+      }
+    };
+
+    checkAndFetchApiKeys();
+  }, [
+    isAuthenticated,
+    tokens.idToken,
+    userAttributes.userId,
+    apiURL,
+    userAttributes.email,
+    apiKeys.length,
+    setApiKeys,
+  ]);
 
   return (
     <div className="pb-10 w-full h-full flex flex-col justify-center items-center">

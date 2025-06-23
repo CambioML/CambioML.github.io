@@ -3,7 +3,6 @@ import toast from 'react-hot-toast';
 import PulsingIcon from '../PulsingIcon';
 import ResultContainer from './ResultContainer';
 import QuotaLimitPage from './QuotaLimitPage';
-import updateQuota from '@/app/actions/updateQuota';
 import ModelToggleDropdown from './ModelToggleDropdown';
 import ExtractSettingsChecklist from './ExtractSettingsChecklist';
 import useResultZoomModal from '@/app/hooks/useResultZoomModal';
@@ -16,7 +15,7 @@ import { runAsyncRequestJob } from '@/app/actions/runAsyncRequestJob';
 import { JobParams } from '@/app/actions/apiInterface';
 import { useProductionContext } from './ProductionContext';
 import { usePostHog } from 'posthog-js/react';
-import { uploadFile } from '@/app/actions/uploadFile';
+import { uploadFile, asyncParseFile, pollJobStatus } from '@/app/actions/uploadFile';
 import { runSyncExtract } from '@/app/actions/runSyncExtract';
 import { extractPageAsBase64 } from '@/app/helpers';
 import { extractImageLinks } from '@/app/helpers';
@@ -28,6 +27,9 @@ import { PlaygroundFile, ExtractState, ExtractTab, ProcessType, ModelType } from
 import { runAsyncRequestJob as runPreprodAsyncRequestJob } from '@/app/actions/preprod/runAsyncRequestJob';
 import { useAmplifyAuth } from '@/app/hooks/useAmplifyAuth';
 import { fetchAuthSession, fetchUserAttributes } from 'aws-amplify/auth';
+import useAccountStore from '@/app/hooks/useAccountStore';
+import { checkApiKey } from '@/app/actions/account/ApiKey';
+import getApiKey from '@/app/actions/account/ApiKey';
 
 export const extractMarkdownTables = (input: string): string[] => {
   const tableRegex = /\|(.*\|.+\|[\s\S]*\|.+\|)/gm;
@@ -65,7 +67,8 @@ const MarkdownExtractContainer = () => {
   const router = useRouter();
 
   // Get Amplify auth state and tokens
-  const { tokens, userAttributes, refreshTokens, refreshAttributes } = useAmplifyAuth();
+  const { tokens, userAttributes, refreshTokens, isAuthenticated, loading } = useAmplifyAuth();
+  const { apiKeys, setApiKeys } = useAccountStore();
 
   // Add popup auth hook
   const { openAuthPopup, isLoading: authLoading } = usePopupAuth({
@@ -77,7 +80,6 @@ const MarkdownExtractContainer = () => {
         // Manually refresh tokens and attributes from the parent window context
         // This is necessary because the popup authentication happens in a separate window
         await refreshTokens();
-        await refreshAttributes();
 
         // Wait a bit more for the refresh to complete
         await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -124,6 +126,23 @@ const MarkdownExtractContainer = () => {
       toast.error('Authentication failed. Please try again.');
     },
   });
+
+  // Synchronize playground store with Amplify auth state
+  useEffect(() => {
+    if (isAuthenticated && tokens.idToken && userAttributes.email) {
+      // Update playground store with current auth state
+      setToken(tokens.idToken);
+      setLoggedIn(true);
+      setUserId(userAttributes.email);
+      setClientId(process.env.NEXT_PUBLIC_COGNITO_APPCLIENT_ID || '');
+    } else if (!isAuthenticated) {
+      // Clear playground store when not authenticated
+      setToken('');
+      setLoggedIn(false);
+      setUserId('');
+      setClientId('');
+    }
+  }, [isAuthenticated, tokens.idToken, userAttributes.email, setToken, setLoggedIn, setUserId, setClientId]);
 
   useEffect(() => {
     if (selectedFileIndex !== null && files.length > 0) {
@@ -292,14 +311,6 @@ const MarkdownExtractContainer = () => {
           num_pages: result.length,
         });
       updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.DONE_EXTRACTING);
-      updateQuota({
-        api_url: apiURL,
-        userId: currentUserId,
-        token: currentToken,
-        setTotalQuota,
-        setRemainingQuota,
-        handleError,
-      });
       toast.success(`${filename} extracted!`);
       return;
     },
@@ -323,151 +334,121 @@ const MarkdownExtractContainer = () => {
   }, [updateFileAtIndex, selectedFileIndex, filename]);
 
   const handleExtract = async (targetPageNumbers?: number[]) => {
+    // Get fresh state values to avoid stale closure variables
     const state = getState();
-    console.log({ loggedIn, token: state.token });
+    const currentUserId = state.userId;
+    const currentToken = state.token;
+    const currentClientId = state.clientId;
+    const currentModelType = state.modelType;
 
-    if (!loggedIn) {
-      // Set pending action to continue extraction after login with fresh values
-      setPendingAction(() => handleExtractAfterLogin(targetPageNumbers));
-
-      // Use popup authentication instead of redirecting
-      // This preserves the component state including uploaded files
-      try {
-        await openAuthPopup();
-      } catch (error) {
-        console.error('Failed to open auth popup:', error);
-        // Fallback to redirect if popup fails
-        localStorage.setItem('auth_redirect_url', window.location.pathname);
-        router.push(`/${locale}/login`);
-      }
+    // Check if we have a valid selected file index
+    if (state.selectedFileIndex === null) {
+      toast.error('No file selected');
       return;
     }
 
-    // Execute extraction directly if already logged in
-    await handleExtractAfterLogin(targetPageNumbers);
-  };
+    const currentSelectedFile = state.files[state.selectedFileIndex];
 
-  const handleExtractAfterLogin = useCallback(
-    async (targetPageNumbers?: number[]) => {
-      // Get fresh state values
-      const state = getState();
-      const currentSelectedFile = state.files[state.selectedFileIndex!];
-      const currentToken = state.token;
-      const currentUserId = state.userId;
-      const currentClientId = state.clientId;
-      const currentExtractSettings = state.extractSettings;
-      const currentModelType = state.modelType;
+    if (!currentSelectedFile || !currentSelectedFile.file) {
+      toast.error('No file selected');
+      return;
+    }
 
-      if (isProduction)
-        posthog.capture('playground.plain_text.start_extract', {
+    // Check authentication
+    if (!isAuthenticated) {
+      setPendingAction(() => handleExtract);
+      openAuthPopup();
+      return;
+    }
+
+    // Get API key
+    const apiKey = apiKeys && apiKeys.length > 0 ? apiKeys[0].api_key : null;
+    if (!apiKey) {
+      toast.error('No API key available. Please visit your account page to generate one.');
+      return;
+    }
+
+    updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.EXTRACTING);
+
+    try {
+      // Use the new async parse endpoint
+      const parseResponse = await asyncParseFile({
+        api_url: apiURL,
+        file: currentSelectedFile.file as File,
+        apiKey: apiKey,
+      });
+
+      toast.success('File submitted for processing...');
+
+      // Poll for job completion
+      const jobResult = await pollJobStatus(
+        apiURL,
+        parseResponse.job_id,
+        apiKey,
+        30, // max attempts
+        2000 // poll interval (2 seconds)
+      );
+
+      if (jobResult.status === 'completed') {
+        let extractedContent = '';
+
+        // Handle result from presigned URL or inline result
+        if (jobResult.result_url) {
+          // Fetch result from presigned URL
+          const resultResponse = await fetch(jobResult.result_url);
+          const resultData = await resultResponse.json();
+          extractedContent = resultData.markdown || resultData.result || JSON.stringify(resultData);
+        } else if (jobResult.result) {
+          // Use inline result
+          extractedContent = jobResult.result.markdown || jobResult.result.result || JSON.stringify(jobResult.result);
+        }
+
+        // Update file with extracted content
+        updateFileAtIndex(state.selectedFileIndex, 'extractResult', [extractedContent]);
+        updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.DONE_EXTRACTING);
+
+        toast.success('File extracted successfully!');
+
+        // Analytics
+        if (isProduction) {
+          posthog.capture('playground.plain_text.extract_success', {
+            route: '/playground',
+            module: 'plain_text',
+            file_type: getFileType(),
+            model_type: currentModelType,
+          });
+        }
+      } else if (jobResult.status === 'failed') {
+        const errorMessage = jobResult.error_message || 'Extraction failed';
+        toast.error(errorMessage);
+        updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.READY);
+
+        // Analytics
+        if (isProduction) {
+          posthog.capture('playground.plain_text.extract_error', {
+            route: '/playground',
+            module: 'plain_text',
+            file_type: getFileType(),
+            error: errorMessage,
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Error during extraction:', error);
+      toast.error('Extraction failed. Please try again.');
+      updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.READY);
+
+      // Analytics
+      if (isProduction) {
+        posthog.capture('playground.plain_text.extract_error', {
           route: '/playground',
           module: 'plain_text',
           file_type: getFileType(),
+          error: error instanceof Error ? error.message : 'Unknown error',
         });
-      if (currentSelectedFile?.extractTab === ExtractTab.INITIAL_STATE) {
-        updateFileAtIndex(state.selectedFileIndex, 'extractTab', ExtractTab.FILE_EXTRACT);
       }
-      updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.EXTRACTING);
-      if (currentSelectedFile && state.selectedFileIndex !== null) {
-        const jobParams: JobParams = {
-          targetPageNumbers,
-          maskPiiFlag: currentExtractSettings.removePII,
-          vqaProcessorArgs: {
-            vqaFiguresFlag: currentExtractSettings.includeChartsFigures,
-            vqaChartsFlag: currentExtractSettings.includeChartsFigures,
-            vqaTablesFlag: currentExtractSettings.includeTables,
-            vqaFootnotesFlag: currentExtractSettings.includeFootnotes,
-            vqaHeadersFlag: currentExtractSettings.includeHeadersFooters,
-            vqaFootersFlag: currentExtractSettings.includeHeadersFooters,
-            vqaPageNumsFlag: currentExtractSettings.includePageNumbers,
-          },
-        };
-        let processType: ProcessType;
-        if (currentModelType === ModelType.BASE) {
-          processType = ProcessType.FILE_EXTRACTION;
-        } else if (currentModelType === ModelType.PRO) {
-          processType = ProcessType.FILE_EXTRACTION_PRO;
-        } else if (currentModelType === ModelType.ULTRA) {
-          processType = ProcessType.FILE_EXTRACTION_ULTRA;
-        } else {
-          toast.error('Invalid model type. Please try again.');
-          updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.READY);
-          return;
-        }
-        // get presigned url and metadata
-        const uploadResult = await uploadFile({
-          api_url: apiURL,
-          userId: currentUserId,
-          token: currentToken,
-          file: currentSelectedFile.file as File,
-          extractArgs: jobParams.vqaProcessorArgs || {},
-          maskPiiFlag: jobParams.maskPiiFlag,
-          process_type: processType,
-          addFilesFormData,
-        });
-        if (uploadResult instanceof Error) {
-          toast.error(t.messages.error.uploadError);
-          updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.READY);
-          return;
-        }
-        const fileData = uploadResult.data;
-
-        if (!isProduction) console.log('[MarkdownExtract] jobParams:', jobParams);
-        if (isProduction) {
-          runAsyncRequestJob({
-            apiURL: apiURL,
-            jobType: 'info_extraction',
-            userId: currentUserId,
-            clientId: currentClientId,
-            fileId: fileData.fileId,
-            fileData,
-            selectedFile: currentSelectedFile,
-            token: currentToken,
-            sourceType: 's3',
-            jobParams,
-            selectedFileIndex: state.selectedFileIndex,
-            filename: currentSelectedFile.file instanceof File ? currentSelectedFile.file.name : 'file',
-            handleError,
-            handleSuccess,
-            handleTimeout,
-            updateFileAtIndex,
-          });
-        } else {
-          runPreprodAsyncRequestJob({
-            apiURL: apiURL,
-            jobType: 'info_extraction',
-            userId: currentUserId,
-            clientId: currentClientId,
-            fileId: fileData.fileId,
-            fileData,
-            selectedFile: currentSelectedFile,
-            token: currentToken,
-            sourceType: 's3',
-            jobParams,
-            selectedFileIndex: state.selectedFileIndex,
-            filename: currentSelectedFile.file instanceof File ? currentSelectedFile.file.name : 'file',
-            handleError,
-            handleSuccess,
-            handleTimeout,
-            updateFileAtIndex,
-          });
-        }
-      }
-    },
-    [
-      getState,
-      isProduction,
-      posthog,
-      getFileType,
-      updateFileAtIndex,
-      apiURL,
-      addFilesFormData,
-      t.messages.error.uploadError,
-      handleError,
-      handleSuccess,
-      handleTimeout,
-    ]
-  );
+    }
+  };
 
   const handleRetry = () => {
     updateFileAtIndex(selectedFileIndex, 'extractResult', []);
@@ -494,13 +475,11 @@ const MarkdownExtractContainer = () => {
 
         // Get fresh state values to avoid stale closure variables
         const state = getState();
-        const currentUserId = state.userId;
         const currentToken = state.token;
         const currentExtractSettings = state.extractSettings;
 
         const newMarkdown = await runSyncExtract({
           token: currentToken,
-          userId: currentUserId,
           apiUrl: apiURL,
           base64String: pageBase64,
           maskPii: currentExtractSettings.removePII,
@@ -513,27 +492,60 @@ const MarkdownExtractContainer = () => {
         console.error('Error during extraction:', error);
       } finally {
         updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.DONE_EXTRACTING);
-        // Get fresh state values again for the final updateQuota call
-        const state = getState();
-        updateQuota({
-          api_url: apiURL,
-          userId: state.userId,
-          token: state.token,
-          setTotalQuota,
-          setRemainingQuota,
-          handleError,
-        });
       }
     } else {
       console.warn('Selected file is not valid or is missing.');
     }
   };
 
+  // Add API key loading logic similar to AccountPageContainer
+  useEffect(() => {
+    const checkAndFetchApiKeys = async () => {
+      if (!isAuthenticated || !tokens.idToken || !userAttributes.userId || apiKeys.length > 0) {
+        return;
+      }
+
+      try {
+        // First check if API key exists using JWT token
+        const checkResult = await checkApiKey({
+          token: tokens.idToken,
+          apiURL,
+        });
+
+        // Only fetch API key if checkResult indicates an API key exists
+        if (checkResult) {
+          // Now fetch the actual API key details
+          const existingApiKey = await getApiKey({
+            token: tokens.idToken,
+            apiURL,
+            email: userAttributes.email,
+          });
+
+          setApiKeys([existingApiKey]);
+        } else {
+          console.log('Playground: No API key exists for this user');
+        }
+      } catch (error) {
+        console.log('Playground: No existing API key found or error checking:', error);
+      }
+    };
+
+    checkAndFetchApiKeys();
+  }, [
+    isAuthenticated,
+    tokens.idToken,
+    userAttributes.userId,
+    apiURL,
+    userAttributes.email,
+    apiKeys.length,
+    setApiKeys,
+  ]);
+
   return (
     <>
       {selectedFile?.extractState === ExtractState.LIMIT_REACHED ||
       (selectedFile?.extractState !== ExtractState.DONE_EXTRACTING &&
-        loggedIn &&
+        isAuthenticated &&
         remainingQuota <= 0 &&
         !loadingQuota) ? (
         <QuotaLimitPage />

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useAmplifyAuth } from './useAmplifyAuth';
-import { ApiKey } from './useAccountStore';
 
 interface UserProfile {
   name: string;
@@ -9,11 +8,9 @@ interface UserProfile {
   sub: string;
   picture: string;
   cdkProfile: CdkProfile;
-  apiKey: string;
 }
 
 export type CdkProfile = {
-  apiKey: string;
   pageLimit: number;
   remainingPages: number;
   subscriptionId: string;
@@ -58,7 +55,6 @@ const useUserProfile = () => {
           sub: cognitoUserId,
           picture: userAttributes?.picture || '/images/default-profile.png',
           cdkProfile: {} as CdkProfile,
-          apiKey: '',
         };
 
         setProfile(profileData);

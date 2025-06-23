@@ -37,6 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <head>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+        {/* Chatbot disabled - commenting out Epsilla integration to fix 401 unauthorized errors
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -54,6 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             `,
           }}
         />
+        */}
       </head>
 
       <PHProvider>

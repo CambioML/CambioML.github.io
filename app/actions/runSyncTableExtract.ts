@@ -1,5 +1,5 @@
 import axios from 'axios';
-import getApiKeysForUser from './account/getApiKeysForUser';
+import getApiKey from './account/ApiKey';
 import { ApiKey } from '@/app/hooks/useAccountStore';
 
 interface IParams {
@@ -18,12 +18,13 @@ export const runSyncTableExtract = async ({
   base64String,
   maskPii,
 }: IParams): Promise<string> => {
-  let apiKey: ApiKey[];
+  let apiKey: ApiKey;
   try {
-    apiKey = await getApiKeysForUser({ userId, token, apiURL: apiUrl });
-    if (apiKey.length === 0) {
-      throw new Error('API key not found');
-    }
+    apiKey = await getApiKey({
+      token,
+      apiURL: apiUrl,
+      email: undefined,
+    });
   } catch (e) {
     if (axios.isAxiosError(e)) {
       return e.message;
@@ -42,7 +43,7 @@ export const runSyncTableExtract = async ({
 
   const config = {
     headers: {
-      'x-api-key': apiKey[0].key || '-',
+      'x-api-key': apiKey.api_key || '-',
     },
   };
 

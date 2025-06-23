@@ -2,16 +2,14 @@ import { toast } from 'react-hot-toast';
 import { useEffect, useMemo, useState } from 'react';
 import { useProductionContext } from './ProductionContext';
 import { ArrowLeft, Download } from '@phosphor-icons/react';
-import { uploadFile } from '@/app/actions/uploadFile';
-import { JobParams } from '@/app/actions/apiInterface';
-import { runAsyncRequestJob } from '@/app/actions/runAsyncRequestJob';
-import { PlaygroundFile, ExtractState, ProcessType, JobType } from '@/app/types/PlaygroundTypes';
-import { runAsyncRequestJob as runPreprodAsyncRequestJob } from '@/app/actions/preprod/runAsyncRequestJob';
+import { asyncExtractKeyValue, pollJobStatus } from '@/app/actions/uploadFile';
+import { PlaygroundFile, ExtractState } from '@/app/types/PlaygroundTypes';
 import Button from '../Button';
 import CodeBlock from '../CodeBlock';
 import DocumentViewer from '../DocumentViewer';
 import KeyValueInputs from './KeyValueInputs';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
+import useAccountStore from '@/app/hooks/useAccountStore';
 import ExtractKeyValuePairTutorial from '../tutorials/ExtractKeyValuePairTutorial';
 import QuotaLimitPage from './QuotaLimitPage';
 import { useTranslation } from '@/lib/use-translation';
@@ -35,12 +33,11 @@ const downloadExtractedData = (formattedData: string, file?: PlaygroundFile['fil
 
 const ExtractKeyValuePairContainer = () => {
   const [hideResult, setHideResult] = useState(false);
-  const { apiURL, isProduction } = useProductionContext();
+  const { apiURL } = useProductionContext();
   const {
     selectedFileIndex,
     files,
     updateFileAtIndex,
-    addFilesFormData,
     loggedIn,
     setPendingAction,
     getState,
@@ -70,53 +67,6 @@ const ExtractKeyValuePairContainer = () => {
     }
   }, [selectedFile?.extractKeyValueState]);
 
-  const handleSuccess = async (response: any) => {
-    // Get fresh state values to avoid stale closure variables
-    const state = getState();
-    const currentSelectedFile = state.files[state.selectedFileIndex!];
-
-    if (!response.data) {
-      toast.error(
-        `${currentSelectedFile?.file instanceof File ? currentSelectedFile.file.name : 'File'}: Received undefined result. Please try again.`
-      );
-      updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueState', ExtractState.READY);
-      return;
-    }
-
-    const formattedResult = JSON.stringify(response.data.json, null, 2);
-
-    updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueResult', formattedResult);
-    updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueState', ExtractState.DONE_EXTRACTING);
-
-    toast.success('Extraction complete!');
-  };
-
-  const handleError = (error: any) => {
-    // Get fresh state values to avoid stale closure variables
-    const state = getState();
-
-    if (error.response) {
-      if (error.response.status === 429) {
-        toast.error('Extract limit reached.');
-        updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueState', ExtractState.LIMIT_REACHED);
-      } else {
-        toast.error('Extraction failed. Please try again.');
-        updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueState', ExtractState.READY);
-      }
-    } else {
-      toast.error('Error during extraction. Please try again.');
-      updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueState', ExtractState.READY);
-    }
-    console.error(error);
-  };
-
-  const handleTimeout = () => {
-    // Get fresh state values to avoid stale closure variables
-    const state = getState();
-    updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueState', ExtractState.READY);
-    toast.error('Extract request timed out. Please try again.');
-  };
-
   const onSubmit = async (extractInstruction: Record<string, string>) => {
     if (!loggedIn) {
       // Set pending action to continue extraction after login with fresh values
@@ -143,9 +93,7 @@ const ExtractKeyValuePairContainer = () => {
 
   const onSubmitWithFreshState = async (extractInstruction: Record<string, string>, state: any) => {
     const currentSelectedFile = state.files[state.selectedFileIndex!];
-    const currentToken = state.token;
-    const currentUserId = state.userId;
-    const currentClientId = state.clientId;
+    const { apiKeys } = useAccountStore.getState();
 
     if (!currentSelectedFile?.file) {
       toast.error('Please select a file first');
@@ -157,65 +105,67 @@ const ExtractKeyValuePairContainer = () => {
       return;
     }
 
+    const apiKey = apiKeys && apiKeys.length > 0 ? apiKeys[0].api_key : null;
+    if (!apiKey) {
+      toast.error('No API key found. Please generate an API key in your account settings.');
+      return;
+    }
+
     try {
       updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueState', ExtractState.UPLOADING);
-      const file = currentSelectedFile.file;
+      const file = currentSelectedFile.file as File;
 
-      const jobParams: JobParams = {
-        vqaProcessorArgs: {
-          vqaExtractInstruction: extractInstruction,
-        },
-      };
+      // Convert extractInstruction to key-description pairs format
+      const extractInputKeyDescriptionPairs = Object.entries(extractInstruction).map(([key, description]) => ({
+        key,
+        description: description || key,
+      }));
 
-      // Upload file and get presigned url and metadata
-      const uploadResult = await uploadFile({
+      // Submit the async job
+      const jobResponse = await asyncExtractKeyValue({
         api_url: apiURL,
-        userId: currentUserId,
-        token: currentToken,
-        file: file as File,
-        process_type: ProcessType.EXTRACT_KEY_VALUE,
-        extractArgs: {
-          extractInstruction,
-        },
-        addFilesFormData,
+        file,
+        apiKey,
+        extractInputKeyDescriptionPairs,
       });
 
-      if (uploadResult instanceof Error) {
-        toast.error(t.messages.error.uploadError);
-        updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueState', ExtractState.READY);
-        return;
-      }
-
-      const fileData = uploadResult.data;
       updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueState', ExtractState.EXTRACTING);
 
-      // Common job parameters
-      const jobConfig = {
-        apiURL,
-        jobType: JobType.KEY_VALUE_EXTRACTION,
-        userId: currentUserId,
-        clientId: currentClientId,
-        fileId: fileData.fileId,
-        fileData,
-        selectedFile: currentSelectedFile,
-        token: currentToken,
-        sourceType: 's3',
-        jobParams,
-        selectedFileIndex: state.selectedFileIndex,
-        filename: file instanceof File ? file.name : 'file',
-        handleError,
-        handleSuccess,
-        handleTimeout,
-        updateFileAtIndex,
-      } as const;
+      // Poll for results
+      const result = await pollJobStatus(apiURL, jobResponse.job_id, apiKey);
 
-      // Run the async job based on environment
-      const runJob = isProduction ? runAsyncRequestJob : runPreprodAsyncRequestJob;
-      await runJob(jobConfig);
+      if (result.status === 'completed') {
+        if (result.result) {
+          const formattedResult = JSON.stringify(result.result, null, 2);
+          updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueResult', formattedResult);
+          updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueState', ExtractState.DONE_EXTRACTING);
+          toast.success('Extraction complete!');
+        } else if (result.result_url) {
+          // Handle case where result is provided via URL
+          try {
+            const resultResponse = await fetch(result.result_url);
+            const resultData = await resultResponse.json();
+            const formattedResult = JSON.stringify(resultData, null, 2);
+            updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueResult', formattedResult);
+            updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueState', ExtractState.DONE_EXTRACTING);
+            toast.success('Extraction complete!');
+          } catch (error) {
+            console.error('Error fetching result from URL:', error);
+            toast.error('Error retrieving extraction results. Please try again.');
+            updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueState', ExtractState.READY);
+          }
+        } else {
+          toast.error('No extraction result found. Please try again.');
+          updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueState', ExtractState.READY);
+        }
+      } else if (result.status === 'failed') {
+        toast.error(result.error_message || 'Extraction failed. Please try again.');
+        updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueState', ExtractState.READY);
+      }
     } catch (error) {
       toast.error('Extraction failed. Please try again.');
       console.error(error);
-      updateFileAtIndex(selectedFileIndex, 'extractKeyValueState', ExtractState.READY);
+      updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueState', ExtractState.READY);
     }
   };
 
