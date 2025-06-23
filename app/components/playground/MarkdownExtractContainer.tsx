@@ -43,8 +43,6 @@ const MarkdownExtractContainer = () => {
   const {
     selectedFileIndex,
     files,
-    loggedIn,
-    addFilesFormData,
     updateFileAtIndex,
     setTotalQuota,
     setRemainingQuota,
@@ -362,10 +360,28 @@ const MarkdownExtractContainer = () => {
     }
 
     // Get API key
-    const apiKey = apiKeys && apiKeys.length > 0 ? apiKeys[0].api_key : null;
+    let apiKey = apiKeys && apiKeys.length > 0 ? apiKeys[0].api_key : null;
     if (!apiKey) {
-      toast.error('No API key available. Please visit your account page to generate one.');
-      return;
+      try {
+        // Try to fetch API key directly
+        const fetchedApiKey = await getApiKey({
+          token: currentToken,
+          apiURL,
+          email: currentUserId,
+        });
+
+        if (fetchedApiKey) {
+          setApiKeys([fetchedApiKey]);
+          apiKey = fetchedApiKey.api_key;
+        } else {
+          toast.error('No API key available. Please visit your account page to generate one.');
+          return;
+        }
+      } catch (error) {
+        console.error('Error fetching API key:', error);
+        toast.error('No API key available. Please visit your account page to generate one.');
+        return;
+      }
     }
 
     updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.EXTRACTING);
