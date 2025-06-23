@@ -33,7 +33,7 @@ const ModelToggleDropdown = () => {
     }
   };
 
-  const disabledTypes: ModelType[] = [ModelType.PRO, ModelType.ULTRA];
+  const disabledTypes: ModelType[] = [ModelType.ULTRA];
 
   return (
     <div className="relative inline-block text-left">

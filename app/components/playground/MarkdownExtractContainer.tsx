@@ -15,7 +15,7 @@ import { runAsyncRequestJob } from '@/app/actions/runAsyncRequestJob';
 import { JobParams } from '@/app/actions/apiInterface';
 import { useProductionContext } from './ProductionContext';
 import { usePostHog } from 'posthog-js/react';
-import { uploadFile, asyncParseFile, pollJobStatus } from '@/app/actions/uploadFile';
+import { uploadFile, asyncAnyparser, asyncAnyparserPro, pollJobStatus } from '@/app/actions/async_processor';
 import { runSyncExtract } from '@/app/actions/runSyncExtract';
 import { extractPageAsBase64 } from '@/app/helpers';
 import { extractImageLinks } from '@/app/helpers';
@@ -30,6 +30,7 @@ import { fetchAuthSession, fetchUserAttributes } from 'aws-amplify/auth';
 import useAccountStore from '@/app/hooks/useAccountStore';
 import { checkApiKey } from '@/app/actions/account/ApiKey';
 import getApiKey from '@/app/actions/account/ApiKey';
+import { checkQuota } from '@/app/actions/account/ApiKey';
 
 export const extractMarkdownTables = (input: string): string[] => {
   const tableRegex = /\|(.*\|.+\|[\s\S]*\|.+\|)/gm;
@@ -387,8 +388,11 @@ const MarkdownExtractContainer = () => {
     updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.EXTRACTING);
 
     try {
-      // Use the new async parse endpoint
-      const parseResponse = await asyncParseFile({
+      // Select the appropriate async parser function based on model type
+      const parseFunction = currentModelType === ModelType.PRO ? asyncAnyparserPro : asyncAnyparser;
+
+      // Use the selected async parse endpoint
+      const parseResponse = await parseFunction({
         api_url: apiURL,
         file: currentSelectedFile.file as File,
         apiKey: apiKey,
@@ -424,6 +428,14 @@ const MarkdownExtractContainer = () => {
         updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.DONE_EXTRACTING);
 
         toast.success('File extracted successfully!');
+
+        // Update quota after successful extraction
+        try {
+          const quotaResponse = await checkQuota({ apiKey, apiURL });
+          setRemainingQuota(quotaResponse.remaining_quota);
+        } catch (error) {
+          console.error('Error checking quota after extraction:', error);
+        }
 
         // Analytics
         if (isProduction) {

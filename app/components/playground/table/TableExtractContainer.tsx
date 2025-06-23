@@ -16,7 +16,7 @@ import { JobParams } from '@/app/actions/apiInterface';
 import useResultZoomModal from '@/app/hooks/useResultZoomModal';
 import DropdownButton from '../../inputs/DropdownButton';
 import QuotaLimitPage from '../QuotaLimitPage';
-import { uploadFile, asyncExtractTables, pollJobStatus } from '@/app/actions/uploadFile';
+import { uploadFile, asyncExtractTables, pollJobStatus } from '@/app/actions/async_processor';
 import { runAsyncRequestJob } from '@/app/actions/runAsyncRequestJob';
 import { extractPageAsBase64 } from '@/app/helpers';
 import { runSyncTableExtract } from '@/app/actions/runSyncTableExtract';

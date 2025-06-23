@@ -2,7 +2,7 @@ import { toast } from 'react-hot-toast';
 import { useEffect, useMemo, useState } from 'react';
 import { useProductionContext } from './ProductionContext';
 import { ArrowLeft, Download } from '@phosphor-icons/react';
-import { asyncExtractKeyValue, pollJobStatus } from '@/app/actions/uploadFile';
+import { asyncExtractKeyValue, pollJobStatus } from '@/app/actions/async_processor';
 import { PlaygroundFile, ExtractState } from '@/app/types/PlaygroundTypes';
 import Button from '../Button';
 import CodeBlock from '../CodeBlock';
@@ -14,6 +14,7 @@ import ExtractKeyValuePairTutorial from '../tutorials/ExtractKeyValuePairTutoria
 import QuotaLimitPage from './QuotaLimitPage';
 import { useTranslation } from '@/lib/use-translation';
 import { useAuth0 } from '@auth0/auth0-react';
+import { checkQuota } from '@/app/actions/account/ApiKey';
 
 const downloadExtractedData = (formattedData: string, file?: PlaygroundFile['file']) => {
   if (!formattedData) return;
@@ -44,6 +45,7 @@ const ExtractKeyValuePairContainer = () => {
     pendingAction,
     remainingQuota,
     loadingQuota,
+    setRemainingQuota,
   } = usePlaygroundStore();
   const { t } = useTranslation();
   const { loginWithPopup } = useAuth0();
@@ -140,6 +142,14 @@ const ExtractKeyValuePairContainer = () => {
           updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueResult', formattedResult);
           updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueState', ExtractState.DONE_EXTRACTING);
           toast.success('Extraction complete!');
+
+          // Update quota after successful extraction
+          try {
+            const quotaResponse = await checkQuota({ apiKey, apiURL });
+            setRemainingQuota(quotaResponse.remaining_quota);
+          } catch (error) {
+            console.error('Error checking quota after extraction:', error);
+          }
         } else if (result.result_url) {
           // Handle case where result is provided via URL
           try {
@@ -149,6 +159,14 @@ const ExtractKeyValuePairContainer = () => {
             updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueResult', formattedResult);
             updateFileAtIndex(state.selectedFileIndex, 'extractKeyValueState', ExtractState.DONE_EXTRACTING);
             toast.success('Extraction complete!');
+
+            // Update quota after successful extraction
+            try {
+              const quotaResponse = await checkQuota({ apiKey, apiURL });
+              setRemainingQuota(quotaResponse.remaining_quota);
+            } catch (error) {
+              console.error('Error checking quota after extraction:', error);
+            }
           } catch (error) {
             console.error('Error fetching result from URL:', error);
             toast.error('Error retrieving extraction results. Please try again.');

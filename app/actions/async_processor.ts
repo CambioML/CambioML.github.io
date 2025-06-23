@@ -85,7 +85,40 @@ const getFileType = (file: File): string => {
 };
 
 // New async parse function
-export const asyncParseFile = async ({ api_url, file, apiKey }: AsyncParseParams): Promise<AsyncParseResponse> => {
+export const asyncAnyparser = async ({ api_url, file, apiKey }: AsyncParseParams): Promise<AsyncParseResponse> => {
+  try {
+    // Convert file to base64
+    const fileContent = await fileToBase64(file);
+    const fileType = getFileType(file);
+
+    const requestBody = {
+      file_content: fileContent,
+      file_type: fileType,
+    };
+
+    const response = await axios.post<AsyncParseResponse>(`${api_url}/anyparser/async_parse`, requestBody, {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error in asyncParseFile:', error);
+    if (axios.isAxiosError(error) && error.response) {
+      const message = error.response.data?.detail || `Error parsing file: ${file.name}`;
+      toast.error(message);
+    } else {
+      toast.error(`Error parsing file: ${file.name}.`);
+    }
+    throw error;
+  }
+};
+
+
+// New async parse function
+export const asyncAnyparserPro = async ({ api_url, file, apiKey }: AsyncParseParams): Promise<AsyncParseResponse> => {
   try {
     // Convert file to base64
     const fileContent = await fileToBase64(file);
@@ -110,11 +143,12 @@ export const asyncParseFile = async ({ api_url, file, apiKey }: AsyncParseParams
       const message = error.response.data?.detail || `Error parsing file: ${file.name}`;
       toast.error(message);
     } else {
-      toast.error(`Error parsing file: ${file.name}. Please try again.`);
+      toast.error(`Error parsing file: ${file.name}.`);
     }
     throw error;
   }
 };
+
 
 // Poll job status
 export const pollJobStatus = async (
@@ -122,7 +156,7 @@ export const pollJobStatus = async (
   jobId: string,
   apiKey: string,
   maxAttempts: number = 30,
-  pollInterval: number = 2000
+  pollInterval: number = 1000
 ): Promise<JobStatusResponse> => {
   for (let attempt = 0; attempt < maxAttempts; attempt++) {
     try {
@@ -153,7 +187,7 @@ export const pollJobStatus = async (
   throw new Error('Job polling timed out');
 };
 
-interface IParams {
+interface UploadFileIParams {
   api_url: string;
   file: File | undefined;
   userId: string;
@@ -190,7 +224,7 @@ export const uploadFile = async ({
   process_type,
   maskPiiFlag,
   addFilesFormData,
-}: IParams) => {
+}: UploadFileIParams) => {
   if (!file) {
     toast.error('No file selected');
     return;
