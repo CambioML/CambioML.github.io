@@ -186,7 +186,7 @@ Authentication is configured throughout the application using the `@auth0/auth0-
   domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN || ''}
   clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || ''}
   authorizationParams={{
-    audience: `https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/api/v2/`,
+    {% raw %}audience: `https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/api/v2/`,{% endraw %}
   }}
 >
   {children}
