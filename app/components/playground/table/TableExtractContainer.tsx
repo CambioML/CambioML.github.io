@@ -1,23 +1,19 @@
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
-import { ExtractTab, PlaygroundFile, ExtractState, ProcessType } from '@/app/types/PlaygroundTypes';
+import { ExtractTab, PlaygroundFile, ExtractState } from '@/app/types/PlaygroundTypes';
 import { useEffect, useState } from 'react';
 import Button from '../../Button';
 import { ArrowCounterClockwise, DownloadSimple, Table } from '@phosphor-icons/react';
 import PulsingIcon from '../../PulsingIcon';
 import toast from 'react-hot-toast';
 import { downloadFile } from '@/app/actions/downloadFile';
-import { AxiosError, AxiosResponse } from 'axios';
 import ResultContainer from '../ResultContainer';
 import { useProductionContext } from '../ProductionContext';
-import { runAsyncRequestJob as runPreprodAsyncRequestJob } from '@/app/actions/preprod/runAsyncRequestJob';
 import { usePostHog } from 'posthog-js/react';
 import ExtractSettingsChecklist from '../ExtractSettingsChecklist';
-import { JobParams } from '@/app/actions/apiInterface';
 import useResultZoomModal from '@/app/hooks/useResultZoomModal';
 import DropdownButton from '../../inputs/DropdownButton';
 import QuotaLimitPage from '../QuotaLimitPage';
-import { uploadFile, asyncExtractTables, pollJobStatus } from '@/app/actions/async_processor';
-import { runAsyncRequestJob } from '@/app/actions/runAsyncRequestJob';
+import { asyncExtractTables, pollJobStatus } from '@/app/actions/async_processor';
 import { extractPageAsBase64 } from '@/app/helpers';
 import { runSyncTableExtract } from '@/app/actions/runSyncTableExtract';
 import * as XLSX from 'xlsx';
@@ -33,10 +29,7 @@ const TableExtractContainer = () => {
     selectedFileIndex,
     files,
     updateFileAtIndex,
-    setRemainingQuota,
-    setTotalQuota,
     remainingQuota,
-    addFilesFormData,
     loggedIn,
     setPendingAction,
     loadingQuota,
@@ -61,10 +54,10 @@ const TableExtractContainer = () => {
     }
   }, [selectedFileIndex, files, updateFileAtIndex]);
 
-  const handleTableExtractTransform = async (targetPageNumbers?: number[]) => {
+  const handleTableExtractTransform = async () => {
     if (!loggedIn) {
       // Set pending action to continue extraction after login
-      setPendingAction(() => handleTableExtractTransformAfterLogin(targetPageNumbers));
+      setPendingAction(() => handleTableExtractTransformAfterLogin());
 
       // Trigger login flow
       loginWithPopup({
@@ -76,10 +69,10 @@ const TableExtractContainer = () => {
     }
 
     // Execute extraction directly if already logged in
-    await handleTableExtractTransformAfterLogin(targetPageNumbers);
+    await handleTableExtractTransformAfterLogin();
   };
 
-  const handleTableExtractTransformAfterLogin = async (targetPageNumbers?: number[]) => {
+  const handleTableExtractTransformAfterLogin = async () => {
     // Get fresh state values to avoid stale closure variables
     const state = usePlaygroundStore.getState();
     const currentSelectedFile = state.files[state.selectedFileIndex!];
@@ -368,13 +361,11 @@ const TableExtractContainer = () => {
 
         // Get fresh state values to avoid stale closure variables
         const state = usePlaygroundStore.getState();
-        const currentUserId = state.userId;
         const currentToken = state.token;
         const currentExtractSettings = state.extractSettings;
 
         const table = await runSyncTableExtract({
           token: currentToken,
-          userId: currentUserId,
           apiUrl: apiURL,
           base64String: pageBase64,
           maskPii: currentExtractSettings.removePII,
@@ -387,7 +378,6 @@ const TableExtractContainer = () => {
         console.error('Error during extraction:', error);
       } finally {
         updateFileAtIndex(selectedFileIndex, 'instructionExtractState', ExtractState.DONE_EXTRACTING);
-        const state = usePlaygroundStore.getState();
       }
     } else {
       console.warn('Selected file is not valid or is missing.');

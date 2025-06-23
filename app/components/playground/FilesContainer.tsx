@@ -10,7 +10,7 @@ import { cn } from '@/lib/cn';
 
 const FilesContainer = () => {
   const { t } = useTranslation();
-  const { files, loggedIn, userId, fileCollapsed, setFileCollapsed } = usePlaygroundStore();
+  const { files, loggedIn, fileCollapsed, setFileCollapsed } = usePlaygroundStore();
 
   return (
     <div className={cn(`h-[500px] lg:h-full w-full min-h-[200px] grid lg:grid-cols-[1fr_20px]`)}>
@@ -38,7 +38,7 @@ const FilesContainer = () => {
             <div className="row-span-1 h-full border-y-2 py-2 w-full flex flex-col gap-2 items-center justify-center">
               <LogoutButton collapsed={fileCollapsed} />
             </div>
-            <QuotaDisplay userId={userId} isCollapsed={fileCollapsed} />
+            <QuotaDisplay isCollapsed={fileCollapsed} />
           </>
         )}
       </div>

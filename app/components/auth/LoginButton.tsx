@@ -3,13 +3,12 @@
 import { SignIn } from '@phosphor-icons/react/dist/ssr';
 import Button from '../Button';
 import { useTranslation } from '@/lib/use-translation';
-import { useAmplifyAuth } from '@/app/hooks/useAmplifyAuth';
 
 const LoginButton = () => {
   const { t } = useTranslation();
 
-  // Use Amplify auth hook for authentication state
-  const { isAuthenticated: isAmplifyAuthenticated, tokens, userAttributes } = useAmplifyAuth();
+  // Note: Amplify auth is available but not needed for this component
+  // const {} = useAmplifyAuth();
 
   const handleLogin = () => {
     // Save current URL to localStorage before redirecting

@@ -116,7 +116,6 @@ export const asyncAnyparser = async ({ api_url, file, apiKey }: AsyncParseParams
   }
 };
 
-
 // New async parse function
 export const asyncAnyparserPro = async ({ api_url, file, apiKey }: AsyncParseParams): Promise<AsyncParseResponse> => {
   try {
@@ -148,7 +147,6 @@ export const asyncAnyparserPro = async ({ api_url, file, apiKey }: AsyncParsePar
     throw error;
   }
 };
-
 
 // Poll job status
 export const pollJobStatus = async (

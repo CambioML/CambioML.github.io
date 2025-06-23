@@ -8,7 +8,7 @@ import ExtractSettingsChecklist from './ExtractSettingsChecklist';
 import useResultZoomModal from '@/app/hooks/useResultZoomModal';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 import JSZip from 'jszip'; // Import JSZip for zipping files
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { downloadFile } from '@/app/actions/downloadFile';
 import { useProductionContext } from './ProductionContext';
@@ -18,7 +18,6 @@ import { runSyncExtract } from '@/app/actions/runSyncExtract';
 import { extractPageAsBase64 } from '@/app/helpers';
 import { extractImageLinks } from '@/app/helpers';
 import { useTranslation } from '@/lib/use-translation';
-import { useRouter } from 'next/navigation';
 import { usePopupAuth } from '@/app/hooks/usePopupAuth';
 import { DownloadSimple, CloudArrowUp, ArrowCounterClockwise, FileText } from '@phosphor-icons/react';
 import { PlaygroundFile, ExtractState, ModelType } from '@/app/types/PlaygroundTypes';
@@ -42,7 +41,6 @@ const MarkdownExtractContainer = () => {
     selectedFileIndex,
     files,
     updateFileAtIndex,
-    setTotalQuota,
     setRemainingQuota,
     remainingQuota,
     setPendingAction,
@@ -59,11 +57,12 @@ const MarkdownExtractContainer = () => {
   const [filename, setFilename] = useState<string>('');
   const posthog = usePostHog();
   const resultZoomModal = useResultZoomModal();
-  const { t, locale } = useTranslation();
-  const router = useRouter();
+  const { t } = useTranslation();
+  // const router = useRouter(); // Commented out as it's not used
 
   // Get Amplify auth state and tokens
-  const { tokens, userAttributes, refreshTokens, isAuthenticated, loading } = useAmplifyAuth();
+  const { tokens, userAttributes, refreshTokens, isAuthenticated } = useAmplifyAuth();
+  // const { loading } = useAmplifyAuth(); // Removed unused loading variable
   const { apiKeys, setApiKeys } = useAccountStore();
 
   // Add popup auth hook
@@ -231,110 +230,12 @@ const MarkdownExtractContainer = () => {
     }
   }, [selectedFile, filename]);
 
-  const handleError = useCallback(
-    (e: AxiosError) => {
-      if (e.response) {
-        if (e.response.status === 400) {
-          toast.error(`${filename}: Parameter is invalid. Please try again.`);
-          updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
-          return;
-        } else if (e.response.status === 404) {
-          toast.error(`${filename}: Job not found. Please try again.`);
-          updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
-          return;
-        } else if (e.response.status === 429) {
-          toast.error(`Extract page limit reached.`);
-          updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.LIMIT_REACHED);
-          return;
-        } else if (e.response.status === 500) {
-          toast.error(`${filename}: Job has failed. Please try again.`);
-          updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
-          return;
-        }
-      }
-      if (isProduction)
-        posthog.capture('playground.plain_text.error', {
-          route: '/playground',
-          module: 'plain_text',
-          file_type: getFileType(),
-          error_status: e.response?.status,
-          error_message: e.response?.data,
-        });
-      toast.error(`Error extracting ${filename}. Please try again.`);
-      updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
-    },
-    [filename, updateFileAtIndex, selectedFileIndex, isProduction, posthog, getFileType]
-  );
-
-  const handleSuccess = useCallback(
-    async (response: AxiosResponse, targetPageNumbers?: number[]) => {
-      // Get fresh state values to avoid stale closure variables
-      const state = getState();
-      const currentSelectedFile = state.files[state.selectedFileIndex!];
-      const currentUserId = state.userId;
-      const currentToken = state.token;
-
-      let result = response.data.markdown;
-      if (result === undefined) {
-        toast.error(`${filename}: Received undefined result. Please try again.`);
-        updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.READY);
-        return;
-      }
-      if (typeof result === 'string') {
-        result = [result];
-      }
-      if (!isProduction) console.log('[MarkdownExtract] result:', result);
-      if (targetPageNumbers) {
-        const currentResult = currentSelectedFile?.extractResult;
-        if (currentResult) {
-          const newResult = currentResult.map((resultItem, index) => {
-            if (targetPageNumbers.includes(index)) {
-              return result.shift();
-            } else {
-              return resultItem;
-            }
-          });
-          result = newResult;
-        }
-      }
-      updateFileAtIndex(state.selectedFileIndex, 'extractResult', result);
-
-      if (isProduction)
-        posthog.capture('playground.plain_text.success', {
-          route: '/playground',
-          module: 'plain_text',
-          file_type: getFileType(),
-          num_pages: result.length,
-        });
-      updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.DONE_EXTRACTING);
-      toast.success(`${filename} extracted!`);
-      return;
-    },
-    [
-      getState,
-      filename,
-      isProduction,
-      posthog,
-      getFileType,
-      updateFileAtIndex,
-      apiURL,
-      setTotalQuota,
-      setRemainingQuota,
-      handleError,
-    ]
-  );
-
-  const handleTimeout = useCallback(() => {
-    updateFileAtIndex(selectedFileIndex, 'extractState', ExtractState.READY);
-    toast.error(`Extract request for ${filename} timed out. Please try again.`);
-  }, [updateFileAtIndex, selectedFileIndex, filename]);
-
-  const handleExtract = async (targetPageNumbers?: number[]) => {
+  const handleExtract = async () => {
     // Get fresh state values to avoid stale closure variables
     const state = getState();
     const currentUserId = state.userId;
     const currentToken = state.token;
-    const currentClientId = state.clientId;
+    // const currentClientId = state.clientId; // Commented out as it's not used
     const currentModelType = state.modelType;
 
     // Check if we have a valid selected file index

@@ -11,7 +11,6 @@ const QUOTA_ORANGE_THRESHOLD = 25;
 const QUOTA_RED_THRESHOLD = 15;
 
 interface QuotaDisplayProps {
-  userId: string;
   isCollapsed?: boolean;
 }
 
@@ -21,23 +20,14 @@ interface CheckQuotaRequest {
   total_used: number;
 }
 
-const QuotaDisplay = ({ userId, isCollapsed }: QuotaDisplayProps) => {
-  const {
-    totalQuota,
-    remainingQuota,
-    token,
-    setTotalQuota,
-    setRemainingQuota,
-    fileCollapsed,
-    loadingQuota,
-    setLoadingQuota,
-  } = usePlaygroundStore();
+const QuotaDisplay = ({ isCollapsed }: QuotaDisplayProps) => {
+  const { totalQuota, remainingQuota, setTotalQuota, setRemainingQuota, fileCollapsed, loadingQuota, setLoadingQuota } =
+    usePlaygroundStore();
   const { apiURL } = useProductionContext();
   const { t } = useTranslation();
   const { apiKeys } = useAccountStore();
   const [quotaData, setQuotaData] = useState<CheckQuotaRequest | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   // Get the first available API key
   const apiKey = apiKeys && apiKeys.length > 0 ? apiKeys[0].api_key : null;
@@ -50,7 +40,6 @@ const QuotaDisplay = ({ userId, isCollapsed }: QuotaDisplayProps) => {
     }
 
     setIsLoading(true);
-    setError(null);
 
     try {
       const result = await checkQuota({ apiKey, apiURL });
@@ -62,7 +51,7 @@ const QuotaDisplay = ({ userId, isCollapsed }: QuotaDisplayProps) => {
       setLoadingQuota(false); // Clear the playground store loading state
     } catch (err) {
       console.error('Error fetching quota data:', err);
-      setError(err instanceof Error ? err.message : 'Failed to fetch quota data');
+      // Note: Error is logged but not stored in state for now
       setLoadingQuota(false); // Clear loading state even on error
     } finally {
       setIsLoading(false);
@@ -71,10 +60,6 @@ const QuotaDisplay = ({ userId, isCollapsed }: QuotaDisplayProps) => {
 
   const handleRefresh = () => {
     fetchQuotaData();
-  };
-
-  const handleError = () => {
-    setError(null);
   };
 
   useEffect(() => {

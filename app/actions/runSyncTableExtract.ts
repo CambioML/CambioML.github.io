@@ -12,12 +12,11 @@ interface IParams {
 }
 
 export const runSyncTableExtract = async ({
-  userId,
   token,
   apiUrl,
   base64String,
   maskPii,
-}: IParams): Promise<string> => {
+}: Omit<IParams, 'userId'>): Promise<string> => {
   let apiKey: ApiKey;
   try {
     apiKey = await getApiKey({
