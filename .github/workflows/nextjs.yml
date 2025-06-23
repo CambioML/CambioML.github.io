@@ -115,6 +115,7 @@ jobs:
           NEXT_PUBLIC_ANYPARSER_API_URL: ${{ secrets.NEXT_PUBLIC_ANYPARSER_API_URL }}
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
           NEXT_PUBLIC_API_BASE: ${{ secrets.NEXT_PUBLIC_API_BASE }}
+          NEXT_PUBLIC_OAUTH_DOMAIN: ${{ secrets.NEXT_PUBLIC_OAUTH_DOMAIN }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
