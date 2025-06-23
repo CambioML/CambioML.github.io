@@ -5,7 +5,7 @@ import { AmplifyAuthProvider } from '@/app/components/providers/AmplifyAuthProvi
 import { ProductionProvider } from '@/app/components/playground/ProductionContext';
 
 // Import Amplify configuration
-import '../login/amplify';
+import '../../lib/amplify';
 
 const AccountPage = () => {
   return (

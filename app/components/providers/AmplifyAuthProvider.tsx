@@ -2,9 +2,9 @@
 
 import { ThemeProvider as AmplifyThemeProvider, Authenticator } from '@aws-amplify/ui-react';
 import { useThemeContext } from '@/app/contexts/ThemeContext';
-import { lightTheme, darkTheme } from '@/app/[locale]/login/amplify';
+import { lightTheme, darkTheme } from '@/app/lib/amplify';
 import '@aws-amplify/ui-react/styles.css';
-import '@/app/[locale]/login/amplify';
+import '@/app/lib/amplify';
 
 interface AmplifyAuthProviderProps {
   children: React.ReactNode;

@@ -18,7 +18,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 import './login.css';
 // Import Amplify configuration
-import './amplify';
+import '../../lib/amplify';
 
 export default function LoginPage() {
   const router = useRouter();
