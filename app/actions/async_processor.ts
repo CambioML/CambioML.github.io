@@ -66,22 +66,7 @@ const fileToBase64 = (file: File): Promise<string> => {
 // Get file type from File object
 const getFileType = (file: File): string => {
   const extension = file.name.split('.').pop()?.toLowerCase();
-  switch (extension) {
-    case 'pdf':
-      return 'pdf';
-    case 'doc':
-    case 'docx':
-      return 'docx';
-    case 'ppt':
-    case 'pptx':
-      return 'pptx';
-    case 'png':
-    case 'jpg':
-    case 'jpeg':
-      return 'image';
-    default:
-      return 'pdf'; // default fallback
-  }
+  return extension || '';
 };
 
 // New async parse function
