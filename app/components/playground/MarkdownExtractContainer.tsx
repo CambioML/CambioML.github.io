@@ -315,14 +315,65 @@ const MarkdownExtractContainer = () => {
           // Fetch result from presigned URL
           const resultResponse = await fetch(jobResult.result_url);
           const resultData = await resultResponse.json();
-          extractedContent = resultData.markdown || resultData.result || JSON.stringify(resultData);
+
+          // Debug logging to see the actual structure
+          console.log('Result data from presigned URL:', resultData);
+
+          // Try multiple possible result structures
+          let rawContent =
+            resultData.markdown ||
+            resultData.result ||
+            resultData.text ||
+            resultData.content ||
+            resultData.output ||
+            (typeof resultData === 'string' ? resultData : JSON.stringify(resultData));
+
+          // Handle array results (join them into a single string)
+          if (Array.isArray(rawContent)) {
+            extractedContent = rawContent.join('\n\n');
+          } else {
+            extractedContent = rawContent;
+          }
         } else if (jobResult.result) {
-          // Use inline result
-          extractedContent = jobResult.result.markdown || jobResult.result.result || JSON.stringify(jobResult.result);
+          // Debug logging to see the actual structure
+          console.log('Inline result data:', jobResult.result);
+
+          // Try multiple possible result structures for inline results
+          const result = jobResult.result;
+          let rawContent =
+            result.markdown ||
+            result.result ||
+            result.text ||
+            result.content ||
+            result.output ||
+            (typeof result === 'string' ? result : JSON.stringify(result));
+
+          // Handle array results (join them into a single string)
+          if (Array.isArray(rawContent)) {
+            extractedContent = rawContent.join('\n\n');
+          } else {
+            extractedContent = rawContent;
+          }
         }
 
-        // Update file with extracted content
-        updateFileAtIndex(state.selectedFileIndex, 'extractResult', [extractedContent]);
+        // Additional safety check - ensure we have content
+        if (
+          !extractedContent ||
+          (typeof extractedContent === 'string' && extractedContent.trim() === '') ||
+          extractedContent === '{}' ||
+          extractedContent === 'null'
+        ) {
+          console.warn('No valid content extracted. Raw jobResult:', jobResult);
+          toast.error('Extraction completed but no content was found. Please try again.');
+          updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.READY);
+          return;
+        }
+
+        console.log('Final extracted content:', extractedContent);
+
+        // Update file with extracted content - if it's an array, store as is, otherwise wrap in array
+        const resultArray = Array.isArray(extractedContent) ? extractedContent : [extractedContent];
+        updateFileAtIndex(state.selectedFileIndex, 'extractResult', resultArray);
         updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.DONE_EXTRACTING);
 
         toast.success('File extracted successfully!');
