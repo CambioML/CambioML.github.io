@@ -320,7 +320,7 @@ const MarkdownExtractContainer = () => {
           console.log('Result data from presigned URL:', resultData);
 
           // Try multiple possible result structures
-          let rawContent =
+          const rawContent =
             resultData.markdown ||
             resultData.result ||
             resultData.text ||
@@ -340,7 +340,7 @@ const MarkdownExtractContainer = () => {
 
           // Try multiple possible result structures for inline results
           const result = jobResult.result;
-          let rawContent =
+          const rawContent =
             result.markdown ||
             result.result ||
             result.text ||
