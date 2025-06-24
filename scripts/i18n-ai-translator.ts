@@ -598,7 +598,8 @@ async function translateBlogPostsDiffBased(): Promise<void> {
     });
 
     // Process each modified file
-    for (const [sourceFile, changes] of changesByFile) {
+    for (const sourceFile of Array.from(changesByFile.keys())) {
+      const changes = changesByFile.get(sourceFile)!;
       console.log(`\n📄 Processing ${sourceFile}...`);
 
       // Extract locale and filename from path (e.g., "blog/en/file.md" -> locale="en", filename="file.md")
