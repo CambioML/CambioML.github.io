@@ -1,6 +1,7 @@
 import { Amplify } from 'aws-amplify';
 
 const localEnv = process.env.NODE_ENV === 'development';
+const isBuildTime = process.env.NODE_ENV === 'production' && typeof window === 'undefined';
 
 // Check if we're in development mode
 const oauthDomain = process.env.NEXT_PUBLIC_OAUTH_DOMAIN;
@@ -8,41 +9,44 @@ const hostDomain = process.env.NEXT_PUBLIC_HOST_DOMAIN;
 const userPoolId = process.env.NEXT_PUBLIC_COGNITO_USERPOOL_ID;
 const userPoolClientId = process.env.NEXT_PUBLIC_COGNITO_APPCLIENT_ID;
 
-// Validate all required environment variables
-if (!oauthDomain) {
-  throw new Error('NEXT_PUBLIC_OAUTH_DOMAIN environment variable is required');
-}
+// Only configure Amplify if we're not in build mode or if all variables are available
+if (!isBuildTime) {
+  // Validate all required environment variables
+  if (!oauthDomain) {
+    throw new Error('NEXT_PUBLIC_OAUTH_DOMAIN environment variable is required');
+  }
 
-if (!hostDomain) {
-  throw new Error('NEXT_PUBLIC_HOST_DOMAIN environment variable is required');
-}
+  if (!hostDomain) {
+    throw new Error('NEXT_PUBLIC_HOST_DOMAIN environment variable is required');
+  }
 
-if (!userPoolId) {
-  throw new Error('NEXT_PUBLIC_COGNITO_USERPOOL_ID environment variable is required');
-}
+  if (!userPoolId) {
+    throw new Error('NEXT_PUBLIC_COGNITO_USERPOOL_ID environment variable is required');
+  }
 
-if (!userPoolClientId) {
-  throw new Error('NEXT_PUBLIC_COGNITO_APPCLIENT_ID environment variable is required');
-}
+  if (!userPoolClientId) {
+    throw new Error('NEXT_PUBLIC_COGNITO_APPCLIENT_ID environment variable is required');
+  }
 
-Amplify.configure({
-  Auth: {
-    Cognito: {
-      userPoolId: userPoolId,
-      userPoolClientId: userPoolClientId,
-      loginWith: {
-        oauth: {
-          domain: oauthDomain,
-          scopes: ['email', 'profile', 'openid'],
-          redirectSignIn: [localEnv ? 'http://localhost:3000/en/login' : `${hostDomain}/en/login`],
-          redirectSignOut: [localEnv ? 'http://localhost:3000/en/login' : `${hostDomain}/en/login`],
-          responseType: 'code',
+  Amplify.configure({
+    Auth: {
+      Cognito: {
+        userPoolId: userPoolId,
+        userPoolClientId: userPoolClientId,
+        loginWith: {
+          oauth: {
+            domain: oauthDomain,
+            scopes: ['email', 'profile', 'openid'],
+            redirectSignIn: [localEnv ? 'http://localhost:3000/en/login' : `${hostDomain}/en/login`],
+            redirectSignOut: [localEnv ? 'http://localhost:3000/en/login' : `${hostDomain}/en/login`],
+            responseType: 'code',
+          },
+          email: true,
         },
-        email: true,
       },
     },
-  },
-});
+  });
+}
 
 // Define light theme for Amplify UI components
 export const lightTheme = {
