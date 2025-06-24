@@ -1,13 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Container from '@/app/components/Container';
 import PageHero from '@/app/components/hero/PageHero';
 import Button from '@/app/components/Button';
 import { CheckCircle } from '@phosphor-icons/react';
 
-export default function PaymentSuccessPage() {
+function PaymentSuccessContent() {
   const searchParams = useSearchParams();
   const [sessionId, setSessionId] = useState<string | null>(null);
 
@@ -36,5 +36,13 @@ export default function PaymentSuccessPage() {
         </div>
       </Container>
     </div>
+  );
+}
+
+export default function PaymentSuccessPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PaymentSuccessContent />
+    </Suspense>
   );
 }
