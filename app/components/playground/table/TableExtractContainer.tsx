@@ -9,7 +9,7 @@ import { downloadFile } from '@/app/actions/downloadFile';
 import ResultContainer from '../ResultContainer';
 import { useProductionContext } from '../ProductionContext';
 import { usePostHog } from 'posthog-js/react';
-import ExtractSettingsChecklist from '../ExtractSettingsChecklist';
+// import ExtractSettingsChecklist from '../ExtractSettingsChecklist';
 import useResultZoomModal from '@/app/hooks/useResultZoomModal';
 import DropdownButton from '../../inputs/DropdownButton';
 import QuotaLimitPage from '../QuotaLimitPage';

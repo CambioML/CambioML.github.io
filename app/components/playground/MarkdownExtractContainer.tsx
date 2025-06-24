@@ -4,7 +4,7 @@ import PulsingIcon from '../PulsingIcon';
 import ResultContainer from './ResultContainer';
 import QuotaLimitPage from './QuotaLimitPage';
 import ModelToggleDropdown from './ModelToggleDropdown';
-import ExtractSettingsChecklist from './ExtractSettingsChecklist';
+// import ExtractSettingsChecklist from './ExtractSettingsChecklist';
 import useResultZoomModal from '@/app/hooks/useResultZoomModal';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 import JSZip from 'jszip'; // Import JSZip for zipping files
