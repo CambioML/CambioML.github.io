@@ -165,34 +165,6 @@ const apiURL = isProduction
   : process.env.NEXT_PUBLIC_PRE_PROD_PLAYGROUND_API_URL || '';
 ```
 
-## Auth0 Integration
-
-The application uses Auth0 for comprehensive user authentication and authorization, providing secure user management across the platform.
-
-### Features
-
-- **User Registration & Login**: Email-based authentication with social login options
-- **Session Management**: Automatic token refresh and secure session handling
-- **Profile Management**: User profile data and preferences
-- **API Authentication**: Secure API access using Auth0 tokens
-
-### Configuration
-
-Authentication is configured throughout the application using the `@auth0/auth0-react` provider:
-
-```typescript
-// Used in account pages
-<Auth0Provider
-  domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN || ''}
-  clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || ''}
-  authorizationParams={{
-    {% raw %}audience: `https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/api/v2/`,{% endraw %}
-  }}
->
-  {children}
-</Auth0Provider>
-```
-
 ### Usage
 
 Authentication state is managed through:
