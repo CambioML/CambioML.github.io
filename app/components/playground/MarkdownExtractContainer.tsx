@@ -547,9 +547,7 @@ const MarkdownExtractContainer = () => {
                   </div>
                   <ModelToggleDropdown />
                 </div>
-                <div className="w-full mt-4">
-                  <ExtractSettingsChecklist removePIIOnly={isProduction} />
-                </div>
+                <div className="w-full mt-4">{/* <ExtractSettingsChecklist removePIIOnly={isProduction} /> */}</div>
               </div>
             </div>
           )}

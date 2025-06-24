@@ -435,9 +435,7 @@ const TableExtractContainer = () => {
                     />
                   </div>
                 </div>
-                <div className="w-fit">
-                  <ExtractSettingsChecklist removePIIOnly />
-                </div>
+                <div className="w-fit">{/* <ExtractSettingsChecklist removePIIOnly /> */}</div>
               </div>
             )}
             {selectedFile?.instructionExtractState === ExtractState.EXTRACTING && (
