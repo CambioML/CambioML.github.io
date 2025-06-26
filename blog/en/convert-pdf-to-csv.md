@@ -113,7 +113,6 @@ As you embark on leveraging Vision Language Models for PDF-to-CSV conversion, re
 Let's move forward by implementing these insights. Consider contacting experts in Vision Language Models like the team at AnyParser to:
 
 - Try AnyParser for free to convert your PDF to CSV at https://www.cambioml.com/sandbox
-- If you prefer no-code experience to convert large volume of PDFs to Excel, check https://www.energent.ai
 - Get a free consultation on how VLMs can improve your data extraction workflow
 
 Harnessing the full power of Vision Language Models requires leveraging the experience and best practices of conversion specialists. Take the next step by connecting with industry leaders to accelerate your transition to a more automated, accurate and insightful data extraction process.
