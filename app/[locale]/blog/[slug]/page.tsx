@@ -3,11 +3,15 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import ReactMarkdown from 'react-markdown';
 import { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 import { locales } from '@/lib/i18n';
 import { getTranslation, type Locale } from '@/lib/translations';
 import { MarkdownComponents } from '@/app/components/dark/markdown-components';
 import { getAllBlogPosts, getBlogPostBySlug, type BlogPost } from '@/lib/markdown';
-import PlaygroundWithProvider from '@/app/components/playground/PlaygroundWithProvider';
+
+const PlaygroundWithProvider = dynamic(() => import('@/app/components/playground/PlaygroundWithProvider'), {
+  ssr: false,
+});
 
 // Generate metadata for the page
 export async function generateMetadata({ params }: { params: { slug: string; locale: string } }): Promise<Metadata> {
@@ -102,10 +106,6 @@ export default async function BlogPostPage({ params }: { params: { slug: string;
           </div>
         </div>
 
-        <div className="w-[80vw]">
-          <PlaygroundWithProvider initialValue={true} />
-        </div>
-
         {/* Blog Content */}
         <div className="pb-8 px-4 md:px-8 lg:px-40">
           <div className="container mx-auto">
@@ -115,6 +115,11 @@ export default async function BlogPostPage({ params }: { params: { slug: string;
               </ReactMarkdown>
             </article>
           </div>
+        </div>
+
+        {/* Playground Component - placed before back to blog link */}
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+          <PlaygroundWithProvider initialValue={true} />
         </div>
 
         {/* Navigation back to blog */}

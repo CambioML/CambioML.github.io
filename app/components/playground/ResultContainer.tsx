@@ -139,15 +139,16 @@ const ResultContent = ({ extractResult }: ResultContentProps) => {
         {extractResult.map((content, index) => (
           <div key={index} className="p-4 w-full border-b" style={{ minHeight: '100%' }} id="result-container">
             {hasHtmlTags(content) ? (
-              <div
-                dir="auto"
-                dangerouslySetInnerHTML={{
-                  // Convert triple newlines (\n\n\n) to double HTML line breaks (<br/><br/>)
-                  // This preserves the spacing/formatting in the rendered HTML output
-                  // Without this, all newlines would be collapsed into a single space
-                  __html: content.replace(/\n\n\n/g, '<br/><br/>'),
-                }}
-              />
+              <div dir="auto">
+                <div
+                  dangerouslySetInnerHTML={{
+                    // Convert triple newlines (\n\n\n) to double HTML line breaks (<br/><br/>)
+                    // This preserves the spacing/formatting in the rendered HTML output
+                    // Without this, all newlines would be collapsed into a single space
+                    __html: content.replace(/\n\n\n/g, '<br/><br/>'),
+                  }}
+                />
+              </div>
             ) : (
               // This complex way ensures only arabic text is RTL for every different line
               <Markdown className="markdown" remarkPlugins={[remarkGfm]} components={markdownComponents}>
@@ -196,21 +197,17 @@ const ResultContainer = ({ extractResult }: ResultContainerProps) => {
     compareModal.setContent(
       <div className="w-full h-full">
         {hasHtmlTags(extractResult.join('')) ? (
-          <div
-            className="p-4 whitespace-pre-wrap"
-            dangerouslySetInnerHTML={{
-              __html: extractResult
-                .map(
-                  (content, index) =>
-                    `<div>${content}</div>
-                <div style="font-weight: bold; position: relative; margin-top: 5px;">
-                    <span style="position: absolute; right: 0; bottom: 0;">Page ${index + 1}</span>
+          <div className="p-4 whitespace-pre-wrap">
+            {extractResult.map((content, index) => (
+              <div key={index}>
+                <div dangerouslySetInnerHTML={{ __html: content }} />
+                <div style={{ fontWeight: 'bold', position: 'relative', marginTop: '5px' }}>
+                  <span style={{ position: 'absolute', right: 0, bottom: 0 }}>Page {index + 1}</span>
                 </div>
-                <hr style="margin-top: 10px; margin-bottom: 20px;">`
-                )
-                .join(''),
-            }}
-          />
+                <hr style={{ marginTop: '10px', marginBottom: '20px' }} />
+              </div>
+            ))}
+          </div>
         ) : (
           <Markdown
             className="markdown p-4 whitespace-pre-wrap"

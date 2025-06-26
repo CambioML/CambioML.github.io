@@ -20,8 +20,8 @@ const PlaygroundContainerForBlog = () => {
       <CompareModal />
       <div
         className={cn(
-          'relative w-full min-w-[800px] gap-0 h-fit grid grid-cols-[20%_1fr] -translate-x-[15%] p-2 rounded-lg',
-          fileCollapsed && 'grid-cols-[auto_1fr]',
+          'relative w-full gap-0 h-fit grid grid-cols-1 lg:grid-cols-[20%_1fr] p-2 rounded-lg',
+          fileCollapsed && 'lg:grid-cols-[auto_1fr]',
           'border dark:border-neutral-700'
         )}
       >
@@ -41,7 +41,7 @@ const PlaygroundContainerForBlog = () => {
           style={{ backgroundColor: 'rgba(59, 130, 246, 0.05)' }}
         />
 
-        <div className="p-4 mb-10 h-[700px]">
+        <div className="p-4 mb-10 h-auto lg:h-[700px]">
           <h2 className={cn('text-3xl font-semibold mb-6 pl-1 bg-gradient dark:text-neutral-100')}>
             {t.playground.tryForFree}
           </h2>
