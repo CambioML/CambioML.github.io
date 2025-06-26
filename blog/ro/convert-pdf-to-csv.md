@@ -113,6 +113,7 @@ Pe măsură ce începi să valorifici Modelele de Limbaj Vizual pentru conversia
 Să avansăm implementând aceste informații. Ia în considerare contactarea experților în Modelele de Limbaj Vizual, cum ar fi echipa de la AnyParser, pentru a:
 
 - Începe AnyParser gratuit pentru a-ți converti PDF-ul în CSV la https://www.cambioml.com/sandbox
+- Dacă preferi o experiență fără cod pentru a converti un volum mare de PDF-uri în Excel, verifică https://www.energent.ai
 - Obține o consultanță gratuită despre cum VLM-urile pot îmbunătăți fluxul tău de lucru pentru extragerea datelor
 
 Valorificarea întregii puteri a Modelelor de Limbaj Vizual necesită utilizarea experienței și celor mai bune practici ale specialiștilor în conversie. Fă următorul pas conectându-te cu liderii din industrie pentru a accelera tranziția ta către un proces de extragere a datelor mai automatizat, mai precis și mai informativ.

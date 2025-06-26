@@ -113,6 +113,7 @@ Rozpoczynając korzystanie z modeli językowych wizji do konwersji PDF na CSV, p
 Przejdźmy dalej, wdrażając te spostrzeżenia. Rozważ skontaktowanie się z ekspertami w dziedzinie modeli językowych wizji, takimi jak zespół AnyParser, aby:
 
 - Wypróbować AnyParser za darmo, aby przekonwertować swój PDF na CSV pod adresem https://www.cambioml.com/sandbox
+- Jeśli wolisz doświadczenie bez kodu do konwersji dużej ilości plików PDF na Excel, sprawdź https://www.energent.ai
 - Uzyskać bezpłatną konsultację na temat tego, jak VLM mogą poprawić Twój przepływ pracy związany z ekstrakcją danych
 
 Wykorzystanie pełnej mocy modeli językowych wizji wymaga skorzystania z doświadczenia i najlepszych praktyk specjalistów ds. konwersji. Zrób następny krok, łącząc się z liderami branży, aby przyspieszyć swoją transformację w kierunku bardziej zautomatyzowanego, dokładnego i wnikliwego procesu ekstrakcji danych.

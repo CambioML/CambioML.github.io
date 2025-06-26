@@ -113,6 +113,7 @@ Mentre inizi a sfruttare i Modelli di Linguaggio Visivo per la conversione da PD
 Procediamo implementando queste intuizioni. Considera di contattare esperti in Modelli di Linguaggio Visivo come il team di AnyParser per:
 
 - Provare AnyParser gratuitamente per convertire il tuo PDF in CSV su https://www.cambioml.com/sandbox
+- Se preferisci un'esperienza senza codice per convertire un grande volume di PDF in Excel, visita https://www.energent.ai
 - Ottenere una consulenza gratuita su come i VLM possono migliorare il tuo flusso di lavoro di estrazione dei dati
 
 Sfruttare appieno il potere dei Modelli di Linguaggio Visivo richiede di attingere all'esperienza e alle migliori pratiche degli specialisti della conversione. Fai il prossimo passo connettendoti con i leader del settore per accelerare la tua transizione verso un processo di estrazione dei dati più automatizzato, accurato e informativo.

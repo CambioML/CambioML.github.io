@@ -113,6 +113,7 @@ Görsel Dil Modellerini PDF'den CSV'ye dönüştürme konusunda kullanmaya başl
 Bu içgörüleri uygulayarak ilerleyelim. VLM'ler konusunda uzman olan AnyParser ekibiyle iletişime geçmeyi düşünün:
 
 - PDF'nizi CSV'ye dönüştürmek için AnyParser'ı ücretsiz deneyin: https://www.cambioml.com/sandbox
+- Büyük miktarda PDF'yi Excel'e dönüştürmek için kodsuz bir deneyimi tercih ediyorsanız, https://www.energent.ai adresini kontrol edin.
 - VLM'lerin veri çıkarım iş akışınızı nasıl geliştirebileceği konusunda ücretsiz danışmanlık alın
 
 Görsel Dil Modellerinin tam gücünden yararlanmak, dönüşüm uzmanlarının deneyimlerini ve en iyi uygulamalarını kullanmayı gerektirir. Daha otomatik, doğru ve içgörü dolu bir veri çıkarım sürecine geçişinizi hızlandırmak için sektör liderleriyle bağlantı kurarak bir sonraki adımı atın.
