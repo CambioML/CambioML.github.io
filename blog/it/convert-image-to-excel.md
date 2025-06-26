@@ -141,6 +141,6 @@ Sfruttare i Modelli di Linguaggio Visivo per la conversione da immagine a Excel 
 
 ## Invito all'Azione
 
-Abbraccia il potere dei Modelli di Linguaggio Visivo provando AnyParser gratuitamente per convertire le tue immagini in Excel su https://www.cambioml.com/sandbox. Richiedi una consulenza gratuita su come i VLM possono migliorare il tuo flusso di lavoro di estrazione dei dati.
+Abbraccia il potere dei modelli di linguaggio visivo provando AnyParser gratuitamente per convertire le tue immagini in Excel su https://www.cambioml.com/sandbox. Ottieni una consulenza gratuita su come i VLM possono migliorare il tuo flusso di lavoro di estrazione dati. Per una conversione da immagine a Excel senza codice e su larga scala, scopri cosa può fare per te [Energent.ai](www.energent.ai).
 
 Collegandoti con leader del settore come il team di AnyParser, puoi accelerare la tua transizione verso un processo di estrazione dei dati più automatizzato, accurato e informativo. Sfrutta questa tecnologia all'avanguardia per semplificare i tuoi flussi di lavoro e sbloccare nuove possibilità nell'elaborazione dei documenti. Con i VLM a tua disposizione, sei ben equipaggiato per affrontare anche i compiti di conversione delle immagini più impegnativi in modo efficiente ed efficace.

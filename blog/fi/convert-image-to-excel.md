@@ -141,6 +141,6 @@ Vision Language Models -mallien hyödyntäminen kuvien muuntamisessa Exceliksi o
 
 ## Toimintakehotus
 
-Hyödynnä Vision Language Models -mallien voimaa kokeilemalla AnyParseria ilmaiseksi muuntaaksesi kuvasi Exceliksi osoitteessa https://www.cambioml.com/sandbox. Saat ilmaisen konsultoinnin siitä, kuinka VLM:t voivat parantaa tietojen poimintaprosessiasi.
+Hyödynnä Vision Language -mallien voimaa kokeilemalla AnyParseria ilmaiseksi muuntaaksesi kuvasi Excel-muotoon osoitteessa https://www.cambioml.com/sandbox. Saat ilmaisen konsultoinnin siitä, kuinka VLM:t voivat parantaa datan poimintatyönkulkuasi. Vaivattomaan, koodittomaan kuvasta Exceliin -muunnokseen suuressa mittakaavassa, katso mitä [Energent.ai](www.energent.ai) voi tehdä puolestasi.
 
 Yhteistyössä teollisuuden johtavien asiantuntijoiden, kuten AnyParser-tiimin, kanssa voit nopeuttaa siirtymistäsi automatisoidumpaan, tarkempaan ja oivaltavampaan tietojen poimintaprosessiin. Hyödynnä tätä huipputeknologiaa virtaviivaistaaksesi työnkulkuasi ja avaa uusia mahdollisuuksia asiakirjakäsittelyssä. VLM:ien avulla olet hyvin varustautunut käsittelemään jopa haastavimpia kuvamuunnostöitä tehokkaasti ja vaikuttavasti.

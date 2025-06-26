@@ -141,6 +141,6 @@ Valorificarea Modelelor de Limbaj Vizual pentru conversia imaginilor în Excel e
 
 ## Apel la acțiune
 
-Îmbrățișează puterea Modelelor de Limbaj Vizual încercând AnyParser gratuit pentru a-ți converti imaginile în Excel la https://www.cambioml.com/sandbox. Obține o consultanță gratuită despre cum VLM-urile pot îmbunătăți fluxul tău de lucru pentru extragerea datelor.
+Îmbrățișați puterea modelelor de limbaj vizual încercând AnyParser gratuit pentru a converti imaginile în Excel la https://www.cambioml.com/sandbox. Obțineți o consultație gratuită despre cum VLM-urile pot îmbunătăți fluxul de lucru pentru extragerea datelor. Pentru o conversie ușoară și fără cod a imaginilor în Excel la scară, descoperiți ce poate face [Energent.ai](www.energent.ai) pentru dumneavoastră.
 
 Prin conectarea cu lideri din industrie, cum ar fi echipa de la AnyParser, poți accelera tranziția către un proces de extragere a datelor mai automatizat, mai precis și mai perspicace. Valorifică această tehnologie de vârf pentru a-ți simplifica fluxurile de lucru și a debloca noi posibilități în procesarea documentelor. Cu VLM-urile la dispoziția ta, ești bine echipat pentru a aborda chiar și cele mai provocatoare sarcini de conversie a imaginilor în mod eficient și eficace.
