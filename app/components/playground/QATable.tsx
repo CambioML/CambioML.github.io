@@ -30,7 +30,7 @@ const QATable = ({ qaResult, updateDisplayTable }: QATableProps) => {
     });
     setResultList(thisList);
     updateDisplayTable(thisList);
-  }, [qaResult]);
+  }, [qaResult, updateDisplayTable]);
   return (
     <div className="absolute w-full">
       <table className="border-none w-full table-fixed">
