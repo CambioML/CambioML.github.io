@@ -11,6 +11,7 @@ import { getAllBlogPosts, getBlogPostBySlug, type BlogPost } from '@/lib/markdow
 
 const PlaygroundWithProvider = dynamic(() => import('@/app/components/playground/PlaygroundWithProvider'), {
   ssr: false,
+  loading: () => <div>Loading playground...</div>,
 });
 
 // Generate metadata for the page
