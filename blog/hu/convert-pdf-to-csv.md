@@ -113,6 +113,7 @@ Ahogy elkezded kihasználni a Vision Language Modellek erejét a PDF-ből CSV-be
 Lépjünk tovább ezeknek az insightoknak a megvalósításával. Fontold meg, hogy kapcsolatba lépsz a Vision Language Modellek szakértőivel, mint például az AnyParser csapata, hogy:
 
 - Próbáld ki ingyen az AnyParser-t, hogy PDF-ből CSV-be konvertálhass a https://www.cambioml.com/sandbox oldalon
+- Ha inkább kód nélküli élményt szeretne nagy mennyiségű PDF Excel formátumba való konvertálásához, látogasson el a https://www.energent.ai oldalra.
 - Kérj ingyenes konzultációt arról, hogyan javíthatják a VLM-ek az adatkinyerési munkafolyamatodat
 
 A Vision Language Modellek teljes erejének kihasználása megköveteli a konverziós szakértők tapasztalatának és legjobb gyakorlati megoldásainak kihasználását. Tedd meg a következő lépést az iparági vezetőkkel való kapcsolattartással, hogy felgyorsítsd az átmenetedet egy automatizáltabb, pontosabb és átfogóbb adatkinyerési folyamatra.

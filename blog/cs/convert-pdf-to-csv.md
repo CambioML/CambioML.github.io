@@ -113,6 +113,7 @@ Když se pustíte do využívání modelů jazykového vidění pro převod PDF 
 Pojďme se posunout vpřed implementací těchto poznatků. Zvažte kontaktování odborníků na modely jazykového vidění, jako je tým AnyParser, abyste:
 
 - Vyzkoušeli AnyParser zdarma pro převod vašeho PDF do CSV na https://www.cambioml.com/sandbox
+- Pokud preferujete bezkódovou zkušenost pro převod velkého množství PDF do Excelu, navštivte https://www.energent.ai
 - Získali bezplatnou konzultaci o tom, jak mohou VLM zlepšit váš pracovní postup extrakce dat
 
 Využití plné síly modelů jazykového vidění vyžaduje využití zkušeností a osvědčených postupů specialistů na převod. Udělejte další krok tím, že se spojíte s lídry v oboru a urychlíte svůj přechod na automatizovanější, přesnější a informativnější proces extrakce dat.

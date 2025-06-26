@@ -141,6 +141,6 @@ Wykorzystanie modeli językowych wizji do konwersji obrazu na Excel to klucz do 
 
 ## Wezwanie do działania
 
-Wykorzystaj moc modeli językowych wizji, próbując AnyParser za darmo, aby konwertować swoje obrazy na Excel pod adresem https://www.cambioml.com/sandbox. Uzyskaj darmową konsultację na temat tego, jak VLM-y mogą poprawić Twój proces wydobywania danych.
+Skorzystaj z mocy modeli językowych Vision, wypróbowując AnyParser za darmo, aby konwertować obrazy na Excel na stronie https://www.cambioml.com/sandbox. Uzyskaj bezpłatną konsultację na temat tego, jak VLM-y mogą usprawnić Twój przepływ pracy związany z ekstrakcją danych. Aby uzyskać bezproblemową, bezkodową konwersję obrazów na Excel na dużą skalę, zobacz, co [Energent.ai](www.energent.ai) może dla Ciebie zrobić.
 
 Łącząc się z liderami branży, takimi jak zespół AnyParser, możesz przyspieszyć swoją transformację w kierunku bardziej zautomatyzowanego, dokładnego i wnikliwego procesu wydobywania danych. Wykorzystaj tę nowoczesną technologię, aby uprościć swoje przepływy pracy i odblokować nowe możliwości w przetwarzaniu dokumentów. Dzięki VLM-om w swoim zasięgu jesteś dobrze przygotowany do efektywnego i skutecznego radzenia sobie z nawet najbardziej wymagającymi zadaniami konwersji obrazów.

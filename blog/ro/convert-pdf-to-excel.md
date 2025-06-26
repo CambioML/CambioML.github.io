@@ -133,4 +133,4 @@ Calea către utilizarea eficientă a datelor trece adesea prin conversia PDF-uri
 
 Ești gata să experimentezi viitorul conversiei documentelor?
 
-Încearcă AnyParser gratuit și deblochează potențialul datelor tale. [Convertește-ți PDF-ul în Excel astăzi](https://www.cambioml.com/sandbox) și alătură-te revoluției.
+Încearcă [AnyParser](https://www.cambioml.com/sandbox) gratuit și descoperă potențialul datelor tale. [Convertește-ți PDF-ul în Excel astăzi](https://www.energent.ai/en) și alătură-te revoluției.

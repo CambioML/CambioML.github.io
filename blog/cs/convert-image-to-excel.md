@@ -141,6 +141,6 @@ Využití modelů jazykového vidění pro převod obrázků na Excel je klíče
 
 ## Výzva k akci
 
-Využijte sílu modelů jazykového vidění tím, že si vyzkoušíte AnyParser zdarma pro převod vašich obrázků na Excel na https://www.cambioml.com/sandbox. Získejte bezplatnou konzultaci o tom, jak mohou VLM zlepšit váš pracovní postup extrakce dat.
+Využijte sílu modelů Vision Language tím, že vyzkoušíte AnyParser zdarma pro převod vašich obrázků na Excel na https://www.cambioml.com/sandbox. Získejte bezplatnou konzultaci o tom, jak mohou VLMs zlepšit váš pracovní postup při extrakci dat. Pro snadný, bezkódový převod obrázků na Excel ve velkém měřítku se podívejte, co [Energent.ai](www.energent.ai) může udělat pro vás.
 
 Spojením s lídry v oboru, jako je tým AnyParser, můžete urychlit svůj přechod na automatizovanější, přesnější a informativnější proces extrakce dat. Využijte tuto špičkovou technologii k zjednodušení svých pracovních postupů a odemkněte nové možnosti v zpracování dokumentů. S VLM po ruce jste dobře vybaveni k efektivnímu a účinnému zvládnutí i těch nejnáročnějších úkolů převodu obrázků.

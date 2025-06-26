@@ -141,6 +141,6 @@ Görüntüden Excel'e dönüşümde Görsel Dil Modellerinden yararlanmak, çeş
 
 ## Eylem Çağrısı
 
-Görüntülerinizi Excel'e dönüştürmek için AnyParser'ı ücretsiz deneme fırsatını yakalayarak Görsel Dil Modellerinin gücünü benimseyin: https://www.cambioml.com/sandbox. VLM'lerin veri çıkarma iş akışınızı nasıl geliştirebileceği konusunda ücretsiz bir danışmanlık alın.
+Vision Dil Modellerinin gücünü kucaklayarak, görüntülerinizi Excel'e dönüştürmek için AnyParser'ı ücretsiz olarak https://www.cambioml.com/sandbox adresinden deneyin. VLM'lerin veri çıkarma iş akışınızı nasıl geliştirebileceği hakkında ücretsiz bir danışmanlık alın. Ölçekli, zahmetsiz ve kod gerektirmeyen Görüntüden Excel'e dönüşüm için [Energent.ai](www.energent.ai)'nin sizin için neler yapabileceğini görün.
 
 AnyParser ekibi gibi endüstri liderleriyle bağlantı kurarak, daha otomatik, doğru ve içgörü dolu bir veri çıkarma sürecine geçişinizi hızlandırabilirsiniz. Bu son teknoloji ürünü teknolojiyi kullanarak iş akışlarınızı kolaylaştırın ve belge işleme alanında yeni olanakların kapılarını açın. VLM'ler elinizde olduğunda, en zorlu görüntü dönüşüm görevlerini etkili ve verimli bir şekilde ele almak için iyi bir şekilde donanımlısınız.

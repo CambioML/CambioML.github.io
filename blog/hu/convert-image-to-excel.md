@@ -141,6 +141,6 @@ A Vision Language Modellek kihasználása a kép Excel-be konvertálásához kul
 
 ## Felhívás a Cselekvésre
 
-Használja ki a Vision Language Modellek erejét, és próbálja ki ingyen az AnyParser-t, hogy konvertálja a képeit Excel-be a https://www.cambioml.com/sandbox címen. Kérjen ingyenes konzultációt arról, hogyan javíthatják a VLM-ek az adatkinyerési munkafolyamatát.
+Használja ki a Vision Language Modellek erejét, és próbálja ki az AnyParser-t ingyen, hogy képeit Excel formátumba konvertálja a https://www.cambioml.com/sandbox oldalon. Kérjen ingyenes konzultációt arról, hogyan javíthatják a VLM-ek az adatkinyerési munkafolyamatát. Az egyszerű, kódmentes képből Excel konverzióhoz nagy léptékben nézze meg, mit kínál az [Energent.ai](www.energent.ai).
 
 Ha kapcsolatba lép az iparági vezetőkkel, például az AnyParser csapatával, felgyorsíthatja az átmenetet egy automatizáltabb, pontosabb és átfogóbb adatkinyerési folyamatra. Használja ki ezt a korszerű technológiát, hogy egyszerűsítse munkafolyamatait, és új lehetőségeket nyisson meg a dokumentumfeldolgozásban. A VLM-ek birtokában jól felkészült arra, hogy hatékonyan és eredményesen kezelje a legkihívóbb képkonverziós feladatokat.
