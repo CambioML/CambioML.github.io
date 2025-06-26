@@ -133,4 +133,4 @@ Veri kullanımını verimli hale getirmenin yolu genellikle PDF'leri Excel elekt
 
 Belge dönüşümünün geleceğini deneyimlemeye hazır mısınız?
 
-AnyParser'ı ücretsiz deneyin ve verilerinizin potansiyelini açığa çıkarın. [PDF'nizi Excel'e dönüştürün](https://www.cambioml.com/sandbox) ve devrime katılın.
+[AnyParser](https://www.cambioml.com/sandbox)'ı ücretsiz deneyin ve verilerinizin potansiyelini ortaya çıkarın. [PDF'nizi bugün Excel'e dönüştürün](https://www.energent.ai/en) ve devrime katılın.

@@ -133,4 +133,4 @@ A hatékony adatfelhasználás útja gyakran a PDF-ek Excel táblázatokra tört
 
 Készen állsz, hogy megtapasztald a dokumentumkonverzió jövőjét?
 
-Próbáld ki ingyen az AnyParser-t, és szabadítsd fel az adataid potenciálját. [Konvertáld a PDF-ed Excel-re még ma](https://www.cambioml.com/sandbox), és csatlakozz a forradalomhoz.
+Próbálja ki az [AnyParser](https://www.cambioml.com/sandbox) ingyen, és tárja fel adatai lehetőségeit. [Konvertálja PDF-jét Excelbe még ma](https://www.energent.ai/en), és csatlakozzon a forradalomhoz.
