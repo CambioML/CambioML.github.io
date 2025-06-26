@@ -22,7 +22,7 @@ const SolutionsList = ({ solutions, sortNewest }: SolutionsListProps) => {
       return a.date.getTime() - b.date.getTime();
     });
     setSortedSolutions(sorted);
-  }, [solutions]);
+  }, [solutions, sortNewest]);
   return (
     <div className="grid grid-cols-1 w-full h-fit gap-10 pb-20">
       {sortedSolutions.map((solution, index) => (

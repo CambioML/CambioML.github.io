@@ -19,9 +19,9 @@ const PlaygroundTab = ({ label, tabKey, icon: Icon }: PlaygroundTabProps) => {
 
   const handleClick = () => {
     updateSelectedFile('activeTab', tabKey);
-    const module = tabKey.replace(' ', '_').toLocaleLowerCase();
-    const posthogLabel = `playground.${module}.tab`.toLocaleLowerCase();
-    posthog.capture(posthogLabel, { route: '/playground', module: module });
+    const moduleKey = tabKey.replace(' ', '_').toLocaleLowerCase();
+    const posthogLabel = `playground.${moduleKey}.tab`.toLocaleLowerCase();
+    posthog.capture(posthogLabel, { route: '/playground', module: moduleKey });
   };
 
   useEffect(() => {

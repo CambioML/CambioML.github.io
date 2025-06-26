@@ -104,7 +104,7 @@ export const useAmplifyAuth = () => {
 
   useEffect(() => {
     fetchTokens();
-  }, [user]); // Remove fetchTokens from dependencies to prevent re-renders
+  }, [fetchTokens]);
 
   // Reset when user changes or signs out
   useEffect(() => {

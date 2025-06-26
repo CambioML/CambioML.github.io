@@ -1,6 +1,6 @@
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 import { ExtractState, ExtractTab, ExtractedMDTable, TableTab, PlaygroundFile } from '@/app/types/PlaygroundTypes';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import ResultContainer from '../ResultContainer';
 import { ArrowLeft, ArrowRight, ArrowsCounterClockwise, Check, CloudArrowUp, Table, X } from '@phosphor-icons/react';
@@ -203,28 +203,31 @@ const MapTableSelectContainer = () => {
     return mergedData;
   }
 
-  const handleSuccess = (response: AxiosResponse | string[]) => {
-    let result;
-    if (Array.isArray(response)) {
-      result = response;
-    } else {
-      result = response.data;
-    }
+  const handleSuccess = useCallback(
+    (response: AxiosResponse | string[]) => {
+      let result;
+      if (Array.isArray(response)) {
+        result = response;
+      } else {
+        result = response.data;
+      }
 
-    if (result === undefined) {
-      toast.error(`${filename}: Received undefined result. Please try again.`);
-      updateFileAtIndex(selectedFileIndex, 'tableMdExtractState', ExtractState.READY);
-      return;
-    }
-    updateFileAtIndex(selectedFileIndex, 'tableMdExtractState', ExtractState.DONE_EXTRACTING);
-    updateFileAtIndex(selectedFileIndex, 'extractTab', ExtractTab.TABLE_EXTRACT);
-    const htmlTables = processResult(result);
-    const tableMergedData = mergeTableData(htmlTables);
-    updateFileAtIndex(selectedFileIndex, 'tableMdExtractResult', htmlTables);
-    updateFileAtIndex(selectedFileIndex, 'tableMergedData', tableMergedData);
-    selectAllTables(htmlTables);
-    toast.success(`Generated table(s) from ${filename}!`);
-  };
+      if (result === undefined) {
+        toast.error(`${filename}: Received undefined result. Please try again.`);
+        updateFileAtIndex(selectedFileIndex, 'tableMdExtractState', ExtractState.READY);
+        return;
+      }
+      updateFileAtIndex(selectedFileIndex, 'tableMdExtractState', ExtractState.DONE_EXTRACTING);
+      updateFileAtIndex(selectedFileIndex, 'extractTab', ExtractTab.TABLE_EXTRACT);
+      const htmlTables = processResult(result);
+      const tableMergedData = mergeTableData(htmlTables);
+      updateFileAtIndex(selectedFileIndex, 'tableMdExtractResult', htmlTables);
+      updateFileAtIndex(selectedFileIndex, 'tableMergedData', tableMergedData);
+      selectAllTables(htmlTables);
+      toast.success(`Generated table(s) from ${filename}!`);
+    },
+    [filename, selectedFileIndex, updateFileAtIndex]
+  );
 
   const handleRetry = () => {
     setTablePreviewIndex(0);
@@ -295,7 +298,7 @@ const MapTableSelectContainer = () => {
     ) {
       handleSuccess(selectedFile.tableExtractResult);
     }
-  }, [selectedFile]);
+  }, [selectedFile, handleSuccess]);
   return (
     <>
       {selectedFile?.instructionExtractState === ExtractState.DONE_EXTRACTING ? (

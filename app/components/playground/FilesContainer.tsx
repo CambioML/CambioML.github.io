@@ -13,8 +13,8 @@ const FilesContainer = () => {
   const { files, loggedIn, fileCollapsed, setFileCollapsed } = usePlaygroundStore();
 
   return (
-    <div className={cn(`h-[500px] lg:h-full w-full min-h-[200px] grid lg:grid-cols-[1fr_20px]`)}>
-      <div className="cols-span-1 grid grid-rows-[50px_1fr_70px_70px_70px] p-2">
+    <div className={cn(`h-auto lg:h-full w-full min-h-[200px] grid lg:grid-cols-[1fr_20px]`)}>
+      <div className="cols-span-1 grid grid-rows-[50px_1fr_auto_auto_auto] lg:grid-rows-[50px_1fr_70px_70px_70px] p-2">
         <h2 className="row-span-1 text-2xl font-semibold pt-4">{!fileCollapsed && t.playground.files.title}</h2>
         <div className="row-span-1 overflow-auto relative">
           {files.length > 0 ? (

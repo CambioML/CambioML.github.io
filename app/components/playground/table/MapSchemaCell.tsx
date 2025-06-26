@@ -51,4 +51,6 @@ const MapSchemaCell = forwardRef<HTMLDivElement, MapSchemaCellProps>(
   }
 );
 
+MapSchemaCell.displayName = 'MapSchemaCell';
+
 export default MapSchemaCell;

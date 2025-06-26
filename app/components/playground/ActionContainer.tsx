@@ -121,7 +121,10 @@ const ActionContainer = () => {
         </div>
       ) : (
         <div
-          className={cn('h-[73vh] dark:h-full', 'border border-t-0 rounded-b-xl p-4 pt-0 box-border overflow-hidden')}
+          className={cn(
+            'h-[60vh] lg:h-[73vh] dark:h-full',
+            'border border-t-0 rounded-b-xl p-4 pt-0 box-border overflow-hidden'
+          )}
         >
           {(selectedFile?.activeTab === PlaygroundTabs.PLAIN_TEXT || selectedFileIndex === null) && (
             <ExtractContainer />

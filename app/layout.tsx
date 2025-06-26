@@ -1,5 +1,6 @@
 import './globals.css';
 import dynamic from 'next/dynamic';
+import Script from 'next/script';
 import Navbar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 import InfoModal from './components/modals/InfoModal';
@@ -36,7 +37,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
         {/* Chatbot disabled - commenting out Epsilla integration to fix 401 unauthorized errors
         <script
           dangerouslySetInnerHTML={{
@@ -78,6 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </ThemeProvider>
         </body>
       </PHProvider>
+      <Script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js" />
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID || ''} />
     </html>
   );

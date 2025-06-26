@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 import { ArrowsClockwise } from '@phosphor-icons/react';
 import { useProductionContext } from './ProductionContext';
@@ -32,7 +32,7 @@ const QuotaDisplay = ({ isCollapsed }: QuotaDisplayProps) => {
   // Get the first available API key
   const apiKey = apiKeys && apiKeys.length > 0 ? apiKeys[0].api_key : null;
 
-  const fetchQuotaData = async () => {
+  const fetchQuotaData = useCallback(async () => {
     // Don't fetch if we don't have an API key yet
     if (!apiKey || !apiURL) {
       console.log('No API key or API URL available yet, skipping quota fetch');
@@ -56,7 +56,7 @@ const QuotaDisplay = ({ isCollapsed }: QuotaDisplayProps) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [apiKey, apiURL, setTotalQuota, setRemainingQuota, setLoadingQuota]);
 
   const handleRefresh = () => {
     fetchQuotaData();
@@ -67,7 +67,7 @@ const QuotaDisplay = ({ isCollapsed }: QuotaDisplayProps) => {
     if (apiKey && apiURL) {
       fetchQuotaData();
     }
-  }, [apiKey, apiURL]); // Depend on apiKey and apiURL
+  }, [apiKey, apiURL, fetchQuotaData]);
 
   // Use local quotaData as fallback if playground store values aren't ready
   const displayTotalQuota =

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import { QueryResult } from '@/app/actions/apiInterface';
@@ -6,7 +5,7 @@ import useCompareModal from '@/app/hooks/useCompareModal';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 import useResultZoomModal from '@/app/hooks/useResultZoomModal';
 import { CaretLeft, CaretRight, Copy, Files, FrameCorners } from '@phosphor-icons/react';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import Markdown, { Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -43,7 +42,7 @@ const ResultContent = ({ extractResult }: ResultContentProps) => {
   const currentPageRef = useRef(resultZoomModal.page);
   const { t } = useTranslation();
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     if (containerRef.current && pageHeights.length > 0) {
       const scrollTop = containerRef.current.scrollTop;
       let accumulatedHeight = 0;
@@ -62,14 +61,14 @@ const ResultContent = ({ extractResult }: ResultContentProps) => {
         resultZoomModal.setPage(newPage);
       }
     }
-  };
+  }, [pageHeights, resultZoomModal]);
 
-  const measurePageHeights = () => {
+  const measurePageHeights = useCallback(() => {
     if (containerRef.current) {
       const heights = Array.from(containerRef.current.children).map((child) => (child as HTMLDivElement).offsetHeight);
       setPageHeights(heights);
     }
-  };
+  }, []);
 
   useEffect(() => {
     measurePageHeights();
@@ -84,14 +83,14 @@ const ResultContent = ({ extractResult }: ResultContentProps) => {
         container.removeEventListener('scroll', handleScroll);
       };
     }
-  }, [pageHeights]);
+  }, [pageHeights, handleScroll]);
 
   useEffect(() => {
     window.addEventListener('resize', measurePageHeights);
     return () => {
       window.removeEventListener('resize', measurePageHeights);
     };
-  }, []);
+  }, [measurePageHeights]);
 
   const handleNextPageClick = () => {
     const nextPage = (resultZoomModal.page + 1) % extractResult.length;
@@ -137,17 +136,23 @@ const ResultContent = ({ extractResult }: ResultContentProps) => {
         className="overflow-auto relative w-full h-full rounded-xl border border-1 border-solid px-10 max-w-full overscroll-none"
       >
         {extractResult.map((content, index) => (
-          <div key={index} className="p-4 w-full border-b" style={{ minHeight: '100%' }} id="result-container">
+          <div
+            key={index}
+            className="p-4 w-full border-b"
+            style={{ minHeight: '100%' }}
+            id={`result-container-${index}`}
+          >
             {hasHtmlTags(content) ? (
-              <div
-                dir="auto"
-                dangerouslySetInnerHTML={{
-                  // Convert triple newlines (\n\n\n) to double HTML line breaks (<br/><br/>)
-                  // This preserves the spacing/formatting in the rendered HTML output
-                  // Without this, all newlines would be collapsed into a single space
-                  __html: content.replace(/\n\n\n/g, '<br/><br/>'),
-                }}
-              />
+              <div dir="auto">
+                <div
+                  dangerouslySetInnerHTML={{
+                    // Convert triple newlines (\n\n\n) to double HTML line breaks (<br/><br/>)
+                    // This preserves the spacing/formatting in the rendered HTML output
+                    // Without this, all newlines would be collapsed into a single space
+                    __html: content.replace(/\n\n\n/g, '<br/><br/>'),
+                  }}
+                />
+              </div>
             ) : (
               // This complex way ensures only arabic text is RTL for every different line
               <Markdown className="markdown" remarkPlugins={[remarkGfm]} components={markdownComponents}>
@@ -196,21 +201,17 @@ const ResultContainer = ({ extractResult }: ResultContainerProps) => {
     compareModal.setContent(
       <div className="w-full h-full">
         {hasHtmlTags(extractResult.join('')) ? (
-          <div
-            className="p-4 whitespace-pre-wrap"
-            dangerouslySetInnerHTML={{
-              __html: extractResult
-                .map(
-                  (content, index) =>
-                    `<div>${content}</div>
-                <div style="font-weight: bold; position: relative; margin-top: 5px;">
-                    <span style="position: absolute; right: 0; bottom: 0;">Page ${index + 1}</span>
+          <div className="p-4 whitespace-pre-wrap">
+            {extractResult.map((content, index) => (
+              <div key={index}>
+                <div dangerouslySetInnerHTML={{ __html: content }} />
+                <div style={{ fontWeight: 'bold', position: 'relative', marginTop: '5px' }}>
+                  <span style={{ position: 'absolute', right: 0, bottom: 0 }}>Page {index + 1}</span>
                 </div>
-                <hr style="margin-top: 10px; margin-bottom: 20px;">`
-                )
-                .join(''),
-            }}
-          />
+                <hr className="mt-2.5 mb-5" />
+              </div>
+            ))}
+          </div>
         ) : (
           <Markdown
             className="markdown p-4 whitespace-pre-wrap"
@@ -237,14 +238,14 @@ const ResultContainer = ({ extractResult }: ResultContainerProps) => {
 
   useEffect(() => {
     resultZoomModal.setPage(0);
-  }, [extractResult]);
+  }, [extractResult, resultZoomModal]);
 
   useEffect(() => {
     if (selectedFileIndex !== null && files[selectedFileIndex]) {
       const thisFile = files[selectedFileIndex].file;
       compareModal.setFile(thisFile as File);
     }
-  }, [files, selectedFileIndex]);
+  }, [files, selectedFileIndex, compareModal]);
 
   return (
     <div className="w-full h-[calc(100%-60px)] relative">
