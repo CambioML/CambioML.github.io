@@ -204,7 +204,7 @@ const ResultContainer = ({ extractResult }: ResultContainerProps) => {
                 <div style={{ fontWeight: 'bold', position: 'relative', marginTop: '5px' }}>
                   <span style={{ position: 'absolute', right: 0, bottom: 0 }}>Page {index + 1}</span>
                 </div>
-                <hr style={{ marginTop: '10px', marginBottom: '20px' }} />
+                <hr className="mt-2.5 mb-5" />
               </div>
             ))}
           </div>
