@@ -61,7 +61,7 @@ const ResultContent = ({ extractResult }: ResultContentProps) => {
         resultZoomModal.setPage(newPage);
       }
     }
-  }, [pageHeights, resultZoomModal]);
+  }, [pageHeights]);
 
   const measurePageHeights = useCallback(() => {
     if (containerRef.current) {
@@ -69,6 +69,11 @@ const ResultContent = ({ extractResult }: ResultContentProps) => {
       setPageHeights(heights);
     }
   }, []);
+
+  // Sync currentPageRef with resultZoomModal.page
+  useEffect(() => {
+    currentPageRef.current = resultZoomModal.page;
+  }, [resultZoomModal.page]);
 
   useEffect(() => {
     measurePageHeights();
@@ -238,14 +243,14 @@ const ResultContainer = ({ extractResult }: ResultContainerProps) => {
 
   useEffect(() => {
     resultZoomModal.setPage(0);
-  }, [extractResult, resultZoomModal]);
+  }, [extractResult]);
 
   useEffect(() => {
     if (selectedFileIndex !== null && files[selectedFileIndex]) {
       const thisFile = files[selectedFileIndex].file;
       compareModal.setFile(thisFile as File);
     }
-  }, [files, selectedFileIndex, compareModal]);
+  }, [files, selectedFileIndex]);
 
   return (
     <div className="w-full h-[calc(100%-60px)] relative">
