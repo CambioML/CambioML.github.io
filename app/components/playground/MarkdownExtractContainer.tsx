@@ -230,6 +230,72 @@ const MarkdownExtractContainer = () => {
     }
   }, [selectedFile, filename]);
 
+  const extractContentFromResult = (resultData: any): string => {
+    // Handle null or undefined
+    if (!resultData) {
+      return '';
+    }
+
+    // Handle string directly
+    if (typeof resultData === 'string') {
+      return resultData;
+    }
+
+    // Handle array - join with double newlines
+    if (Array.isArray(resultData)) {
+      return resultData.map((item) => (typeof item === 'string' ? item : JSON.stringify(item))).join('\n\n');
+    }
+
+    // Handle object - try common property names first
+    if (typeof resultData === 'object') {
+      // Note: For backward compatibility between Anyparser and Textract
+      const result_key_list = ['markdown', 'result'];
+
+      for (const key of result_key_list) {
+        if (resultData[key] !== undefined && resultData[key] !== null) {
+          const value = resultData[key];
+
+          // Recursively handle the found value
+          if (typeof value === 'string') {
+            return value;
+          } else if (Array.isArray(value)) {
+            return value.map((item) => (typeof item === 'string' ? item : JSON.stringify(item))).join('\n\n');
+          } else if (typeof value === 'object') {
+            // For nested objects, try to extract string content
+            return extractContentFromResult(value);
+          }
+        }
+      }
+
+      // If no common keys found, look for any string values in the object
+      const stringValues = Object.values(resultData).filter(
+        (value) => typeof value === 'string' && value.trim().length > 0
+      );
+
+      if (stringValues.length > 0) {
+        return stringValues.join('\n\n');
+      }
+
+      // If no string values, look for arrays with string content
+      const arrayValues = Object.values(resultData).filter(
+        (value): value is any[] => Array.isArray(value) && value.some((item) => typeof item === 'string')
+      );
+
+      if (arrayValues.length > 0) {
+        return arrayValues
+          .map((arr: any[]) => arr.filter((item: any) => typeof item === 'string').join('\n\n'))
+          .join('\n\n');
+      }
+
+      // Last resort: convert to JSON but with better formatting
+      console.warn('Could not extract string content from object, using JSON representation');
+      return JSON.stringify(resultData, null, 2);
+    }
+
+    // Fallback for other types
+    return String(resultData);
+  };
+
   const handleExtract = async () => {
     // Get fresh state values to avoid stale closure variables
     const state = getState();
@@ -319,41 +385,12 @@ const MarkdownExtractContainer = () => {
           // Debug logging to see the actual structure
           console.log('Result data from presigned URL:', resultData);
 
-          // Try multiple possible result structures
-          const rawContent =
-            resultData.markdown ||
-            resultData.result ||
-            resultData.text ||
-            resultData.content ||
-            resultData.output ||
-            (typeof resultData === 'string' ? resultData : JSON.stringify(resultData));
-
-          // Handle array results (join them into a single string)
-          if (Array.isArray(rawContent)) {
-            extractedContent = rawContent.join('\n\n');
-          } else {
-            extractedContent = rawContent;
-          }
+          extractedContent = extractContentFromResult(resultData);
         } else if (jobResult.result) {
           // Debug logging to see the actual structure
           console.log('Inline result data:', jobResult.result);
 
-          // Try multiple possible result structures for inline results
-          const result = jobResult.result;
-          const rawContent =
-            result.markdown ||
-            result.result ||
-            result.text ||
-            result.content ||
-            result.output ||
-            (typeof result === 'string' ? result : JSON.stringify(result));
-
-          // Handle array results (join them into a single string)
-          if (Array.isArray(rawContent)) {
-            extractedContent = rawContent.join('\n\n');
-          } else {
-            extractedContent = rawContent;
-          }
+          extractedContent = extractContentFromResult(jobResult.result);
         }
 
         // Additional safety check - ensure we have content
@@ -369,12 +406,17 @@ const MarkdownExtractContainer = () => {
           return;
         }
 
-        console.log('Final extracted content:', extractedContent);
+        console.log('Final extracted content length:', extractedContent.length);
+        console.log('Final extracted content preview:', extractedContent.substring(0, 200) + '...');
 
         // Update file with extracted content - if it's an array, store as is, otherwise wrap in array
         const resultArray = Array.isArray(extractedContent) ? extractedContent : [extractedContent];
-        updateFileAtIndex(state.selectedFileIndex, 'extractResult', resultArray);
-        updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.DONE_EXTRACTING);
+
+        // Use setTimeout to batch the state updates and avoid React errors
+        setTimeout(() => {
+          updateFileAtIndex(state.selectedFileIndex, 'extractResult', resultArray);
+          updateFileAtIndex(state.selectedFileIndex, 'extractState', ExtractState.DONE_EXTRACTING);
+        }, 0);
 
         toast.success('File extracted successfully!');
 
