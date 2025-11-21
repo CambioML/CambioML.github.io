@@ -7,13 +7,26 @@ interface InfoButtonProps {
   infoType: string;
 }
 
-const textStyle = 'text-lg text-neutral-700 flex flex-col gap-2';
-const h1Style = 'text-2xl font-semibold';
-const h2Style = 'text-xl font-semibold pt-4';
+const textStyle = 'text-lg font-light text-muted-foreground flex flex-col gap-2';
+const h1Style = 'text-2xl font-semibold text-foreground';
+const h2Style = 'text-xl font-semibold pt-4 text-foreground';
 
 const InfoButton = ({ infoType }: InfoButtonProps) => {
   const infoModal = useInfoModal();
   const { t } = useTranslation();
+
+  const getInfoTitle = () => {
+    switch (infoType) {
+      case PlaygroundTabs.PLAIN_TEXT:
+        return t.playground.info.plainText.title;
+      case PlaygroundTabs.TABLE:
+        return t.playground.info.table.title;
+      case PlaygroundTabs.KEY_VALUE_PAIR:
+        return t.playground.info.keyValuePair.title;
+      default:
+        return '';
+    }
+  };
 
   const getInfoContent = () => {
     switch (infoType) {
@@ -65,6 +78,7 @@ const InfoButton = ({ infoType }: InfoButtonProps) => {
 
   const handleInfoClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+    infoModal.setTitle(getInfoTitle());
     infoModal.setContent(getInfoContent());
     infoModal.onOpen();
   };
@@ -72,7 +86,7 @@ const InfoButton = ({ infoType }: InfoButtonProps) => {
   return (
     <button
       onClick={handleInfoClick}
-      className="w-fit h-fit hover:text-cambio-red rounded-full text-neutral-700 p-1 font-semibold transition duration-300"
+      className="w-fit h-fit hover:text-cambio-red rounded-full text-current p-1 font-semibold transition duration-300"
     >
       <Question size={18} weight="bold" />
     </button>

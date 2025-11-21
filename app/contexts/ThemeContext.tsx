@@ -28,16 +28,23 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme>('auto');
-  const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>('light');
+  const [theme, setThemeState] = useState<Theme>('dark');
+  const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>('dark');
   const pathname = usePathname();
 
-  // Load theme from localStorage on mount
+  // Load theme from localStorage or DOM on mount
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const savedTheme = localStorage.getItem('cambio-theme') as Theme;
       if (savedTheme && ['light', 'dark', 'auto'].includes(savedTheme)) {
         setThemeState(savedTheme);
+      } else {
+        // If no saved theme, check if script applied a class
+        if (document.documentElement.classList.contains('dark')) {
+          setThemeState('dark');
+        } else if (document.documentElement.classList.contains('light')) {
+          setThemeState('light');
+        }
       }
     }
   }, []);

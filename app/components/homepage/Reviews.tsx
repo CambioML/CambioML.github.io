@@ -46,9 +46,7 @@ export default function Reviews() {
             </div>
             <div>
               <p>
-                <span className={cn('text-gray-900 dark:bg-gradient font-semibold dark:font-normal')}>
-                  {review.author}
-                </span>
+                <span className={cn('text-gray-900 dark:bg-gradient font-semibold')}>{review.author}</span>
               </p>
               <p className={cn('text-gray-600 dark:text-gray-300')}>{review.position}</p>
             </div>

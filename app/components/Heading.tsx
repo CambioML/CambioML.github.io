@@ -5,13 +5,14 @@ interface HeadingProps {
   subtitle?: string;
   center?: boolean;
   white?: boolean;
+  customClass?: string;
 }
 
-const Heading = ({ title, subtitle, center, white }: HeadingProps) => {
+const Heading = ({ title, subtitle, center, white, customClass }: HeadingProps) => {
   return (
     <div className={center ? 'text-center' : 'text-start'}>
       <h1
-        className={`text-4xl leading-tight ${white ? 'text-white' : 'text-neutral-800 dark:text-gray-200'} font-semibold whitespace-pre-line`}
+        className={`${customClass || 'text-4xl'} leading-tight ${white ? 'text-white' : 'text-neutral-800 dark:text-gray-200'} font-semibold whitespace-pre-line`}
       >
         {title}
       </h1>

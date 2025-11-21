@@ -25,6 +25,30 @@ export default function HtmlAttributes() {
       document.documentElement.classList.add('ltr');
       document.documentElement.classList.remove('rtl');
     }
+
+    // Sync theme class from body to html element
+    const syncTheme = () => {
+      const bodyClasses = document.body.classList;
+      if (bodyClasses.contains('dark')) {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+      } else if (bodyClasses.contains('light')) {
+        document.documentElement.classList.add('light');
+        document.documentElement.classList.remove('dark');
+      }
+    };
+
+    // Initial sync
+    syncTheme();
+
+    // Watch for theme changes on body
+    const observer = new MutationObserver(syncTheme);
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+
+    return () => observer.disconnect();
   }, [pathname]);
 
   return null;

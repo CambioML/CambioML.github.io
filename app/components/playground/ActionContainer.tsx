@@ -1,16 +1,16 @@
 import toast from 'react-hot-toast';
-import UploadButton from './UploadButton';
 import PlaygroundTab from './PlaygroundTab';
 import MapContainer from './table/MapContainer';
 import ExtractContainer from './ExtractContainer';
+import InlineUploadPanel from './InlineUploadPanel';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 import ExtractKeyValuePairContainer from './ExtractKeyValuePairContainer';
-import { cn } from '@/lib/cn';
 import { usePostHog } from 'posthog-js/react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useTranslation } from '@/lib/use-translation';
 import { useCallback, useEffect, useState } from 'react';
 import { PlaygroundFile, PlaygroundTabs, getPlaygroundTabLabel } from '@/app/types/PlaygroundTypes';
+import PlaygroundInfoBar from './PlaygroundInfoBar';
 
 const ActionContainer = () => {
   const { selectedFileIndex, files } = usePlaygroundStore();
@@ -31,11 +31,9 @@ const ActionContainer = () => {
   const { t } = useTranslation();
 
   const handleLogout = useCallback(() => {
-    console.log('logging out');
     setToken('');
     setLoggedIn(false);
     setClientId('');
-    setToken('');
     logout();
   }, [logout, setClientId, setLoggedIn, setToken]);
 
@@ -52,7 +50,6 @@ const ActionContainer = () => {
       setLoggedIn(true);
       setClientId(process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || '');
     } catch (e) {
-      console.log(e);
       toast.error('Failed to get access token');
       handleLogout();
     }
@@ -62,9 +59,7 @@ const ActionContainer = () => {
     try {
       const accessToken = await getAccessTokenSilently();
       const response = await fetch(`https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/userinfo`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
+        headers: { Authorization: `Bearer ${accessToken}` },
       });
       const profile = await response.json();
       setUserId(profile.sub);
@@ -77,17 +72,14 @@ const ActionContainer = () => {
   }, [getAccessTokenSilently, posthog, setUserId]);
 
   useEffect(() => {
-    if (!isLoading) {
-      if (isAuthenticated) {
-        getAccessToken();
-        setLoggedIn(true);
-        setClientId(process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || '');
-        fetchUserProfile();
-      }
+    if (!isLoading && isAuthenticated) {
+      getAccessToken();
+      setLoggedIn(true);
+      setClientId(process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || '');
+      fetchUserProfile();
     }
-  }, [fetchUserProfile, getAccessToken, isAuthenticated, isLoading, loggedIn, setClientId, setLoggedIn]);
+  }, [fetchUserProfile, getAccessToken, isAuthenticated, isLoading, setClientId, setLoggedIn]);
 
-  // Execute pending action when user logs in
   useEffect(() => {
     if (loadingQuota) {
       return;
@@ -97,7 +89,7 @@ const ActionContainer = () => {
     } else {
       toast.error(t.messages.error.quotaExceeded);
     }
-  }, [remainingQuota, loadingQuota, executePendingAction, t.messages.error.quotaExceeded, pendingAction]);
+  }, [remainingQuota, loadingQuota, executePendingAction, t.messages.error.quotaExceeded]);
 
   useEffect(() => {
     if (selectedFileIndex !== null && files.length > 0) {
@@ -106,31 +98,38 @@ const ActionContainer = () => {
   }, [selectedFileIndex, files]);
 
   return (
-    <div className="w-full h-full grid grid-rows-[50px_1fr] rounded-lg">
-      <div className={`w-full grid grid-cols-3`}>
-        {Object.values(PlaygroundTabs).map((tabKey) => (
-          <PlaygroundTab key={tabKey} tabKey={tabKey} label={getPlaygroundTabLabel(tabKey, t)} />
-        ))}
-      </div>
+    <div className="w-full h-full flex flex-col relative bg-background text-foreground">
       {selectedFileIndex === null ? (
-        <div className="flex flex-col items-center justify-center h-full gap-4">
-          <div className="text-xl font-semibold text-neutral-500">{t.playground.files.pleaseUploadFile}</div>
-          <div className="w-[300px]">
-            <UploadButton small />
+        <div className="flex-1 flex flex-col items-center justify-center p-8 gap-8">
+          <div className="text-center space-y-2">
+            <h1 className="text-4xl font-bold tracking-tight">
+              Analyze with <span className="text-blue-400">AnyParser</span>
+            </h1>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto pt-2">{t.playground.description}</p>
+          </div>
+          <div className="w-full max-w-3xl">
+            <InlineUploadPanel />
           </div>
         </div>
       ) : (
-        <div
-          className={cn(
-            'h-[60vh] lg:h-[73vh] dark:h-full',
-            'border border-t-0 rounded-b-xl p-4 pt-0 box-border overflow-hidden'
-          )}
-        >
-          {(selectedFile?.activeTab === PlaygroundTabs.PLAIN_TEXT || selectedFileIndex === null) && (
-            <ExtractContainer />
-          )}
-          {selectedFile?.activeTab === PlaygroundTabs.TABLE && <MapContainer />}
-          {selectedFile?.activeTab === PlaygroundTabs.KEY_VALUE_PAIR && <ExtractKeyValuePairContainer />}
+        <div className="h-full flex flex-col">
+          <div className="flex-none border-b border-border px-4 py-3">
+            <div className="flex justify-center">
+              <div className="inline-flex items-center gap-1 rounded-xl border border-border bg-background/70 dark:bg-neutral-900/70 px-1 py-1 shadow-sm">
+                {Object.values(PlaygroundTabs).map((tabKey) => (
+                  <PlaygroundTab key={tabKey} tabKey={tabKey} label={getPlaygroundTabLabel(tabKey, t)} />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex-1 overflow-hidden p-4">
+            {(selectedFile?.activeTab === PlaygroundTabs.PLAIN_TEXT || selectedFileIndex === null) && (
+              <ExtractContainer />
+            )}
+            {selectedFile?.activeTab === PlaygroundTabs.TABLE && <MapContainer />}
+            {selectedFile?.activeTab === PlaygroundTabs.KEY_VALUE_PAIR && <ExtractKeyValuePairContainer />}
+          </div>
         </div>
       )}
     </div>

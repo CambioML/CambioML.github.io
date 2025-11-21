@@ -39,7 +39,7 @@ const Capabilities = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h1 className="text-center">
+            <h1 className="text-center text-5xl lg:text-6xl font-semibold">
               <span className="text-gray-900 dark:bg-gradient">{t.homepage.capabilities.title}</span>
             </h1>
           </motion.div>

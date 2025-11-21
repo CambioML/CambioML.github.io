@@ -194,8 +194,20 @@ const ResultContainer = ({ extractResult }: ResultContainerProps) => {
   const { t } = useTranslation();
 
   const handleZoomClick = () => {
+    const currentFile = selectedFileIndex !== null ? files[selectedFileIndex] : undefined;
+    if (currentFile) {
+      let name = '';
+      if (currentFile.file instanceof File) {
+        name = currentFile.file.name;
+      } else if (typeof currentFile.file === 'string') {
+        name = currentFile.file.split('/').pop() || currentFile.file;
+      }
+      resultZoomModal.setTitle(name);
+    } else {
+      resultZoomModal.setTitle('Document Preview');
+    }
     resultZoomModal.setContent(
-      <div className="overflow-auto relative w-full h-[80vh]">
+      <div className="overflow-auto relative w-full h-[80vh] text-foreground">
         <ResultContent extractResult={extractResult} />
       </div>
     );

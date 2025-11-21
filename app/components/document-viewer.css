@@ -1,0 +1,7 @@
+.document-viewer-container {
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid hsl(var(--border));
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}

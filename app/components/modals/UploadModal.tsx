@@ -1,69 +1,31 @@
 'use client';
 
 import { useUploadModal, UploadModalState } from '@/app/hooks/useUploadModal';
-import { X, CloudArrowUp, MonitorArrowUp } from '@phosphor-icons/react';
-import { useCallback, useEffect, useState } from 'react';
-import { useOutsideClickModal } from '@/app/hooks/useOutsideClickModal';
+import { CloudArrowUp } from '@phosphor-icons/react';
+import { useEffect, useState, useCallback } from 'react';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 import Dropzone from '../playground/Dropzone';
 import { toast } from 'react-hot-toast';
 import PulsingIcon from '../PulsingIcon';
-// import { useProductionContext } from '../playground/ProductionContext';
 import { usePostHog } from 'posthog-js/react';
 import SampleUploadFile from '../playground/SampleUploadFile';
+import { playgroundSampleUploadFiles } from '../playground/sampleUploadFiles';
 import { useTranslation } from '@/lib/use-translation';
-import { cn } from '@/lib/cn';
-
-type SampleUploadFile = {
-  fileName: string;
-  fileLabel: string;
-  previewImage: string;
-};
-
-const sampleUploadFiles: SampleUploadFile[] = [
-  {
-    fileName: 'SamplePortfolioStatement.pdf',
-    fileLabel: 'Portfolio Statement',
-    previewImage: 'SamplePortfolioStatement.png',
-  },
-  {
-    fileName: 'BoeingSustainabilityReport.pdf',
-    fileLabel: 'Sustainability Report',
-    previewImage: 'BoeingSustainabilityReport.png',
-  },
-  {
-    fileName: 'TableOfContents.pdf',
-    fileLabel: 'Table of Contents',
-    previewImage: 'TableOfContents.png',
-  },
-];
+import { useRouter } from 'next/navigation';
+import ModalBase from './ModalBase';
 
 const UploadModal = () => {
   const uploadModal = useUploadModal();
   const posthog = usePostHog();
   const { t } = useTranslation();
+  const router = useRouter();
 
   const { filesToUpload, addFiles, setFilesToUpload, files } = usePlaygroundStore();
-
-  const [showModal, setShowModal] = useState(uploadModal.isOpen);
-
-  const thisRef = useOutsideClickModal(() => {
-    handleClose();
-  });
-
-  const handleClose = useCallback(() => {
-    setShowModal(false);
-    setTimeout(() => {
-      uploadModal.onClose();
-    }, 300);
-  }, [uploadModal]);
-
-  useEffect(() => {
-    setShowModal(uploadModal.isOpen);
-  }, [uploadModal.isOpen]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (uploadModal.uploadModalState === UploadModalState.UPLOADING) {
+      setIsLoading(true);
       filesToUpload.forEach((file) => {
         posthog.capture('playground.upload.start', { route: '/playground', file_type: file.type, module: 'upload' });
         addFiles({ files: file });
@@ -75,10 +37,11 @@ const UploadModal = () => {
         module: 'upload',
       });
       uploadModal.setUploadModalState(UploadModalState.ADD_FILES);
-      handleClose();
+      setIsLoading(false);
+      uploadModal.onClose();
       toast.success(t.messages.success.fileUploaded);
     }
-  }, [uploadModal.uploadModalState, handleClose, uploadModal, filesToUpload, addFiles, posthog, setFilesToUpload, t]);
+  }, [uploadModal.uploadModalState, uploadModal, filesToUpload, addFiles, posthog, setFilesToUpload, t]);
 
   const generateRandomString = (length = 4) => {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -92,7 +55,7 @@ const UploadModal = () => {
   const handlePaste = useCallback(
     (event: ClipboardEvent) => {
       const clipboardItems = event.clipboardData?.items;
-      const filesToUpload: File[] = [];
+      const filesToUploadList: File[] = [];
       const existingFileNames = files.map((file) => {
         if (file.file instanceof File) return file.file.name;
       });
@@ -109,13 +72,13 @@ const UploadModal = () => {
               } while (existingFileNames.includes(newName));
 
               const newFile = new File([file], newName, { type: file.type });
-              filesToUpload.push(newFile);
+              filesToUploadList.push(newFile);
             }
           }
         }
 
-        if (filesToUpload.length > 0) {
-          setFilesToUpload(filesToUpload);
+        if (filesToUploadList.length > 0) {
+          setFilesToUpload(filesToUploadList);
           uploadModal.setUploadModalState(UploadModalState.UPLOADING);
         }
       }
@@ -130,93 +93,56 @@ const UploadModal = () => {
     };
   }, [handlePaste]);
 
-  if (!uploadModal.isOpen) {
-    return null;
-  }
+  const body = (
+    <div className="w-full flex flex-col gap-6">
+      {uploadModal.uploadModalState === UploadModalState.ADD_FILES && (
+        <>
+          <Dropzone />
+          <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4">
+            {playgroundSampleUploadFiles.map((file, index) => (
+              <SampleUploadFile
+                key={index}
+                fileName={file.fileName}
+                fileLabel={file.fileLabel}
+                previewImage={file.previewImage}
+              />
+            ))}
+          </div>
+          <div className="w-full text-xs text-muted-foreground italic text-center leading-tight opacity-80">
+            <p>{t.playground.disclaimers.pageLimit}</p>
+            <p>
+              {t.playground.disclaimers.fileSize}{' '}
+              <button
+                type="button"
+                className="underline underline-offset-2 hover:text-blue-400 transition-colors"
+                onClick={() => router.push('/legal/privacy-policy.pdf')}
+              >
+                {t.playground.disclaimers.privacyPolicy}
+              </button>
+            </p>
+          </div>
+        </>
+      )}
+      {uploadModal.uploadModalState === UploadModalState.UPLOADING && (
+        <div className="flex flex-col justify-center items-center gap-4 text-xl">
+          {t.playground.uploadModal.uploading}
+          <PulsingIcon Icon={CloudArrowUp} size={40} />
+        </div>
+      )}
+    </div>
+  );
 
   return (
-    <div
-      className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[100] outline-none focus:outline-none bg-neutral-800/70"
-      id="upload-modal"
+    <ModalBase
+      isOpen={uploadModal.isOpen}
+      onClose={uploadModal.onClose}
+      title={t.playground.files.uploadFile}
+      size="lg"
+      zIndexClass="z-[100]"
+      overlayProps={{ id: 'upload-modal' }}
     >
-      <div className="relative w-full md:w-4/5 max-w-screen-2xl my-6 mx-auto h-full lg:h-auto md:h-auto">
-        <div
-          className={`translate duration-300 h-full ${showModal ? 'translate-y-0' : 'translate-y-full'} ${showModal ? 'opacity-100' : 'opacity-0'}`}
-        >
-          <div
-            className={cn(
-              'translate h-full md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none focus:outline-none',
-              'bg-white dark:bg-neutral-800'
-            )}
-            ref={thisRef}
-          >
-            <div
-              className={cn(
-                'flex items-center p-6 rounded-t justify-center relative',
-                'border-b-[1px] border-gray-200 dark:border-b dark:border-neutral-600'
-              )}
-            >
-              <button
-                onClick={handleClose}
-                className={cn(
-                  'p-1 border=0 hover:opacity-70 transition absolute right-7 rounded-full',
-                  'hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-800 dark:text-neutral-300'
-                )}
-              >
-                <X size={24} />
-              </button>
-            </div>
-            <div
-              className={cn(
-                'z-50 flex items-center justify-center h-[600px] lg:h-[90vh] w-auto p-10 max-h-[900px]',
-                'text-neutral-800 dark:text-neutral-100'
-              )}
-            >
-              {uploadModal.uploadModalState === UploadModalState.ADD_FILES && (
-                <div className="w-full h-full flex flex-col justify-center items-center gap-4 ">
-                  <Dropzone />
-                  <div className="w-full flex items-center gap-4">
-                    <hr className={cn('flex-1 border-t border-gray-300 dark:border-neutral-600')} />
-                    <span className={cn('text-gray-500 dark:text-neutral-400')}>{t.playground.uploadModal.or}</span>
-                    <hr className={cn('flex-1 border-t border-gray-300 dark:border-neutral-600')} />
-                  </div>
-                  <div
-                    className={cn(
-                      'w-full h-[30vh] min-h-[50px] border border-dashed text-xl flex items-center justify-center gap-4 rounded-md hover:border-neutral-500',
-                      'bg-gray-100 dark:bg-neutral-700 border-gray-300 dark:border-neutral-500 text-gray-600 dark:text-neutral-200'
-                    )}
-                  >
-                    <MonitorArrowUp size={32} className="text-gray-600 dark:text-neutral-300" />
-                    {t.playground.uploadModal.pasteScreenshot}
-                  </div>
-                  <div className="w-full flex items-center gap-4">
-                    <hr className={cn('flex-1 border-t border-gray-300 dark:border-neutral-600')} />
-                    <span className={cn('text-gray-500 dark:text-neutral-400')}>{t.playground.uploadModal.or}</span>
-                    <hr className={cn('flex-1 border-t border-gray-300 dark:border-neutral-600')} />
-                  </div>
-                  <div className="w-full h-[30vh] min-h-[50px] flex flex-row items-center justify-center gap-8">
-                    {sampleUploadFiles.map((file, index) => (
-                      <SampleUploadFile
-                        key={index}
-                        fileName={file.fileName}
-                        fileLabel={file.fileLabel}
-                        previewImage={file.previewImage}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-              {uploadModal.uploadModalState === UploadModalState.UPLOADING && (
-                <div className="flex flex-col justify-center items-center gap-4 text-xl">
-                  {t.playground.uploadModal.uploading}
-                  <PulsingIcon Icon={CloudArrowUp} size={40} />
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      {body}
+    </ModalBase>
   );
 };
 

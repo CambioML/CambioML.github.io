@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { imgPrefix } from '@/app/hooks/useImgPrefix';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from '@/lib/use-translation';
-import Button from '../Button';
+import { HeroButtons } from './HeroButtons';
 import Container from '../Container';
 
 const Hero = () => {
@@ -89,14 +89,8 @@ const Hero = () => {
                     </ul>
                     {t.homepage.hero.moreFeatures}
                   </div>
-                  <div className="w-full pt-8 pb-2 flex items-center justify-center gap-4">
-                    <Button label={t.homepage.hero.tryFree} onClick={() => router.push(`/${locale}/anyparser`)} />
-                    <Button label={t.homepage.hero.getApi} onClick={() => router.push(`/${locale}/account`)} outline />
-                  </div>
-                  <div className="w-full pt-4">
-                    <Button label={t.homepage.hero.bookDemo} onClick={() => router.push('/book-demo')} secondaryColor />
-                  </div>
-                  <div className="w-full py-1 flex items-center justify-center text-gray-600 dark:text-gray-300">
+                  <HeroButtons className="w-full pt-8" />
+                  <div className="w-full py-3 flex items-center justify-center text-gray-600 dark:text-gray-300">
                     {t.homepage.hero.noCreditCard}
                   </div>
                 </div>

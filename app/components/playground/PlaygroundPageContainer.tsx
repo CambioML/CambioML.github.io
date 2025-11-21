@@ -27,10 +27,9 @@ const PlaygroundPageContainer = ({ production }: PlaygroundPageContainerProps) =
       }}
     >
       <ProductionProvider initialValue={production}>
-        <div className={cn('relative min-h-screen w-full overflow-hidden bg-gray-50 dark:bg-background')}>
+        <div className={cn('relative w-full overflow-hidden bg-background text-foreground pt-[100px]')}>
           {/* Main content */}
-          <div className="py-10 w-full h-fit flex flex-col justify-center items-center">
-            <PageHero title={t.playground.title} description={t.playground.description} short />
+          <div className="w-full h-[calc(100vh-100px)] flex flex-col border-y border-border">
             <PlaygroundContainer />
             <UploadModal />
           </div>

@@ -27,6 +27,7 @@ import useAccountStore from '@/app/hooks/useAccountStore';
 import { checkApiKey } from '@/app/actions/account/ApiKey';
 import getApiKey from '@/app/actions/account/ApiKey';
 import { checkQuota } from '@/app/actions/account/ApiKey';
+import ActionButton from './ActionButton';
 
 export const extractMarkdownTables = (input: string): string[] => {
   const tableRegex = /\|(.*\|.+\|[\s\S]*\|.+\|)/gm;
@@ -577,16 +578,14 @@ const MarkdownExtractContainer = () => {
 
                 <div className="flex flex-col gap-4 items-center justify-center mt-1">
                   {/* Extract button below */}
-                  <div className="w-fit">
-                    <Button
-                      label={t.playground.extraction.extractPlainText}
-                      onClick={() => handleExtract()}
-                      small
-                      labelIcon={FileText}
-                      id="extract-plain-text-btn"
-                      disabled={!!pendingAction || authLoading}
-                    />
-                  </div>
+                  <ActionButton
+                    label={t.playground.extraction.extractPlainText}
+                    onClick={() => handleExtract()}
+                    icon={FileText}
+                    id="extract-plain-text-btn"
+                    disabled={!!pendingAction || authLoading}
+                    variant="outline"
+                  />
                   <ModelToggleDropdown />
                 </div>
                 <div className="w-full mt-4">{/* <ExtractSettingsChecklist removePIIOnly={isProduction} /> */}</div>
@@ -609,12 +608,12 @@ const MarkdownExtractContainer = () => {
             <div className="flex flex-col items-start w-full h-full gap-4 p-4">
               <ResultContainer extractResult={selectedFile.extractResult} />
               <div className="w-full h-fit flex gap-4">
-                <Button
+                <ActionButton
                   label={t.playground.extraction.reRunDocument}
                   onClick={handleRetry}
-                  small
-                  labelIcon={ArrowCounterClockwise}
+                  icon={ArrowCounterClockwise}
                   id="retry-extract-btn"
+                  variant="outline"
                 />
                 {selectedFile.extractResult.length > 1 &&
                   selectedFile.file instanceof File &&

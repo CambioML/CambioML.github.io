@@ -34,23 +34,24 @@ const FileItem = ({ pgFile, index }: FileItemProps) => {
   return (
     <div
       className={cn(
-        'w-full h-[50px] flex justify-between items-center cursor-pointer px-4 rounded-md relative group',
+        'flex items-center gap-2 px-2 py-1.5 text-sm rounded-md transition-colors w-full cursor-pointer',
         index === selectedFileIndex
-          ? 'bg-cambio-primary dark:bg-neutral-700'
-          : 'hover:bg-neutral-200 dark:hover:bg-neutral-700'
+          ? 'bg-muted text-foreground dark:bg-neutral-700'
+          : 'hover:bg-muted/50 text-muted-foreground'
       )}
       onClick={handleClick}
     >
-      <h3 className="truncate file-item-name">{filename}</h3>
-      <div
-        className={cn(
-          'flex items-center justify-center rounded-md w-[35px] h-[35px] shrink-0 cursor-pointer',
-          'bg-white dark:bg-neutral-600 text-neutral-500 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-500 hover:text-neutral-800 dark:hover:text-neutral-100 hover:border dark:hover:border-0'
-        )}
-        onClick={handlePreviewClick}
+      <span className="truncate flex-1">{filename}</span>
+      <button
+        type="button"
+        className="flex items-center justify-center rounded-md w-8 h-8 shrink-0 bg-background/60 hover:bg-background text-muted-foreground hover:text-foreground transition-colors"
+        onClick={(e) => {
+          e.stopPropagation();
+          handlePreviewClick();
+        }}
       >
-        <FileMagnifyingGlass size={20} />
-      </div>
+        <FileMagnifyingGlass size={18} />
+      </button>
     </div>
   );
 };

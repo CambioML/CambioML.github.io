@@ -20,6 +20,7 @@ import * as XLSX from 'xlsx';
 import { useTranslation } from '@/lib/use-translation';
 import { useAuth0 } from '@auth0/auth0-react';
 import useAccountStore from '@/app/hooks/useAccountStore';
+import ActionButton from '../ActionButton';
 
 const noPageContent = '<div>No table detected in output.</div>';
 
@@ -425,15 +426,14 @@ const TableExtractContainer = () => {
               <div className="flex flex-col justify-center items-center h-full text-lg text-center gap-4">
                 <div className="flex flex-col items-center justify-center">
                   {filename}
-                  <div className="w-[200px] mt-2">
-                    <Button
-                      label={t.playground.extraction.extractTable}
-                      onClick={() => handleTableExtractTransform()}
-                      small
-                      labelIcon={Table}
-                      disabled={!!pendingAction}
-                    />
-                  </div>
+                  <ActionButton
+                    label={t.playground.extraction.extractTable}
+                    onClick={() => handleTableExtractTransform()}
+                    icon={Table}
+                    disabled={!!pendingAction}
+                    className="mt-2"
+                    variant="outline"
+                  />
                 </div>
                 <div className="w-fit">{/* <ExtractSettingsChecklist removePIIOnly /> */}</div>
               </div>
@@ -458,21 +458,21 @@ const TableExtractContainer = () => {
                   </div>
                 )}
                 <div className="w-full h-fit flex gap-4">
-                  <Button
+                  <ActionButton
                     label={t.playground.extraction.reRunDocument}
                     onClick={handleRetry}
-                    small
-                    labelIcon={ArrowCounterClockwise}
+                    icon={ArrowCounterClockwise}
+                    variant="outline"
                   />
                   {selectedFile.tableExtractResult.length > 1 && (
-                    <Button
+                    <ActionButton
                       label={t.playground.extraction.reRunPage.replace(
                         '{pageNumber}',
                         String(resultZoomModal.page + 1)
                       )}
                       onClick={handlePageRetry}
-                      small
-                      labelIcon={ArrowCounterClockwise}
+                      icon={ArrowCounterClockwise}
+                      variant="outline"
                     />
                   )}
                   <DropdownButton

@@ -37,6 +37,32 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
+        {/* Script to prevent theme flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var localTheme = localStorage.getItem('cambio-theme');
+                  var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+                  
+                  // Default to dark if no preference
+                  if (!localTheme) {
+                    localTheme = 'dark';
+                  }
+                  
+                  var themeToSet = localTheme;
+                  if (localTheme === 'auto') {
+                    themeToSet = supportDarkMode ? 'dark' : 'light';
+                  }
+                  
+                  document.documentElement.classList.add(themeToSet);
+                  document.documentElement.style.colorScheme = themeToSet;
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
         {/* Chatbot disabled - commenting out Epsilla integration to fix 401 unauthorized errors
         <script
           dangerouslySetInnerHTML={{

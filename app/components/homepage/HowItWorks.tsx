@@ -50,7 +50,7 @@ const HowItWorks = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <h1 className="text-6xl font-semibold">
+              <h1 className="text-5xl lg:text-6xl font-semibold">
                 <span className="text-gray-900 dark:bg-gradient">{t.homepage.howItWorks.title}</span>
               </h1>
             </motion.div>

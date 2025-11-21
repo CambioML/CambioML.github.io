@@ -257,7 +257,7 @@ export const en = {
   },
   playground: {
     title: 'AnyParser Sandbox',
-    description: 'The first LLM to quickly and accurately extract full content from PDFs*, PPTs, and images**.',
+    description: 'The first LLM to instantly extract full content from PDFs, PPTs, and images.',
     tryForFree: 'Try for free',
     tabs: {
       plainText: 'Full Content',

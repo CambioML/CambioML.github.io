@@ -48,15 +48,16 @@ const SampleUploadFile = ({ fileName, fileLabel, previewImage }: SampleUploadFil
   return (
     <div
       onClick={handleStarterFile}
-      className="h-full w-full border rounded-lg cursor-pointer hover:border-neutral-700 hover:shadow-lg flex flex-col"
+      className="group h-48 w-full border border-border bg-card rounded-xl cursor-pointer hover:border-primary/50 hover:shadow-md transition-all duration-300 flex flex-col md:h-56 overflow-hidden"
     >
-      <div className="flex-grow relative overflow-hidden rounded-t-lg">
-        <div className="relative w-full h-full overflow-hidden rounded-t-lg hover:scale-105 transition-transform duration-300">
-          <Image src={`${basePath}${previewImage}`} alt={fileName} className="object-cover rounded-t-lg" fill />
+      <div className="relative flex-1 overflow-hidden">
+        <div className="relative h-full w-full transition-transform duration-500 group-hover:scale-105">
+          <Image src={`${basePath}${previewImage}`} alt={fileName} className="object-cover" fill />
+          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
         </div>
       </div>
-      <div className="h-[40px] p-1 text-center text-neutral-100 rounded-b-md flex items-center justify-center bg-neutral-700">
-        <p className="text-sm font-medium font-semibold truncate">{fileLabel}</p>
+      <div className="h-[40px] px-3 py-2 text-center bg-card border-t border-border flex items-center justify-center group-hover:bg-muted/50 transition-colors duration-300">
+        <p className="text-sm font-medium text-card-foreground truncate">{fileLabel}</p>
       </div>
     </div>
   );

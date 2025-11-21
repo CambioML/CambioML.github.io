@@ -1,5 +1,4 @@
 import { useUploadModal } from '@/app/hooks/useUploadModal';
-import Button from '../Button';
 import { UploadSimple } from '@phosphor-icons/react';
 import { usePostHog } from 'posthog-js/react';
 import { useTranslation } from '@/lib/use-translation';
@@ -15,18 +14,35 @@ const UploadButton = ({ small, disabled, collapsed }: UploadButtonProps) => {
   const uploadModal = useUploadModal();
   const { t } = useTranslation();
 
+  if (collapsed) {
+    return (
+      <button
+        onClick={() => {
+          posthog.capture('playground.upload.button', { route: '/playground' });
+          uploadModal.onOpen();
+        }}
+        disabled={disabled}
+        className="p-2 hover:bg-muted/50 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+        id="open-upload-modal-btn"
+      >
+        <UploadSimple size={16} />
+      </button>
+    );
+  }
+
   return (
-    <Button
-      label={collapsed ? '' : t.playground.files.uploadFile}
+    <button
       onClick={() => {
         posthog.capture('playground.upload.button', { route: '/playground' });
         uploadModal.onOpen();
       }}
-      small={small}
-      labelIcon={UploadSimple}
       disabled={disabled}
+      className="flex items-center gap-2 px-2 py-1.5 text-sm hover:bg-muted/50 rounded-md transition-colors w-full text-left disabled:opacity-50 disabled:cursor-not-allowed"
       id="open-upload-modal-btn"
-    />
+    >
+      <UploadSimple size={16} />
+      <span>{t.playground.files.uploadFile}</span>
+    </button>
   );
 };
 

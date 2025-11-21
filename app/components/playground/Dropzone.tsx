@@ -1,5 +1,5 @@
 import { useDropzone } from 'react-dropzone';
-import { CloudArrowUp, Info } from '@phosphor-icons/react';
+import { CloudArrowUp } from '@phosphor-icons/react';
 import { useCallback } from 'react';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 import { useUploadModal, UploadModalState } from '@/app/hooks/useUploadModal';
@@ -35,14 +35,6 @@ const Dropzone = () => {
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': { limit: 10, name: 'XLSX' },
     };
 
-  function generateAllowedTypesString(types: AllowedTypes) {
-    const typeNames = Object.values(types).map((type) => type.name);
-    const lastType = typeNames.pop();
-    return typeNames.length
-      ? `${typeNames.join(', ')}${typeNames.length > 1 ? ',' : ''} and ${lastType} ${t.playground.upload.filesOnly}`
-      : `${lastType} ${t.playground.upload.filesOnly}`;
-  }
-
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
       for (const file of acceptedFiles) {
@@ -72,27 +64,29 @@ const Dropzone = () => {
   return (
     <div
       className={cn(
-        'border border-dashed h-[40vh] min-h-[150px] rounded-md text-center cursor-pointer transition duration-300 ease-in-out flex flex-col items-center justify-center w-full',
-        'bg-gray-100 dark:bg-neutral-700 border-gray-300 dark:border-neutral-500 text-gray-600 dark:text-neutral-200 hover:border-neutral-500 dark:hover:border-neutral-400'
+        'relative group cursor-pointer transition-all duration-300 ease-in-out w-full',
+        'bg-muted/30 hover:bg-muted/50 border border-border rounded-xl p-6',
+        'shadow-[0_0_40px_-10px_rgba(59,130,246,0.2)] hover:shadow-[0_0_50px_-10px_rgba(59,130,246,0.3)] dark:shadow-[0_0_40px_-10px_rgba(59,130,246,0.15)] dark:hover:shadow-[0_0_50px_-10px_rgba(59,130,246,0.25)]',
+        isDragActive && 'ring-2 ring-primary border-primary bg-muted/50 shadow-[0_0_60px_-10px_rgba(59,130,246,0.4)]'
       )}
       {...getRootProps()}
       id="dropzone-container"
     >
-      <div className={cn('flex items-center justify-center text-3xl mb-4 text-gray-600 dark:text-neutral-300')}>
-        <CloudArrowUp size={32} />
-      </div>
       <input {...getInputProps()} className="hidden" id="upload-file-input" />
-      <p className="mt-2">{isDragActive ? t.playground.upload.dropFiles : t.playground.upload.dragAndDrop}</p>
-      <p className={cn('text-sm text-gray-500 dark:text-neutral-400')}>{generateAllowedTypesString(allowedTypes)}</p>
-      <p className={cn('text-sm text-gray-500 dark:text-neutral-400')}>{t.playground.upload.noSensitiveInfo}</p>
-      <div
-        className={cn(
-          'flex justify-center items-center gap-2 rounded-lg p-2',
-          'bg-amber-200 dark:bg-amber-800/30 text-amber-700 dark:text-amber-300'
-        )}
-      >
-        <Info weight="bold" />
-        {t.playground.upload.maxSize}
+
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center gap-4">
+          <div className="p-4 bg-background rounded-2xl border border-border shadow-sm">
+            <CloudArrowUp size={36} className="text-primary" />
+          </div>
+          <div className="flex flex-col gap-1 text-left">
+            <p className="text-lg font-semibold text-foreground">
+              {isDragActive ? t.playground.upload.dropFiles : 'Drag & drop, or click to upload.'}
+            </p>
+            <p className="text-xs text-muted-foreground">PDF, PNG, JPEG, JPG, PPT, and DOCX files only.</p>
+            <p className="text-xs text-muted-foreground">{t.playground.upload.maxSize}</p>
+          </div>
+        </div>
       </div>
     </div>
   );

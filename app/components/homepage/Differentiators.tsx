@@ -83,7 +83,7 @@ const Differentiators = () => {
     <div className="h-full w-full py-20">
       <Container styles="h-fit">
         <div className="w-full h-fit flex flex-col items-center justify-start px-10">
-          <Heading title="Why is AnyParser so Good" center />
+          <Heading title="Why is AnyParser so Good" center customClass="text-5xl lg:text-6xl" />
           <div className="py-5 flex flex-col gap-20 max-w-screen-xl align-items justify-items h-fit w-full lg:w-max overflow-auto">
             {differentiators.map((differentiator, i) => (
               <Differentiator
