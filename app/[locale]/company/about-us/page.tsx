@@ -209,18 +209,12 @@ function GetStarted() {
           <button
             onClick={() => {
               if (typeof window !== 'undefined') {
-                window.location.href = 'https://app.energent.ai';
+                window.open('https://app.energent.ai', '_blank');
               }
             }}
             className="relative px-4 py-2 rounded-md text-sm font-medium bg-gray-900 hover:bg-gray-800 dark:bg-gray-800 dark:hover:bg-gray-700 text-white transition-all duration-200 border border-gray-300 dark:border-gray-600"
           >
             <span className="text-white dark:bg-gradient">{t.company.getStarted.buttonText}</span>
-          </button>
-          <button
-            onClick={() => window.open('https://docs.cambioml.com/introduction', '_blank')}
-            className="relative px-4 py-2 rounded-md text-sm font-medium bg-gray-900 hover:bg-gray-800 dark:bg-gray-800 dark:hover:bg-gray-700 text-white transition-all duration-200 border border-gray-300 dark:border-gray-600"
-          >
-            <span className="text-white dark:bg-gradient">{t.company.getStarted.docsButtonText}</span>
           </button>
         </div>
       </div>
