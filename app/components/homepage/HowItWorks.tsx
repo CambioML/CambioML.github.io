@@ -85,7 +85,7 @@ const HowItWorks = () => {
             transition={{ delay: 0.4, duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <div className="border border-border/50 rounded-lg overflow-hidden">
+            <div className="w-full max-w-[800px] border border-border/50 rounded-lg overflow-hidden">
               <YouTubeFacade videoId="T80TMGOTlK4" />
             </div>
           </motion.div>
