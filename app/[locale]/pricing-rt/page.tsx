@@ -42,10 +42,10 @@ const Pricing = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-background">
+    <div className="min-h-screen bg-background">
       <section
         id="pricing"
-        className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-6.25 items-center bg-gray-50 dark:bg-background"
+        className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-6.25 items-center bg-background"
       >
         <div className="container flex flex-col gap-6.25 text-center">
           <h1 className="text-6xl dark:bg-gradient">{t.pricing.realTimeApi.title}</h1>

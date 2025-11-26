@@ -174,6 +174,7 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
         setValue(`${newUuids[index]}-description`, input.description);
       });
     }, 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFileIndex, files]);
 
   // Save to store whenever inputs change

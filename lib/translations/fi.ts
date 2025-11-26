@@ -487,7 +487,7 @@ export const fi = {
   },
   footer: {
     copyright: 'Cambio Corp',
-    libraries: {
+    products: {
       title: 'Kirjastot',
       anyParser: 'AnyParser',
     },

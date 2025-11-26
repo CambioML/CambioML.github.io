@@ -40,6 +40,7 @@ const TeamMember = ({ image, name, title, bio, url, logos }: TeamMemberProps) =>
               <a target="_blank" href={logo.url} rel="noopener noreferrer" key={logo.url + i}>
                 <div className={`flex items-center justify-center h-full w-max`}>
                   <div className={`${logo.height || 'h-[30px]'} w-auto`}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={imgPrefix + logo.image}
                       alt={logo.alt}

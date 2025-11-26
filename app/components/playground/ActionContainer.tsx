@@ -115,7 +115,7 @@ const ActionContainer = () => {
         <div className="h-full flex flex-col">
           <div className="flex-none border-b border-border px-4 py-3">
             <div className="flex justify-center">
-              <div className="inline-flex items-center gap-1 rounded-xl border border-border bg-background/70 dark:bg-neutral-900/70 px-1 py-1 shadow-sm">
+              <div className="inline-flex items-center gap-1 rounded-xl border border-border bg-card px-1 py-1 shadow-sm">
                 {Object.values(PlaygroundTabs).map((tabKey) => (
                   <PlaygroundTab key={tabKey} tabKey={tabKey} label={getPlaygroundTabLabel(tabKey, t)} />
                 ))}

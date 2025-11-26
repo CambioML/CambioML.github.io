@@ -69,6 +69,7 @@ const Differentiator = ({ title, description, cards }: DifferentiatorProps) => {
             key={card.title + i}
             className="w-[300px] h-[300px] bg-cambio-primary rounded-xl hover:shadow-lg transition duration-300 ease-in-out"
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             {card.image && <img src={card.image} alt={card.title} className="w-full h-full object-cover rounded-md" />}
             {card.icon && <card.icon className="w-full h-full object-cover p-20 text-neutral-800" />}
           </div>

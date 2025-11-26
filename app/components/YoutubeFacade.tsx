@@ -23,6 +23,7 @@ const YouTubeFacade = ({ videoId }: YouTubeFacadeProps) => {
         />
       ) : (
         <div className="relative cursor-pointer" onClick={playVideo}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={`https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`}
             alt="YouTube video thumbnail"

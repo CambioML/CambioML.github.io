@@ -484,7 +484,7 @@ export const sv = {
   },
   footer: {
     copyright: 'Cambio Corp',
-    libraries: {
+    products: {
       title: 'Bibliotek',
       anyParser: 'AnyParser',
     },

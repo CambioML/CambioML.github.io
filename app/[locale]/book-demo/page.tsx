@@ -110,7 +110,7 @@ const BookDemoPage = () => {
       window.removeEventListener('message', handleCalendlyEvent);
       document.body.removeChild(script);
     };
-  }, []);
+  }, [handleCalendlyEvent]);
 
   return (
     <div className="pb-10 w-full h-full flex flex-col justify-center items-center ">

@@ -488,7 +488,7 @@ export const hu = {
   },
   footer: {
     copyright: 'Cambio Corp',
-    libraries: {
+    products: {
       title: 'Könyvtárak',
       anyParser: 'AnyParser',
     },

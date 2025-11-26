@@ -16,6 +16,9 @@ module.exports = {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'gradient-brand': 'var(--gradient-brand)',
+        'gradient-section': 'var(--gradient-section)',
+        'gradient-section-alt': 'var(--gradient-section-alt)',
       },
       colors: {
         'cambio-blue-0': 'var(--cambio-blue-0)',
@@ -73,6 +76,14 @@ module.exports = {
         'border-1': 'var(--border-1)',
         'card-1': 'var(--card-1)',
         light: 'var(--light)',
+      },
+      boxShadow: {
+        soft: 'var(--shadow-soft)',
+        strong: 'var(--shadow-strong)',
+        focus: 'var(--shadow-focus)',
+      },
+      borderWidth: {
+        10: '10px',
       },
     },
   },

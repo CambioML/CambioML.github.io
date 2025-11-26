@@ -483,7 +483,7 @@ export const cs = {
   },
   footer: {
     copyright: 'Cambio Corp',
-    libraries: {
+    products: {
       title: 'Knihovny',
       anyParser: 'AnyParser',
     },

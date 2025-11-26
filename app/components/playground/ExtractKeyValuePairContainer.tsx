@@ -67,6 +67,7 @@ const ExtractKeyValuePairContainer = () => {
     } else {
       toast.dismiss('key-value-extracting-toast');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFile?.extractKeyValueState]);
 
   const onSubmit = async (extractInstruction: Record<string, string>) => {

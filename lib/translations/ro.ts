@@ -488,7 +488,7 @@ export const ro = {
   },
   footer: {
     copyright: 'Cambio Corp',
-    libraries: {
+    products: {
       title: 'Biblioteci',
       anyParser: 'AnyParser',
     },

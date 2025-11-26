@@ -482,7 +482,7 @@ export const ru = {
   },
   footer: {
     copyright: 'Cambio Corp',
-    libraries: {
+    products: {
       title: 'Библиотеки',
       anyParser: 'AnyParser',
     },

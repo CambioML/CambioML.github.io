@@ -16,7 +16,7 @@ const RDSolutionsPage = () => {
   const solutionPages = t.solutionPages;
 
   return (
-    <div className="pb-10 w-full h-full flex flex-col justify-center items-center bg-white dark:bg-background">
+    <div className="pb-10 w-full h-full flex flex-col justify-center items-center bg-background">
       <PageHero
         title={
           solutionPages?.researchDevelopment?.title ||

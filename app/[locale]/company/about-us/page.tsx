@@ -1,6 +1,5 @@
 'use client';
 
-import '@/app/theme.css';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
@@ -45,7 +44,7 @@ function WhoWeAre() {
   return (
     <section
       id="who-we-are"
-      className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center bg-white dark:bg-background"
+      className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center"
     >
       <div className="container flex flex-col gap-6.25 text-center">
         <h2 className="text-5xl font-medium">
@@ -68,7 +67,7 @@ function FoundingTeam() {
   return (
     <section
       id="founding-team"
-      className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center bg-white dark:bg-background"
+      className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center"
     >
       <div className="container flex flex-col gap-6.25 text-center">
         <h2 className="text-5xl font-medium">
@@ -125,7 +124,7 @@ function WhatWeOffer() {
   return (
     <section
       id="what-we-offer"
-      className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center bg-white dark:bg-background"
+      className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center"
     >
       <div className="container flex flex-col gap-6.25 text-center">
         <h2 className="text-5xl font-medium">
@@ -148,7 +147,7 @@ function Investors() {
   return (
     <section
       id="investors"
-      className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center bg-white dark:bg-background"
+      className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center"
     >
       <div className="flex flex-col items-center gap-12.5">
         <h2 className="text-5xl font-medium text-center">
@@ -197,7 +196,7 @@ function GetStarted() {
   return (
     <section
       id="get-started"
-      className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center bg-white dark:bg-background"
+      className="px-3.75 py-12.5 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center"
     >
       <div className="container flex flex-col gap-8 text-center items-center">
         <h2 className="text-5xl font-medium leading-relaxed pb-2">
@@ -208,7 +207,11 @@ function GetStarted() {
         </p>
         <div className="flex items-center gap-5">
           <button
-            onClick={() => router.push(`/${locale}/anyparser`)}
+            onClick={() => {
+              if (typeof window !== 'undefined') {
+                window.location.href = 'https://app.energent.ai';
+              }
+            }}
             className="relative px-4 py-2 rounded-md text-sm font-medium bg-gray-900 hover:bg-gray-800 dark:bg-gray-800 dark:hover:bg-gray-700 text-white transition-all duration-200 border border-gray-300 dark:border-gray-600"
           >
             <span className="text-white dark:bg-gradient">{t.company.getStarted.buttonText}</span>
@@ -227,7 +230,7 @@ function GetStarted() {
 
 const AboutPage = () => {
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center bg-white dark:bg-background">
+    <div className="w-full h-full flex flex-col justify-center items-center">
       <Container styles="h-max pt-24" centerX center-y>
         <WhoWeAre />
         <FoundingTeam />

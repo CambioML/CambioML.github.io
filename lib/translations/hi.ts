@@ -481,7 +481,7 @@ export const hi = {
   },
   footer: {
     copyright: 'Cambio Corp',
-    libraries: {
+    products: {
       title: 'लाइब्रेरीज़',
       anyParser: 'AnyParser',
     },

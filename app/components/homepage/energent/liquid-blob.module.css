@@ -1,0 +1,77 @@
+/* Animations are pure CSS. No JS needed. */
+.root {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  contain: strict;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .spin,
+  .drift {
+    animation: none !important;
+  }
+}
+
+/* We animate transforms on the groups */
+.spin,
+.drift {
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* Spin the inner group */
+@keyframes lb-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation-name: lb-spin;
+  animation-duration: var(--lb-rotate-s, 40s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* Gentle orbital drift on the outer group */
+@keyframes lb-drift {
+  0% {
+    transform: translate(0px, 0px);
+  }
+
+  25% {
+    transform: translate(var(--lb-dx), calc(var(--lb-dy) * -1));
+  }
+
+  50% {
+    transform: translate(calc(var(--lb-dx) * -1), var(--lb-dy));
+  }
+
+  75% {
+    transform: translate(calc(var(--lb-dx) * 0.6), calc(var(--lb-dy) * 0.6));
+  }
+
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+.drift {
+  animation-name: lb-drift;
+  animation-duration: var(--lb-drift-s, 18s);
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}

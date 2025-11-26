@@ -474,8 +474,9 @@ export const ar = {
   },
   footer: {
     copyright: 'Cambio Corp',
-    libraries: {
-      title: 'المكتبات',
+    products: {
+      title: 'المنتجات',
+      energentAi: 'Energent AI',
       anyParser: 'AnyParser',
     },
     solutions: {

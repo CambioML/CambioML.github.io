@@ -40,6 +40,7 @@ const Customers = () => {
               <a target="_blank" href={customer.url} rel="noopener noreferrer" key={customer.url + i}>
                 <div className={`flex items-center justify-center h-full w-max`}>
                   <div className="h-[45px] w-auto">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={imgPrefix + customer.image}
                       alt={customer.alt}

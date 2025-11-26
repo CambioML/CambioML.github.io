@@ -463,7 +463,7 @@ export const zh = {
   },
   footer: {
     copyright: 'Cambio公司',
-    libraries: {
+    products: {
       title: '库',
       anyParser: 'AnyParser',
     },

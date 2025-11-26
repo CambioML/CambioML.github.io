@@ -35,9 +35,7 @@ const FileItem = ({ pgFile, index }: FileItemProps) => {
     <div
       className={cn(
         'flex items-center gap-2 px-2 py-1.5 text-sm rounded-md transition-colors w-full cursor-pointer',
-        index === selectedFileIndex
-          ? 'bg-muted text-foreground dark:bg-neutral-700'
-          : 'hover:bg-muted/50 text-muted-foreground'
+        index === selectedFileIndex ? 'bg-accent text-accent-foreground' : 'hover:bg-muted/50 text-muted-foreground'
       )}
       onClick={handleClick}
     >

@@ -490,7 +490,7 @@ export const fr = {
   },
   footer: {
     copyright: 'Cambio Corp',
-    libraries: {
+    products: {
       title: 'Bibliothèques',
       anyParser: 'AnyParser',
     },

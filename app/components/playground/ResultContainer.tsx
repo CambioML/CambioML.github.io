@@ -61,6 +61,7 @@ const ResultContent = ({ extractResult }: ResultContentProps) => {
         resultZoomModal.setPage(newPage);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageHeights]);
 
   const measurePageHeights = useCallback(() => {
@@ -77,6 +78,7 @@ const ResultContent = ({ extractResult }: ResultContentProps) => {
 
   useEffect(() => {
     measurePageHeights();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [extractResult]);
 
   useEffect(() => {
@@ -255,6 +257,7 @@ const ResultContainer = ({ extractResult }: ResultContainerProps) => {
 
   useEffect(() => {
     resultZoomModal.setPage(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [extractResult]);
 
   useEffect(() => {
@@ -262,6 +265,7 @@ const ResultContainer = ({ extractResult }: ResultContainerProps) => {
       const thisFile = files[selectedFileIndex].file;
       compareModal.setFile(thisFile as File);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [files, selectedFileIndex]);
 
   return (
