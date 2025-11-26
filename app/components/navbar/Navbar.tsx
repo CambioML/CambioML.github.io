@@ -158,7 +158,7 @@ export default function Navbar() {
           >
             <div className="flex justify-center items-center z-10 w-full">
               <div
-                className="w-full px-3 md:px-4 lg:px-6 flex justify-between items-center z-10 max-w-full"
+                className="container mx-auto px-4 lg:px-6 flex justify-between items-center z-10"
                 style={{ height: HEADER_HEIGHT }}
               >
                 {/* Logo */}

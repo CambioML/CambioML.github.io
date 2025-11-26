@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { cn } from '@/lib/cn';
 import type { ReactNode } from 'react';
 import { Dropdown, type DropdownItem } from './dropdown';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { getLocaleFromPathname, isRtlLocale } from '@/lib/i18n';
 
 export interface NavbarTabItem {
@@ -97,6 +97,8 @@ export default function NavbarTabs({
     return () => window.removeEventListener('resize', handleResize);
   }, [currentActiveTab, hoveredTab, items, updateIndicatorPosition]);
 
+  const router = useRouter();
+
   const handleTabClick = (id: string) => {
     const item = items.find((item) => item.id === id);
 
@@ -106,9 +108,11 @@ export default function NavbarTabs({
     }
 
     if (item?.link) {
-      window.open(item.link, '_blank');
+      if (typeof window !== 'undefined') {
+        window.open(item.link, '_blank');
+      }
     } else if (item?.href) {
-      window.location.href = item.href;
+      router.push(item.href);
     } else {
       if (activeTab === undefined) {
         setLocalActiveTab(id);
