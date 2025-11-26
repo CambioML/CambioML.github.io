@@ -484,7 +484,8 @@ export const cs = {
   footer: {
     copyright: 'Cambio Corp',
     products: {
-      title: 'Knihovny',
+      title: 'Produkty',
+      energentAi: 'Energent AI',
       anyParser: 'AnyParser',
     },
     solutions: {

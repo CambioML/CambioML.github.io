@@ -485,7 +485,8 @@ export const sv = {
   footer: {
     copyright: 'Cambio Corp',
     products: {
-      title: 'Bibliotek',
+      title: 'Produkter',
+      energentAi: 'Energent AI',
       anyParser: 'AnyParser',
     },
     solutions: {

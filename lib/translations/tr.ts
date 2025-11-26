@@ -478,7 +478,8 @@ export const tr = {
   footer: {
     copyright: 'Cambio Corp',
     products: {
-      title: 'Kütüphaneler',
+      title: 'Ürünler',
+      energentAi: 'Energent AI',
       anyParser: 'AnyParser',
     },
     solutions: {

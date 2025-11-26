@@ -464,7 +464,8 @@ export const zh = {
   footer: {
     copyright: 'Cambio公司',
     products: {
-      title: '库',
+      title: '产品',
+      energentAi: 'Energent AI',
       anyParser: 'AnyParser',
     },
     solutions: {
