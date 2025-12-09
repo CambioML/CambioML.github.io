@@ -488,8 +488,9 @@ export const hu = {
   },
   footer: {
     copyright: 'Cambio Corp',
-    libraries: {
-      title: 'Könyvtárak',
+    products: {
+      title: 'Termékek',
+      energentAi: 'Energent AI',
       anyParser: 'AnyParser',
     },
     solutions: {

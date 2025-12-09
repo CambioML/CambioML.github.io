@@ -56,7 +56,6 @@ const PlaygroundFeedbackModal = () => {
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading title={t.playground.feedback.title} subtitle="" center />
       <Input
         id="name"
         label={t.playground.feedback.nameLabel}
@@ -87,7 +86,7 @@ const PlaygroundFeedbackModal = () => {
     <Modal
       disabled={isLoading}
       isOpen={PlaygroundFeedbackModal.isOpen}
-      title=""
+      title={t.playground.feedback.title}
       actionLabel={t.playground.feedback.submitButton}
       onClose={PlaygroundFeedbackModal.onClose}
       onSubmit={handleSubmit(onSubmit)}

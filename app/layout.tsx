@@ -16,6 +16,7 @@ import { PHProvider } from './providers';
 import { GoogleTagManager } from '@next/third-parties/google';
 import { ThemeProvider } from './contexts/ThemeContext';
 import AmplifyAuthProvider from './components/providers/AmplifyAuthProvider';
+import { cn } from '@/lib/cn';
 
 export const metadata = {
   title: 'CambioML - AnyParser API: The first LLM for document parsing with accuracy and speed',
@@ -37,6 +38,33 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* Script to prevent theme flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var localTheme = localStorage.getItem('cambio-theme');
+                  var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+                  
+                  // Default to dark if no preference
+                  if (!localTheme) {
+                    localTheme = 'dark';
+                  }
+                  
+                  var themeToSet = localTheme;
+                  if (localTheme === 'auto') {
+                    themeToSet = supportDarkMode ? 'dark' : 'light';
+                  }
+                  
+                  document.documentElement.classList.add(themeToSet);
+                  document.documentElement.style.colorScheme = themeToSet;
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
         {/* Chatbot disabled - commenting out Epsilla integration to fix 401 unauthorized errors
         <script
           dangerouslySetInnerHTML={{
@@ -59,7 +87,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
 
       <PHProvider>
-        <body className={font.className}>
+        <body className={cn(font.className, 'text-foreground transition-colors')}>
           <ThemeProvider>
             <AmplifyAuthProvider>
               <HtmlAttributes />
@@ -72,7 +100,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <PlaygroundFeedbackModal />
               <InfoModal />
               <ResultZoomModal />
-              <div className="min-h-screen min-w-[650px]">{children}</div>
+              <div className="min-h-screen w-full">{children}</div>
               <Footer />
             </AmplifyAuthProvider>
           </ThemeProvider>

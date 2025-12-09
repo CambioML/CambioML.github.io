@@ -61,6 +61,7 @@ const ResultContent = ({ extractResult }: ResultContentProps) => {
         resultZoomModal.setPage(newPage);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageHeights]);
 
   const measurePageHeights = useCallback(() => {
@@ -77,6 +78,7 @@ const ResultContent = ({ extractResult }: ResultContentProps) => {
 
   useEffect(() => {
     measurePageHeights();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [extractResult]);
 
   useEffect(() => {
@@ -194,8 +196,20 @@ const ResultContainer = ({ extractResult }: ResultContainerProps) => {
   const { t } = useTranslation();
 
   const handleZoomClick = () => {
+    const currentFile = selectedFileIndex !== null ? files[selectedFileIndex] : undefined;
+    if (currentFile) {
+      let name = '';
+      if (currentFile.file instanceof File) {
+        name = currentFile.file.name;
+      } else if (typeof currentFile.file === 'string') {
+        name = currentFile.file.split('/').pop() || currentFile.file;
+      }
+      resultZoomModal.setTitle(name);
+    } else {
+      resultZoomModal.setTitle('Document Preview');
+    }
     resultZoomModal.setContent(
-      <div className="overflow-auto relative w-full h-[80vh]">
+      <div className="overflow-auto relative w-full h-[80vh] text-foreground">
         <ResultContent extractResult={extractResult} />
       </div>
     );
@@ -243,6 +257,7 @@ const ResultContainer = ({ extractResult }: ResultContainerProps) => {
 
   useEffect(() => {
     resultZoomModal.setPage(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [extractResult]);
 
   useEffect(() => {
@@ -250,6 +265,7 @@ const ResultContainer = ({ extractResult }: ResultContainerProps) => {
       const thisFile = files[selectedFileIndex].file;
       compareModal.setFile(thisFile as File);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [files, selectedFileIndex]);
 
   return (

@@ -482,8 +482,9 @@ export const ru = {
   },
   footer: {
     copyright: 'Cambio Corp',
-    libraries: {
-      title: 'Библиотеки',
+    products: {
+      title: 'Продукты',
+      energentAi: 'Energent AI',
       anyParser: 'AnyParser',
     },
     solutions: {

@@ -226,6 +226,7 @@ const MapTableSelectContainer = () => {
       selectAllTables(htmlTables);
       toast.success(`Generated table(s) from ${filename}!`);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [filename, selectedFileIndex, updateFileAtIndex]
   );
 

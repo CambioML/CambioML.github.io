@@ -477,8 +477,9 @@ export const ja = {
   },
   footer: {
     copyright: 'Cambio Corp',
-    libraries: {
-      title: 'ライブラリ',
+    products: {
+      title: '製品',
+      energentAi: 'Energent AI',
       anyParser: 'AnyParser',
     },
     solutions: {

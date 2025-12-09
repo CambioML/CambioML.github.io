@@ -476,8 +476,9 @@ export const ko = {
   },
   footer: {
     copyright: 'Cambio Corp',
-    libraries: {
-      title: '라이브러리',
+    products: {
+      title: '제품',
+      energentAi: 'Energent AI',
       anyParser: 'AnyParser',
     },
     solutions: {

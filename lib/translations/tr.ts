@@ -477,8 +477,9 @@ export const tr = {
   },
   footer: {
     copyright: 'Cambio Corp',
-    libraries: {
-      title: 'Kütüphaneler',
+    products: {
+      title: 'Ürünler',
+      energentAi: 'Energent AI',
       anyParser: 'AnyParser',
     },
     solutions: {

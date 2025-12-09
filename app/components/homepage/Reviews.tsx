@@ -1,6 +1,5 @@
 'use client';
 
-import '@/app/theme.css';
 import Image from 'next/image';
 import { Marquee } from '../dark/magicui/marquee';
 import { useTranslation } from '@/lib/use-translation';
@@ -27,7 +26,7 @@ export default function Reviews() {
         key={index}
         className={cn(
           'rounded-lg transition-all duration-300',
-          'border-gray-200 dark:border-border-1 bg-white dark:bg-card-1 border hover:shadow-lg dark:hover:shadow-[0px_0px_2px_0.5px_rgba(112,190,250,0.75)]'
+          'border border-border/50 bg-white dark:bg-card hover:shadow-lg dark:hover:shadow-[0px_0px_2px_0.5px_rgba(112,190,250,0.75)]'
         )}
       >
         <div className="p-10 flex flex-col gap-3.75 h-[320px]">
@@ -46,9 +45,7 @@ export default function Reviews() {
             </div>
             <div>
               <p>
-                <span className={cn('text-gray-900 dark:bg-gradient font-semibold dark:font-normal')}>
-                  {review.author}
-                </span>
+                <span className={cn('text-gray-900 dark:bg-gradient font-semibold')}>{review.author}</span>
               </p>
               <p className={cn('text-gray-600 dark:text-gray-300')}>{review.position}</p>
             </div>
@@ -63,7 +60,7 @@ export default function Reviews() {
       id="reviews"
       className={cn(
         'px-3.75 py-20 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center',
-        'bg-gray-50 dark:bg-[radial-gradient(25%_30%_at_50%_50%,rgba(112,190,250,0.1)_0%,rgb(10,10,10)_100%)]'
+        'px-3.75 py-20 lg:pt-25 lg:pb-12.5 lg:px-40 flex flex-col gap-12.5 items-center'
       )}
     >
       <div className="container mb-12">
@@ -72,8 +69,14 @@ export default function Reviews() {
         </h1>
       </div>
 
-      <div className="container h-[360px] w-screen lg:w-auto">
-        <Marquee reverse={true} className="pb-8 h-full [--gap:24px] [--duration:140s]" pauseOnHover={true}>
+      <div
+        className="container h-[360px] w-screen lg:w-auto"
+        style={{
+          maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+          WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+        }}
+      >
+        <Marquee reverse={true} className="pb-8 h-full [--gap:24px] [--duration:60s]" pauseOnHover={true}>
           {reviewCards}
         </Marquee>
       </div>

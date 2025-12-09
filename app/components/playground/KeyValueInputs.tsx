@@ -4,10 +4,10 @@ import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 import { BiPlus, BiMinus, BiCaretRight } from 'react-icons/bi';
 import toast from 'react-hot-toast';
 import { v4 as uuidv4 } from 'uuid';
-import Button from '../Button';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
 import { useTranslation } from '@/lib/use-translation';
 import { cn } from '@/lib/cn';
+import ActionButton from './ActionButton';
 
 interface InputProps {
   id: string;
@@ -174,6 +174,7 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
         setValue(`${newUuids[index]}-description`, input.description);
       });
     }, 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFileIndex, files]);
 
   // Save to store whenever inputs change
@@ -299,12 +300,13 @@ export default function KeyValueInputs({ onSubmit, isLoading = false }: KeyValue
 
   return (
     <div className="flex flex-col gap-4 h-full">
-      <Button
-        id="extract-key-value-btn"
+      <ActionButton
         label={isLoading ? t.playground.keyValue.extracting : t.playground.keyValue.extractKeyValue}
         onClick={handleSubmit(extractButtonClickHandler)}
         disabled={isLoading}
-        aria-label={t.playground.keyValue.extractKeyValuePairs}
+        id="extract-key-value-btn"
+        fullWidth
+        variant="outline"
       />
       <strong>{t.playground.keyValue.yourKeys}</strong>
       <div className="h-full overscroll-contain overflow-y-auto">

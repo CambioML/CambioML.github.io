@@ -1,74 +1,57 @@
 'use client';
 
+import { useEffect } from 'react';
 import FilesContainer from './FilesContainer';
 import ActionContainer from './ActionContainer';
 import PlaygroundInfoBar from './PlaygroundInfoBar';
 import PreviewModal from '../modals/PreviewModal';
 import CompareModal from '../modals/CompareModal';
 import usePlaygroundStore from '@/app/hooks/usePlaygroundStore';
+import { useAmplifyAuth } from '@/app/hooks/useAmplifyAuth';
 import { cn } from '@/lib/cn';
 
 const PlaygroundContainer = () => {
-  const { fileCollapsed } = usePlaygroundStore();
+  const { fileCollapsed, setLoggedIn, setToken, setUserId, setClientId } = usePlaygroundStore();
+  const { tokens, userAttributes, isAuthenticated } = useAmplifyAuth();
+
+  // Initialize auth state on mount
+  useEffect(() => {
+    if (isAuthenticated && tokens.idToken && userAttributes.email) {
+      // Update playground store with current auth state
+      setToken(tokens.idToken);
+      setLoggedIn(true);
+      setUserId(userAttributes.email);
+      setClientId(process.env.NEXT_PUBLIC_COGNITO_APPCLIENT_ID || '');
+    } else if (!isAuthenticated) {
+      // Clear playground store when not authenticated
+      setToken('');
+      setLoggedIn(false);
+      setUserId('');
+      setClientId('');
+    }
+  }, [isAuthenticated, tokens.idToken, userAttributes.email, setToken, setLoggedIn, setUserId, setClientId]);
 
   return (
     <>
       <PreviewModal />
       <CompareModal />
-      <PlaygroundInfoBar />
-      <div className="relative w-full min-w-[600px] max-w-[2520px] flex flex-col gap-0 h-fit">
-        {/* Clean subtle gradient backgrounds */}
-        <div
-          className="absolute inset-0 rounded-xl blur-3xl opacity-15 pointer-events-none z-0"
-          style={{
-            background:
-              'linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(139, 92, 246, 0.06) 50%, rgba(236, 72, 153, 0.08) 100%)',
-          }}
-        />
+      <div className="w-full h-full flex flex-col overflow-hidden">
+        {/* Info Bar at the top */}
+        <div className="flex-none">
+          <PlaygroundInfoBar />
+        </div>
 
-        {/* accent gradients */}
-        <div
-          className="absolute top-1/3 left-[10%] w-[80%] h-1/2 rounded-full blur-3xl opacity-11 pointer-events-none z-0"
-          style={{ backgroundColor: 'rgba(59, 130, 246, 0.05)' }}
-        />
-
-        <div
-          className={`
-            w-full
-            lg:h-[80vh]
-            grid
-            grid-rows-[550px_1fr]
-            lg:grid-rows-1
-            grid-cols-1
-            transition-all
-            duration-300
-            gap-0
-            ${fileCollapsed ? 'lg:grid-cols-[100px_1fr]' : 'lg:grid-cols-[325px_1fr]'}
-          `}
-        >
+        {/* Main content area */}
+        <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
           <div
             className={cn(
-              'pb-4 ml-4 border rounded-lg transition-all duration-300 ease-in-out pr-0',
-              fileCollapsed ? 'p-2 rounded-l-xl' : 'px-2 pl-4 rounded-l-xl',
-              'bg-white/[0.08] dark:bg-neutral-800/[0.08] border-border dark:border-neutral-700 hover:bg-white/[0.12] dark:hover:bg-neutral-800/[0.12]'
+              'h-full border-r bg-sidebar transition-all duration-300 ease-in-out flex flex-col',
+              fileCollapsed ? 'w-[60px]' : 'w-[280px]'
             )}
-            style={{
-              backdropFilter: 'blur(20px) saturate(180%)',
-              WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-            }}
           >
             <FilesContainer />
           </div>
-          <div
-            className={cn(
-              'border-l-0 border-y-2 border-r-2 transition-all duration-300 ease-in-out px-6 pr-10 rounded-r-xl',
-              'bg-white/[0.08] dark:bg-neutral-800/[0.08] border-white/20 dark:border-neutral-700/20 hover:bg-white/[0.12] dark:hover:bg-neutral-800/[0.12]'
-            )}
-            style={{
-              backdropFilter: 'blur(20px) saturate(180%)',
-              WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-            }}
-          >
+          <div className="flex-1 h-full overflow-hidden bg-background relative">
             <ActionContainer />
           </div>
         </div>

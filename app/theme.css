@@ -1,11 +1,12 @@
 :root {
-  /* Light theme variables (default) */
+  /* Light theme variables (default) - Commented out to use globals.css
   --background: rgb(255, 255, 255);
-  --foreground: #374151; /* gray-700 equivalent */
-  --line: #e5e7eb; /* gray-200 */
-  --light: rgba(59, 130, 246, 0.75); /* blue-500 with opacity */
-  --border-1: rgb(229, 231, 235); /* gray-200 */
-  --card-1: rgb(249, 250, 251); /* gray-50 */
+  --foreground: #374151;
+  --line: #e5e7eb;
+  --light: rgba(59, 130, 246, 0.75);
+  --border-1: rgb(229, 231, 235);
+  --card-1: rgb(249, 250, 251);
+  */
 
   /* Light theme table variables */
   --table-border: rgba(156, 163, 175, 0.6); /* gray-400 with opacity */
@@ -23,13 +24,13 @@
 
 /* Light mode default styles */
 body {
-  background: var(--background);
-  color: var(--foreground);
+  /* background: var(--background); */
+  /* color: var(--foreground); */
   font-size: 15px;
   scroll-behavior: smooth;
 }
 
-section,
+/* section,
 footer {
   background: radial-gradient(
     35% 25% at 50% 56.10000000000001%,
@@ -37,12 +38,12 @@ footer {
     rgba(59, 130, 246, 0.05) 36.486486486486484%,
     rgb(255, 255, 255) 100%
   );
-}
+} */
 
-h1 {
+/* h1 {
   font-weight: 500;
   font-size: 55px;
-}
+} */
 
 /* Light theme table styling */
 table {
@@ -92,13 +93,14 @@ tr:hover td {
 
 /* Dark mode scoped styles - only apply to elements with .dark class */
 .dark {
-  /* Dark theme variable overrides */
+  /* Dark theme variable overrides - Commented out to use globals.css
   --background: rgb(10, 10, 10);
-  --foreground: #d1d5db; /* gray-300 equivalent */
+  --foreground: #d1d5db;
   --line: #232323;
   --light: rgba(112, 190, 250, 0.75);
   --border-1: rgb(34, 34, 34);
   --card-1: rgb(10, 10, 10);
+  */
 
   /* Dark theme table variables */
   --table-border: rgba(156, 163, 175, 0.8); /* gray-400 with higher opacity for better visibility */
@@ -110,13 +112,12 @@ tr:hover td {
   --table-hover-bg: #374151; /* solid gray-700 for darker hover state */
   --table-accent: rgba(112, 190, 250, 0.4); /* stronger accent visibility */
 
-  background: var(--background);
-  color: var(--foreground);
-  font-size: 15px;
+  /* background: var(--background); */
+  /* color: var(--foreground); */
   scroll-behavior: smooth;
 }
 
-.dark section,
+/* .dark section,
 .dark footer {
   background: radial-gradient(
     35% 25% at 50% 56.10000000000001%,
@@ -124,12 +125,12 @@ tr:hover td {
     rgba(64, 140, 199, 0.1) 36.486486486486484%,
     rgb(10, 10, 10) 100%
   );
-}
+} */
 
-.dark h1 {
+/* .dark h1 {
   font-weight: 500;
   font-size: 55px;
-}
+} */
 
 .dark button {
   cursor: pointer;
@@ -304,6 +305,7 @@ tr:hover td {
 /* Custom gradient utility class is now handled by Tailwind plugin */
 
 /* Theme-aware utility classes - work for both light and dark themes */
+/* Theme-aware utility classes - work for both light and dark themes
 .bg-card-1 {
   background-color: var(--card-1);
 }
@@ -324,7 +326,6 @@ tr:hover td {
   background-color: var(--line);
 }
 
-/* Table-specific utility classes - theme-aware */
 .border-table {
   border-color: var(--table-border);
 }
@@ -352,6 +353,7 @@ tr:hover td {
 .hover-table-row:hover {
   background-color: var(--table-hover-bg);
 }
+*/
 
 /* Marquee animations - Forward */
 @keyframes marquee-forward {

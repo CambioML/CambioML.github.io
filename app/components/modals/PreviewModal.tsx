@@ -10,13 +10,12 @@ const PreviewModal = () => {
   if (!file) return null;
 
   const content = (
-    <div className="w-full h-[80vh] min-h-[600px] overflow-scroll">
-      <div className="text-2xl font-semibold text-neutral-800 pb-4">{file.name}</div>
+    <div className="w-full h-[80vh] min-h-[600px] overflow-scroll text-foreground">
       <DocumentViewer fileType={file?.type} fileUrl={URL.createObjectURL(file)} />
     </div>
   );
 
-  return <LargeModal isOpen={isOpen} onClose={onClose} body={content} />;
+  return <LargeModal isOpen={isOpen} onClose={onClose} title={file.name} body={content} />;
 };
 
 export default PreviewModal;

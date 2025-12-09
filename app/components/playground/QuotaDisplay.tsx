@@ -83,26 +83,30 @@ const QuotaDisplay = ({ isCollapsed }: QuotaDisplayProps) => {
     return 'bg-red-500';
   };
 
-  // Don't render anything if we don't have an API key yet
+  // Don't render anything if we don't have an API key yet - just show a compact loading state
   if (!apiKey) {
     return (
-      <div className="row-span-1 h-full border-t-2 py-2 w-full flex flex-col gap-2 items-center justify-center">
-        {!isCollapsed && <div className="text-sm text-neutral-500">Loading quota...</div>}
+      <div className="w-full flex flex-col items-center">
+        <div className="w-full flex justify-between items-center mb-2">
+          <h2 className="font-semibold text-sm text-muted-foreground">{t.playground.quota.title}</h2>
+        </div>
+        <div className="w-full bg-neutral-300 rounded-full h-2.5 animate-pulse">&nbsp;</div>
+        <span className="text-xs mt-1 text-muted-foreground">Loading...</span>
       </div>
     );
   }
 
   return (
-    <div className="w-full flex flex-col items-center pt-2">
+    <div className="w-full flex flex-col items-center">
       <div className="w-full flex justify-between items-center mb-2">
-        <h2 className={`font-semibold ${fileCollapsed ? 'inline lg:hidden' : 'inline'} text-lg`}>
+        <h2 className={`font-semibold ${fileCollapsed ? 'inline lg:hidden' : 'inline'} text-sm`}>
           {t.playground.quota.title}
         </h2>
         <div
-          className="flex items-center text-neutral-600 justify-center bg-white rounded-md w-[30px] h-[30px] hover:bg-neutral-100 hover:text-neutral-800 hover:border shrink-0 cursor-pointer"
+          className="flex items-center text-neutral-600 dark:text-neutral-400 justify-center bg-white dark:bg-gray-800 rounded-md w-[24px] h-[24px] hover:bg-neutral-100 dark:hover:bg-gray-700 hover:text-neutral-800 dark:hover:text-neutral-200 hover:border shrink-0 cursor-pointer"
           onClick={handleRefresh}
         >
-          <ArrowsClockwise size={20} />
+          <ArrowsClockwise size={16} />
         </div>
       </div>
       {displayTotalQuota === 0 || isLoading || loadingQuota ? (

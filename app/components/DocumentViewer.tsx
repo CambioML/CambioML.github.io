@@ -6,6 +6,7 @@ import '@cyntler/react-doc-viewer/dist/index.css';
 import Image from 'next/image';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
+import './document-viewer.css';
 import ComingSoonBanner from './playground/ComingSoonBanner';
 
 type DocumentViewerProps = {
@@ -21,7 +22,7 @@ const DocumentViewer: React.FC<DocumentViewerProps> = ({ fileType, fileUrl }) =>
   const renderContent = () => {
     if (fileType === 'application/pdf') {
       return (
-        <div className="h-full w-full">
+        <div className="document-viewer-container h-full w-full">
           <Worker workerUrl={`https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js`}>
             <Viewer fileUrl={fileUrl} plugins={[defaultLayoutPluginInstance]} />
           </Worker>
@@ -33,14 +34,14 @@ const DocumentViewer: React.FC<DocumentViewerProps> = ({ fileType, fileUrl }) =>
       fileType === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     ) {
       return (
-        <div className="h-[80vh] w-full border-[1px] rounded-lg">
+        <div className="document-viewer-container h-[80vh] w-full">
           <ComingSoonBanner text="Preview for Office Files coming soon" />
           {/* <DocViewer documents={[{ uri: fileUrl, fileName: fileName }]} pluginRenderers={DocViewerRenderers} /> */}
         </div>
       );
     } else if (fileType.startsWith('image/')) {
       return (
-        <div className="h-auto w-full border-[1px] rounded-lg">
+        <div className="document-viewer-container h-auto w-full">
           <Image
             alt="Document"
             src={fileUrl}

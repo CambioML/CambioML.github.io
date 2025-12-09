@@ -69,6 +69,7 @@ const Differentiator = ({ title, description, cards }: DifferentiatorProps) => {
             key={card.title + i}
             className="w-[300px] h-[300px] bg-cambio-primary rounded-xl hover:shadow-lg transition duration-300 ease-in-out"
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             {card.image && <img src={card.image} alt={card.title} className="w-full h-full object-cover rounded-md" />}
             {card.icon && <card.icon className="w-full h-full object-cover p-20 text-neutral-800" />}
           </div>
@@ -83,7 +84,7 @@ const Differentiators = () => {
     <div className="h-full w-full py-20">
       <Container styles="h-fit">
         <div className="w-full h-fit flex flex-col items-center justify-start px-10">
-          <Heading title="Why is AnyParser so Good" center />
+          <Heading title="Why is AnyParser so Good" center customClass="text-5xl lg:text-6xl" />
           <div className="py-5 flex flex-col gap-20 max-w-screen-xl align-items justify-items h-fit w-full lg:w-max overflow-auto">
             {differentiators.map((differentiator, i) => (
               <Differentiator

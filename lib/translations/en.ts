@@ -4,7 +4,7 @@ export const en = {
     templates: 'Templates',
     resources: 'Resources',
     company: 'Company',
-    pricing: 'Pricing',
+    pricing: 'Products',
     blog: 'Blog',
     docs: 'Docs',
     aboutUs: 'About us',
@@ -39,10 +39,10 @@ export const en = {
   },
   homepage: {
     hero: {
-      title: 'AnyParser: Vision LLM for Document Parsing',
+      title: 'Vision LLM for Document Processing',
       subtitle: 'Parsing PDFs, PPTs, Word, and images with configurable options in a few clicks!',
       description:
-        '80% of OCR users are tired of maintaining glue code. Free up your time with unmatched accuracy, complete privacy and configurable options such as:',
+        '80% of OCR users are tired of maintaining glue code. Free up your time with unmatched accuracy and complete privacy.',
       features: ['removing private identity info,', 'extract table and charts,', 'keeping footnotes and headers,'],
       moreFeatures: 'and much more!',
       tryFree: 'Try for FREE',
@@ -88,7 +88,7 @@ export const en = {
       {
         title: 'Parse data accurately',
         description:
-          'AnyParser playground is straight-forward, fast, and intuitive. Try the interface now and take a break for the rest of the day',
+          'Energent AI is straight-forward, fast, and intuitive. Try the interface now and take a break for the rest of the day',
         actionLabel: 'Try for FREE',
       },
       {
@@ -257,7 +257,7 @@ export const en = {
   },
   playground: {
     title: 'AnyParser Sandbox',
-    description: 'The first LLM to quickly and accurately extract full content from PDFs*, PPTs, and images**.',
+    description: 'The first LLM to instantly extract full content from PDFs, PPTs, and images.',
     tryForFree: 'Try for free',
     tabs: {
       plainText: 'Full Content',
@@ -479,8 +479,9 @@ export const en = {
   },
   footer: {
     copyright: 'Cambio Corp',
-    libraries: {
-      title: 'Libraries',
+    products: {
+      title: 'Products',
+      energentAi: 'Energent AI',
       anyParser: 'AnyParser',
     },
     solutions: {

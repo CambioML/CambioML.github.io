@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
-import { X } from '@phosphor-icons/react';
-import Button from '../Button';
-import { useOutsideClickModal } from '@/app/hooks/useOutsideClickModal';
+import React, { useCallback } from 'react';
+import ModalBase from './ModalBase';
+import { cn } from '@/lib/cn';
 
 interface FormModalProps {
   isOpen?: boolean;
@@ -30,23 +29,6 @@ const FormModal: React.FC<FormModalProps> = ({
   secondaryAction,
   secondaryActionLabel,
 }) => {
-  const [showModal, setShowModal] = useState(isOpen);
-  const thisRef = useOutsideClickModal(() => {
-    handleClose();
-  });
-
-  useEffect(() => {
-    setShowModal(isOpen);
-  }, [isOpen]);
-
-  const handleClose = useCallback(() => {
-    if (disabled) return;
-    setShowModal(false);
-    setTimeout(() => {
-      onClose();
-    }, 300);
-  }, [disabled, onClose]);
-
   const handleSubmit = useCallback(() => {
     if (disabled) return;
     onSubmit();
@@ -57,123 +39,39 @@ const FormModal: React.FC<FormModalProps> = ({
     secondaryAction();
   }, [disabled, secondaryAction]);
 
-  if (!isOpen) {
-    return null;
-  }
-
   return (
-    <>
-      <div
-        className="
-        justify-center
-        items-center
-        flex
-        overflow-x-hidden
-        overflow-y-auto
-        fixed
-        inset-0
-        z-50
-        outline-none
-        focus:outline-none
-        bg-neutral-800/70
-      "
-      >
-        <div
-          className="
-          relative
-          w-full
-          md:w-4/5
-          lg:w-3/6
-          xl:w-2/5
-          my-6
-          mx-auto
-          h-full
-          lg:h-auto
-          md:h-auto
-        "
-        >
-          <div
-            className={`
-          translate
-          duration-300
-          h-full
-          h-full
-          ${showModal ? 'translate-y-0' : 'translate-y-full'}
-          ${showModal ? 'opacity-100' : 'opacity-0'}
-          `}
-          >
-            <div
-              className="
-              translate
-              h-full
-              lg:h-auto
-              md:h-auto
-              border-0
-              rounded-lg
-              shadow-lg
-              relative
-              flex
-              flex-col
-              w-full
-              bg-white
-              outline-none
-              focus:outline-none
-            "
-              ref={thisRef}
-            >
-              <div
-                className="
-                flex
-                items-center
-                p-6
-                rounded-t
-                justify-center
-                relative
-                border-b-[1px]
-              "
+    <ModalBase isOpen={isOpen} onClose={onClose} title={title}>
+      <div className="flex flex-col gap-6">
+        {body}
+        <div className="flex flex-col gap-2">
+          <div className="flex flex-row items-center gap-4 w-full justify-end">
+            {secondaryAction && secondaryActionLabel && (
+              <button
+                disabled={disabled}
+                onClick={handleSecondaryAction}
+                className={cn(
+                  'flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 h-10',
+                  'text-muted-foreground hover:text-foreground hover:bg-muted/60 disabled:opacity-50 disabled:cursor-not-allowed'
+                )}
               >
-                <button
-                  onClick={handleClose}
-                  className="
-                  p-1
-                  border=0
-                  hover:opacity-70
-                  transition
-                  absolute
-                  right-7
-                  hover:bg-neutral-200
-                  rounded-full
-                "
-                >
-                  <X size={24} />
-                </button>
-                <div className="text-lg font-semibold">{title}</div>
-              </div>
-              {/*BODY*/}
-              <div className="relative p-6 flex-auto">{body}</div>
-              {/* FOOTER */}
-              <div className="flex flex-col gap-2 p-6">
-                <div
-                  className="
-                  flex
-                  flex-row
-                  items-center
-                  gap-4
-                  w-full
-                "
-                >
-                  {secondaryAction && secondaryActionLabel && (
-                    <Button outline disabled={disabled} label={secondaryActionLabel} onClick={handleSecondaryAction} />
-                  )}
-                  <Button disabled={disabled} label={actionLabel} onClick={handleSubmit} />
-                </div>
-                {footer}
-              </div>
-            </div>
+                {secondaryActionLabel}
+              </button>
+            )}
+            <button
+              disabled={disabled}
+              onClick={handleSubmit}
+              className={cn(
+                'flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 h-10',
+                'bg-blue-500 text-white shadow-[0_8px_20px_rgba(37,99,235,0.35)] hover:bg-blue-500/90 disabled:opacity-50 disabled:cursor-not-allowed'
+              )}
+            >
+              {actionLabel}
+            </button>
           </div>
+          {footer}
         </div>
       </div>
-    </>
+    </ModalBase>
   );
 };
 

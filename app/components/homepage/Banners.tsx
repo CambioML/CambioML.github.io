@@ -1,12 +1,9 @@
 'use client';
 
-import '@/app/theme.css';
 import { motion } from 'framer-motion';
 import { imgPrefix } from '@/app/hooks/useImgPrefix';
-import { useRouter } from 'next/navigation';
 import { useTranslation } from '@/lib/use-translation';
 import Container from '../Container';
-import Button from '../Button';
 import Image from 'next/image';
 import CodeBlock from '../CodeBlock';
 
@@ -28,7 +25,7 @@ const Banner = ({ title, description, actionLabel, action, inverse, imgPath, cod
     <motion.div
       className={cn(
         'w-[80%] grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 p-8 lg:p-16 rounded-2xl transition-all duration-300',
-        'bg-white dark:bg-card-1 border-gray-200 dark:border-border-1 border hover:shadow-lg dark:hover:shadow-[0px_0px_2px_0.5px_rgba(112,190,250,0.75)]',
+        'bg-white dark:bg-card border border-border/50 hover:shadow-lg dark:hover:shadow-[0px_0px_2px_0.5px_rgba(112,190,250,0.75)]',
         inverse && 'pr-4'
       )}
       initial={{ opacity: 0, y: 30 }}
@@ -42,14 +39,24 @@ const Banner = ({ title, description, actionLabel, action, inverse, imgPath, cod
         </h2>
         <div className={cn('text-md w-full pb-16 text-gray-700 dark:text-gray-200')}>{description}</div>
         <div>
-          <Button label={actionLabel} onClick={action} outline={inverse} />
+          <motion.button
+            onClick={action}
+            className={cn(
+              'relative px-6 py-3 rounded-lg text-md font-medium font-sans transition-all duration-200',
+              inverse
+                ? 'bg-card border border-border text-foreground hover:bg-card/80'
+                : 'bg-primary shadow-strong hover:bg-primary/90 text-white'
+            )}
+          >
+            <span className={inverse ? 'text-foreground' : 'text-white'}>{actionLabel}</span>
+          </motion.button>
         </div>
       </div>
       {imgPath && (
         <div
           className={cn(
             'w-full h-full flex items-center justify-center relative min-h-[300px] rounded-lg overflow-hidden',
-            'border border-gray-200 dark:border-border-1'
+            'border border-border/50'
           )}
         >
           <Image
@@ -62,7 +69,7 @@ const Banner = ({ title, description, actionLabel, action, inverse, imgPath, cod
         </div>
       )}
       {code && (
-        <div className={cn('h-full w-full rounded-lg overflow-hidden', 'border border-gray-200 dark:border-border-1')}>
+        <div className={cn('h-full w-full rounded-lg overflow-hidden', 'border border-border/50')}>
           <CodeBlock code={code} language="python" />
         </div>
       )}
@@ -71,22 +78,30 @@ const Banner = ({ title, description, actionLabel, action, inverse, imgPath, cod
 };
 
 const Banners = () => {
-  const router = useRouter();
   const { t, locale } = useTranslation();
 
   return (
-    <section className={cn('h-fit w-full pt-20 bg-gray-50 dark:bg-background')}>
+    <section className={cn('h-fit w-full pt-20')}>
       <Container styles="min-h-[800px] h-fit pb-20">
         <div className="w-full h-full flex flex-col items-center justify-start px-10 gap-8">
           {t.homepage.banners.map(
             (banner: { title: string; description: string; actionLabel: string }, index: number) => (
-              <div key={index} className={`w-full h-full flex ${index === 1 ? 'justify-end' : 'justify-start'}`}>
+              <div
+                key={index}
+                className={`w-full h-full flex justify-center ${index === 1 ? 'lg:justify-end' : 'lg:justify-start'}`}
+              >
                 <Banner
                   index={index}
                   title={banner.title}
                   description={banner.description}
                   actionLabel={banner.actionLabel}
-                  action={() => router.push(index === 0 ? `/${locale}/anyparser` : `/${locale}/account`)}
+                  action={() => {
+                    if (index === 0) {
+                      window.open('https://app.energent.ai', '_blank', 'noopener,noreferrer');
+                    } else {
+                      window.open(`/${locale}/account`, '_blank', 'noopener,noreferrer');
+                    }
+                  }}
                   inverse={index === 1}
                   imgPath={index === 0 ? '/images/homepage/banner-1.png' : undefined}
                   code={

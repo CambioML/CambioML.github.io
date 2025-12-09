@@ -4,12 +4,14 @@ const ProductHunt = () => {
   return (
     <div className="flex items-center">
       {/* Light theme image - visible in light mode */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=716228&theme=light&period=daily"
         alt="Any Parser - Extract data from any documents | Product Hunt"
         className="block dark:hidden"
       />
       {/* Dark theme image - visible in dark mode */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=716228&theme=dark&period=daily"
         alt="Any Parser - Extract data from any documents | Product Hunt"

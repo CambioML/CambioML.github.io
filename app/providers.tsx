@@ -12,5 +12,8 @@ if (typeof window !== 'undefined') {
 }
 
 export function PHProvider({ children }: { children: React.ReactNode }) {
-  return <PostHogProvider client={posthog}>{children}</PostHogProvider>;
+  if (typeof window === 'undefined') {
+    return <>{children}</>;
+  }
+  return <PostHogProvider client={posthog as any}>{children}</PostHogProvider>;
 }

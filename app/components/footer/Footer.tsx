@@ -29,12 +29,12 @@ const Footer = () => {
   const { t, locale } = useTranslation();
 
   return (
-    <div className="w-full bg-[#1E1E1E]">
+    <div className="w-full border-t border-border text-foreground">
       <Container styles="h-fit min-h-[300px]">
         <h2 className="sr-only">Footer</h2>
-        <div className="py-10 h-full grid grid-cols-[175px_50px_1fr] gap-2 md:gap-5 text-neutral-100">
+        <div className="py-10 h-full grid grid-cols-[175px_50px_1fr] gap-2 md:gap-5 text-foreground">
           <div className="flex flex-col gap-3 md:gap-5">
-            <Logo small white />
+            <Logo small />
             <div className="flex gap-3">
               {socialLinks.map((socialLink) => (
                 <SocialButton key={socialLink.url} image={socialLink.image} url={socialLink.url} />
@@ -47,11 +47,15 @@ const Footer = () => {
           <div className="col-span-1"></div>
           <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
             <FooterMenu
-              title={t.footer.libraries.title}
+              title={t.footer.products.title}
               links={[
                 {
-                  title: t.footer.libraries.anyParser,
-                  url: 'https://docs.cambioml.com/introduction',
+                  title: 'Energent AI',
+                  url: 'https://app.energent.ai',
+                },
+                {
+                  title: 'AnyParser',
+                  url: `/${locale}/anyparser`,
                 },
               ]}
             />

@@ -487,8 +487,9 @@ export const fi = {
   },
   footer: {
     copyright: 'Cambio Corp',
-    libraries: {
-      title: 'Kirjastot',
+    products: {
+      title: 'Tuotteet',
+      energentAi: 'Energent AI',
       anyParser: 'AnyParser',
     },
     solutions: {
