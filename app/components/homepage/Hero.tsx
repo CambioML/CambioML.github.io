@@ -4,7 +4,6 @@ import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from '@/lib/use-translation';
 import { LiquidBlob } from './energent/liquid-blob';
-import Image from 'next/image';
 
 const Hero = () => {
   const { t } = useTranslation();
@@ -72,7 +71,7 @@ const Hero = () => {
           </motion.div>
         </div>
 
-        {/* RIGHT IMAGE (larger width, thick border, glow, fade bottom) */}
+        {/* RIGHT VIDEO (larger width, thick border, glow, fade bottom) */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -80,12 +79,12 @@ const Hero = () => {
           className="relative z-10 flex-[2] w-full max-w-4xl"
         >
           <div className="relative w-full overflow-hidden rounded-3xl border-10 border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 shadow-[0_0_40px_-10px_rgba(59,130,246,0.3)]">
-            <Image
-              src="/gif/hero-section/hero-section-video.webp"
-              alt="Landing page preview"
-              width={800}
-              height={600}
-              unoptimized
+            <video
+              src="/gif/hero-section/hero-section-video.webm"
+              autoPlay
+              loop
+              muted
+              playsInline
               className="w-full h-full object-contain rounded-2xl"
             />
           </div>

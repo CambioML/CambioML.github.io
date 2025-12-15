@@ -92,9 +92,9 @@ const Banners = () => {
               description={banner.description}
               actionLabel={banner.actionLabel}
               action={() => {
-                window.open('https://app.energent.ai', '_blank', 'noopener,noreferrer');
+                window.open(banner.url, '_blank', 'noopener,noreferrer');
               }}
-              imgPath="/images/homepage/banner-1.png"
+              imgPath={banner.imgPath}
             />
           </div>
         </div>

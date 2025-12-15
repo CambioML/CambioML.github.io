@@ -90,12 +90,8 @@ export const en = {
         description:
           'Energent.ai is straight-forward, fast, and intuitive. Try the interface now and take a break for the rest of the day',
         actionLabel: 'Try for FREE',
-      },
-      {
-        title: 'Build with Energent.ai',
-        description:
-          'Energent.ai playground is straight-forward, fast, truly intuitive, try the interface now and take a break for the rest of the day',
-        actionLabel: 'Get API access',
+        url: 'https://app.energent.ai',
+        imgPath: '/images/homepage/banner-1.png',
       },
     ],
   },
