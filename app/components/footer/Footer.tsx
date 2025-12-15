@@ -45,17 +45,13 @@ const Footer = () => {
             </div>
           </div>
           <div className="col-span-1"></div>
-          <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <FooterMenu
               title={t.footer.products.title}
               links={[
                 {
                   title: 'Energent AI',
                   url: 'https://app.energent.ai',
-                },
-                {
-                  title: 'AnyParser',
-                  url: `/${locale}/anyparser`,
                 },
               ]}
             />
@@ -73,19 +69,6 @@ const Footer = () => {
               ]}
             />
             <FooterMenu
-              title={t.footer.sandbox.title}
-              links={[
-                {
-                  title: t.footer.sandbox.launchSandbox,
-                  url: `/${locale}/anyparser`,
-                },
-                {
-                  title: t.footer.sandbox.account,
-                  url: `/${locale}/account`,
-                },
-              ]}
-            />
-            <FooterMenu
               title={t.footer.company.title}
               links={[
                 {
@@ -97,10 +80,6 @@ const Footer = () => {
             <FooterMenu
               title={t.footer.resources.title}
               links={[
-                {
-                  title: t.footer.resources.anyParserDocs,
-                  url: 'https://docs.cambioml.com/introduction',
-                },
                 {
                   title: t.footer.resources.privacyPolicy,
                   url: '/legal/privacy-policy.pdf',

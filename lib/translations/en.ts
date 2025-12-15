@@ -51,16 +51,16 @@ export const en = {
       noCreditCard: 'No credit card required',
     },
     capabilities: {
-      title: "AnyParser's Capabilities",
+      title: "Energent.ai's Capabilities",
       items: [
-        'Privacy Protection: Activate the "Remove Private Information" feature, and AnyParser will automatically redact P.I.I. during the document extraction.',
+        'Privacy Protection: Activate the "Remove Private Information" feature, and Energent.ai will automatically redact P.I.I. during the document extraction.',
         'You can instruct the model to include or omit page numbers, headers, footers, figures, charts, etc.',
-        "AnyParser doesn't just extract text and tables, it also retrieves figures, charts, and footnotes packed with vital information 2X faster and 5X more cost efficient",
+        "Energent.ai doesn't just extract text and tables, it also retrieves figures, charts, and footnotes packed with vital information 2X faster and 5X more cost efficient",
         'Bid farewell to jumbled tables and chaotic layouts that plague traditional OCR-based models with a 2X more precision and 2.5X more recall than industry average.',
       ],
     },
     howItWorks: {
-      title: 'How AnyParser Works',
+      title: 'How Energent.ai Works',
       subtitle: 'Parse any data from any documents with straight-forward user interface',
       tryFree: 'Try for FREE',
       steps: [
@@ -74,7 +74,7 @@ export const en = {
           title: '02',
           subtitle: 'Edit parsing and privacy settings',
           description:
-            'AnyParser automatically categorizes various types of information, including PII (Personally Identifiable Information), footnotes, tables, and more. Just export the data you need!',
+            'Energent.ai automatically categorizes various types of information, including PII (Personally Identifiable Information), footnotes, tables, and more. Just export the data you need!',
         },
         {
           title: '03',
@@ -88,13 +88,13 @@ export const en = {
       {
         title: 'Parse data accurately',
         description:
-          'Energent AI is straight-forward, fast, and intuitive. Try the interface now and take a break for the rest of the day',
+          'Energent.ai is straight-forward, fast, and intuitive. Try the interface now and take a break for the rest of the day',
         actionLabel: 'Try for FREE',
       },
       {
-        title: 'Build with AnyParser',
+        title: 'Build with Energent.ai',
         description:
-          'AnyParser playground is straight-forward, fast, truly intuitive, try the interface now and take a break for the rest of the day',
+          'Energent.ai playground is straight-forward, fast, truly intuitive, try the interface now and take a break for the rest of the day',
         actionLabel: 'Get API access',
       },
     ],

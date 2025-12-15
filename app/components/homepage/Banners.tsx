@@ -78,45 +78,25 @@ const Banner = ({ title, description, actionLabel, action, inverse, imgPath, cod
 };
 
 const Banners = () => {
-  const { t, locale } = useTranslation();
+  const { t } = useTranslation();
+  const banner = t.homepage.banners[0];
 
   return (
     <section className={cn('h-fit w-full pt-20')}>
-      <Container styles="min-h-[800px] h-fit pb-20">
-        <div className="w-full h-full flex flex-col items-center justify-start px-10 gap-8">
-          {t.homepage.banners.map(
-            (banner: { title: string; description: string; actionLabel: string }, index: number) => (
-              <div
-                key={index}
-                className={`w-full h-full flex justify-center ${index === 1 ? 'lg:justify-end' : 'lg:justify-start'}`}
-              >
-                <Banner
-                  index={index}
-                  title={banner.title}
-                  description={banner.description}
-                  actionLabel={banner.actionLabel}
-                  action={() => {
-                    if (index === 0) {
-                      window.open('https://app.energent.ai', '_blank', 'noopener,noreferrer');
-                    } else {
-                      window.open(`/${locale}/account`, '_blank', 'noopener,noreferrer');
-                    }
-                  }}
-                  inverse={index === 1}
-                  imgPath={index === 0 ? '/images/homepage/banner-1.png' : undefined}
-                  code={
-                    index === 1
-                      ? `from any_parser import AnyParser
-
-op = AnyParser(example_apikey)
-
-content_result = op.extract(example_local_file)`
-                      : undefined
-                  }
-                />
-              </div>
-            )
-          )}
+      <Container styles="min-h-[500px] h-fit pb-20">
+        <div className="w-full h-full flex flex-col items-center justify-center px-10 gap-8">
+          <div className="w-full h-full flex justify-center">
+            <Banner
+              index={0}
+              title={banner.title}
+              description={banner.description}
+              actionLabel={banner.actionLabel}
+              action={() => {
+                window.open('https://app.energent.ai', '_blank', 'noopener,noreferrer');
+              }}
+              imgPath="/images/homepage/banner-1.png"
+            />
+          </div>
         </div>
       </Container>
     </section>
