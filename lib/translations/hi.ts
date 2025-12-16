@@ -89,12 +89,8 @@ export const hi = {
         title: 'डेटा को सटीक रूप से पार्स करें',
         description: 'AnyParser प्लेग्राउंड सीधा, तेज़ और सहज है। अब इंटरफ़ेस आज़माएं और बाकी दिन के लिए आराम करें',
         actionLabel: 'मुफ़्त में आज़माएं',
-      },
-      {
-        title: 'AnyParser के साथ निर्माण करें',
-        description:
-          'AnyParser प्लेग्राउंड सीधा, तेज़ और वास्तव में सहज है, अब इंटरफ़ेस आज़माएं और बाकी दिन के लिए आराम करें',
-        actionLabel: 'एपीआई एक्सेस प्राप्त करें',
+        url: 'https://app.energent.ai',
+        imgPath: '/images/homepage/banner-1.png',
       },
     ],
   },

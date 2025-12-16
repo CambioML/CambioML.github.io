@@ -94,12 +94,8 @@ export const fi = {
         description:
           'AnyParser-leikkikenttä on yksinkertainen, nopea ja intuitiivinen. Kokeile käyttöliittymää nyt ja pidä tauko loppupäivän ajan',
         actionLabel: 'Kokeile ILMAISEKSI',
-      },
-      {
-        title: 'Rakenna AnyParserilla',
-        description:
-          'AnyParser-leikkikenttä on yksinkertainen, nopea ja todella intuitiivinen, kokeile käyttöliittymää nyt ja pidä tauko loppupäivän ajan',
-        actionLabel: 'Hanki API-pääsy',
+        url: 'https://app.energent.ai',
+        imgPath: '/images/homepage/banner-1.png',
       },
     ],
   },

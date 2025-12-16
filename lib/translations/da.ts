@@ -94,12 +94,8 @@ export const da = {
         description:
           'AnyParser legeplads er ligetil, hurtig og intuitiv. Prøv grænsefladen nu og tag en pause resten af dagen',
         actionLabel: 'Prøv GRATIS',
-      },
-      {
-        title: 'Byg med AnyParser',
-        description:
-          'AnyParser legeplads er ligetil, hurtig, virkelig intuitiv, prøv grænsefladen nu og tag en pause resten af dagen',
-        actionLabel: 'Få API-adgang',
+        url: 'https://app.energent.ai',
+        imgPath: '/images/homepage/banner-1.png',
       },
     ],
   },

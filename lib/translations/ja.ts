@@ -90,12 +90,8 @@ export const ja = {
         description:
           'AnyParserプレイグラウンドは使いやすく、迅速で直感的です。今すぐインターフェースを試して、残りの一日を休みましょう。',
         actionLabel: '無料で試す',
-      },
-      {
-        title: 'AnyParserで構築',
-        description:
-          'AnyParserプレイグラウンドは使いやすく、迅速で本当に直感的です。今すぐインターフェースを試して、残りの一日を休みましょう。',
-        actionLabel: 'APIアクセスを取得',
+        url: 'https://app.energent.ai',
+        imgPath: '/images/homepage/banner-1.png',
       },
     ],
   },

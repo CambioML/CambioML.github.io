@@ -90,12 +90,8 @@ export const ko = {
         description:
           'AnyParser 플레이그라운드는 직관적이고 빠르며 간단합니다. 지금 인터페이스를 사용해보고 하루를 여유롭게 보내세요.',
         actionLabel: '무료로 사용해보기',
-      },
-      {
-        title: 'AnyParser로 구축하기',
-        description:
-          'AnyParser 플레이그라운드는 직관적이고 빠르며 정말 간단합니다. 지금 인터페이스를 사용해보고 하루를 여유롭게 보내세요.',
-        actionLabel: 'API 액세스 받기',
+        url: 'https://app.energent.ai',
+        imgPath: '/images/homepage/banner-1.png',
       },
     ],
   },

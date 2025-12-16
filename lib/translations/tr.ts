@@ -90,12 +90,8 @@ export const tr = {
         description:
           'AnyParser oyun alanı basit, hızlı ve sezgisel. Şimdi arayüzü deneyin ve günün geri kalanında rahatlayın',
         actionLabel: 'ÜCRETSİZ Deneyin',
-      },
-      {
-        title: 'AnyParser ile oluşturun',
-        description:
-          'AnyParser oyun alanı basit, hızlı, gerçekten sezgisel, şimdi arayüzü deneyin ve günün geri kalanında rahatlayın',
-        actionLabel: 'API erişimi alın',
+        url: 'https://app.energent.ai',
+        imgPath: '/images/homepage/banner-1.png',
       },
     ],
   },

@@ -94,12 +94,8 @@ export const fr = {
         description:
           "Le terrain de jeu AnyParser est simple, rapide et intuitif. Essayez l'interface maintenant et prenez une pause pour le reste de la journée",
         actionLabel: 'Essayer GRATUITEMENT',
-      },
-      {
-        title: 'Construisez avec AnyParser',
-        description:
-          "Le terrain de jeu AnyParser est simple, rapide, vraiment intuitif, essayez l'interface maintenant et prenez une pause pour le reste de la journée",
-        actionLabel: "Obtenir l'accès API",
+        url: 'https://app.energent.ai',
+        imgPath: '/images/homepage/banner-1.png',
       },
     ],
   },

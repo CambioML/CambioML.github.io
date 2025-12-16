@@ -94,12 +94,8 @@ export const de = {
         description:
           'Der AnyParser-Spielplatz ist einfach, schnell und intuitiv. Probieren Sie die Oberfläche jetzt aus und gönnen Sie sich den Rest des Tages eine Pause',
         actionLabel: 'Kostenlos ausprobieren',
-      },
-      {
-        title: 'Mit AnyParser arbeiten',
-        description:
-          'Der AnyParser-Spielplatz ist einfach, schnell und wirklich intuitiv. Probieren Sie die Oberfläche jetzt aus und gönnen Sie sich den Rest des Tages eine Pause',
-        actionLabel: 'API-Zugang erhalten',
+        url: 'https://app.energent.ai',
+        imgPath: '/images/homepage/banner-1.png',
       },
     ],
   },

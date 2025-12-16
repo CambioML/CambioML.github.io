@@ -94,12 +94,8 @@ export const es = {
         description:
           'El área de pruebas de AnyParser es sencilla, rápida e intuitiva. Prueba la interfaz ahora y tómate un descanso el resto del día.',
         actionLabel: 'Prueba GRATIS',
-      },
-      {
-        title: 'Construye con AnyParser',
-        description:
-          'El área de pruebas de AnyParser es sencilla, rápida y verdaderamente intuitiva. Prueba la interfaz ahora y tómate un descanso el resto del día.',
-        actionLabel: 'Obtén acceso a la API',
+        url: 'https://app.energent.ai',
+        imgPath: '/images/homepage/banner-1.png',
       },
     ],
   },

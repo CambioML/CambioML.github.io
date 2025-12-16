@@ -80,13 +80,17 @@ const Hero = () => {
         >
           <div className="relative w-full overflow-hidden rounded-3xl border-10 border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 shadow-[0_0_40px_-10px_rgba(59,130,246,0.3)]">
             <video
-              src="/gif/hero-section/hero-section-video.webm"
               autoPlay
               loop
               muted
               playsInline
+              poster="/gif/hero-section/hero-section-poster.jpg"
               className="w-full h-full object-contain rounded-2xl"
-            />
+            >
+              <source src="/gif/hero-section/hero-section-video.webm" type="video/webm" />
+              <source src="/gif/hero-section/hero-section-video.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </div>
         </motion.div>
       </div>
