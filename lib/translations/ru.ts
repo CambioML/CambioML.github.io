@@ -90,12 +90,8 @@ export const ru = {
         description:
           'Платформа AnyParser проста, быстра и интуитивно понятна. Попробуйте интерфейс сейчас и отдохните на весь оставшийся день',
         actionLabel: 'Попробовать БЕСПЛАТНО',
-      },
-      {
-        title: 'Создавайте с AnyParser',
-        description:
-          'Платформа AnyParser проста, быстра и действительно интуитивно понятна. Попробуйте интерфейс сейчас и отдохните на весь оставшийся день',
-        actionLabel: 'Получить доступ к API',
+        url: 'https://app.energent.ai',
+        imgPath: '/images/homepage/banner-1.png',
       },
     ],
   },

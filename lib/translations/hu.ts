@@ -94,12 +94,8 @@ export const hu = {
         description:
           'Az AnyParser játszótere egyszerű, gyors és intuitív. Próbáld ki a felületet most, és pihenj meg a nap hátralévő részében.',
         actionLabel: 'Próbáld ki INGYEN',
-      },
-      {
-        title: 'Építs az AnyParser-rel',
-        description:
-          'Az AnyParser játszótere egyszerű, gyors, igazán intuitív, próbáld ki a felületet most, és pihenj meg a nap hátralévő részében.',
-        actionLabel: 'Szerezd meg az API hozzáférést',
+        url: 'https://app.energent.ai',
+        imgPath: '/images/homepage/banner-1.png',
       },
     ],
   },

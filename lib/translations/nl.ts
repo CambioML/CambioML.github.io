@@ -94,12 +94,8 @@ export const nl = {
         description:
           'De AnyParser playground is eenvoudig, snel en intuïtief. Probeer de interface nu en neem de rest van de dag vrij.',
         actionLabel: 'Probeer GRATIS',
-      },
-      {
-        title: 'Bouw met AnyParser',
-        description:
-          'De AnyParser playground is eenvoudig, snel, echt intuïtief. Probeer de interface nu en neem de rest van de dag vrij.',
-        actionLabel: 'Ontvang API-toegang',
+        url: 'https://app.energent.ai',
+        imgPath: '/images/homepage/banner-1.png',
       },
     ],
   },

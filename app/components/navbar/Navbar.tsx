@@ -79,19 +79,8 @@ export default function Navbar() {
       {
         id: 'pricing',
         label: t.nav.pricing,
-        dropdown: [
-          {
-            id: 'energent-ai',
-            label: 'Energent AI',
-            href: 'https://app.energent.ai',
-            isExternal: true,
-          },
-          {
-            id: 'anyparser',
-            label: 'AnyParser',
-            href: `/${locale}/anyparser`,
-          },
-        ],
+        href: 'https://app.energent.ai',
+        isExternal: true,
       },
       {
         id: 'blog',
@@ -102,11 +91,6 @@ export default function Navbar() {
         id: 'company',
         label: t.nav.company,
         href: `/${locale}/company/about-us`,
-      },
-      {
-        id: 'docs',
-        label: t.nav.docs,
-        link: 'https://docs.cambioml.com/introduction',
       },
     ],
     [t, locale]

@@ -94,12 +94,8 @@ export const cs = {
         description:
           'Hřiště AnyParser je přímočaré, rychlé a intuitivní. Vyzkoušejte rozhraní nyní a dejte si zbytek dne pauzu',
         actionLabel: 'Vyzkoušejte ZDARMA',
-      },
-      {
-        title: 'Vytvořte s AnyParser',
-        description:
-          'Hřiště AnyParser je přímočaré, rychlé, skutečně intuitivní, vyzkoušejte rozhraní nyní a dejte si zbytek dne pauzu',
-        actionLabel: 'Získejte přístup k API',
+        url: 'https://app.energent.ai',
+        imgPath: '/images/homepage/banner-1.png',
       },
     ],
   },

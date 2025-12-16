@@ -94,12 +94,8 @@ export const pl = {
         description:
           'Plac zabaw AnyParser jest prosty, szybki i intuicyjny. Wypróbuj interfejs teraz i zrób sobie przerwę na resztę dnia',
         actionLabel: 'Wypróbuj ZA DARMO',
-      },
-      {
-        title: 'Buduj z AnyParser',
-        description:
-          'Plac zabaw AnyParser jest prosty, szybki, naprawdę intuicyjny, wypróbuj interfejs teraz i zrób sobie przerwę na resztę dnia',
-        actionLabel: 'Uzyskaj dostęp do API',
+        url: 'https://app.energent.ai',
+        imgPath: '/images/homepage/banner-1.png',
       },
     ],
   },

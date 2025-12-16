@@ -94,12 +94,8 @@ export const ro = {
         description:
           'Spațiul de lucru AnyParser este simplu, rapid și intuitiv. Încearcă interfața acum și ia o pauză pentru restul zilei',
         actionLabel: 'Încearcă GRATUIT',
-      },
-      {
-        title: 'Construiește cu AnyParser',
-        description:
-          'Spațiul de lucru AnyParser este simplu, rapid, cu adevărat intuitiv, încearcă interfața acum și ia o pauză pentru restul zilei',
-        actionLabel: 'Obține acces API',
+        url: 'https://app.energent.ai',
+        imgPath: '/images/homepage/banner-1.png',
       },
     ],
   },

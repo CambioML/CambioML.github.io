@@ -86,7 +86,7 @@ const HowItWorks = () => {
             viewport={{ once: true }}
           >
             <div className="w-full max-w-[800px] border border-border/50 rounded-lg overflow-hidden">
-              <YouTubeFacade videoId="T80TMGOTlK4" />
+              <YouTubeFacade videoId="U2lWqpPqs7w" />
             </div>
           </motion.div>
         </div>

@@ -89,11 +89,8 @@ export const ar = {
         title: 'استخرج البيانات بدقة',
         description: 'واجهة AnyParser سهلة الاستخدام وسريعة وبديهية. جربها الآن واستمتع ببقية يومك',
         actionLabel: 'جرب مجانًا',
-      },
-      {
-        title: 'قم بالبناء باستخدام AnyParser',
-        description: 'واجهة AnyParser سهلة الاستخدام وسريعة وبديهية حقًا، جربها الآن واستمتع ببقية يومك',
-        actionLabel: 'احصل على وصول API',
+        url: 'https://app.energent.ai',
+        imgPath: '/images/homepage/banner-1.png',
       },
     ],
   },

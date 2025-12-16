@@ -94,12 +94,8 @@ export const sv = {
         description:
           'AnyParser-lekplatsen är enkel, snabb och intuitiv. Prova gränssnittet nu och ta en paus resten av dagen',
         actionLabel: 'Prova GRATIS',
-      },
-      {
-        title: 'Bygg med AnyParser',
-        description:
-          'AnyParser-lekplatsen är enkel, snabb och verkligen intuitiv, prova gränssnittet nu och ta en paus resten av dagen',
-        actionLabel: 'Hämta API-åtkomst',
+        url: 'https://app.energent.ai',
+        imgPath: '/images/homepage/banner-1.png',
       },
     ],
   },

@@ -88,11 +88,8 @@ export const zh = {
         title: '准确解析数据',
         description: 'AnyParser 操作界面简单、快速且直观。现在试试界面，享受一天的轻松时光',
         actionLabel: '免费试用',
-      },
-      {
-        title: '使用 AnyParser 构建',
-        description: 'AnyParser 操作界面简单、快速且真正直观，现在试试界面，享受一天的轻松时光',
-        actionLabel: '获取 API 访问权限',
+        url: 'https://app.energent.ai',
+        imgPath: '/images/homepage/banner-1.png',
       },
     ],
   },
