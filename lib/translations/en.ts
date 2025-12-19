@@ -475,6 +475,16 @@ export const en = {
   },
   footer: {
     copyright: 'Cambio Corp',
+    offices: {
+      abuDhabi: {
+        label: 'Abu Dhabi Office:',
+        address: 'Al Khatem Tower, Al Maryah Island, Abu Dhabi',
+      },
+      siliconValley: {
+        label: 'Silicon Valley Office:',
+        address: '3101 Park Blvd. Palo Alto, CA',
+      },
+    },
     products: {
       title: 'Products',
       energentAi: 'Energent AI',

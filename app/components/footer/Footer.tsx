@@ -41,14 +41,14 @@ const Footer = () => {
               ))}
             </div>
             <div className="text-sm grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <div className="font-semibold">Abu Dhabi Office:</div>
-                <div>Al Khatem Tower, Al Maryah Island, Abu Dhabi</div>
-              </div>
-              <div>
-                <div className="font-semibold">Silicon Valley Office:</div>
-                <div>3101 Park Blvd. Palo Alto, CA</div>
-              </div>
+              <address className="not-italic">
+                <div className="font-semibold">{t.footer.offices.abuDhabi.label}</div>
+                <div>{t.footer.offices.abuDhabi.address}</div>
+              </address>
+              <address className="not-italic">
+                <div className="font-semibold">{t.footer.offices.siliconValley.label}</div>
+                <div>{t.footer.offices.siliconValley.address}</div>
+              </address>
             </div>
             <div className="text-sm">
               © {new Date().getFullYear()} {t.footer.copyright}{' '}
