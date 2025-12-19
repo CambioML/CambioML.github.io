@@ -32,13 +32,23 @@ const Footer = () => {
     <div className="w-full border-t border-border text-foreground">
       <Container styles="h-fit min-h-[300px]">
         <h2 className="sr-only">Footer</h2>
-        <div className="py-10 h-full grid grid-cols-[175px_50px_1fr] gap-2 md:gap-5 text-foreground">
+        <div className="py-10 h-full grid grid-cols-1 lg:grid-cols-[400px_50px_1fr] gap-6 md:gap-8 text-foreground">
           <div className="flex flex-col gap-3 md:gap-5">
             <Logo small />
             <div className="flex gap-3">
               {socialLinks.map((socialLink) => (
                 <SocialButton key={socialLink.url} image={socialLink.image} url={socialLink.url} />
               ))}
+            </div>
+            <div className="text-sm grid grid-cols-1 md:grid-cols-2 gap-4">
+              <address className="not-italic">
+                <div className="font-semibold">Abu Dhabi Office:</div>
+                <div>Al Khatem Tower, Al Maryah Island, Abu Dhabi</div>
+              </address>
+              <address className="not-italic">
+                <div className="font-semibold">Silicon Valley Office:</div>
+                <div>3101 Park Blvd. Palo Alto, CA</div>
+              </address>
             </div>
             <div className="text-sm">
               © {new Date().getFullYear()} {t.footer.copyright}{' '}
